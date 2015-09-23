@@ -13,6 +13,7 @@ var (
 	LoginAbortedErr  = errors.New("canceled by user.")
 	ApiAuthenticator Authenticator
 	ApiUrl           string
+	ApiVersion       string
 )
 
 type Authenticator interface {
