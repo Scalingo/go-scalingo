@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"bytes"
@@ -10,12 +10,11 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
-	"github.com/Scalingo/cli/config"
-	"github.com/Scalingo/cli/debug"
-	"github.com/Scalingo/cli/httpclient"
-	"github.com/Scalingo/cli/io"
-	"github.com/Scalingo/cli/users"
+	"github.com/Scalingo/go-scalingo/debug"
+	"github.com/Scalingo/go-scalingo/httpclient"
+	"github.com/Scalingo/go-scalingo/io"
+	"github.com/Scalingo/go-scalingo/users"
+	"gopkg.in/errgo.v1"
 )
 
 var CurrentUser *users.User
@@ -35,7 +34,7 @@ type Statuses []int
 
 func (req *APIRequest) FillDefaultValues() error {
 	if req.URL == "" {
-		req.URL = fmt.Sprintf("%s%s", ApiUrl, config.C.ApiPrefix)
+		req.URL = fmt.Sprintf("%s%s", ApiUrl, "/v1")
 	}
 	if req.Method == "" {
 		req.Method = "GET"
