@@ -1,4 +1,4 @@
-package main
+package scalingo
 
 import "gopkg.in/errgo.v1"
 
