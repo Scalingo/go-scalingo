@@ -1,10 +1,10 @@
-package api
+package main
 
 import (
 	"net/http"
 	"time"
 
-	"github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
+	"gopkg.in/errgo.v1"
 )
 
 type Container struct {

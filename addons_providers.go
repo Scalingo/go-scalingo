@@ -1,9 +1,9 @@
-package api
+package main
 
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
+	"gopkg.in/errgo.v1"
 )
 
 type Plan struct {

@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"encoding/json"
@@ -7,9 +7,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/Scalingo/cli/Godeps/_workspace/src/code.google.com/p/gopass"
-	"github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
-	"github.com/Scalingo/cli/users"
+	"code.google.com/p/gopass"
+	"github.com/Scalingo/go-scalingo/users"
+	"gopkg.in/errgo.v1"
 )
 
 var (
@@ -19,8 +19,8 @@ var (
 )
 
 type Authenticator interface {
-	LoadAuth() *users.User
-	StoreAuth(user *users.User)
+	LoadAuth() (*users.User, error)
+	StoreAuth(user *users.User) error
 	RemoveAuth() error
 }
 

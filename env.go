@@ -1,6 +1,6 @@
-package api
+package main
 
-import "github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
+import "gopkg.in/errgo.v1"
 
 const (
 	EnvNameMaxLength  = 64

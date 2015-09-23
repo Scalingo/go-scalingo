@@ -1,10 +1,10 @@
-package api
+package main
 
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/cli/Godeps/_workspace/src/gopkg.in/errgo.v1"
-	"github.com/Scalingo/cli/users"
+	"github.com/Zyko0/go-scalingo/users"
+	"gopkg.in/errgo.v1"
 )
 
 type SelfResults struct {
