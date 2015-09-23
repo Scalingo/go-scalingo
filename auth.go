@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	LoginAbortedErr  = errors.New("canceled by user.")
+	ErrLoginAborted  = errors.New("canceled by user.")
 	ApiAuthenticator Authenticator
 	ApiUrl           string
 	ApiVersion       string
