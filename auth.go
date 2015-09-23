@@ -4,10 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
-	"strings"
 
-	"code.google.com/p/gopass"
 	"github.com/Scalingo/go-scalingo/users"
 	"gopkg.in/errgo.v1"
 )
@@ -46,58 +43,6 @@ func AuthFromConfig() (*users.User, error) {
 	return user, nil
 }
 
-func Auth() (*users.User, error) {
-	var user *users.User
-	var err error
-	for i := 0; i < 3; i++ {
-		user, err = tryAuth()
-		if err == nil {
-			break
-		} else if errgo.Cause(err) == io.EOF {
-			return nil, LoginAbortedErr
-		} else {
-			fmt.Printf("Fail to login (%d/3): %v\n", i+1, err)
-		}
-	}
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
-	fmt.Printf("Hello %s, nice to see you !\n\n", user.Username)
-	err = ApiAuthenticator.StoreAuth(user)
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
-	return user, nil
-}
-
-func tryAuth() (*users.User, error) {
-	var login string
-	for login == "" {
-		fmt.Print("Username or email: ")
-		_, err := fmt.Scanln(&login)
-		if err != nil {
-			if strings.Contains(err.Error(), "unexpected newline") {
-				continue
-			}
-			return nil, errgo.Mask(err, errgo.Any)
-		}
-	}
-
-	password, err := gopass.GetPass("Password: ")
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
-	user, err := AuthUser(login, password)
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
-	return user, nil
-}
-
 func AuthUser(login, passwd string) (*users.User, error) {
 	res, err := Login(login, passwd)
 	if err != nil {
@@ -118,6 +63,11 @@ func AuthUser(login, passwd string) (*users.User, error) {
 	}
 
 	loginRes := &LoginResponse{}
+
+	err = ApiAuthenticator.StoreAuth(loginRes.User)
+	if err != nil {
+		return nil, errgo.Mask(err, errgo.Any)
+	}
 
 	err = json.NewDecoder(res.Body).Decode(&loginRes)
 	if err != nil {

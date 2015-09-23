@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 
-	"github.com/Zyko0/go-scalingo/users"
+	"github.com/Scalingo/go-scalingo/users"
 	"gopkg.in/errgo.v1"
 )
 
