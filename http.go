@@ -84,6 +84,8 @@ func (req *APIRequest) Do() (*http.Response, error) {
 		fallthrough
 	case "POST":
 		fallthrough
+	case "PUT":
+		fallthrough
 	case "WITH_BODY":
 		buffer, err := json.Marshal(req.Params)
 		if err != nil {
