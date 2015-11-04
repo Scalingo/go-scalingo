@@ -133,10 +133,9 @@ func AppsCreate(app string) (*App, error) {
 	return params.App, nil
 }
 
-func AppsStats(app string, stream bool) (AppStatsRes, error) {
+func AppsStats(app string) (AppStatsRes, error) {
 	req := &APIRequest{
 		Endpoint: "/apps/" + app + "/stats",
-		Params:   map[string]bool{"stream": stream},
 	}
 	res, err := req.Do()
 	if err != nil {
