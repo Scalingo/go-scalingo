@@ -2,11 +2,6 @@ package scalingo
 
 import "gopkg.in/errgo.v1"
 
-const (
-	EnvNameMaxLength  = 64
-	EnvValueMaxLength = 1024
-)
-
 type Variable struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
