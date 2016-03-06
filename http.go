@@ -50,7 +50,7 @@ func (req *APIRequest) FillDefaultValues() error {
 			return errgo.Mask(err, errgo.Any)
 		}
 		if user == nil {
-			fmt.Println("You need to be authenticated to use Scalingo client.\nNo account ? → https://scalingo.com")
+			fmt.Println("You need to be authenticated to use Scalingo client.\nNo account ? → https://scalingo.com/signup")
 			return errgo.New("Authentication required")
 		}
 		CurrentUser = user
