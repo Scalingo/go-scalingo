@@ -7,8 +7,9 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-func LogsURL(app string) (*http.Response, error) {
+func (c *Client) LogsURL(app string) (*http.Response, error) {
 	req := &APIRequest{
+		Client:   c,
 		Endpoint: "/apps/" + app + "/logs",
 	}
 	return req.Do()

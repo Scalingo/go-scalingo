@@ -4,6 +4,20 @@ import (
 	"net/http"
 )
 
+type LoginError struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
+
+type LoginResponse struct {
+	AuthenticationToken string `json:"authentication_token"`
+	User                *User  `json:"user"`
+}
+
+func (err *LoginError) Error() string {
+	return err.Message
+}
+
 func Login(email, password string) (*http.Response, error) {
 	req := &APIRequest{
 		NoAuth:   true,

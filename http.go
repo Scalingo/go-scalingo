@@ -16,14 +16,16 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-var CurrentUser *User
+var (
+	ErrNoAuth = errgo.New("authentication required")
+)
 
 type APIRequest struct {
+	Client      *Client
 	NoAuth      bool
 	URL         string
 	Method      string
 	Endpoint    string
-	Token       string
 	Expected    Statuses
 	Params      interface{}
 	HTTPRequest *http.Request
@@ -44,17 +46,8 @@ func (req *APIRequest) FillDefaultValues() error {
 	if req.Params == nil {
 		req.Params = make(map[string]interface{})
 	}
-	if req.Token == "" && !req.NoAuth {
-		user, err := AuthFromConfig()
-		if err != nil {
-			return errgo.Mask(err, errgo.Any)
-		}
-		if user == nil {
-			fmt.Println("You need to be authenticated to use Scalingo client.\nNo account ? → https://scalingo.com")
-			return errgo.New("Authentication required")
-		}
-		CurrentUser = user
-		req.Token = CurrentUser.AuthenticationToken
+	if (req.Client == nil || req.Client.APIToken == "") && !req.NoAuth {
+		return ErrNoAuth
 	}
 	return nil
 }
@@ -111,7 +104,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 	debug.Printf(io.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
 	debug.Printf(io.Indent("Params : %v", 6), req.Params)
 
-	req.HTTPRequest.SetBasicAuth("", req.Token)
+	req.HTTPRequest.SetBasicAuth("", req.Client.APIToken)
 	res, err := httpclient.Do(req.HTTPRequest)
 	if err != nil {
 		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)

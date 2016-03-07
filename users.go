@@ -19,8 +19,9 @@ type SelfResults struct {
 	User *User `json:"user"`
 }
 
-func Self() (*User, error) {
+func (c *Client) Self() (*User, error) {
 	req := &APIRequest{
+		Client:   c,
 		Endpoint: "/users/self",
 	}
 	res, err := req.Do()
