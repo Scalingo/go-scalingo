@@ -17,7 +17,9 @@ import (
 )
 
 var (
-	ErrNoAuth = errgo.New("authentication required")
+	defaultEndpoint   = "https://api.scalingo.com"
+	defaultAPIVersion = "1"
+	ErrNoAuth         = errgo.New("authentication required")
 )
 
 type APIRequest struct {
@@ -34,9 +36,6 @@ type APIRequest struct {
 type Statuses []int
 
 func (req *APIRequest) FillDefaultValues() error {
-	if req.URL == "" {
-		req.URL = fmt.Sprintf("%s%s%s", ApiUrl, "/v", ApiVersion)
-	}
 	if req.Method == "" {
 		req.Method = "GET"
 	}
@@ -46,8 +45,15 @@ func (req *APIRequest) FillDefaultValues() error {
 	if req.Params == nil {
 		req.Params = make(map[string]interface{})
 	}
-	if (req.Client == nil || req.Client.APIToken == "") && !req.NoAuth {
+	if req.Client == nil {
+		req.Client = &Client{Endpoint: defaultEndpoint, APIVersion: defaultAPIVersion}
+	}
+
+	if req.Client.APIToken == "" && !req.NoAuth {
 		return ErrNoAuth
+	}
+	if req.URL == "" {
+		req.URL = fmt.Sprintf("%s%s%s", req.Client.Endpoint, "/v", req.Client.APIVersion)
 	}
 	return nil
 }

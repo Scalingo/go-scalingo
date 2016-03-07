@@ -2,8 +2,9 @@ package scalingo
 
 import "gopkg.in/errgo.v1"
 
-func SignUp(email, password string) error {
+func (c *Client) SignUp(email, password string) error {
 	req := &APIRequest{
+		Client:   c,
 		NoAuth:   true,
 		Method:   "POST",
 		Endpoint: "/users",

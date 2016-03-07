@@ -1,8 +1,6 @@
 package scalingo
 
-import (
-	"net/http"
-)
+import "gopkg.in/errgo.v1"
 
 type LoginError struct {
 	Success bool   `json:"success"`
@@ -18,8 +16,9 @@ func (err *LoginError) Error() string {
 	return err.Message
 }
 
-func Login(email, password string) (*http.Response, error) {
+func (c *Client) Login(email, password string) (*LoginResponse, error) {
 	req := &APIRequest{
+		Client:   c,
 		NoAuth:   true,
 		Method:   "POST",
 		Endpoint: "/users/sign_in",
@@ -31,5 +30,16 @@ func Login(email, password string) (*http.Response, error) {
 			},
 		},
 	}
-	return req.Do()
+	res, err := req.Do()
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+	defer res.Body.Close()
+
+	var loginRes LoginResponse
+	err = ParseJSON(res, &loginRes)
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+	return &loginRes, nil
 }

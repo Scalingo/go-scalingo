@@ -29,8 +29,9 @@ type ListParams struct {
 	AddonProviders []*AddonProvider `json:"addon_providers"`
 }
 
-func AddonProvidersList() ([]*AddonProvider, error) {
+func (c *Client) AddonProvidersList() ([]*AddonProvider, error) {
 	req := &APIRequest{
+		Client:   c,
 		NoAuth:   true,
 		Endpoint: "/addon_providers",
 	}
@@ -49,8 +50,9 @@ func AddonProvidersList() ([]*AddonProvider, error) {
 	return params.AddonProviders, nil
 }
 
-func AddonProviderPlansList(addon string) ([]*Plan, error) {
+func (c *Client) AddonProviderPlansList(addon string) ([]*Plan, error) {
 	req := &APIRequest{
+		Client:   c,
 		NoAuth:   true,
 		Endpoint: "/addon_providers/" + addon + "/plans",
 	}
