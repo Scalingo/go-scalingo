@@ -15,7 +15,7 @@ type User struct {
 	AuthenticationToken string `json:"authentication_token"`
 }
 
-type SelfResults struct {
+type SelfResponse struct {
 	User *User `json:"user"`
 }
 
@@ -29,10 +29,10 @@ func (c *Client) Self() (*User, error) {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
 	defer res.Body.Close()
-	var u *User
+	var u *SelfResponse
 	err = json.NewDecoder(res.Body).Decode(&u)
 	if err != nil {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
-	return u, nil
+	return u.User, nil
 }
