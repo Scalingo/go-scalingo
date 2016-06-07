@@ -15,12 +15,13 @@ func (c *Client) LogsURL(app string) (*http.Response, error) {
 	return req.Do()
 }
 
-func Logs(logsURL string, n int, filter string) (*http.Response, error) {
+func (c *Client) Logs(logsURL string, n int, filter string) (*http.Response, error) {
 	u, err := url.Parse(logsURL)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
 	req := &APIRequest{
+		Client:   c,
 		NoAuth:   true,
 		Expected: Statuses{200, 404},
 		URL:      u.Scheme + "://" + u.Host,
