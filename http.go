@@ -11,7 +11,6 @@ import (
 	"reflect"
 
 	"github.com/Scalingo/go-scalingo/debug"
-	"github.com/Scalingo/go-scalingo/httpclient"
 	"github.com/Scalingo/go-scalingo/io"
 	"gopkg.in/errgo.v1"
 )
@@ -111,7 +110,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 	debug.Printf(io.Indent("Params : %v", 6), req.Params)
 
 	req.HTTPRequest.SetBasicAuth("", req.Client.APIToken)
-	res, err := httpclient.Do(req.HTTPRequest)
+	res, err := req.doRequest(req.HTTPRequest)
 	if err != nil {
 		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)
 		os.Exit(1)
@@ -122,6 +121,15 @@ func (req *APIRequest) Do() (*http.Response, error) {
 	}
 
 	return nil, NewRequestFailedError(res, req)
+}
+
+func (apiReq *APIRequest) doRequest(req *http.Request) (*http.Response, error) {
+	if req.Header.Get("Content-type") == "" {
+		req.Header.Set("Content-type", "application/json")
+	}
+	req.Header.Set("Accept", "application/json")
+	req.Header.Add("User-Agent", "Scalingo Go Client")
+	return apiReq.Client.HTTPClient().Do(req)
 }
 
 func ParseJSON(res *http.Response, data interface{}) error {
