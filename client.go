@@ -6,6 +6,14 @@ type Client struct {
 	APIVersion string
 }
 
-func NewClient(token string) *Client {
-	return &Client{APIToken: token, Endpoint: defaultEndpoint, APIVersion: defaultAPIVersion}
+type ClientConfig struct {
+	Endpoint string
+	APIToken string
+}
+
+func NewClient(cfg ClientConfig) *Client {
+	if cfg.Endpoint == "" {
+		cfg.Endpoint = defaultEndpoint
+	}
+	return &Client{APIToken: cfg.APIToken, Endpoint: cfg.Endpoint, APIVersion: defaultAPIVersion}
 }
