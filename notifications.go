@@ -29,9 +29,13 @@ func (c *Client) NotificationsList(app string) ([]*Notification, error) {
 
 func (c *Client) NotificationProvision(app, webHookURL string) (NotificationRes, error) {
 	var notificationRes NotificationRes
-	err := c.subresourceAdd(app, "notifications", NotificationRes{Notification: Notification{WebHookURL: webHookURL}}, &notificationsRes)
+	err := c.subresourceAdd(app, "notifications", NotificationRes{Notification: Notification{WebHookURL: webHookURL}}, &notificationRes)
 	if err != nil {
 		return NotificationRes{}, errgo.Mask(err, errgo.Any)
 	}
 	return notificationRes, nil
+}
+
+func (c *Client) NotificationDestroy(app, notificationID string) error {
+	return c.subresourceDelete(app, "notifications", notificationID)
 }
