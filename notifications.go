@@ -3,9 +3,9 @@ package scalingo
 import "gopkg.in/errgo.v1"
 
 type Notification struct {
-	ID              string         `json:"id"`
-	Type            string         `json:"type"`
-	WebHookURL      string         `json:"webhook_url"`
+	ID              string `json:"notif_id"`
+	Type            string `json:"type"`
+	WebHookURL      string `json:"webhook_url"`
 }
 
 type NotificationsRes struct {
@@ -13,9 +13,9 @@ type NotificationsRes struct {
 }
 
 type NotificationRes struct {
-	Notification     Notification    `json:"notification"`
-	Message          string   `json:"message,omitempty"`
-	Variables        []string `json:"variables,omitempty"`
+	Notification     Notification `json:"notification"`
+	Message          string       `json:"message,omitempty"`
+	Variables        []string     `json:"variables,omitempty"`
 }
 
 func (c *Client) NotificationsList(app string) ([]*Notification, error) {
@@ -36,6 +36,6 @@ func (c *Client) NotificationProvision(app, webHookURL string) (NotificationRes,
 	return notificationRes, nil
 }
 
-func (c *Client) NotificationDestroy(app, notificationID string) error {
-	return c.subresourceDelete(app, "notifications", notificationID)
+func (c *Client) NotificationDestroy(app, URL string) error {
+	return c.subresourceDelete(app, "notifications", URL)
 }
