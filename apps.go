@@ -107,13 +107,13 @@ func (c *Client) AppsShow(appName string) (*App, error) {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
 	defer res.Body.Close()
-	var app App
-	err = ParseJSON(res, &app)
+	var appMap map[string]*App
+	err = ParseJSON(res, &appMap)
 
 	if err != nil {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
-	return &app, nil
+	return appMap["app"], nil
 }
 
 func (c *Client) AppsDestroy(name string, currentName string) (*http.Response, error) {
