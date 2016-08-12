@@ -147,7 +147,7 @@ func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Respon
 	return req.Do()
 }
 
-func (c *Client) AppsCreate(app string, appParams *AppsCreateParams) (*App, error) {
+func (c *Client) AppsCreate(appParams *AppsCreateParams) (*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
