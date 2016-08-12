@@ -37,6 +37,13 @@ type AppsPsRes struct {
 	Containers []Container `json:"containers"`
 }
 
+type AppsCreateParams struct {
+	App struct {
+		Name 		string `json:"name"`
+		ParentApp 	string `json:"parent_id"`
+	} `json:"app"`
+}
+
 type AppsRestartParams struct {
 	Scope []string `json:"scope"`
 }
@@ -140,17 +147,13 @@ func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Respon
 	return req.Do()
 }
 
-func (c *Client) AppsCreate(app string) (*App, error) {
+func (c *Client) AppsCreate(appParams *AppsCreateParams) (*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
 		Endpoint: "/apps",
 		Expected: Statuses{201},
-		Params: map[string]interface{}{
-			"app": map[string]interface{}{
-				"name": app,
-			},
-		},
+		Params: appParams,
 	}
 	res, err := req.Do()
 	if err != nil {
