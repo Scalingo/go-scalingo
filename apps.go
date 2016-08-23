@@ -7,7 +7,7 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-type Container struct {
+type ContainerType struct {
 	Name    string `json:"name"`
 	Amount  int    `json:"amount"`
 	Command string `json:"command"`
@@ -30,11 +30,11 @@ type AppStatsRes struct {
 }
 
 type AppsScaleParams struct {
-	Containers []Container `json:"containers"`
+	Containers []ContainerType `json:"containers"`
 }
 
 type AppsPsRes struct {
-	Containers []Container `json:"containers"`
+	Containers []ContainerType `json:"containers"`
 }
 
 type AppsCreateOpts struct {
@@ -187,7 +187,7 @@ func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
 	return &stats, nil
 }
 
-func (c *Client) AppsPs(app string) ([]Container, error) {
+func (c *Client) AppsPs(app string) ([]ContainerType, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/containers",

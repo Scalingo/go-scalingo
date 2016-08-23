@@ -1,8 +1,9 @@
 package scalingo
 
 import (
-	"net/http"
 	"strings"
+
+	"gopkg.in/errgo.v1"
 )
 
 type RunOpts struct {
@@ -13,7 +14,12 @@ type RunOpts struct {
 	Detached bool
 }
 
-func (c *Client) Run(opts RunOpts) (*http.Response, error) {
+type RunRes struct {
+	Container *Container `json:"container"`
+	AttachURL string     `json:"attach_url"`
+}
+
+func (c *Client) Run(opts RunOpts) (*RunRes, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
@@ -25,5 +31,17 @@ func (c *Client) Run(opts RunOpts) (*http.Response, error) {
 			"detached": opts.Detached,
 		},
 	}
-	return req.Do()
+	res, err := req.Do()
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+	defer res.Body.Close()
+
+	var runRes RunRes
+	err = ParseJSON(res, &runRes)
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+
+	return &runRes, nil
 }
