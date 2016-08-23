@@ -5,15 +5,24 @@ import (
 	"strings"
 )
 
-func (c *Client) Run(app string, command []string, env map[string]string, size string) (*http.Response, error) {
+type RunOpts struct {
+	App      string
+	Command  []string
+	Env      map[string]string
+	Size     string
+	Detached bool
+}
+
+func (c *Client) Run(opts RunOpts) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
-		Endpoint: "/apps/" + app + "/run",
+		Endpoint: "/apps/" + opts.App + "/run",
 		Params: map[string]interface{}{
-			"command": strings.Join(command, " "),
-			"env":     env,
-			"size":    size,
+			"command":  strings.Join(opts.Command, " "),
+			"env":      opts.Env,
+			"size":     opts.Size,
+			"detached": opts.Detached,
 		},
 	}
 	return req.Do()
