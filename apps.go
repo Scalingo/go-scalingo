@@ -37,11 +37,9 @@ type AppsPsRes struct {
 	Containers []Container `json:"containers"`
 }
 
-type AppsCreateParams struct {
-	App struct {
-		Name 		string `json:"name"`
-		ParentApp 	string `json:"parent_id"`
-	} `json:"app"`
+type AppsCreateOpts struct {
+	Name      string `json:"name"`
+	ParentApp string `json:"parent_id"`
 }
 
 type AppsRestartParams struct {
@@ -68,11 +66,11 @@ type App struct {
 		Billable bool   `json:"billable"`
 	} `json:"owner"`
 	GitUrl         string        `json:"git_url"`
-	LastDeployedAt *time.Time     `json:"last_deployed_at"`
+	LastDeployedAt *time.Time    `json:"last_deployed_at"`
 	LastDeployedBy string        `json:"last_deployed_by"`
-	CreatedAt      *time.Time     `json:"created_at"`
-	UpdatedAt      *time.Time     `json:"update_at"`
-	Links          *AppLinks      `json:"links"`
+	CreatedAt      *time.Time    `json:"created_at"`
+	UpdatedAt      *time.Time    `json:"update_at"`
+	Links          *AppLinks     `json:"links"`
 	Domains        []*AppDomains `json:"domains"`
 }
 
@@ -147,13 +145,13 @@ func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Respon
 	return req.Do()
 }
 
-func (c *Client) AppsCreate(appParams *AppsCreateParams) (*App, error) {
+func (c *Client) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
 		Endpoint: "/apps",
 		Expected: Statuses{201},
-		Params: appParams,
+		Params:   map[string]interface{}{"app": opts},
 	}
 	res, err := req.Do()
 	if err != nil {
