@@ -14,6 +14,7 @@ type DeploymentStatus string
 
 const (
 	StatusSuccess      DeploymentStatus = "success"
+	StatusWaitForCI                     = "wait-for-ci"
 	StatusBuilding                      = "building"
 	StatusStarting                      = "starting"
 	StatusPushing                       = "pushing"
