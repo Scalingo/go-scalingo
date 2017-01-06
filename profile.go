@@ -1,10 +1,6 @@
 package scalingo
 
-import (
-	"encoding/json"
-
-	"gopkg.in/errgo.v1"
-)
+import "gopkg.in/errgo.v1"
 
 type UpdateUserParams struct {
 	StopFreeTrial string `json:"stop_free_trial,omitempty"`
@@ -32,10 +28,10 @@ func (c *Client) UpdateUser(params UpdateUserParams) (*User, error) {
 	}
 	defer res.Body.Close()
 
-	var u *UpdateUserResponse
-	err = json.NewDecoder(res.Body).Decode(&u)
+	var u UpdateUserResponse
+	err = ParseJSON(res, &u)
 	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
+		return nil, errgo.Mask(err)
 	}
 	return u.User, nil
 }
