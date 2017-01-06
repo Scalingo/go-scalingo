@@ -3,7 +3,7 @@ package scalingo
 import "gopkg.in/errgo.v1"
 
 type UpdateUserParams struct {
-	StopFreeTrial string `json:"stop_free_trial,omitempty"`
+	StopFreeTrial bool   `json:"stop_free_trial,omitempty"`
 	Password      string `json:"password,omitempty"`
 	Email         string `json:"email,omitempty"`
 }
