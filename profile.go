@@ -22,9 +22,7 @@ func (c *Client) UpdateUser(params UpdateUserParams) (*User, error) {
 		Method:   "PATCH",
 		Endpoint: "/account/profile",
 		Params: map[string]interface{}{
-			"user": map[string]interface{}{
-				"stop_free_trial": true,
-			},
+			"user": params,
 		},
 		Expected: Statuses{200},
 	}
