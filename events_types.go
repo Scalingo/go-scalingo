@@ -627,7 +627,6 @@ func (ev *EventDeleteNotificationType) String() string {
 }
 
 func (ev *Event) Specialize() DetailedEvent {
-	fmt.Printf("ev: %+v\n", ev.RawTypeData)
 	var e DetailedEvent
 	switch ev.Type {
 	case EventNewApp:
