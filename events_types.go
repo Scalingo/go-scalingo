@@ -639,7 +639,7 @@ type EventPaymentAttemptType struct {
 }
 
 func (ev *EventPaymentAttemptType) String() string {
-	res := "There is a payment attempt of "
+	res := "Payment attempt of "
 	res += fmt.Sprintf("%0.2f€", ev.TypeData.Amount)
 	res += " with your "
 	if ev.TypeData.PaymentMethod == "credit" {
@@ -648,11 +648,11 @@ func (ev *EventPaymentAttemptType) String() string {
 		res += "card"
 	}
 	if ev.TypeData.Status == "new" {
-		res += " which is pending"
+		res += " (pending)"
 	} else if ev.TypeData.Status == "paid" {
-		res += " which is successful"
+		res += " (success)"
 	} else {
-		res += " which failed"
+		res += " (fail)"
 	}
 	return res
 }
