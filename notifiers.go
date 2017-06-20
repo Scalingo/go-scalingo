@@ -1,13 +1,29 @@
 package scalingo
 
-import errgo "gopkg.in/errgo.v1"
+import (
+	"github.com/Scalingo/go-scalingo/debug"
+	errgo "gopkg.in/errgo.v1"
+)
 
-type NotifierParam struct {
+type notifierCreateRequest struct {
 	Notifier interface{} `json:"notifier"`
 }
 
+type NotifierCreateParams struct {
+	Active         bool
+	Name           string
+	SendAllEvents  bool
+	SelectedEvents []string
+	PlatformID     string
+
+	// Options
+	PhoneNumber string // SMS notifier
+	Email       string // Email notifier
+	WebhookURL  string // Webhook and Slack notifier
+}
+
 type NotifierRes struct {
-	Notifier DetailedNotifier `json:"notifier"`
+	Notifier Notifier `json:"notifier"`
 }
 
 type NotifiersRes struct {
@@ -27,11 +43,11 @@ func (c *Client) NotifiersList(app string) (Notifiers, error) {
 	return notifiers, nil
 }
 
-func (c *Client) NotifierProvision(app, notifierType string, params map[string]interface{}) (NotifierRes, error) {
+func (c *Client) NotifierProvision(app, notifierType string, params NotifierCreateParams) (NotifierRes, error) {
 	var notifierRes NotifierRes
-
 	notifier := NewNotifier(notifierType, params)
-	notifierParams := &NotifierParam{Notifier: notifier}
+	notifierParams := &notifierCreateRequest{Notifier: notifier}
+	debug.Printf("[Notifier params]\n%+v", notifier)
 
 	err := c.subresourceAdd(app, "notifiers", notifierParams, &notifierRes)
 	if err != nil {

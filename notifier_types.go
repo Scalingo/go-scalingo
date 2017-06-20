@@ -2,12 +2,10 @@ package scalingo
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
-	"reflect"
 	"time"
 
-	"github.com/Scalingo/cli/debug"
+	"github.com/Scalingo/go-scalingo/debug"
 )
 
 type Notifier struct {
@@ -19,6 +17,7 @@ type Notifier struct {
 	SelectedEvents []string               `json:"selected_events"`
 	TypeData       map[string]interface{} `json:"-"`
 	RawTypeData    json.RawMessage        `json:"type_data"`
+	PlatformID     string                 `json:"platform_id"`
 	CreatedAt      time.Time              `json:"created_at"`
 	UpdatedAt      time.Time              `json:"updated_at"`
 }
@@ -144,47 +143,33 @@ func (pnot *Notifier) Specialize() DetailedNotifier {
 	return detailedNotifier
 }
 
-func NewNotifier(notifierType string, m map[string]interface{}) (notifier interface{}) {
+func NewNotifier(notifierType string, params NotifierCreateParams) DetailedNotifier {
+	debug.Printf("[NewNotifier] notifierType: %+v\nparams: %+v\n", notifierType, params)
+	var specializedNotifier DetailedNotifier
+	notifier := &Notifier{
+		Active:        params.Active,
+		Name:          params.Name,
+		SendAllEvents: params.SendAllEvents,
+		PlatformID:    params.PlatformID,
+	}
+
 	switch notifierType {
 	case "webhook":
-		notifier = &NotifierWebhookType{}
-		fillStruct(&NotifierWebhookType{}, m)
+		specializedNotifier = &NotifierWebhookType{
+			Notifier: *notifier,
+			TypeData: NotifierWebhookTypeData{
+				WebhookURL: params.WebhookURL,
+			},
+		}
 	case "slack":
-		notifier = &NotifierSlackType{}
-		fillStruct(&NotifierSlackType{}, m)
-	}
-	return
-}
-
-// private
-func fillStruct(str interface{}, m map[string]interface{}) error {
-	for k, v := range m {
-		err := setField(str, k, v)
-		if err != nil {
-			return err
+		specializedNotifier = &NotifierSlackType{
+			Notifier: *notifier,
+			TypeData: NotifierSlackTypeData{
+				WebhookURL: params.WebhookURL,
+			},
 		}
 	}
-	return nil
-}
 
-func setField(obj interface{}, name string, value interface{}) error {
-	structValue := reflect.ValueOf(obj).Elem()
-	structFieldValue := structValue.FieldByName(name)
-
-	if !structFieldValue.IsValid() {
-		return fmt.Errorf("No such field: %s in obj", name)
-	}
-
-	if !structFieldValue.CanSet() {
-		return fmt.Errorf("Cannot set %s field value", name)
-	}
-
-	structFieldType := structFieldValue.Type()
-	val := reflect.ValueOf(value)
-	if structFieldType != val.Type() {
-		return errors.New("Provided value type didn't match obj field type")
-	}
-
-	structFieldValue.Set(val)
-	return nil
+	debug.Printf("[NewNotifier] result: %+v\n", specializedNotifier)
+	return specializedNotifier
 }
