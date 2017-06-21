@@ -10,10 +10,10 @@ import (
 
 type Notifier struct {
 	ID             string                 `json:"id"`
-	Active         bool                   `json:"active,omitempty"`
+	Active         *bool                  `json:"active,omitempty"`
 	Name           string                 `json:"name,omitempty"`
 	Type           NotifierType           `json:"type"`
-	SendAllEvents  bool                   `json:"send_all_events,omitempty"`
+	SendAllEvents  *bool                  `json:"send_all_events,omitempty"`
 	SelectedEvents []string               `json:"selected_events,omitempty"`
 	TypeData       map[string]interface{} `json:"-"`
 	RawTypeData    json.RawMessage        `json:"type_data"`
@@ -62,7 +62,7 @@ func (not *Notifier) GetType() NotifierType {
 }
 
 func (not *Notifier) GetSendAllEvents() bool {
-	return not.SendAllEvents
+	return *not.SendAllEvents
 }
 
 func (not *Notifier) GetSelectedEvents() []string {
@@ -70,7 +70,7 @@ func (not *Notifier) GetSelectedEvents() []string {
 }
 
 func (not *Notifier) IsActive() bool {
-	return not.Active
+	return *not.Active
 }
 
 func (not *Notifier) When() string {

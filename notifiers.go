@@ -10,9 +10,9 @@ type notifierRequest struct {
 }
 
 type NotifierParams struct {
-	Active         bool
+	Active         *bool
 	Name           string
-	SendAllEvents  bool
+	SendAllEvents  *bool
 	SelectedEvents []string
 	PlatformID     string
 
