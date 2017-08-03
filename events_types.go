@@ -137,7 +137,7 @@ type EventDeleteAppType struct {
 	Event
 }
 
-func (ev *EventDeleteAppType) String() {
+func (ev *EventDeleteAppType) String() string {
 	return fmt.Sprintf("the application has been deleted")
 }
 
