@@ -30,6 +30,7 @@ type APIRequest struct {
 	Expected    Statuses
 	Params      interface{}
 	HTTPRequest *http.Request
+	Token       string
 }
 
 type Statuses []int
@@ -48,9 +49,17 @@ func (req *APIRequest) FillDefaultValues() error {
 		req.Client = &Client{Endpoint: defaultEndpoint, APIVersion: defaultAPIVersion}
 	}
 
-	if req.Client.APIToken == "" && !req.NoAuth {
-		return ErrNoAuth
+	if !req.NoAuth {
+		if req.Client.TokenGenerator == nil {
+			return ErrNoAuth
+		}
+		var err error
+		req.Token, err = req.Client.TokenGenerator.Token()
+		if err != nil {
+			return ErrNoAuth
+		}
 	}
+
 	if req.URL == "" {
 		req.URL = fmt.Sprintf("%s%s%s", req.Client.Endpoint, "/v", req.Client.APIVersion)
 	}
@@ -109,7 +118,9 @@ func (req *APIRequest) Do() (*http.Response, error) {
 	debug.Printf(io.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
 	debug.Printf(io.Indent("Params : %v", 6), req.Params)
 
-	req.HTTPRequest.SetBasicAuth("", req.Client.APIToken)
+	if req.Token != "" {
+		req.HTTPRequest.Header.Add("Authorization", fmt.Sprintf("Bearer %s", req.Token))
+	}
 	res, err := req.doRequest(req.HTTPRequest)
 	if err != nil {
 		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)
