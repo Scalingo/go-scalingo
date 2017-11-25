@@ -31,6 +31,9 @@ type APIRequest struct {
 	Params      interface{}
 	HTTPRequest *http.Request
 	Token       string
+	Username    string
+	Password    string
+	OTP         string
 }
 
 type Statuses []int
@@ -120,7 +123,14 @@ func (req *APIRequest) Do() (*http.Response, error) {
 
 	if req.Token != "" {
 		req.HTTPRequest.Header.Add("Authorization", fmt.Sprintf("Bearer %s", req.Token))
+	} else if req.Username != "" || req.Password != "" {
+		req.HTTPRequest.SetBasicAuth(req.Username, req.Password)
 	}
+
+	if req.OTP != "" {
+		req.HTTPRequest.Header.Add("X-Authorization-OTP", req.OTP)
+	}
+
 	res, err := req.doRequest(req.HTTPRequest)
 	if err != nil {
 		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)
@@ -131,7 +141,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 		return res, nil
 	}
 
-	return nil, NewRequestFailedError(res, req)
+	return res, NewRequestFailedError(res, req)
 }
 
 func (apiReq *APIRequest) doRequest(req *http.Request) (*http.Response, error) {

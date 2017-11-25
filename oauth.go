@@ -26,9 +26,7 @@ type OAuthTokenGenerator struct {
 	TokenURL     string    `json:"token_url"`
 }
 
-type OAuthUser struct {
-	Username    string `json:"username"`
-	Email       string `json:"email"`
+type OAuthApplication struct {
 	OAuthID     string `json:"oauth_id"`
 	OAuthSecret string `json:"oauth_secret"`
 }
@@ -36,26 +34,41 @@ type OAuthUser struct {
 type LoginParams struct {
 	Identifier string `json:"identifier"`
 	Password   string `json:"password"`
+	OTP        string `json:"otp"`
 }
 
-func (c *Client) GetOAuthCredentials(identifier, password string) (*OAuthUser, error) {
+func (c *Client) IsOTPRequired(err error) bool {
+	rerr, ok := err.(*RequestFailedError)
+	if !ok {
+		return false
+	}
+
+	if rerr.Message == "OTP Required" {
+		return true
+	}
+	return false
+}
+
+func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, error) {
 	req := &APIRequest{
-		Client: c,
-		NoAuth: true,
-		Method: "POST",
-		URL:    fmt.Sprintf("%s/v1/client/oauth", c.AuthURL()),
-		Params: &LoginParams{
-			Identifier: identifier,
-			Password:   password,
-		},
+		Client:   c,
+		NoAuth:   true,
+		Method:   "POST",
+		URL:      fmt.Sprintf("%s/v1/client/oauth", c.AuthURL()),
+		Username: params.Identifier,
+		Password: params.Password,
+		OTP:      params.OTP,
 	}
 
 	resp, err := req.Do()
 	if err != nil {
+		if c.IsOTPRequired(err) {
+			return nil, errgo.New("OTP Required")
+		}
 		return nil, errgo.Notef(err, "fail to fetch oauth credentials")
 	}
 
-	var login OAuthUser
+	var login OAuthApplication
 	err = ParseJSON(resp, &login)
 	if err != nil {
 		return nil, errgo.Notef(err, "invalid response from authentication service")
@@ -64,14 +77,14 @@ func (c *Client) GetOAuthCredentials(identifier, password string) (*OAuthUser, e
 	return &login, nil
 }
 
-func (c *Client) GetOAuthTokenGenerator(user *OAuthUser, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
+func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, login LoginParams, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
 	config := &oauth2.Config{
-		ClientID:     user.OAuthID,
-		ClientSecret: user.OAuthSecret,
+		ClientID:     app.OAuthID,
+		ClientSecret: app.OAuthSecret,
 		Scopes:       scopes,
 		Endpoint: oauth2.Endpoint{
-			AuthURL:  fmt.Sprintf("%s/authorize", c.AuthURL()),
-			TokenURL: fmt.Sprintf("%s/token", c.AuthURL()),
+			AuthURL:  fmt.Sprintf("%s/oauth/authorize", c.AuthURL()),
+			TokenURL: fmt.Sprintf("%s/oauth/token", c.AuthURL()),
 		},
 		RedirectURL: redirectURL,
 	}
@@ -85,7 +98,17 @@ func (c *Client) GetOAuthTokenGenerator(user *OAuthUser, scopes []string, redire
 		},
 	}
 
-	resp, err := client.Get(authUrl)
+	req, err := http.NewRequest("GET", authUrl, nil)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to build auth request")
+	}
+
+	req.SetBasicAuth(login.Identifier, login.Password)
+	if login.OTP != "" {
+		req.Header.Add("X-Authorization-OTP", login.OTP)
+	}
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to make auth request")
 	}
