@@ -57,7 +57,7 @@ func (req *APIRequest) FillDefaultValues() error {
 			return ErrNoAuth
 		}
 		var err error
-		req.Token, err = req.Client.TokenGenerator.Token()
+		req.Token, err = req.Client.TokenGenerator.GetAccessToken()
 		if err != nil {
 			return ErrNoAuth
 		}

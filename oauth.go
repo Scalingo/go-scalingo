@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"time"
 
 	"golang.org/x/oauth2"
 	"gopkg.in/errgo.v1"
@@ -15,26 +14,31 @@ import (
 const defaultAuthUrl = "https://auth.scalingo.com"
 
 type TokenGenerator interface {
-	Token() (string, error)
+	GetAccessToken() (string, error)
 }
 
 type OAuthTokenGenerator struct {
 	source       oauth2.TokenSource
-	AccessToken  string    `json:"access_token"`
-	RefreshToken string    `json:"refresh_token"`
-	Expiry       time.Time `json:"expiry"`
-	TokenURL     string    `json:"token_url"`
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+	TokenURL     string `json:"token_url"`
+	Token        string `json:"token"`
 }
 
 type OAuthApplication struct {
-	OAuthID     string `json:"oauth_id"`
-	OAuthSecret string `json:"oauth_secret"`
+	UID    string `json:"uid"`
+	Secret string `json:"secret"`
 }
 
 type LoginParams struct {
 	Identifier string `json:"identifier"`
 	Password   string `json:"password"`
 	OTP        string `json:"otp"`
+}
+
+type TokenResponse struct {
+	App   *OAuthApplication `json:"app"`
+	Token *Token            `json:"token"`
 }
 
 func (c *Client) IsOTPRequired(err error) bool {
@@ -49,12 +53,12 @@ func (c *Client) IsOTPRequired(err error) bool {
 	return false
 }
 
-func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, error) {
+func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *Token, error) {
 	req := &APIRequest{
 		Client:   c,
 		NoAuth:   true,
 		Method:   "POST",
-		URL:      fmt.Sprintf("%s/v1/client/oauth", c.AuthURL()),
+		URL:      fmt.Sprintf("%s/v1/client/cli", c.AuthURL()),
 		Username: params.Identifier,
 		Password: params.Password,
 		OTP:      params.OTP,
@@ -63,24 +67,24 @@ func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, err
 	resp, err := req.Do()
 	if err != nil {
 		if c.IsOTPRequired(err) {
-			return nil, errgo.New("OTP Required")
+			return nil, nil, errgo.New("OTP Required")
 		}
-		return nil, errgo.Notef(err, "fail to fetch oauth credentials")
+		return nil, nil, errgo.Notef(err, "fail to fetch oauth credentials")
 	}
 
-	var login OAuthApplication
-	err = ParseJSON(resp, &login)
+	var infos TokenResponse
+	err = ParseJSON(resp, &infos)
 	if err != nil {
-		return nil, errgo.Notef(err, "invalid response from authentication service")
+		return nil, nil, errgo.Notef(err, "invalid response from authentication service")
 	}
 
-	return &login, nil
+	return infos.App, infos.Token, nil
 }
 
-func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, login LoginParams, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
+func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, token string, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
 	config := &oauth2.Config{
-		ClientID:     app.OAuthID,
-		ClientSecret: app.OAuthSecret,
+		ClientID:     app.UID,
+		ClientSecret: app.Secret,
 		Scopes:       scopes,
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  fmt.Sprintf("%s/oauth/authorize", c.AuthURL()),
@@ -89,6 +93,7 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, login LoginParams
 		RedirectURL: redirectURL,
 	}
 
+	// TODO: Use a random state
 	authUrl := config.AuthCodeURL("state", oauth2.AccessTypeOnline)
 
 	// Do not follow redirections
@@ -103,10 +108,7 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, login LoginParams
 		return nil, errgo.Notef(err, "fail to build auth request")
 	}
 
-	req.SetBasicAuth(login.Identifier, login.Password)
-	if login.OTP != "" {
-		req.Header.Add("X-Authorization-OTP", login.OTP)
-	}
+	req.SetBasicAuth("", token)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -118,17 +120,19 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, login LoginParams
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to parse auth response")
 	}
+	fmt.Println(location)
 	code := respUrl.Query().Get("code")
-	token, err := config.Exchange(context.Background(), code)
+	fmt.Println(code)
+	tokens, err := config.Exchange(context.Background(), code)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to exchange key with auth service")
 	}
 
 	return &OAuthTokenGenerator{
-		AccessToken:  token.AccessToken,
-		RefreshToken: token.RefreshToken,
-		Expiry:       token.Expiry,
+		AccessToken:  tokens.AccessToken,
+		RefreshToken: tokens.RefreshToken,
 		TokenURL:     config.Endpoint.TokenURL,
+		Token:        token,
 	}, nil
 }
 
@@ -150,7 +154,6 @@ func (t *OAuthTokenGenerator) Source() oauth2.TokenSource {
 	}
 
 	source := configSource.TokenSource(context.Background(), &oauth2.Token{
-		Expiry:       t.Expiry,
 		AccessToken:  t.AccessToken,
 		RefreshToken: t.RefreshToken,
 	})
@@ -160,7 +163,7 @@ func (t *OAuthTokenGenerator) Source() oauth2.TokenSource {
 	return t.source
 }
 
-func (t *OAuthTokenGenerator) Token() (string, error) {
+func (t *OAuthTokenGenerator) GetAccessToken() (string, error) {
 	token, err := t.Source().Token()
 	if err != nil {
 		return "", errgo.Notef(err, "fail to get oauth2 token")

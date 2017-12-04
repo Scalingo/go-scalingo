@@ -136,7 +136,7 @@ func (c *Client) DeploymentLogs(deployURL string) (*http.Response, error) {
 }
 
 func (c *Client) DeploymentStream(deployURL string) (*websocket.Conn, error) {
-	token, err := c.TokenGenerator.Token()
+	token, err := c.TokenGenerator.GetAccessToken()
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to generate token")
 	}
