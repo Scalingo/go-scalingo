@@ -141,7 +141,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 		return res, nil
 	}
 
-	return res, NewRequestFailedError(res, req)
+	return nil, NewRequestFailedError(res, req)
 }
 
 func (apiReq *APIRequest) doRequest(req *http.Request) (*http.Response, error) {

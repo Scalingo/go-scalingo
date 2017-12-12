@@ -10,7 +10,7 @@ type User struct {
 	LastName            string          `json:"last_name"`
 	Email               string          `json:"email"`
 	Flags               map[string]bool `json:"flags"`
-	AuthenticationToken string          `json:"authentication"`
+	AuthenticationToken string          `json:"authentication_token"`
 }
 
 type SelfResponse struct {
