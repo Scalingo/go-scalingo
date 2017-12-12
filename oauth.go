@@ -2,11 +2,13 @@ package scalingo
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
 	"os"
 
+	"github.com/Scalingo/gopassword"
 	"golang.org/x/oauth2"
 	"gopkg.in/errgo.v1"
 )
@@ -34,6 +36,7 @@ type LoginParams struct {
 	Identifier string `json:"identifier"`
 	Password   string `json:"password"`
 	OTP        string `json:"otp"`
+	JWT        string `json:"otp"`
 }
 
 type TokenResponse struct {
@@ -41,6 +44,9 @@ type TokenResponse struct {
 	Token *Token            `json:"token"`
 }
 
+var ErrOTPRequired = errors.New("OTP Required")
+
+// Test if the authentication backend return an OTP Required error
 func (c *Client) IsOTPRequired(err error) bool {
 	rerr, ok := err.(*RequestFailedError)
 	if !ok {
@@ -63,19 +69,26 @@ func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *To
 		Password: params.Password,
 		OTP:      params.OTP,
 	}
+	if params.JWT == "" {
+		req.Username = params.Identifier
+		req.Password = params.Password
+		req.OTP = params.OTP
+	} else {
+		req.Token = params.JWT
+	}
 
 	resp, err := req.Do()
 	if err != nil {
 		if c.IsOTPRequired(err) {
-			return nil, nil, errgo.New("OTP Required")
+			return nil, nil, ErrOTPRequired
 		}
-		return nil, nil, errgo.Notef(err, "fail to fetch oauth credentials")
+		return nil, nil, errgo.NoteMask(err, "fail to fetch oauth credentials", errgo.Any)
 	}
 
 	var infos TokenResponse
 	err = ParseJSON(resp, &infos)
 	if err != nil {
-		return nil, nil, errgo.Notef(err, "invalid response from authentication service")
+		return nil, nil, errgo.NoteMask(err, "invalid response from authentication service", errgo.Any)
 	}
 
 	return infos.App, infos.Token, nil
@@ -93,8 +106,8 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, token string, sco
 		RedirectURL: redirectURL,
 	}
 
-	// TODO: Use a random state
-	authUrl := config.AuthCodeURL("state", oauth2.AccessTypeOnline)
+	state := gopassword.Generate(32)
+	authUrl := config.AuthCodeURL(state, oauth2.AccessTypeOnline)
 
 	// Do not follow redirections
 	client := http.Client{
@@ -105,27 +118,30 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, token string, sco
 
 	req, err := http.NewRequest("GET", authUrl, nil)
 	if err != nil {
-		return nil, errgo.Notef(err, "fail to build auth request")
+		return nil, errgo.NoteMask(err, "fail to build auth request", errgo.Any)
 	}
 
 	req.SetBasicAuth("", token)
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, errgo.Notef(err, "fail to make auth request")
+		return nil, errgo.NoteMask(err, "fail to make auth request", errgo.Any)
 	}
 
 	location := resp.Header.Get("Location")
 	respUrl, err := url.Parse(location)
 	if err != nil {
-		return nil, errgo.Notef(err, "fail to parse auth response")
+		return nil, errgo.NoteMask(err, "fail to parse auth response", errgo.Any)
 	}
-	fmt.Println(location)
+
+	receivedState := respUrl.Query().Get("state")
+	if state != receivedState {
+		return nil, errgo.New("Invalid state received")
+	}
 	code := respUrl.Query().Get("code")
-	fmt.Println(code)
 	tokens, err := config.Exchange(context.Background(), code)
 	if err != nil {
-		return nil, errgo.Notef(err, "fail to exchange key with auth service")
+		return nil, errgo.NoteMask(err, "fail to exchange key with auth service", errgo.Any)
 	}
 
 	return &OAuthTokenGenerator{
@@ -166,7 +182,7 @@ func (t *OAuthTokenGenerator) Source() oauth2.TokenSource {
 func (t *OAuthTokenGenerator) GetAccessToken() (string, error) {
 	token, err := t.Source().Token()
 	if err != nil {
-		return "", errgo.Notef(err, "fail to get oauth2 token")
+		return "", errgo.NoteMask(err, "fail to get oauth2 token", errgo.Any)
 	}
 	return token.AccessToken, nil
 }

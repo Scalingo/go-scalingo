@@ -30,10 +30,10 @@ type APIRequest struct {
 	Expected    Statuses
 	Params      interface{}
 	HTTPRequest *http.Request
-	Token       string
-	Username    string
-	Password    string
-	OTP         string
+	Token       string // Directly use a JWT
+	Username    string // Username for the OAuth generator (nil if you use a token)
+	Password    string // Password for the OAuth generator
+	OTP         string // OTP value
 }
 
 type Statuses []int
