@@ -39,7 +39,7 @@ type LoginParams struct {
 	Identifier string `json:"identifier"`
 	Password   string `json:"password"`
 	OTP        string `json:"otp"`
-	JWT        string `json:"otp"`
+	JWT        string `json:"jwt"`
 }
 
 type TokenResponse struct {
