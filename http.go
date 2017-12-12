@@ -30,7 +30,7 @@ type APIRequest struct {
 	Expected    Statuses
 	Params      interface{}
 	HTTPRequest *http.Request
-	Token       string // Directly use a JWT
+	Token       string // Directly use a Bearer token
 	Username    string // Username for the OAuth generator (nil if you use a token)
 	Password    string // Password for the OAuth generator
 	OTP         string // OTP value
