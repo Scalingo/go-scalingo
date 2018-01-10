@@ -18,6 +18,30 @@ type backendConfiguration struct {
 	httpClient     HTTPClient
 }
 
+type API interface {
+	AddonsService
+	AddonProvidersService
+	AppsService
+	CollaboratorsService
+	DeploymentsService
+	DomainsService
+	VariablesService
+	EventsService
+	KeysService
+	LoginService
+	LogsArcivesService
+	LogsService
+	NotificationPlatformsService
+	NotificationsService
+	NotifiersService
+	OperationsService
+	RunsService
+	SignUpService
+	SourcesService
+	TokensService
+	UsersService
+}
+
 type Client struct {
 	*AddonsClient
 	*AddonProvidersClient
