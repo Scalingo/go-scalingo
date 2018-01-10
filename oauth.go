@@ -27,7 +27,7 @@ type OAuthTokenGenerator struct {
 	Scopes      []string           `json:"scopes"`       // Requested OAuth scopes
 	RedirectURI string             `json:"redirect_uri"` // RedirectURI used for the OAauth token generation
 	App         *OAuthApplication  `json:"app"`          // Credentials to the OAUTH App
-	Client      *Client        `json:"-"`
+	Client      *Client            `json:"-"`
 }
 
 type OAuthApplication struct {
@@ -49,7 +49,7 @@ type TokenResponse struct {
 
 var ErrOTPRequired = errors.New("OTP Required")
 
-// Test if the authentication backend return an OTP Required error
+// IsOTPRequired tests if the authentication backend return an OTP Required error
 func (c *Client) IsOTPRequired(err error) bool {
 	rerr, ok := err.(*RequestFailedError)
 	if !ok {
@@ -64,7 +64,7 @@ func (c *Client) IsOTPRequired(err error) bool {
 
 func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *Token, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		NoAuth:   true,
 		Method:   "POST",
 		URL:      fmt.Sprintf("%s/v1/client/cli", c.AuthURL()),

@@ -10,84 +10,38 @@ type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
+type backendConfiguration struct {
+	TokenGenerator TokenGenerator
+	Endpoint       string
+	TLSConfig      *tls.Config
+	APIVersion     string
+	httpClient     HTTPClient
+}
+
 type Client struct {
-	AddonsClient
+	*AddonsClient
+	*AddonProvidersClient
+	*AppsClient
+	*CollaboratorsClient
+	*DeploymentsClient
+	*DomainsClient
+	*EventsClient
+	*KeysClient
+	*LoginClient
+	*LogsArchivesClient
+	*LogsClient
+	*NotificationPlatformsClient
+	*NotificationsClient
+	*NotifiersClient
+	*OperationsClient
+	*RunsClient
+	*SignUpClient
+	*SourcesClient
+	*TokensClient
+	*UsersClient
+	*VariablesClient
 
-	backendConfiguration
-
-	/*AddonProvidersList() ([]*AddonProvider, error)
-	AddonProviderPlansList(addon string) ([]*Plan, error)
-
-	AppsList() ([]*App, error)
-	AppsShow(appName string) (*App, error)
-	AppsDestroy(name string, currentName string) error
-	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
-	AppsCreate(opts AppsCreateOpts) (*App, error)
-	AppsStats(app string) (*AppStatsRes, error)
-	AppsPs(app string) ([]ContainerType, error)
-	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
-
-	CollaboratorsList(app string) ([]Collaborator, error)
-	CollaboratorAdd(app string, email string) (Collaborator, error)
-	CollaboratorRemove(app string, id string) error
-
-	DeploymentList(app string) ([]*Deployment, error)
-	Deployment(app string, deploy string) (*Deployment, error)
-	DeploymentLogs(deployURL string) (*http.Response, error)
-	DeploymentStream(deployURL string) (*websocket.Conn, error)
-	DeploymentsCreate(app string, params *DeploymentsCreateParams) (*Deployment, error)
-
-	DomainsList(app string) ([]Domain, error)
-	DomainsAdd(app string, d Domain) (Domain, error)
-	DomainsRemove(app string, id string) error
-	DomainsUpdate(app, id, cert, key string) (Domain, error)
-
-	VariablesList(app string) (Variables, error)
-	VariablesListWithoutAlias(app string) (Variables, error)
-	VariableSet(app string, name string, value string) (*Variable, int, error)
-	VariableMultipleSet(app string, variables Variables) (Variables, int, error)
-	VariableUnset(app string, id string) error
-
-	EventsList(app string, opts PaginationOpts) (Events, PaginationMeta, error)
-	UserEventsList(opts PaginationOpts) (Events, PaginationMeta, error)
-
-	KeysList() ([]Key, error)
-	KeysAdd(name string, content string) (*Key, error)
-	KeysDelete(id string) error
-
-	Login(email, password string) (*LoginResponse, error)
-
-	LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error)
-	LogsArchives(app string, page int) (*LogsArchivesResponse, error)
-	LogsURL(app string) (*http.Response, error)
-	Logs(logsURL string, n int, filter string) (*http.Response, error)
-
-	NotificationPlatformsList() ([]*NotificationPlatform, error)
-	NotificationPlatformByName(name string) ([]*NotificationPlatform, error)
-	NotificationsList(app string) ([]*Notification, error)
-	NotificationProvision(app, webHookURL string) (NotificationRes, error)
-	NotificationUpdate(app, ID, webHookURL string) (NotificationRes, error)
-	NotificationDestroy(app, ID string) error
-
-	NotifiersList(app string) (Notifiers, error)
-	NotifierProvision(app, notifierType string, params NotifierParams) (*Notifier, error)
-	NotifierByID(app, ID string) (*Notifier, error)
-	NotifierUpdate(app, ID, notifierType string, params NotifierParams) (*Notifier, error)
-	NotifierDestroy(app, ID string) error
-
-	OperationsShow(app string, opID string) (*Operation, error)
-
-	SignUp(email, password string) error
-	Self() (*User, error)
-	UpdateUser(params UpdateUserParams) (*User, error)
-
-	Run(opts RunOpts) (*RunRes, error)
-
-	SourcesCreate() (*Source, error)
-
-	TokensList() (Tokens, error)
-	CreateToken(t Token) (Token, error)
-	ShowToken(id int) (Token, error)*/
+	*backendConfiguration
 }
 
 type ClientConfig struct {
@@ -107,21 +61,55 @@ func NewClient(cfg ClientConfig) *Client {
 	if cfg.TLSConfig == nil {
 		cfg.TLSConfig = &tls.Config{}
 	}
-	return &Client{
-		TokenGenerator: cfg.TokenGenerator,
-		Endpoint:       cfg.Endpoint,
-		APIVersion:     defaultAPIVersion,
-		TLSConfig:      cfg.TLSConfig,
-		httpClient: &http.Client{
-			Timeout: cfg.Timeout,
-			Transport: &http.Transport{
-				Proxy:           http.ProxyFromEnvironment,
-				TLSClientConfig: cfg.TLSConfig,
+	c := Client{
+		backendConfiguration: &backendConfiguration{
+			TokenGenerator: cfg.TokenGenerator,
+			Endpoint:       cfg.Endpoint,
+			APIVersion:     defaultAPIVersion,
+			TLSConfig:      cfg.TLSConfig,
+			httpClient: &http.Client{
+				Timeout: cfg.Timeout,
+				Transport: &http.Transport{
+					Proxy:           http.ProxyFromEnvironment,
+					TLSClientConfig: cfg.TLSConfig,
+				},
 			},
 		},
 	}
+
+	c.init()
+
+	return &c
 }
 
 func (c *Client) HTTPClient() HTTPClient {
 	return c.httpClient
+}
+
+func (c *backendConfiguration) HTTPClient() HTTPClient {
+	return c.httpClient
+}
+
+func (c *Client) init() {
+	c.AddonsClient = &AddonsClient{subresourceClient{c.backendConfiguration}}
+	c.AddonProvidersClient = &AddonProvidersClient{c.backendConfiguration}
+	c.AppsClient = &AppsClient{c.backendConfiguration}
+	c.CollaboratorsClient = &CollaboratorsClient{subresourceClient{c.backendConfiguration}}
+	c.DeploymentsClient = &DeploymentsClient{c.backendConfiguration}
+	c.DomainsClient = &DomainsClient{subresourceClient{c.backendConfiguration}}
+	c.EventsClient = &EventsClient{subresourceClient{c.backendConfiguration}}
+	c.KeysClient = &KeysClient{c.backendConfiguration}
+	c.LoginClient = &LoginClient{c.backendConfiguration}
+	c.LogsArchivesClient = &LogsArchivesClient{c.backendConfiguration}
+	c.LogsClient = &LogsClient{c.backendConfiguration}
+	c.NotificationPlatformsClient = &NotificationPlatformsClient{c.backendConfiguration}
+	c.NotificationsClient = &NotificationsClient{subresourceClient{c.backendConfiguration}}
+	c.NotifiersClient = &NotifiersClient{subresourceClient{c.backendConfiguration}}
+	c.OperationsClient = &OperationsClient{subresourceClient{c.backendConfiguration}}
+	c.RunsClient = &RunsClient{c.backendConfiguration}
+	c.SignUpClient = &SignUpClient{c.backendConfiguration}
+	c.TokensClient = &TokensClient{c.backendConfiguration}
+	c.UsersClient = &UsersClient{c.backendConfiguration}
+	c.VariablesClient = &VariablesClient{subresourceClient{c.backendConfiguration}}
+	c.SourcesClient = &SourcesClient{c.backendConfiguration}
 }

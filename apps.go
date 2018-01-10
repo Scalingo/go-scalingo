@@ -7,6 +7,21 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
+type AppsService interface {
+	AppsList() ([]*App, error)
+	AppsShow(appName string) (*App, error)
+	AppsDestroy(name string, currentName string) error
+	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
+	AppsCreate(opts AppsCreateOpts) (*App, error)
+	AppsStats(app string) (*AppStatsRes, error)
+	AppsPs(app string) ([]ContainerType, error)
+	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
+}
+
+type AppsClient struct {
+	*backendConfiguration
+}
+
 type ContainerType struct {
 	Name    string `json:"name"`
 	Amount  int    `json:"amount"`
@@ -75,9 +90,9 @@ type CreateAppParams struct {
 	App *App `json:"app"`
 }
 
-func (c *Client) AppsList() ([]*App, error) {
+func (c *AppsClient) AppsList() ([]*App, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Endpoint: "/apps",
 	}
 
@@ -95,9 +110,9 @@ func (c *Client) AppsList() ([]*App, error) {
 	return appsMap["apps"], nil
 }
 
-func (c *Client) AppsShow(appName string) (*App, error) {
+func (c *AppsClient) AppsShow(appName string) (*App, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Endpoint: "/apps/" + appName,
 	}
 	res, err := req.Do()
@@ -114,9 +129,9 @@ func (c *Client) AppsShow(appName string) (*App, error) {
 	return appMap["app"], nil
 }
 
-func (c *Client) AppsDestroy(name string, currentName string) error {
+func (c *AppsClient) AppsDestroy(name string, currentName string) error {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Method:   "DELETE",
 		Endpoint: "/apps/" + name,
 		Expected: Statuses{204},
@@ -133,9 +148,9 @@ func (c *Client) AppsDestroy(name string, currentName string) error {
 	return nil
 }
 
-func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error) {
+func (c *AppsClient) AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/restart",
 		Expected: Statuses{202},
@@ -144,9 +159,9 @@ func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Respon
 	return req.Do()
 }
 
-func (c *Client) AppsCreate(opts AppsCreateOpts) (*App, error) {
+func (c *AppsClient) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Method:   "POST",
 		Endpoint: "/apps",
 		Expected: Statuses{201},
@@ -167,9 +182,9 @@ func (c *Client) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	return params.App, nil
 }
 
-func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
+func (c *AppsClient) AppsStats(app string) (*AppStatsRes, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Endpoint: "/apps/" + app + "/stats",
 	}
 	res, err := req.Do()
@@ -186,9 +201,9 @@ func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
 	return &stats, nil
 }
 
-func (c *Client) AppsPs(app string) ([]ContainerType, error) {
+func (c *AppsClient) AppsPs(app string) ([]ContainerType, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Endpoint: "/apps/" + app + "/containers",
 	}
 	res, err := req.Do()
@@ -205,9 +220,9 @@ func (c *Client) AppsPs(app string) ([]ContainerType, error) {
 	return containersRes.Containers, nil
 }
 
-func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response, error) {
+func (c *AppsClient) AppsScale(app string, params *AppsScaleParams) (*http.Response, error) {
 	req := &APIRequest{
-		Client:   c,
+		Client:   c.backendConfiguration,
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scale",
 		Params:   params,

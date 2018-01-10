@@ -1,12 +1,11 @@
 package scalingo
 
 import (
-	"crypto/tls"
-
 	"gopkg.in/errgo.v1"
 )
 
-type backend interface {
+// TODO Might be useless
+type subresourceRequester interface {
 	subresourceGet(app, subresource, id string, payload, data interface{}) error
 	subresourceList(app, subresource string, payload, data interface{}) error
 	subresourceAdd(app, subresource string, payload, data interface{}) error
@@ -15,15 +14,11 @@ type backend interface {
 	doSubresourceRequest(req *APIRequest, data interface{}) error
 }
 
-type backendConfiguration struct {
-	TokenGenerator TokenGenerator
-	Endpoint       string
-	TLSConfig      *tls.Config
-	APIVersion     string
-	httpClient     HTTPClient
+type subresourceClient struct {
+	*backendConfiguration
 }
 
-func (c *backendConfiguration) subresourceGet(app, subresource, id string, payload, data interface{}) error {
+func (c subresourceClient) subresourceGet(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "GET",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -31,7 +26,7 @@ func (c *backendConfiguration) subresourceGet(app, subresource, id string, paylo
 	}, data)
 }
 
-func (c *backendConfiguration) subresourceList(app, subresource string, payload, data interface{}) error {
+func (c subresourceClient) subresourceList(app, subresource string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "GET",
 		Endpoint: "/apps/" + app + "/" + subresource,
@@ -39,7 +34,7 @@ func (c *backendConfiguration) subresourceList(app, subresource string, payload,
 	}, data)
 }
 
-func (c *backendConfiguration) subresourceAdd(app, subresource string, payload, data interface{}) error {
+func (c subresourceClient) subresourceAdd(app, subresource string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/" + subresource,
@@ -48,7 +43,7 @@ func (c *backendConfiguration) subresourceAdd(app, subresource string, payload, 
 	}, data)
 }
 
-func (c *backendConfiguration) subresourceDelete(app string, subresource string, id string) error {
+func (c subresourceClient) subresourceDelete(app string, subresource string, id string) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -56,7 +51,7 @@ func (c *backendConfiguration) subresourceDelete(app string, subresource string,
 	}, nil)
 }
 
-func (c *backendConfiguration) subresourceUpdate(app, subresource, id string, payload, data interface{}) error {
+func (c subresourceClient) subresourceUpdate(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "PATCH",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -64,8 +59,8 @@ func (c *backendConfiguration) subresourceUpdate(app, subresource, id string, pa
 	}, data)
 }
 
-func (c *backendConfiguration) doSubresourceRequest(req *APIRequest, data interface{}) error {
-	req.Client = c
+func (c subresourceClient) doSubresourceRequest(req *APIRequest, data interface{}) error {
+	req.Client = c.backendConfiguration
 	res, err := req.Do()
 	if err != nil {
 		return errgo.Mask(err, errgo.Any)
