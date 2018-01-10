@@ -22,7 +22,7 @@ var (
 )
 
 type APIRequest struct {
-	Client      *clientImpl
+	Client      *Client
 	NoAuth      bool
 	URL         string
 	Method      string
@@ -49,7 +49,7 @@ func (req *APIRequest) FillDefaultValues() error {
 		req.Params = make(map[string]interface{})
 	}
 	if req.Client == nil {
-		req.Client = &clientImpl{Endpoint: defaultEndpoint, APIVersion: defaultAPIVersion}
+		req.Client = &Client{Endpoint: defaultEndpoint, APIVersion: defaultAPIVersion}
 	}
 
 	if !req.NoAuth {

@@ -75,7 +75,7 @@ type CreateAppParams struct {
 	App *App `json:"app"`
 }
 
-func (c *clientImpl) AppsList() ([]*App, error) {
+func (c *Client) AppsList() ([]*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps",
@@ -95,7 +95,7 @@ func (c *clientImpl) AppsList() ([]*App, error) {
 	return appsMap["apps"], nil
 }
 
-func (c *clientImpl) AppsShow(appName string) (*App, error) {
+func (c *Client) AppsShow(appName string) (*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + appName,
@@ -114,7 +114,7 @@ func (c *clientImpl) AppsShow(appName string) (*App, error) {
 	return appMap["app"], nil
 }
 
-func (c *clientImpl) AppsDestroy(name string, currentName string) error {
+func (c *Client) AppsDestroy(name string, currentName string) error {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "DELETE",
@@ -133,7 +133,7 @@ func (c *clientImpl) AppsDestroy(name string, currentName string) error {
 	return nil
 }
 
-func (c *clientImpl) AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error) {
+func (c *Client) AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
@@ -144,7 +144,7 @@ func (c *clientImpl) AppsRestart(app string, scope *AppsRestartParams) (*http.Re
 	return req.Do()
 }
 
-func (c *clientImpl) AppsCreate(opts AppsCreateOpts) (*App, error) {
+func (c *Client) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
@@ -167,7 +167,7 @@ func (c *clientImpl) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	return params.App, nil
 }
 
-func (c *clientImpl) AppsStats(app string) (*AppStatsRes, error) {
+func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/stats",
@@ -186,7 +186,7 @@ func (c *clientImpl) AppsStats(app string) (*AppStatsRes, error) {
 	return &stats, nil
 }
 
-func (c *clientImpl) AppsPs(app string) ([]ContainerType, error) {
+func (c *Client) AppsPs(app string) ([]ContainerType, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/containers",
@@ -205,7 +205,7 @@ func (c *clientImpl) AppsPs(app string) ([]ContainerType, error) {
 	return containersRes.Containers, nil
 }
 
-func (c *clientImpl) AppsScale(app string, params *AppsScaleParams) (*http.Response, error) {
+func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",

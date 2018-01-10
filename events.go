@@ -9,7 +9,7 @@ type EventsRes struct {
 	}
 }
 
-func (c *clientImpl) EventsList(app string, opts PaginationOpts) (Events, PaginationMeta, error) {
+func (c *Client) EventsList(app string, opts PaginationOpts) (Events, PaginationMeta, error) {
 	var eventsRes EventsRes
 	err := c.subresourceList(app, "events", opts.ToMap(), &eventsRes)
 	if err != nil {
@@ -22,7 +22,7 @@ func (c *clientImpl) EventsList(app string, opts PaginationOpts) (Events, Pagina
 	return events, eventsRes.Meta.PaginationMeta, nil
 }
 
-func (c *clientImpl) UserEventsList(opts PaginationOpts) (Events, PaginationMeta, error) {
+func (c *Client) UserEventsList(opts PaginationOpts) (Events, PaginationMeta, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/events",

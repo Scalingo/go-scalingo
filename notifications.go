@@ -17,7 +17,7 @@ type NotificationsRes struct {
 	Notifications []*Notification `json:"notifications"`
 }
 
-func (c *clientImpl) NotificationsList(app string) ([]*Notification, error) {
+func (c *Client) NotificationsList(app string) ([]*Notification, error) {
 	var notificationsRes NotificationsRes
 	err := c.subresourceList(app, "notifications", nil, &notificationsRes)
 	if err != nil {
@@ -26,7 +26,7 @@ func (c *clientImpl) NotificationsList(app string) ([]*Notification, error) {
 	return notificationsRes.Notifications, nil
 }
 
-func (c *clientImpl) NotificationProvision(app, webHookURL string) (NotificationRes, error) {
+func (c *Client) NotificationProvision(app, webHookURL string) (NotificationRes, error) {
 	var notificationRes NotificationRes
 	err := c.subresourceAdd(app, "notifications", NotificationRes{Notification: Notification{WebHookURL: webHookURL}}, &notificationRes)
 	if err != nil {
@@ -35,7 +35,7 @@ func (c *clientImpl) NotificationProvision(app, webHookURL string) (Notification
 	return notificationRes, nil
 }
 
-func (c *clientImpl) NotificationUpdate(app, ID, webHookURL string) (NotificationRes, error) {
+func (c *Client) NotificationUpdate(app, ID, webHookURL string) (NotificationRes, error) {
 	var notificationRes NotificationRes
 	err := c.subresourceUpdate(app, "notifications", ID, NotificationRes{Notification: Notification{WebHookURL: webHookURL, Active: true}}, &notificationRes)
 	if err != nil {
@@ -44,6 +44,6 @@ func (c *clientImpl) NotificationUpdate(app, ID, webHookURL string) (Notificatio
 	return notificationRes, nil
 }
 
-func (c *clientImpl) NotificationDestroy(app, ID string) error {
+func (c *Client) NotificationDestroy(app, ID string) error {
 	return c.subresourceDelete(app, "notifications", ID)
 }

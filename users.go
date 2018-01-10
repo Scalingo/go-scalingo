@@ -16,7 +16,7 @@ type SelfResponse struct {
 	User *User `json:"user"`
 }
 
-func (c *clientImpl) Self() (*User, error) {
+func (c *Client) Self() (*User, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/users/self",

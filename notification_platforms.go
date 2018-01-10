@@ -23,7 +23,7 @@ type PlatformsRes struct {
 	NotificationPlatforms []*NotificationPlatform `json:"notification_platforms"`
 }
 
-func (c *clientImpl) NotificationPlatformsList() ([]*NotificationPlatform, error) {
+func (c *Client) NotificationPlatformsList() ([]*NotificationPlatform, error) {
 	req := &APIRequest{
 		Client:   c,
 		NoAuth:   true,
@@ -44,7 +44,7 @@ func (c *clientImpl) NotificationPlatformsList() ([]*NotificationPlatform, error
 	return response.NotificationPlatforms, nil
 }
 
-func (c *clientImpl) NotificationPlatformByName(name string) ([]*NotificationPlatform, error) {
+func (c *Client) NotificationPlatformByName(name string) ([]*NotificationPlatform, error) {
 	debug.Printf("[NotificationPlatformByName] name: %s", name)
 	req := &APIRequest{
 		Client:   c,

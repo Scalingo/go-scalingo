@@ -23,7 +23,7 @@ func (op *Operation) ElapsedDuration() float64 {
 	return op.FinishedAt.Sub(op.CreatedAt).Seconds()
 }
 
-func (c *clientImpl) OperationsShow(app string, opID string) (*Operation, error) {
+func (c *Client) OperationsShow(app string, opID string) (*Operation, error) {
 	var opRes OperationResponse
 	err := c.subresourceGet(app, "operations", opID, nil, &opRes)
 	if err != nil {

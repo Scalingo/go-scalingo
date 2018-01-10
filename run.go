@@ -20,7 +20,7 @@ type RunRes struct {
 	AttachURL string     `json:"attach_url"`
 }
 
-func (c *clientImpl) Run(opts RunOpts) (*RunRes, error) {
+func (c *Client) Run(opts RunOpts) (*RunRes, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",

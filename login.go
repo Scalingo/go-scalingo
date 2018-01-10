@@ -20,7 +20,7 @@ func (err *LoginError) Error() string {
 	return err.Message
 }
 
-func (c *clientImpl) Login(email, password string) (*LoginResponse, error) {
+func (c *Client) Login(email, password string) (*LoginResponse, error) {
 	fmt.Println("[GO-SCALINGO] You are using the Login method. This method is deprecated, please use the OAuth flow")
 	req := &APIRequest{
 		Client:   c,

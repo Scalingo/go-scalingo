@@ -24,7 +24,7 @@ type TokenResp struct {
 	Token Token `json:"token"`
 }
 
-func (c *clientImpl) TokensList() (Tokens, error) {
+func (c *Client) TokensList() (Tokens, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/tokens",
@@ -45,7 +45,7 @@ func (c *clientImpl) TokensList() (Tokens, error) {
 	return tokens.Tokens, nil
 }
 
-func (c *clientImpl) CreateToken(t Token) (Token, error) {
+func (c *Client) CreateToken(t Token) (Token, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/tokens",
@@ -68,7 +68,7 @@ func (c *clientImpl) CreateToken(t Token) (Token, error) {
 	return token.Token, nil
 }
 
-func (c *clientImpl) ShowToken(id int) (Token, error) {
+func (c *Client) ShowToken(id int) (Token, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: fmt.Sprintf("/tokens/%s", id),

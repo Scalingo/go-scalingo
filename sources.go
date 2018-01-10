@@ -11,7 +11,7 @@ type Source struct {
 	UploadURL   string `json:"upload_url"`
 }
 
-func (c *clientImpl) SourcesCreate() (*Source, error) {
+func (c *Client) SourcesCreate() (*Source, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",

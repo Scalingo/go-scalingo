@@ -72,7 +72,7 @@ type AuthStruct struct {
 	Data AuthenticationData `json:"data"`
 }
 
-func (c *clientImpl) DeploymentList(app string) ([]*Deployment, error) {
+func (c *Client) DeploymentList(app string) ([]*Deployment, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/deployments",
@@ -96,7 +96,7 @@ func (c *clientImpl) DeploymentList(app string) ([]*Deployment, error) {
 	return deployments.Deployments, nil
 }
 
-func (c *clientImpl) Deployment(app string, deploy string) (*Deployment, error) {
+func (c *Client) Deployment(app string, deploy string) (*Deployment, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/deployments/" + deploy,
@@ -120,7 +120,7 @@ func (c *clientImpl) Deployment(app string, deploy string) (*Deployment, error) 
 	return deploymentMap["deployment"], nil
 }
 
-func (c *clientImpl) DeploymentLogs(deployURL string) (*http.Response, error) {
+func (c *Client) DeploymentLogs(deployURL string) (*http.Response, error) {
 	u, err := url.Parse(deployURL)
 	if err != nil {
 		return nil, errgo.Mask(err, errgo.Any)
@@ -135,7 +135,7 @@ func (c *clientImpl) DeploymentLogs(deployURL string) (*http.Response, error) {
 	return req.Do()
 }
 
-func (c *clientImpl) DeploymentStream(deployURL string) (*websocket.Conn, error) {
+func (c *Client) DeploymentStream(deployURL string) (*websocket.Conn, error) {
 	token, err := c.TokenGenerator.GetAccessToken()
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to generate token")
@@ -163,7 +163,7 @@ func (c *clientImpl) DeploymentStream(deployURL string) (*websocket.Conn, error)
 	return conn, nil
 }
 
-func (c *clientImpl) DeploymentsCreate(app string, params *DeploymentsCreateParams) (*Deployment, error) {
+func (c *Client) DeploymentsCreate(app string, params *DeploymentsCreateParams) (*Deployment, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",

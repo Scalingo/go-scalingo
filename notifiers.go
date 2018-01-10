@@ -33,7 +33,7 @@ type notifiersRequestRes struct {
 	Notifiers []*Notifier `json:"notifiers"`
 }
 
-func (c *clientImpl) NotifiersList(app string) (Notifiers, error) {
+func (c *Client) NotifiersList(app string) (Notifiers, error) {
 	var notifiersRes notifiersRequestRes
 	err := c.subresourceList(app, "notifiers", nil, &notifiersRes)
 	if err != nil {
@@ -46,7 +46,7 @@ func (c *clientImpl) NotifiersList(app string) (Notifiers, error) {
 	return notifiers, nil
 }
 
-func (c *clientImpl) NotifierProvision(app, notifierType string, params NotifierParams) (*Notifier, error) {
+func (c *Client) NotifierProvision(app, notifierType string, params NotifierParams) (*Notifier, error) {
 	var notifierRes notifierRequestRes
 	notifier := NewOutputNotifier(notifierType, params)
 	notifierRequestParams := &notifierRequestParams{notifier}
@@ -59,7 +59,7 @@ func (c *clientImpl) NotifierProvision(app, notifierType string, params Notifier
 	return &notifierRes.Notifier, nil
 }
 
-func (c *clientImpl) NotifierByID(app, ID string) (*Notifier, error) {
+func (c *Client) NotifierByID(app, ID string) (*Notifier, error) {
 	var notifierRes notifierRequestRes
 	err := c.subresourceGet(app, "notifiers", ID, nil, &notifierRes)
 	if err != nil {
@@ -69,7 +69,7 @@ func (c *clientImpl) NotifierByID(app, ID string) (*Notifier, error) {
 	return &notifierRes.Notifier, nil
 }
 
-func (c *clientImpl) NotifierUpdate(app, ID, notifierType string, params NotifierParams) (*Notifier, error) {
+func (c *Client) NotifierUpdate(app, ID, notifierType string, params NotifierParams) (*Notifier, error) {
 	var notifierRes notifierRequestRes
 	notifier := NewOutputNotifier(notifierType, params)
 	notifierRequestParams := &notifierRequestParams{notifier}
@@ -83,6 +83,6 @@ func (c *clientImpl) NotifierUpdate(app, ID, notifierType string, params Notifie
 	return &notifierRes.Notifier, nil
 }
 
-func (c *clientImpl) NotifierDestroy(app, ID string) error {
+func (c *Client) NotifierDestroy(app, ID string) error {
 	return c.subresourceDelete(app, "notifiers", ID)
 }

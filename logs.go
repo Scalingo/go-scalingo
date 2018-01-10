@@ -7,7 +7,7 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-func (c *clientImpl) LogsURL(app string) (*http.Response, error) {
+func (c *Client) LogsURL(app string) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/logs",
@@ -15,7 +15,7 @@ func (c *clientImpl) LogsURL(app string) (*http.Response, error) {
 	return req.Do()
 }
 
-func (c *clientImpl) Logs(logsURL string, n int, filter string) (*http.Response, error) {
+func (c *Client) Logs(logsURL string, n int, filter string) (*http.Response, error) {
 	u, err := url.Parse(logsURL)
 	if err != nil {
 		return nil, errgo.Mask(err)

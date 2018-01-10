@@ -12,7 +12,7 @@ type KeyIndex struct {
 	Keys []Key `json:"keys"`
 }
 
-func (c *clientImpl) KeysList() ([]Key, error) {
+func (c *Client) KeysList() ([]Key, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/account/keys",
@@ -32,7 +32,7 @@ func (c *clientImpl) KeysList() ([]Key, error) {
 	return ki.Keys, nil
 }
 
-func (c *clientImpl) KeysAdd(name string, content string) (*Key, error) {
+func (c *Client) KeysAdd(name string, content string) (*Key, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
@@ -60,7 +60,7 @@ func (c *clientImpl) KeysAdd(name string, content string) (*Key, error) {
 	return key, nil
 }
 
-func (c *clientImpl) KeysDelete(id string) error {
+func (c *Client) KeysDelete(id string) error {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "DELETE",

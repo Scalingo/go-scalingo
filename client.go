@@ -4,21 +4,18 @@ import (
 	"crypto/tls"
 	"net/http"
 	"time"
-
-	"golang.org/x/net/websocket"
 )
 
 type HTTPClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
-type Client interface {
-	AddonsList(app string) ([]*Addon, error)
-	AddonProvision(app, addon, planID string) (AddonRes, error)
-	AddonDestroy(app, addonID string) error
-	AddonUpgrade(app, addonID, planID string) (AddonRes, error)
+type Client struct {
+	AddonsClient
 
-	AddonProvidersList() ([]*AddonProvider, error)
+	backendConfiguration
+
+	/*AddonProvidersList() ([]*AddonProvider, error)
 	AddonProviderPlansList(addon string) ([]*Plan, error)
 
 	AppsList() ([]*App, error)
@@ -90,15 +87,7 @@ type Client interface {
 
 	TokensList() (Tokens, error)
 	CreateToken(t Token) (Token, error)
-	ShowToken(id int) (Token, error)
-}
-
-type clientImpl struct {
-	TokenGenerator TokenGenerator
-	Endpoint       string
-	TLSConfig      *tls.Config
-	APIVersion     string
-	httpClient     HTTPClient
+	ShowToken(id int) (Token, error)*/
 }
 
 type ClientConfig struct {
@@ -108,7 +97,7 @@ type ClientConfig struct {
 	TokenGenerator TokenGenerator
 }
 
-func NewClient(cfg ClientConfig) Client {
+func NewClient(cfg ClientConfig) *Client {
 	if cfg.Timeout == 0 {
 		cfg.Timeout = 30 * time.Second
 	}
@@ -118,7 +107,7 @@ func NewClient(cfg ClientConfig) Client {
 	if cfg.TLSConfig == nil {
 		cfg.TLSConfig = &tls.Config{}
 	}
-	return &clientImpl{
+	return &Client{
 		TokenGenerator: cfg.TokenGenerator,
 		Endpoint:       cfg.Endpoint,
 		APIVersion:     defaultAPIVersion,
@@ -133,6 +122,6 @@ func NewClient(cfg ClientConfig) Client {
 	}
 }
 
-func (c *clientImpl) HTTPClient() HTTPClient {
+func (c *Client) HTTPClient() HTTPClient {
 	return c.httpClient
 }
