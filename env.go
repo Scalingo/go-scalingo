@@ -27,15 +27,15 @@ type VariableSetParams struct {
 	Variable *Variable `json:"variable"`
 }
 
-func (c *Client) VariablesList(app string) (Variables, error) {
+func (c *clientImpl) VariablesList(app string) (Variables, error) {
 	return c.variableList(app, true)
 }
 
-func (c *Client) VariablesListWithoutAlias(app string) (Variables, error) {
+func (c *clientImpl) VariablesListWithoutAlias(app string) (Variables, error) {
 	return c.variableList(app, false)
 }
 
-func (c *Client) variableList(app string, aliases bool) (Variables, error) {
+func (c *clientImpl) variableList(app string, aliases bool) (Variables, error) {
 	var variablesRes VariablesRes
 	err := c.subresourceList(app, "variables", map[string]bool{"aliases": aliases}, &variablesRes)
 	if err != nil {
@@ -44,7 +44,7 @@ func (c *Client) variableList(app string, aliases bool) (Variables, error) {
 	return variablesRes.Variables, nil
 }
 
-func (c *Client) VariableSet(app string, name string, value string) (*Variable, int, error) {
+func (c *clientImpl) VariableSet(app string, name string, value string) (*Variable, int, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "POST",
@@ -72,7 +72,7 @@ func (c *Client) VariableSet(app string, name string, value string) (*Variable, 
 	return params.Variable, res.StatusCode, nil
 }
 
-func (c *Client) VariableMultipleSet(app string, variables Variables) (Variables, int, error) {
+func (c *clientImpl) VariableMultipleSet(app string, variables Variables) (Variables, int, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "PUT",
@@ -97,6 +97,6 @@ func (c *Client) VariableMultipleSet(app string, variables Variables) (Variables
 	return params.Variables, res.StatusCode, nil
 }
 
-func (c *Client) VariableUnset(app string, id string) error {
+func (c *clientImpl) VariableUnset(app string, id string) error {
 	return c.subresourceDelete(app, "variables", id)
 }

@@ -12,7 +12,7 @@ type UpdateUserResponse struct {
 	User *User `json:"user"`
 }
 
-func (c *Client) UpdateUser(params UpdateUserParams) (*User, error) {
+func (c *clientImpl) UpdateUser(params UpdateUserParams) (*User, error) {
 	req := &APIRequest{
 		Client:   c,
 		Method:   "PATCH",

@@ -21,7 +21,7 @@ type LogsArchivesResponse struct {
 	Archives   []LogsArchiveItem `json:"archives"`
 }
 
-func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error) {
+func (c *clientImpl) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error) {
 	req := &APIRequest{
 		Client:   c,
 		Endpoint: "/apps/" + app + "/logs_archives",
@@ -49,7 +49,7 @@ func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesR
 	return &logsRes, nil
 }
 
-func (c *Client) LogsArchives(app string, page int) (*LogsArchivesResponse, error) {
+func (c *clientImpl) LogsArchives(app string, page int) (*LogsArchivesResponse, error) {
 	if page < 1 {
 		return nil, errgo.New("Page must be greater than 0.")
 	}

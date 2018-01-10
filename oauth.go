@@ -17,7 +17,7 @@ const defaultAuthUrl = "https://auth.scalingo.com"
 
 type TokenGenerator interface {
 	GetAccessToken() (string, error)
-	SetClient(*Client)
+	SetClient(*clientImpl)
 }
 
 type OAuthTokenGenerator struct {
@@ -27,7 +27,7 @@ type OAuthTokenGenerator struct {
 	Scopes      []string           `json:"scopes"`       // Requested OAuth scopes
 	RedirectURI string             `json:"redirect_uri"` // RedirectURI used for the OAauth token generation
 	App         *OAuthApplication  `json:"app"`          // Credentials to the OAUTH App
-	Client      *Client            `json:"-"`
+	Client      *clientImpl        `json:"-"`
 }
 
 type OAuthApplication struct {
@@ -50,7 +50,7 @@ type TokenResponse struct {
 var ErrOTPRequired = errors.New("OTP Required")
 
 // Test if the authentication backend return an OTP Required error
-func (c *Client) IsOTPRequired(err error) bool {
+func (c *clientImpl) IsOTPRequired(err error) bool {
 	rerr, ok := err.(*RequestFailedError)
 	if !ok {
 		return false
@@ -62,7 +62,7 @@ func (c *Client) IsOTPRequired(err error) bool {
 	return false
 }
 
-func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *Token, error) {
+func (c *clientImpl) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *Token, error) {
 	req := &APIRequest{
 		Client:   c,
 		NoAuth:   true,
@@ -97,7 +97,7 @@ func (c *Client) GetOAuthCredentials(params LoginParams) (*OAuthApplication, *To
 	return infos.App, infos.Token, nil
 }
 
-func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, token string, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
+func (c *clientImpl) GetOAuthTokenGenerator(app *OAuthApplication, token string, scopes []string, redirectURL string) (*OAuthTokenGenerator, error) {
 	config := &oauth2.Config{
 		ClientID:     app.UID,
 		ClientSecret: app.Secret,
@@ -158,7 +158,7 @@ func (c *Client) GetOAuthTokenGenerator(app *OAuthApplication, token string, sco
 	}, nil
 }
 
-func (c *Client) AuthURL() string {
+func (c *clientImpl) AuthURL() string {
 	if os.Getenv("SCALINGO_AUTH_URL") != "" {
 		return os.Getenv("SCALINGO_AUTH_URL")
 	}
@@ -197,6 +197,6 @@ func (t *OAuthTokenGenerator) GetAccessToken() (string, error) {
 	return token.AccessToken, nil
 }
 
-func (t *OAuthTokenGenerator) SetClient(c *Client) {
+func (t *OAuthTokenGenerator) SetClient(c *clientImpl) {
 	t.Client = c
 }

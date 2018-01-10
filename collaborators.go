@@ -17,7 +17,7 @@ type CollaboratorRes struct {
 	Collaborator Collaborator `json:"collaborator"`
 }
 
-func (c *Client) CollaboratorsList(app string) ([]Collaborator, error) {
+func (c *clientImpl) CollaboratorsList(app string) ([]Collaborator, error) {
 	var collaboratorsRes CollaboratorsRes
 	err := c.subresourceList(app, "collaborators", nil, &collaboratorsRes)
 	if err != nil {
@@ -26,7 +26,7 @@ func (c *Client) CollaboratorsList(app string) ([]Collaborator, error) {
 	return collaboratorsRes.Collaborators, nil
 }
 
-func (c *Client) CollaboratorAdd(app string, email string) (Collaborator, error) {
+func (c *clientImpl) CollaboratorAdd(app string, email string) (Collaborator, error) {
 	var collaboratorRes CollaboratorRes
 	err := c.subresourceAdd(app, "collaborators", CollaboratorRes{
 		Collaborator: Collaborator{Email: email},
@@ -37,6 +37,6 @@ func (c *Client) CollaboratorAdd(app string, email string) (Collaborator, error)
 	return collaboratorRes.Collaborator, nil
 }
 
-func (c *Client) CollaboratorRemove(app string, id string) error {
+func (c *clientImpl) CollaboratorRemove(app string, id string) error {
 	return c.subresourceDelete(app, "collaborators", id)
 }
