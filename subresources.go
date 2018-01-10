@@ -4,16 +4,6 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-// TODO Might be useless
-type subresourceRequester interface {
-	subresourceGet(app, subresource, id string, payload, data interface{}) error
-	subresourceList(app, subresource string, payload, data interface{}) error
-	subresourceAdd(app, subresource string, payload, data interface{}) error
-	subresourceDelete(app string, subresource string, id string) error
-	subresourceUpdate(app, subresource, id string, payload, data interface{}) error
-	doSubresourceRequest(req *APIRequest, data interface{}) error
-}
-
 type subresourceClient struct {
 	*backendConfiguration
 }
