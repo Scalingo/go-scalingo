@@ -5,7 +5,7 @@ type StaticTokenGenerator struct {
 	client *Client
 }
 
-func (c *Client) GetStaticTokenGenerator(token string) *StaticTokenGenerator {
+func GetStaticTokenGenerator(token string) *StaticTokenGenerator {
 	return &StaticTokenGenerator{
 		token: token,
 	}
