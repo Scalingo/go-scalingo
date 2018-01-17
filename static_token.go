@@ -1,15 +1,24 @@
 package scalingo
 
 // StaticTokenGenerator is an implementation of TokenGenerator which always return the same token.
-// This token is provided in the GetStaticTokenGenerator function.
+// This token is provided to the constructor. The TokenGenerator is used by the Client to
+// authenticate to the Scalingo API.
+//
+// Usage:
+//		t := GetStaticTokenGenerator("my-token")
+//		client := NewClient(ClientConfig{
+//			TokenGenerator: t,
+//		})
+//
+// Any subsequent calls to the Scalingo API will use this token to authenticate.
 type StaticTokenGenerator struct {
 	token  string
 	client *Client
 }
 
-// GetStaticTokenGenerator returns a new StaticTokenGenerator. The only argument is the token that
+// NewStaticTokenGenerator returns a new StaticTokenGenerator. The only argument is the token that
 // will always be returned by this generator.
-func GetStaticTokenGenerator(token string) *StaticTokenGenerator {
+func NewStaticTokenGenerator(token string) *StaticTokenGenerator {
 	return &StaticTokenGenerator{
 		token: token,
 	}
