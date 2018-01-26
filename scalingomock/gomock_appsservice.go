@@ -85,6 +85,18 @@ func (mr *MockAppsServiceMockRecorder) AppsPs(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsPs", reflect.TypeOf((*MockAppsService)(nil).AppsPs), arg0)
 }
 
+// AppsRename mocks base method
+func (m *MockAppsService) AppsRename(arg0, arg1 string) error {
+	ret := m.ctrl.Call(m, "AppsRename", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AppsRename indicates an expected call of AppsRename
+func (mr *MockAppsServiceMockRecorder) AppsRename(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRename", reflect.TypeOf((*MockAppsService)(nil).AppsRename), arg0, arg1)
+}
+
 // AppsRestart mocks base method
 func (m *MockAppsService) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) (*http.Response, error) {
 	ret := m.ctrl.Call(m, "AppsRestart", arg0, arg1)
