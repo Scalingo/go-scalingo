@@ -11,6 +11,7 @@ type AppsService interface {
 	AppsList() ([]*App, error)
 	AppsShow(appName string) (*App, error)
 	AppsDestroy(name string, currentName string) error
+	AppsRename(name string, newName string) error
 	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
@@ -57,6 +58,10 @@ type AppsCreateOpts struct {
 	ParentApp string `json:"parent_id"`
 }
 
+type AppResponse struct {
+	App *App `json:"app"`
+}
+
 type AppsRestartParams struct {
 	Scope []string `json:"scope"`
 }
@@ -84,10 +89,6 @@ type App struct {
 
 func (app App) String() string {
 	return app.Name
-}
-
-type CreateAppParams struct {
-	App *App `json:"app"`
 }
 
 func (c *AppsClient) AppsList() ([]*App, error) {
@@ -148,6 +149,32 @@ func (c *AppsClient) AppsDestroy(name string, currentName string) error {
 	return nil
 }
 
+func (c *AppsClient) AppsRename(name string, newName string) (*App, error) {
+	req := &APIRequest{
+		Client:   c.backendConfiguration,
+		Method:   "POST",
+		Endpoint: "/apps/" + name + "/rename",
+		Expected: Statuses{200},
+		Params: map[string]interface{}{
+			"current_name": name,
+			"new_name":     newName,
+		},
+	}
+	res, err := req.Do()
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	var appRes *AppResponse
+	err = ParseJSON(res, &appRes)
+	if err != nil {
+		return nil, errgo.Mask(err, errgo.Any)
+	}
+
+	return appRes.App, nil
+}
+
 func (c *AppsClient) AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c.backendConfiguration,
@@ -173,13 +200,13 @@ func (c *AppsClient) AppsCreate(opts AppsCreateOpts) (*App, error) {
 	}
 	defer res.Body.Close()
 
-	var params *CreateAppParams
-	err = ParseJSON(res, &params)
+	var appRes *AppResponse
+	err = ParseJSON(res, &appRes)
 	if err != nil {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
 
-	return params.App, nil
+	return appRes.App, nil
 }
 
 func (c *AppsClient) AppsStats(app string) (*AppStatsRes, error) {
