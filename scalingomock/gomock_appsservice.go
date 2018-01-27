@@ -148,3 +148,15 @@ func (m *MockAppsService) AppsStats(arg0 string) (*go_scalingo.AppStatsRes, erro
 func (mr *MockAppsServiceMockRecorder) AppsStats(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStats", reflect.TypeOf((*MockAppsService)(nil).AppsStats), arg0)
 }
+
+// AppsTransfer mocks base method
+func (m *MockAppsService) AppsTransfer(arg0, arg1 string) error {
+	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AppsTransfer indicates an expected call of AppsTransfer
+func (mr *MockAppsServiceMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAppsService)(nil).AppsTransfer), arg0, arg1)
+}

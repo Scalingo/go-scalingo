@@ -12,6 +12,7 @@ type AppsService interface {
 	AppsShow(appName string) (*App, error)
 	AppsDestroy(name string, currentName string) error
 	AppsRename(name string, newName string) error
+	AppsTransfer(name string, email string) error
 	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
@@ -158,6 +159,33 @@ func (c *AppsClient) AppsRename(name string, newName string) (*App, error) {
 		Params: map[string]interface{}{
 			"current_name": name,
 			"new_name":     newName,
+		},
+	}
+	res, err := req.Do()
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	var appRes *AppResponse
+	err = ParseJSON(res, &appRes)
+	if err != nil {
+		return nil, errgo.Mask(err, errgo.Any)
+	}
+
+	return appRes.App, nil
+}
+
+func (c *AppsClient) AppsTransfer(name string, email string) (*App, error) {
+	req := &APIRequest{
+		Client:   c.backendConfiguration,
+		Method:   "PATCH",
+		Endpoint: "/apps/" + name,
+		Expected: Statuses{200},
+		Params: map[string]interface{}{
+			"app": map[string]string{
+				"owner": email,
+			},
 		},
 	}
 	res, err := req.Do()
