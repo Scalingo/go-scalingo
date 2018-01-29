@@ -227,6 +227,18 @@ func (mr *MockAPIMockRecorder) AppsStats(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStats", reflect.TypeOf((*MockAPI)(nil).AppsStats), arg0)
 }
 
+// AppsTransfer mocks base method
+func (m *MockAPI) AppsTransfer(arg0, arg1 string) error {
+	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AppsTransfer indicates an expected call of AppsTransfer
+func (mr *MockAPIMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAPI)(nil).AppsTransfer), arg0, arg1)
+}
+
 // CollaboratorAdd mocks base method
 func (m *MockAPI) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, error) {
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1)
