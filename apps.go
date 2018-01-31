@@ -24,6 +24,8 @@ type AppsClient struct {
 	*backendConfiguration
 }
 
+var _ AppsService = (*AppsClient)(nil)
+
 type ContainerType struct {
 	Name    string `json:"name"`
 	Amount  int    `json:"amount"`
