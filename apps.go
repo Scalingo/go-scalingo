@@ -11,8 +11,8 @@ type AppsService interface {
 	AppsList() ([]*App, error)
 	AppsShow(appName string) (*App, error)
 	AppsDestroy(name string, currentName string) error
-	AppsRename(name string, newName string) error
-	AppsTransfer(name string, email string) error
+	AppsRename(name string, newName string) (*App, error)
+	AppsTransfer(name string, email string) (*App, error)
 	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
@@ -23,6 +23,8 @@ type AppsService interface {
 type AppsClient struct {
 	*backendConfiguration
 }
+
+var _ AppsService = (*AppsClient)(nil)
 
 type ContainerType struct {
 	Name    string `json:"name"`
