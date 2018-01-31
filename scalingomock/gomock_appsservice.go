@@ -86,10 +86,11 @@ func (mr *MockAppsServiceMockRecorder) AppsPs(arg0 interface{}) *gomock.Call {
 }
 
 // AppsRename mocks base method
-func (m *MockAppsService) AppsRename(arg0, arg1 string) error {
+func (m *MockAppsService) AppsRename(arg0, arg1 string) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsRename", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*go_scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // AppsRename indicates an expected call of AppsRename
@@ -150,10 +151,11 @@ func (mr *MockAppsServiceMockRecorder) AppsStats(arg0 interface{}) *gomock.Call 
 }
 
 // AppsTransfer mocks base method
-func (m *MockAppsService) AppsTransfer(arg0, arg1 string) error {
+func (m *MockAppsService) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*go_scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // AppsTransfer indicates an expected call of AppsTransfer
