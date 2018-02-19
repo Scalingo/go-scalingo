@@ -60,11 +60,12 @@ func (c *AddonProvidersClient) AddonProvidersList() ([]*AddonProvider, error) {
 }
 
 var addonProviderTypo = map[string]string{
-	"scalingo-mongo":   "scalingo-mongodb",
-	"scalingo-influx":  "scalingo-influxdb",
-	"scalingo-postgre": "scalingo-postgresql",
-	"scalingo-pgsql":   "scalingo-postgresql",
-	"scalingo-psql":    "scalingo-postgresql",
+	"scalingo-mongo":    "scalingo-mongodb",
+	"scalingo-influx":   "scalingo-influxdb",
+	"scalingo-postgres": "scalingo-postgresql",
+	"scalingo-postgre":  "scalingo-postgresql",
+	"scalingo-pgsql":    "scalingo-postgresql",
+	"scalingo-psql":     "scalingo-postgresql",
 }
 
 func (c *AddonProvidersClient) AddonProviderPlansList(addon string) ([]*Plan, error) {
