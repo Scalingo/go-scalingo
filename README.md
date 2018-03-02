@@ -1,3 +1,5 @@
+[ ![Codeship Status for Scalingo/go-scalingo](https://app.codeship.com/projects/cf518dc0-0034-0136-d6b3-5a0245e77f67/status?branch=master)](https://app.codeship.com/projects/279805)
+
 # Go client for Scalingo API
 
 Generate the mocks with:
