@@ -24,6 +24,30 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventRestartType",
 		DetailedEventString: "containers [web] have been restarted",
 	},
+	"test edit app event without with null force_https": {
+		Event: &Event{
+			Type:        EventEditApp,
+			RawTypeData: json.RawMessage([]byte(`{"force_https": null}`)),
+		},
+		DetailedEventName:   "*scalingo.EventEditAppType",
+		DetailedEventString: "application settings have been updated",
+	},
+	"test edit app event, force https enabled": {
+		Event: &Event{
+			Type:        EventEditApp,
+			RawTypeData: json.RawMessage([]byte(`{"force_https": true}`)),
+		},
+		DetailedEventName:   "*scalingo.EventEditAppType",
+		DetailedEventString: "application settings have been updated, Force HTTPS has been enabled",
+	},
+	"test edit app event, force https disabled": {
+		Event: &Event{
+			Type:        EventEditApp,
+			RawTypeData: json.RawMessage([]byte(`{"force_https": false}`)),
+		},
+		DetailedEventName:   "*scalingo.EventEditAppType",
+		DetailedEventString: "application settings have been updated, Force HTTPS has been disabled",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
