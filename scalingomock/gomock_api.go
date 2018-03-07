@@ -126,6 +126,7 @@ func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // AlertAdd mocks base method
 func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
@@ -202,6 +203,8 @@ func (mr *MockAPIMockRecorder) AppsAutoscaler(arg0, arg1 interface{}) *gomock.Ca
 >>>>>>> Rename Autoscale to Autoscaler
 }
 
+=======
+>>>>>>> Generate mock
 // AppsCreate mocks base method
 func (m *MockAPI) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)
