@@ -21,6 +21,7 @@ type Autoscaler struct {
 	Target        float64 `json:"target"`
 	MinContainers int     `json:"min_containers"`
 	MaxContainers int     `json:"max_containers"`
+	Disabled      bool    `json:"disabled"`
 }
 
 type AutoscalersRes struct {
