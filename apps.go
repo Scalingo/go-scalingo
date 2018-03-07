@@ -18,7 +18,6 @@ type AppsService interface {
 	AppsStats(app string) (*AppStatsRes, error)
 	AppsPs(app string) ([]ContainerType, error)
 	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
-	AppsAutoscaler(app string, params *AppsAutoscalerParams) (*http.Response, error)
 }
 
 var _ AppsService = (*Client)(nil)
@@ -41,24 +40,12 @@ type ContainerStat struct {
 	HighestSwapUsage   int64  `json:"highest_swap_usage"`
 }
 
-type Autoscaler struct {
-	ContainerType string  `json:"container_type"`
-	Metric        string  `json:"metric"`
-	Target        float64 `json:"target"`
-	MinContainers int     `json:"min_containers"`
-	MaxContainers int     `json:"max_containers"`
-}
-
 type AppStatsRes struct {
 	Stats []*ContainerStat `json:"stats"`
 }
 
 type AppsScaleParams struct {
 	Containers []ContainerType `json:"containers"`
-}
-
-type AppsAutoscalerParams struct {
-	Autoscaler Autoscaler `json:"autoscaler"`
 }
 
 type AppsPsRes struct {
@@ -295,17 +282,6 @@ func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response,
 		// Return 200 if app is scaled before deployment
 		// Otherwise async job is triggered, it's 202
 		Expected: Statuses{200, 202},
-	}
-	return req.Do()
-}
-
-func (c *AppsClient) AppsAutoscaler(app string, params *AppsAutoscalerParams) (*http.Response, error) {
-	req := &APIRequest{
-		Client:   c.backendConfiguration,
-		Method:   "POST",
-		Endpoint: "/apps/" + app + "/autoscalers",
-		Params:   params,
-		Expected: Statuses{201},
 	}
 	return req.Do()
 }
