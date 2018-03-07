@@ -5,11 +5,12 @@
 package scalingomock
 
 import (
+	http "net/http"
+	reflect "reflect"
+
 	go_scalingo "github.com/Scalingo/go-scalingo"
 	gomock "github.com/golang/mock/gomock"
 	websocket "golang.org/x/net/websocket"
-	http "net/http"
-	reflect "reflect"
 )
 
 // MockAPI is a mock of API interface

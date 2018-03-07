@@ -34,6 +34,19 @@ func (m *MockAppsService) EXPECT() *MockAppsServiceMockRecorder {
 	return m.recorder
 }
 
+// AppsAutoscale mocks base method
+func (m *MockAppsService) AppsAutoscale(arg0 string, arg1 *go_scalingo.AppsAutoscaleParams) (*http.Response, error) {
+	ret := m.ctrl.Call(m, "AppsAutoscale", arg0, arg1)
+	ret0, _ := ret[0].(*http.Response)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsAutoscale indicates an expected call of AppsAutoscale
+func (mr *MockAppsServiceMockRecorder) AppsAutoscale(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsAutoscale", reflect.TypeOf((*MockAppsService)(nil).AppsAutoscale), arg0, arg1)
+}
+
 // AppsCreate mocks base method
 func (m *MockAppsService) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)
