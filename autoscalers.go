@@ -51,7 +51,13 @@ type AutoscalerAddParams struct {
 func (c *AutoscalersClient) AutoscalerAdd(app string, params AutoscalerAddParams) (*Autoscaler, error) {
 	var autoscalerRes AutoscalerRes
 	err := c.subresourceAdd(app, "autoscalers", AutoscalerRes{
-		Autoscaler: params,
+		Autoscaler: Autoscaler{
+			ContainerType: params.ContainerType,
+			Metric:        params.Metric,
+			Target:        params.Target,
+			MinContainers: params.MinContainers,
+			MaxContainers: params.MaxContainers,
+		},
 	}, &autoscalerRes)
 	if err != nil {
 		return nil, errgo.Mask(err)
