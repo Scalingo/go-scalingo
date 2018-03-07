@@ -334,6 +334,44 @@ func (mr *MockAPIMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAPI)(nil).AppsTransfer), arg0, arg1)
 }
 
+// AutoscalerAdd mocks base method
+func (m *MockAPI) AutoscalerAdd(arg0, arg1 string) (go_scalingo.Autoscaler, error) {
+	ret := m.ctrl.Call(m, "AutoscalerAdd", arg0, arg1)
+	ret0, _ := ret[0].(go_scalingo.Autoscaler)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AutoscalerAdd indicates an expected call of AutoscalerAdd
+func (mr *MockAPIMockRecorder) AutoscalerAdd(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerAdd", reflect.TypeOf((*MockAPI)(nil).AutoscalerAdd), arg0, arg1)
+}
+
+// AutoscalerRemove mocks base method
+func (m *MockAPI) AutoscalerRemove(arg0, arg1 string) error {
+	ret := m.ctrl.Call(m, "AutoscalerRemove", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AutoscalerRemove indicates an expected call of AutoscalerRemove
+func (mr *MockAPIMockRecorder) AutoscalerRemove(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerRemove", reflect.TypeOf((*MockAPI)(nil).AutoscalerRemove), arg0, arg1)
+}
+
+// AutoscalersList mocks base method
+func (m *MockAPI) AutoscalersList(arg0 string) ([]go_scalingo.Autoscaler, error) {
+	ret := m.ctrl.Call(m, "AutoscalersList", arg0)
+	ret0, _ := ret[0].([]go_scalingo.Autoscaler)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AutoscalersList indicates an expected call of AutoscalersList
+func (mr *MockAPIMockRecorder) AutoscalersList(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalersList", reflect.TypeOf((*MockAPI)(nil).AutoscalersList), arg0)
+}
+
 // CollaboratorAdd mocks base method
 func (m *MockAPI) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, error) {
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1)

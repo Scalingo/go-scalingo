@@ -16,6 +16,7 @@ type API interface {
 	AddonProvidersService
 	AppsService
 	AlertsService
+	AutoscalersService
 	CollaboratorsService
 	DeploymentsService
 	DomainsService
