@@ -125,6 +125,7 @@ func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonsList", reflect.TypeOf((*MockAPI)(nil).AddonsList), arg0)
 }
 
+<<<<<<< HEAD
 // AlertAdd mocks base method
 func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
@@ -180,13 +181,25 @@ func (mr *MockAPIMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock
 func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Alert)
+=======
+// AppsAutoscaler mocks base method
+func (m *MockAPI) AppsAutoscaler(arg0 string, arg1 *go_scalingo.AppsAutoscalerParams) (*http.Response, error) {
+	ret := m.ctrl.Call(m, "AppsAutoscaler", arg0, arg1)
+	ret0, _ := ret[0].(*http.Response)
+>>>>>>> Rename Autoscale to Autoscaler
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
+<<<<<<< HEAD
 // AlertsList indicates an expected call of AlertsList
 func (mr *MockAPIMockRecorder) AlertsList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertsList", reflect.TypeOf((*MockAPI)(nil).AlertsList), arg0)
+=======
+// AppsAutoscaler indicates an expected call of AppsAutoscaler
+func (mr *MockAPIMockRecorder) AppsAutoscaler(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsAutoscaler", reflect.TypeOf((*MockAPI)(nil).AppsAutoscaler), arg0, arg1)
+>>>>>>> Rename Autoscale to Autoscaler
 }
 
 // AppsCreate mocks base method

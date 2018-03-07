@@ -18,7 +18,7 @@ type AppsService interface {
 	AppsStats(app string) (*AppStatsRes, error)
 	AppsPs(app string) ([]ContainerType, error)
 	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
-	AppsAutoscale(app string, params *AppsAutoscaleParams) (*http.Response, error)
+	AppsAutoscaler(app string, params *AppsAutoscalerParams) (*http.Response, error)
 }
 
 var _ AppsService = (*Client)(nil)
@@ -41,6 +41,14 @@ type ContainerStat struct {
 	HighestSwapUsage   int64  `json:"highest_swap_usage"`
 }
 
+type Autoscaler struct {
+	ContainerType string  `json:"container_type"`
+	Metric        string  `json:"metric"`
+	Target        float64 `json:"target"`
+	MinContainers int     `json:"min_containers"`
+	MaxContainers int     `json:"max_containers"`
+}
+
 type AppStatsRes struct {
 	Stats []*ContainerStat `json:"stats"`
 }
@@ -49,14 +57,8 @@ type AppsScaleParams struct {
 	Containers []ContainerType `json:"containers"`
 }
 
-type AppsAutoscaleParams struct {
-	Autoscaler struct {
-		ContainerType string  `json:"container_type"`
-		Metric        string  `json:"metric"`
-		Target        float64 `json:"target"`
-		MinContainers int     `json:"min_containers"`
-		MaxContainers int     `json:"max_containers"`
-	} `json:"autoscaler"`
+type AppsAutoscalerParams struct {
+	Autoscaler Autoscaler `json:"autoscaler"`
 }
 
 type AppsPsRes struct {
@@ -297,7 +299,7 @@ func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response,
 	return req.Do()
 }
 
-func (c *AppsClient) AppsAutoscale(app string, params *AppsAutoscaleParams) (*http.Response, error) {
+func (c *AppsClient) AppsAutoscaler(app string, params *AppsAutoscalerParams) (*http.Response, error) {
 	req := &APIRequest{
 		Client:   c.backendConfiguration,
 		Method:   "POST",
