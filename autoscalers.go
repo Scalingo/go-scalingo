@@ -76,11 +76,11 @@ func (c *AutoscalersClient) AutoscalerShow(app, id string) (*Autoscaler, error) 
 }
 
 type AutoscalerUpdateParams struct {
-	Metric        string  `json:"metric"`
-	Target        float64 `json:"target"`
-	MinContainers int     `json:"min_containers"`
-	MaxContainers int     `json:"max_containers"`
-	Disabled      bool    `json:"disabled"`
+	Metric        *string  `json:"metric,omitempty"`
+	Target        *float64 `json:"target,omitempty"`
+	MinContainers *int     `json:"min_containers,omitempty"`
+	MaxContainers *int     `json:"max_containers,omitempty"`
+	Disabled      *bool    `json:"disabled,omitempty"`
 }
 
 func (c *AutoscalersClient) AutoscalerUpdate(app, id string, params AutoscalerUpdateParams) (*Autoscaler, error) {
