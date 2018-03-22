@@ -6,7 +6,9 @@ import (
 
 type AlertsService interface {
 	AlertsList(app string) ([]Alert, error)
-	AlertAdd(app string, params AlertParams) (Alert, error)
+	AlertAdd(app string, params AlertAddParams) (Alert, error)
+	AlertShow(app, id string) (*Alert, error)
+	AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error)
 	AlertRemove(app, id string) error
 }
 
