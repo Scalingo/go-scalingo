@@ -40,14 +40,14 @@ func (c *AlertsClient) AlertsList(app string) ([]*Alert, error) {
 	return alertsRes.Alerts, nil
 }
 
-type AlertParams struct {
+type AlertAddParams struct {
 	ContainerType string
 	Metric        string
 	Limit         float64
 	Disabled      bool
 }
 
-func (c *AlertsClient) AlertAdd(app string, params AlertParams) (*Alert, error) {
+func (c *AlertsClient) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
 	var alertRes AlertRes
 	err := c.subresourceAdd(app, "alerts", AlertRes{
 		Alert: Alert{
@@ -72,7 +72,14 @@ func (c *AlertsClient) AlertShow(app, id string) (*Alert, error) {
 	return &alertRes.Alert, nil
 }
 
-func (c *AlertsClient) AlertUpdate(app, id string, params AlertParams) (*Alert, error) {
+type AlertUpdateParams struct {
+	ContainerType *string  `json:"container_type,omitempty"`
+	Metric        *string  `json:"metric,omitempty"`
+	Limit         *float64 `json:"limit,omitempty"`
+	Disabled      *bool    `json:"disabled,omitempty"`
+}
+
+func (c *AlertsClient) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error) {
 	var alertRes AlertRes
 	err := c.subresourceUpdate(app, "alerts", id, params, &alertRes)
 	if err != nil {
