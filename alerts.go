@@ -1,6 +1,8 @@
 package scalingo
 
 import (
+	"time"
+
 	"gopkg.in/errgo.v1"
 )
 
@@ -75,10 +77,11 @@ func (c *AlertsClient) AlertShow(app, id string) (*Alert, error) {
 }
 
 type AlertUpdateParams struct {
-	ContainerType *string  `json:"container_type,omitempty"`
-	Metric        *string  `json:"metric,omitempty"`
-	Limit         *float64 `json:"limit,omitempty"`
-	Disabled      *bool    `json:"disabled,omitempty"`
+	ContainerType *string        `json:"container_type,omitempty"`
+	Metric        *string        `json:"metric,omitempty"`
+	Limit         *float64       `json:"limit,omitempty"`
+	Disabled      *bool          `json:"disabled,omitempty"`
+	RemindEvery   *time.Duration `json:"remind_every,omitempty"`
 }
 
 func (c *AlertsClient) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error) {
