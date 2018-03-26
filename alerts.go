@@ -23,6 +23,7 @@ type Alert struct {
 	ContainerType string  `json:"container_type"`
 	Metric        string  `json:"metric"`
 	Limit         float64 `json:"limit"`
+	RemindEvery   string  `json:"remind_every"`
 	Disabled      bool    `json:"disabled"`
 	SendWhenBelow bool    `json:"send_when_below"`
 }
@@ -48,7 +49,8 @@ type AlertAddParams struct {
 	ContainerType string
 	Metric        string
 	Limit         float64
-	Disabled      bool
+	RemindEvery   *time.Duration
+	SendWhenBelow bool
 }
 
 func (c *AlertsClient) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
@@ -58,7 +60,8 @@ func (c *AlertsClient) AlertAdd(app string, params AlertAddParams) (*Alert, erro
 			ContainerType: params.ContainerType,
 			Metric:        params.Metric,
 			Limit:         params.Limit,
-			Disabled:      params.Disabled,
+			RemindEvery:   (*params.RemindEvery).String(),
+			SendWhenBelow: params.SendWhenBelow,
 		},
 	}, &alertRes)
 	if err != nil {
