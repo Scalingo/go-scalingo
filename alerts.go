@@ -88,6 +88,7 @@ type AlertUpdateParams struct {
 	Limit         *float64       `json:"limit,omitempty"`
 	Disabled      *bool          `json:"disabled,omitempty"`
 	RemindEvery   *time.Duration `json:"remind_every,omitempty"`
+	SendWhenBelow *bool          `json:"send_when_below,omitempty"`
 }
 
 func (c *AlertsClient) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error) {
