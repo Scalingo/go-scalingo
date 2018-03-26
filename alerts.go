@@ -55,14 +55,17 @@ type AlertAddParams struct {
 
 func (c *AlertsClient) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
 	var alertRes AlertRes
+	alert := Alert{
+		ContainerType: params.ContainerType,
+		Metric:        params.Metric,
+		Limit:         params.Limit,
+		SendWhenBelow: params.SendWhenBelow,
+	}
+	if params.RemindEvery != nil {
+		alert.RemindEvery = (*params.RemindEvery).String()
+	}
 	err := c.subresourceAdd(app, "alerts", AlertRes{
-		Alert: Alert{
-			ContainerType: params.ContainerType,
-			Metric:        params.Metric,
-			Limit:         params.Limit,
-			RemindEvery:   (*params.RemindEvery).String(),
-			SendWhenBelow: params.SendWhenBelow,
-		},
+		Alert: alert,
 	}, &alertRes)
 	if err != nil {
 		return nil, errgo.Mask(err)
