@@ -112,6 +112,70 @@ func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonsList", reflect.TypeOf((*MockAPI)(nil).AddonsList), arg0)
 }
 
+// AlertAdd mocks base method
+func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
+	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
+	ret0, _ := ret[0].(*go_scalingo.Alert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AlertAdd indicates an expected call of AlertAdd
+func (mr *MockAPIMockRecorder) AlertAdd(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertAdd", reflect.TypeOf((*MockAPI)(nil).AlertAdd), arg0, arg1)
+}
+
+// AlertRemove mocks base method
+func (m *MockAPI) AlertRemove(arg0, arg1 string) error {
+	ret := m.ctrl.Call(m, "AlertRemove", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AlertRemove indicates an expected call of AlertRemove
+func (mr *MockAPIMockRecorder) AlertRemove(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertRemove", reflect.TypeOf((*MockAPI)(nil).AlertRemove), arg0, arg1)
+}
+
+// AlertShow mocks base method
+func (m *MockAPI) AlertShow(arg0, arg1 string) (*go_scalingo.Alert, error) {
+	ret := m.ctrl.Call(m, "AlertShow", arg0, arg1)
+	ret0, _ := ret[0].(*go_scalingo.Alert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AlertShow indicates an expected call of AlertShow
+func (mr *MockAPIMockRecorder) AlertShow(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertShow", reflect.TypeOf((*MockAPI)(nil).AlertShow), arg0, arg1)
+}
+
+// AlertUpdate mocks base method
+func (m *MockAPI) AlertUpdate(arg0, arg1 string, arg2 go_scalingo.AlertUpdateParams) (*go_scalingo.Alert, error) {
+	ret := m.ctrl.Call(m, "AlertUpdate", arg0, arg1, arg2)
+	ret0, _ := ret[0].(*go_scalingo.Alert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AlertUpdate indicates an expected call of AlertUpdate
+func (mr *MockAPIMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertUpdate", reflect.TypeOf((*MockAPI)(nil).AlertUpdate), arg0, arg1, arg2)
+}
+
+// AlertsList mocks base method
+func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
+	ret := m.ctrl.Call(m, "AlertsList", arg0)
+	ret0, _ := ret[0].([]*go_scalingo.Alert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AlertsList indicates an expected call of AlertsList
+func (mr *MockAPIMockRecorder) AlertsList(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertsList", reflect.TypeOf((*MockAPI)(nil).AlertsList), arg0)
+}
+
 // AppsCreate mocks base method
 func (m *MockAPI) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)

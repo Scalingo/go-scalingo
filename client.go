@@ -22,6 +22,7 @@ type API interface {
 	AddonsService
 	AddonProvidersService
 	AppsService
+	AlertsService
 	CollaboratorsService
 	DeploymentsService
 	DomainsService
@@ -46,6 +47,7 @@ type Client struct {
 	*AddonsClient
 	*AddonProvidersClient
 	*AppsClient
+	*AlertsClient
 	*CollaboratorsClient
 	*DeploymentsClient
 	*DomainsClient
@@ -118,6 +120,7 @@ func (c *Client) init() {
 	c.AddonsClient = &AddonsClient{subresourceClient{c.backendConfiguration}}
 	c.AddonProvidersClient = &AddonProvidersClient{c.backendConfiguration}
 	c.AppsClient = &AppsClient{c.backendConfiguration}
+	c.AlertsClient = &AlertsClient{subresourceClient{c.backendConfiguration}}
 	c.CollaboratorsClient = &CollaboratorsClient{subresourceClient{c.backendConfiguration}}
 	c.DeploymentsClient = &DeploymentsClient{c.backendConfiguration}
 	c.DomainsClient = &DomainsClient{subresourceClient{c.backendConfiguration}}
