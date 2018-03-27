@@ -4,8 +4,8 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-// SubresourceService that wraps the CRUD methods for any subresource of an app on Scalingo.
-type SubresourceService interface {
+// subresourceService that wraps the CRUD methods for any subresource of an app on Scalingo.
+type subresourceService interface {
 	subresourceList(app, subresource string, payload, data interface{}) error
 	subresourceAdd(app, subresource string, payload, data interface{}) error
 	subresourceGet(app, subresource, id string, payload, data interface{}) error
@@ -17,7 +17,7 @@ type subresourceClient struct {
 	*backendConfiguration
 }
 
-var _ SubresourceService = (*subresourceClient)(nil)
+var _ subresourceService = (*subresourceClient)(nil)
 
 func (c subresourceClient) subresourceGet(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{

@@ -15,7 +15,7 @@ type AlertsService interface {
 }
 
 type AlertsClient struct {
-	SubresourceService
+	subresourceService
 }
 
 var _ AlertsService = (*AlertsClient)(nil)

@@ -90,7 +90,7 @@ func TestAlertsClient(t *testing.T) {
 				defer ctrl.Finish()
 				mock := NewMockSubresourceService(ctrl)
 				c := &AlertsClient{
-					SubresourceService: mock,
+					subresourceService: mock,
 				}
 				run.expectMockReturnCall(test.expectMock(mock))
 
