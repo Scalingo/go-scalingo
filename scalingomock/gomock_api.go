@@ -113,9 +113,9 @@ func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
 }
 
 // AlertAdd mocks base method
-func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (go_scalingo.Alert, error) {
+func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
-	ret0, _ := ret[0].(go_scalingo.Alert)
+	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -164,9 +164,9 @@ func (mr *MockAPIMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock
 }
 
 // AlertsList mocks base method
-func (m *MockAPI) AlertsList(arg0 string) ([]go_scalingo.Alert, error) {
+func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertsList", arg0)
-	ret0, _ := ret[0].([]go_scalingo.Alert)
+	ret0, _ := ret[0].([]*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

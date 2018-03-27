@@ -7,16 +7,18 @@ import (
 )
 
 type AlertsService interface {
-	AlertsList(app string) ([]Alert, error)
-	AlertAdd(app string, params AlertAddParams) (Alert, error)
+	AlertsList(app string) ([]*Alert, error)
+	AlertAdd(app string, params AlertAddParams) (*Alert, error)
 	AlertShow(app, id string) (*Alert, error)
 	AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error)
 	AlertRemove(app, id string) error
 }
 
 type AlertsClient struct {
-	subresourceClient
+	SubresourceService
 }
+
+var _ AlertsService = (*AlertsClient)(nil)
 
 type Alert struct {
 	ID            string  `json:"id"`
