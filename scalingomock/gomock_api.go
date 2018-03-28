@@ -35,6 +35,18 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 	return m.recorder
 }
 
+// APIVersion mocks base method
+func (m *MockAPI) APIVersion() string {
+	ret := m.ctrl.Call(m, "APIVersion")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// APIVersion indicates an expected call of APIVersion
+func (mr *MockAPIMockRecorder) APIVersion() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "APIVersion", reflect.TypeOf((*MockAPI)(nil).APIVersion))
+}
+
 // AddonDestroy mocks base method
 func (m *MockAPI) AddonDestroy(arg0, arg1 string) error {
 	ret := m.ctrl.Call(m, "AddonDestroy", arg0, arg1)
@@ -343,19 +355,6 @@ func (mr *MockAPIMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockAPI)(nil).CollaboratorsList), arg0)
 }
 
-// CreateToken mocks base method
-func (m *MockAPI) CreateToken(arg0 go_scalingo.Token) (go_scalingo.Token, error) {
-	ret := m.ctrl.Call(m, "CreateToken", arg0)
-	ret0, _ := ret[0].(go_scalingo.Token)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateToken indicates an expected call of CreateToken
-func (mr *MockAPIMockRecorder) CreateToken(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateToken", reflect.TypeOf((*MockAPI)(nil).CreateToken), arg0)
-}
-
 // Deployment mocks base method
 func (m *MockAPI) Deployment(arg0, arg1 string) (*go_scalingo.Deployment, error) {
 	ret := m.ctrl.Call(m, "Deployment", arg0, arg1)
@@ -472,6 +471,18 @@ func (mr *MockAPIMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3 interface{})
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockAPI)(nil).DomainsUpdate), arg0, arg1, arg2, arg3)
 }
 
+// Endpoint mocks base method
+func (m *MockAPI) Endpoint() string {
+	ret := m.ctrl.Call(m, "Endpoint")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// Endpoint indicates an expected call of Endpoint
+func (mr *MockAPIMockRecorder) Endpoint() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Endpoint", reflect.TypeOf((*MockAPI)(nil).Endpoint))
+}
+
 // EventsList mocks base method
 func (m *MockAPI) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
 	ret := m.ctrl.Call(m, "EventsList", arg0, arg1)
@@ -484,6 +495,31 @@ func (m *MockAPI) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_s
 // EventsList indicates an expected call of EventsList
 func (mr *MockAPIMockRecorder) EventsList(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EventsList", reflect.TypeOf((*MockAPI)(nil).EventsList), arg0, arg1)
+}
+
+// GetAccessToken mocks base method
+func (m *MockAPI) GetAccessToken() (string, error) {
+	ret := m.ctrl.Call(m, "GetAccessToken")
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAccessToken indicates an expected call of GetAccessToken
+func (mr *MockAPIMockRecorder) GetAccessToken() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccessToken", reflect.TypeOf((*MockAPI)(nil).GetAccessToken))
+}
+
+// HTTPClient mocks base method
+func (m *MockAPI) HTTPClient() go_scalingo.HTTPClient {
+	ret := m.ctrl.Call(m, "HTTPClient")
+	ret0, _ := ret[0].(go_scalingo.HTTPClient)
+	return ret0
+}
+
+// HTTPClient indicates an expected call of HTTPClient
+func (mr *MockAPIMockRecorder) HTTPClient() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HTTPClient", reflect.TypeOf((*MockAPI)(nil).HTTPClient))
 }
 
 // KeysAdd mocks base method
@@ -769,19 +805,6 @@ func (mr *MockAPIMockRecorder) Self() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockAPI)(nil).Self))
 }
 
-// ShowToken mocks base method
-func (m *MockAPI) ShowToken(arg0 int) (go_scalingo.Token, error) {
-	ret := m.ctrl.Call(m, "ShowToken", arg0)
-	ret0, _ := ret[0].(go_scalingo.Token)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ShowToken indicates an expected call of ShowToken
-func (mr *MockAPIMockRecorder) ShowToken(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShowToken", reflect.TypeOf((*MockAPI)(nil).ShowToken), arg0)
-}
-
 // SignUp mocks base method
 func (m *MockAPI) SignUp(arg0, arg1 string) error {
 	ret := m.ctrl.Call(m, "SignUp", arg0, arg1)
@@ -805,6 +828,45 @@ func (m *MockAPI) SourcesCreate() (*go_scalingo.Source, error) {
 // SourcesCreate indicates an expected call of SourcesCreate
 func (mr *MockAPIMockRecorder) SourcesCreate() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SourcesCreate", reflect.TypeOf((*MockAPI)(nil).SourcesCreate))
+}
+
+// TokenCreate mocks base method
+func (m *MockAPI) TokenCreate(arg0 go_scalingo.TokenCreateParams) (go_scalingo.Token, error) {
+	ret := m.ctrl.Call(m, "TokenCreate", arg0)
+	ret0, _ := ret[0].(go_scalingo.Token)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TokenCreate indicates an expected call of TokenCreate
+func (mr *MockAPIMockRecorder) TokenCreate(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenCreate", reflect.TypeOf((*MockAPI)(nil).TokenCreate), arg0)
+}
+
+// TokenExchange mocks base method
+func (m *MockAPI) TokenExchange(arg0 go_scalingo.TokenExchangeParams) (string, error) {
+	ret := m.ctrl.Call(m, "TokenExchange", arg0)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TokenExchange indicates an expected call of TokenExchange
+func (mr *MockAPIMockRecorder) TokenExchange(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenExchange", reflect.TypeOf((*MockAPI)(nil).TokenExchange), arg0)
+}
+
+// TokenShow mocks base method
+func (m *MockAPI) TokenShow(arg0 int) (go_scalingo.Token, error) {
+	ret := m.ctrl.Call(m, "TokenShow", arg0)
+	ret0, _ := ret[0].(go_scalingo.Token)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// TokenShow indicates an expected call of TokenShow
+func (mr *MockAPIMockRecorder) TokenShow(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenShow", reflect.TypeOf((*MockAPI)(nil).TokenShow), arg0)
 }
 
 // TokensList mocks base method

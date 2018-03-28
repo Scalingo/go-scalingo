@@ -15,7 +15,7 @@ type subresourceService interface {
 
 var _ subresourceService = (*Client)(nil)
 
-func (c Client) subresourceGet(app, subresource, id string, payload, data interface{}) error {
+func (c *Client) subresourceGet(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "GET",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -23,7 +23,7 @@ func (c Client) subresourceGet(app, subresource, id string, payload, data interf
 	}, data)
 }
 
-func (c Client) subresourceList(app, subresource string, payload, data interface{}) error {
+func (c *Client) subresourceList(app, subresource string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "GET",
 		Endpoint: "/apps/" + app + "/" + subresource,
@@ -31,7 +31,7 @@ func (c Client) subresourceList(app, subresource string, payload, data interface
 	}, data)
 }
 
-func (c Client) subresourceAdd(app, subresource string, payload, data interface{}) error {
+func (c *Client) subresourceAdd(app, subresource string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/" + subresource,
@@ -40,7 +40,7 @@ func (c Client) subresourceAdd(app, subresource string, payload, data interface{
 	}, data)
 }
 
-func (c Client) subresourceDelete(app string, subresource string, id string) error {
+func (c *Client) subresourceDelete(app string, subresource string, id string) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -48,7 +48,7 @@ func (c Client) subresourceDelete(app string, subresource string, id string) err
 	}, nil)
 }
 
-func (c Client) subresourceUpdate(app, subresource, id string, payload, data interface{}) error {
+func (c *Client) subresourceUpdate(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
 		Method:   "PATCH",
 		Endpoint: "/apps/" + app + "/" + subresource + "/" + id,
@@ -56,7 +56,7 @@ func (c Client) subresourceUpdate(app, subresource, id string, payload, data int
 	}, data)
 }
 
-func (c Client) doSubresourceRequest(req *APIRequest, data interface{}) error {
+func (c *Client) doSubresourceRequest(req *APIRequest, data interface{}) error {
 	req.Client = c
 	res, err := req.Do()
 	if err != nil {

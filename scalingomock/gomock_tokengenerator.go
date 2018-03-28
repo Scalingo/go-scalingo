@@ -5,7 +5,6 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -44,14 +43,4 @@ func (m *MockTokenGenerator) GetAccessToken() (string, error) {
 // GetAccessToken indicates an expected call of GetAccessToken
 func (mr *MockTokenGeneratorMockRecorder) GetAccessToken() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccessToken", reflect.TypeOf((*MockTokenGenerator)(nil).GetAccessToken))
-}
-
-// SetClient mocks base method
-func (m *MockTokenGenerator) SetClient(arg0 *go_scalingo.Client) {
-	m.ctrl.Call(m, "SetClient", arg0)
-}
-
-// SetClient indicates an expected call of SetClient
-func (mr *MockTokenGeneratorMockRecorder) SetClient(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetClient", reflect.TypeOf((*MockTokenGenerator)(nil).SetClient), arg0)
 }

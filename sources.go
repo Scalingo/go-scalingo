@@ -6,7 +6,7 @@ type SourcesService interface {
 	SourcesCreate() (*Source, error)
 }
 
-var _ SourcesServices = (*Client)(nil)
+var _ SourcesService = (*Client)(nil)
 
 type SourcesCreateResponse struct {
 	Source *Source `json:"source"`

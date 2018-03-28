@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"crypto/tls"
+	"errors"
 	"net/http"
 	"time"
 )
@@ -22,7 +23,7 @@ type API interface {
 	EventsService
 	KeysService
 	LoginService
-	LogsArcivesService
+	LogsArchivesService
 	LogsService
 	NotificationPlatformsService
 	NotificationsService
@@ -33,15 +34,21 @@ type API interface {
 	SourcesService
 	TokensService
 	UsersService
+
+	TokenGenerator
+
+	APIVersion() string
+	Endpoint() string
+	HTTPClient() HTTPClient
 }
 
 var _ API = (*Client)(nil)
 
 type Client struct {
-	TokenGenerator TokenGenerator
-	Endpoint       string
+	tokenGenerator TokenGenerator
+	endpoint       string
 	TLSConfig      *tls.Config
-	APIVersion     string
+	apiVersion     string
 	httpClient     HTTPClient
 }
 
@@ -50,6 +57,7 @@ type ClientConfig struct {
 	Endpoint       string
 	TLSConfig      *tls.Config
 	TokenGenerator TokenGenerator
+	APIVersion     string
 }
 
 func NewClient(cfg ClientConfig) *Client {
@@ -62,10 +70,15 @@ func NewClient(cfg ClientConfig) *Client {
 	if cfg.TLSConfig == nil {
 		cfg.TLSConfig = &tls.Config{}
 	}
+
+	if cfg.APIVersion == "" {
+		cfg.APIVersion = defaultAPIVersion
+	}
+
 	c := Client{
-		TokenGenerator: cfg.TokenGenerator,
-		Endpoint:       cfg.Endpoint,
-		APIVersion:     defaultAPIVersion,
+		tokenGenerator: cfg.TokenGenerator,
+		endpoint:       cfg.Endpoint,
+		apiVersion:     cfg.APIVersion,
 		TLSConfig:      cfg.TLSConfig,
 		httpClient: &http.Client{
 			Timeout: cfg.Timeout,
@@ -81,4 +94,19 @@ func NewClient(cfg ClientConfig) *Client {
 
 func (c *Client) HTTPClient() HTTPClient {
 	return c.httpClient
+}
+
+func (c *Client) GetAccessToken() (string, error) {
+	if c.tokenGenerator == nil {
+		return "", errors.New("no token generator")
+	}
+	return c.tokenGenerator.GetAccessToken()
+}
+
+func (c *Client) APIVersion() string {
+	return c.apiVersion
+}
+
+func (c *Client) Endpoint() string {
+	return c.endpoint
 }

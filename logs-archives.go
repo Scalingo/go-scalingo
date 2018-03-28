@@ -8,12 +8,12 @@ import (
 	errgo "gopkg.in/errgo.v1"
 )
 
-type LogsArcivesService interface {
+type LogsArchivesService interface {
 	LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error)
 	LogsArchives(app string, page int) (*LogsArchivesResponse, error)
 }
 
-var _ LogsArchives = (*Client)(nil)
+var _ LogsArchivesService = (*Client)(nil)
 
 type LogsArchiveItem struct {
 	Url  string `json:"url"`

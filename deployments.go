@@ -146,7 +146,7 @@ func (c *Client) DeploymentLogs(deployURL string) (*http.Response, error) {
 }
 
 func (c *Client) DeploymentStream(deployURL string) (*websocket.Conn, error) {
-	token, err := c.TokenGenerator.GetAccessToken()
+	token, err := c.GetAccessToken()
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to generate token")
 	}
@@ -160,7 +160,7 @@ func (c *Client) DeploymentStream(deployURL string) (*websocket.Conn, error) {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
 
-	conn, err := websocket.Dial(deployURL, "", "http://scalingo-cli.local/"+c.APIVersion)
+	conn, err := websocket.Dial(deployURL, "", "http://scalingo-cli.local/"+c.APIVersion())
 	if err != nil {
 		return nil, errgo.Mask(err, errgo.Any)
 	}
