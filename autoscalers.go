@@ -11,7 +11,7 @@ type AutoscalersService interface {
 }
 
 type AutoscalersClient struct {
-	subresourceService
+	SubresourceService
 }
 
 var _ AutoscalersService = (*AutoscalersClient)(nil)
