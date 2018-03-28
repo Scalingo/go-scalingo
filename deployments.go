@@ -26,14 +26,14 @@ type DeploymentStatus string
 
 const (
 	StatusSuccess      DeploymentStatus = "success"
-	StatusBuilding                      = "building"
-	StatusStarting                      = "starting"
-	StatusPushing                       = "pushing"
-	StatusAborted                       = "aborted"
-	StatusBuildError                    = "build-error"
-	StatusCrashedError                  = "crashed-error"
-	StatusTimeoutError                  = "timeout-error"
-	StatusHookError                     = "hook-error"
+	StatusBuilding     DeploymentStatus = "building"
+	StatusStarting     DeploymentStatus = "starting"
+	StatusPushing      DeploymentStatus = "pushing"
+	StatusAborted      DeploymentStatus = "aborted"
+	StatusBuildError   DeploymentStatus = "build-error"
+	StatusCrashedError DeploymentStatus = "crashed-error"
+	StatusTimeoutError DeploymentStatus = "timeout-error"
+	StatusHookError    DeploymentStatus = "hook-error"
 )
 
 type Deployment struct {
@@ -60,10 +60,10 @@ type DeploymentsCreateRes struct {
 }
 
 func (d *Deployment) IsFinished() bool {
-	return IsFinishedString(string(d.Status))
+	return IsFinishedString(d.Status)
 }
 
-func IsFinishedString(status string) bool {
+func IsFinishedString(status DeploymentStatus) bool {
 	return status != StatusBuilding && status != StatusStarting && status != StatusPushing
 }
 
