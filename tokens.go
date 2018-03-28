@@ -152,7 +152,7 @@ func (c *TokensClient) TokenShow(id int) (Token, error) {
 	req := &APIRequest{
 		Client:   c.backendConfiguration,
 		URL:      AuthURL(),
-		Endpoint: fmt.Sprintf("/v1/tokens/%s", id),
+		Endpoint: fmt.Sprintf("/v1/tokens/%d", id),
 	}
 
 	res, err := req.Do()
