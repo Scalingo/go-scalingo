@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"os"
 	"reflect"
+	"time"
 
 	"github.com/Scalingo/go-scalingo/debug"
 	"github.com/Scalingo/go-scalingo/io"
@@ -119,7 +120,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 
 	debug.Printf("[API] %v %v\n", req.HTTPRequest.Method, req.HTTPRequest.URL)
 	debug.Printf(io.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
-	debug.Printf(io.Indent("Params : %v", 6), req.Params)
+	debug.Printf(io.Indent("Params: %v", 6), req.Params)
 
 	if req.Token != "" {
 		req.HTTPRequest.Header.Add("Authorization", fmt.Sprintf("Bearer %s", req.Token))
@@ -131,11 +132,13 @@ func (req *APIRequest) Do() (*http.Response, error) {
 		req.HTTPRequest.Header.Add("X-Authorization-OTP", req.OTP)
 	}
 
+	now := time.Now()
 	res, err := req.doRequest(req.HTTPRequest)
 	if err != nil {
 		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)
 		os.Exit(1)
 	}
+	debug.Printf(io.Indent("Duration: %v", 6), time.Now().Sub(now))
 
 	if req.Expected.Contains(res.StatusCode) {
 		return res, nil
