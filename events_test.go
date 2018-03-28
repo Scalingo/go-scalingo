@@ -47,7 +47,7 @@ func TestEventsList(t *testing.T) {
 			client := NewClient(ClientConfig{
 				TokenGenerator: tg,
 			})
-			client.backendConfiguration.httpClient = hc
+			client.httpClient = hc
 
 			res := new(http.Response)
 			res.Body = ioutil.NopCloser(strings.NewReader(c.Body))

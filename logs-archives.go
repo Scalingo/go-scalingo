@@ -13,9 +13,7 @@ type LogsArcivesService interface {
 	LogsArchives(app string, page int) (*LogsArchivesResponse, error)
 }
 
-type LogsArchivesClient struct {
-	*backendConfiguration
-}
+var _ LogsArchives = (*Client)(nil)
 
 type LogsArchiveItem struct {
 	Url  string `json:"url"`
@@ -30,9 +28,9 @@ type LogsArchivesResponse struct {
 	Archives   []LogsArchiveItem `json:"archives"`
 }
 
-func (c *LogsArchivesClient) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error) {
+func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error) {
 	req := &APIRequest{
-		Client:   c.backendConfiguration,
+		Client:   c,
 		Endpoint: "/apps/" + app + "/logs_archives",
 		Params: map[string]string{
 			"cursor": cursor,
@@ -58,13 +56,13 @@ func (c *LogsArchivesClient) LogsArchivesByCursor(app string, cursor string) (*L
 	return &logsRes, nil
 }
 
-func (c *LogsArchivesClient) LogsArchives(app string, page int) (*LogsArchivesResponse, error) {
+func (c *Client) LogsArchives(app string, page int) (*LogsArchivesResponse, error) {
 	if page < 1 {
 		return nil, errgo.New("Page must be greater than 0.")
 	}
 
 	req := &APIRequest{
-		Client:   c.backendConfiguration,
+		Client:   c,
 		Endpoint: "/apps/" + app + "/logs_archives",
 		Params: map[string]string{
 			"page": strconv.FormatInt(int64(page), 10),
