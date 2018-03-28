@@ -5,12 +5,11 @@
 package scalingomock
 
 import (
-	http "net/http"
-	reflect "reflect"
-
 	go_scalingo "github.com/Scalingo/go-scalingo"
 	gomock "github.com/golang/mock/gomock"
 	websocket "golang.org/x/net/websocket"
+	http "net/http"
+	reflect "reflect"
 )
 
 // MockAPI is a mock of API interface
@@ -125,8 +124,6 @@ func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonsList", reflect.TypeOf((*MockAPI)(nil).AddonsList), arg0)
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // AlertAdd mocks base method
 func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
@@ -182,29 +179,15 @@ func (mr *MockAPIMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock
 func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
 	ret := m.ctrl.Call(m, "AlertsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Alert)
-=======
-// AppsAutoscaler mocks base method
-func (m *MockAPI) AppsAutoscaler(arg0 string, arg1 *go_scalingo.AppsAutoscalerParams) (*http.Response, error) {
-	ret := m.ctrl.Call(m, "AppsAutoscaler", arg0, arg1)
-	ret0, _ := ret[0].(*http.Response)
->>>>>>> Rename Autoscale to Autoscaler
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-<<<<<<< HEAD
 // AlertsList indicates an expected call of AlertsList
 func (mr *MockAPIMockRecorder) AlertsList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertsList", reflect.TypeOf((*MockAPI)(nil).AlertsList), arg0)
-=======
-// AppsAutoscaler indicates an expected call of AppsAutoscaler
-func (mr *MockAPIMockRecorder) AppsAutoscaler(arg0, arg1 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsAutoscaler", reflect.TypeOf((*MockAPI)(nil).AppsAutoscaler), arg0, arg1)
->>>>>>> Rename Autoscale to Autoscaler
 }
 
-=======
->>>>>>> Generate mock
 // AppsCreate mocks base method
 func (m *MockAPI) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)
@@ -335,9 +318,9 @@ func (mr *MockAPIMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call
 }
 
 // AutoscalerAdd mocks base method
-func (m *MockAPI) AutoscalerAdd(arg0, arg1 string) (go_scalingo.Autoscaler, error) {
+func (m *MockAPI) AutoscalerAdd(arg0 string, arg1 go_scalingo.AutoscalerAddParams) (*go_scalingo.Autoscaler, error) {
 	ret := m.ctrl.Call(m, "AutoscalerAdd", arg0, arg1)
-	ret0, _ := ret[0].(go_scalingo.Autoscaler)
+	ret0, _ := ret[0].(*go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

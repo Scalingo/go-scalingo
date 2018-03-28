@@ -6,13 +6,15 @@ import (
 
 type AutoscalersService interface {
 	AutoscalersList(app string) ([]Autoscaler, error)
-	AutoscalerAdd(app string, email string) (Autoscaler, error)
+	AutoscalerAdd(app string, params AutoscalerAddParams) (*Autoscaler, error)
 	AutoscalerRemove(app string, id string) error
 }
 
 type AutoscalersClient struct {
-	subresourceClient
+	subresourceService
 }
+
+var _ AutoscalersService = (*AutoscalersClient)(nil)
 
 type Autoscaler struct {
 	ID            string  `json:"id"`

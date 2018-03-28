@@ -34,9 +34,9 @@ func (m *MockAutoscalersService) EXPECT() *MockAutoscalersServiceMockRecorder {
 }
 
 // AutoscalerAdd mocks base method
-func (m *MockAutoscalersService) AutoscalerAdd(arg0, arg1 string) (go_scalingo.Autoscaler, error) {
+func (m *MockAutoscalersService) AutoscalerAdd(arg0 string, arg1 go_scalingo.AutoscalerAddParams) (*go_scalingo.Autoscaler, error) {
 	ret := m.ctrl.Call(m, "AutoscalerAdd", arg0, arg1)
-	ret0, _ := ret[0].(go_scalingo.Autoscaler)
+	ret0, _ := ret[0].(*go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
