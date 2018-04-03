@@ -13,7 +13,7 @@ type SubresourceService interface {
 	subresourceDelete(app, subresource, id string) error
 }
 
-var _ subresourceService = (*Client)(nil)
+var _ SubresourceService = (*Client)(nil)
 
 func (c *Client) subresourceGet(app, subresource, id string, payload, data interface{}) error {
 	return c.doSubresourceRequest(&APIRequest{
