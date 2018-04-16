@@ -322,13 +322,12 @@ type EventRunType struct {
 }
 
 func (ev *EventRunType) String() string {
-	return fmt.Sprintf("one-off container with command '%s' (logs on %s)", ev.TypeData.Command, ev.TypeData.LogsUrl)
+	return fmt.Sprintf("one-off container with command '%s'", ev.TypeData.Command)
 }
 
 type EventRunTypeData struct {
-	Command string `json:"command"`
-	RunLogs string `json:"run_logs"`
-	LogsUrl string `json:"logs_url"`
+	Command    string `json:"command"`
+	AuditLogID string `json:"audit_log_id"`
 }
 
 type EventNewDomainType struct {
