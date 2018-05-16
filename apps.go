@@ -7,6 +7,14 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
+const (
+	AppStatusNew        = "new"
+	AppStatusRunning    = "running"
+	AppStatusStopped    = "stopped"
+	AppStatusScaling    = "scaling"
+	AppStatusRestarting = "restarting"
+)
+
 type AppsService interface {
 	AppsList() ([]*App, error)
 	AppsShow(appName string) (*App, error)
@@ -79,6 +87,8 @@ type App struct {
 		Billable bool   `json:"billable"`
 	} `json:"owner"`
 	GitUrl         string     `json:"git_url"`
+	Url            string     `json:"url"`
+	Status         string     `json:"status"`
 	LastDeployedAt *time.Time `json:"last_deployed_at"`
 	LastDeployedBy string     `json:"last_deployed_by"`
 	CreatedAt      *time.Time `json:"created_at"`
