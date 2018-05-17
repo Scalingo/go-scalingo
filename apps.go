@@ -7,12 +7,14 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
+type AppStatus string
+
 const (
-	AppStatusNew        = "new"
-	AppStatusRunning    = "running"
-	AppStatusStopped    = "stopped"
-	AppStatusScaling    = "scaling"
-	AppStatusRestarting = "restarting"
+	AppStatusNew        = AppStatus("new")
+	AppStatusRunning    = AppStatus("running")
+	AppStatusStopped    = AppStatus("stopped")
+	AppStatusScaling    = AppStatus("scaling")
+	AppStatusRestarting = AppStatus("restarting")
 )
 
 type AppsService interface {
@@ -88,7 +90,7 @@ type App struct {
 	} `json:"owner"`
 	GitUrl         string     `json:"git_url"`
 	Url            string     `json:"url"`
-	Status         string     `json:"status"`
+	Status         AppStatus  `json:"status"`
 	LastDeployedAt *time.Time `json:"last_deployed_at"`
 	LastDeployedBy string     `json:"last_deployed_by"`
 	CreatedAt      *time.Time `json:"created_at"`
