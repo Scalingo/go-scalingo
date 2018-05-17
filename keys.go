@@ -23,7 +23,7 @@ type KeyIndex struct {
 func (c *Client) KeysList() ([]Key, error) {
 	req := &APIRequest{
 		Client:   c,
-		URL:      AuthURL(),
+		URL:      c.AuthURL(),
 		Endpoint: "/v1/keys",
 	}
 	res, err := req.Do()
@@ -44,7 +44,7 @@ func (c *Client) KeysList() ([]Key, error) {
 func (c *Client) KeysAdd(name string, content string) (*Key, error) {
 	req := &APIRequest{
 		Client:   c,
-		URL:      AuthURL(),
+		URL:      c.AuthURL(),
 		Method:   "POST",
 		Endpoint: "/v1/keys",
 		Params: map[string]interface{}{
@@ -73,7 +73,7 @@ func (c *Client) KeysAdd(name string, content string) (*Key, error) {
 func (c *Client) KeysDelete(id string) error {
 	req := &APIRequest{
 		Client:   c,
-		URL:      AuthURL(),
+		URL:      c.AuthURL(),
 		Method:   "DELETE",
 		Endpoint: "/v1/keys/" + id,
 		Expected: Statuses{204},
