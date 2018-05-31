@@ -202,8 +202,9 @@ func (c *Client) DeploymentsCreate(app string, params *DeploymentsCreateParams) 
 func (c *Client) DeploymentCacheReset(app string) error {
 	req := &APIRequest{
 		Client:   c,
-		Endpoint: "/apps/" + app + "/deployments",
+		Endpoint: "/apps/" + app + "/caches/deployment",
 		Method:   "DELETE",
+		Expected: Statuses{204},
 	}
 	res, err := req.Do()
 	if err != nil {
