@@ -331,7 +331,8 @@ func (ev *EventRunType) String() string {
 }
 
 type EventRunTypeData struct {
-	Command string `json:"command"`
+	Command    string `json:"command"`
+	AuditLogID string `json:"audit_log_id"`
 }
 
 type EventNewDomainType struct {
