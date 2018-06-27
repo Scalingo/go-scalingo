@@ -12,7 +12,7 @@ var _ UsersService = (*Client)(nil)
 type User struct {
 	ID                  string          `json:"id"`
 	Username            string          `json:"username"`
-	Name                string          `json:"name"`
+	Fullname            string          `json:"fullname"`
 	Email               string          `json:"email"`
 	Flags               map[string]bool `json:"flags"`
 	AuthenticationToken string          `json:"authentication_token"`
