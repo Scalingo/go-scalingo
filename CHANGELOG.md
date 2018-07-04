@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.0
+
+* Add Fullname for `User` model
+* Ability to create an email notifier
+* Access to one-off audit logs
+
 ## v1.3.2
 
 * Add events NewAlert, Alert, DeleteAlert, NewAutoscaler, DeleteAutoscaler
