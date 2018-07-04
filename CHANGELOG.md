@@ -1,5 +1,10 @@
 # Changelog
 
+
+## v1.4.1
+
+* Add UserID to Collaborator
+
 ## v1.4.0
 
 * Add Fullname for `User` model
