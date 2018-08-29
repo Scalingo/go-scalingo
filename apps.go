@@ -33,6 +33,7 @@ type AppsService interface {
 var _ AppsService = (*Client)(nil)
 
 type ContainerType struct {
+	AppID   string `json:"app_id"`
 	Name    string `json:"name"`
 	Amount  int    `json:"amount"`
 	Command string `json:"command"`
