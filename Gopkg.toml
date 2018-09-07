@@ -20,8 +20,12 @@
 #  name = "github.com/x/y"
 #  version = "2.4.0"
 
+[prune]
+  unused-packages = true
+  go-tests = true
+  non-go = true
 
-[[constraint]]
+[[override]]
   branch = "master"
   name = "github.com/Scalingo/gopassword"
 
@@ -33,7 +37,7 @@
   branch = "master"
   name = "golang.org/x/net"
 
-[[constraint]]
+[[override]]
   branch = "master"
   name = "golang.org/x/oauth2"
 
