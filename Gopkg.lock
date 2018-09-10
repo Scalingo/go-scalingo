@@ -2,50 +2,65 @@
 
 
 [[projects]]
-  branch = "master"
-  name = "github.com/Scalingo/gopassword"
-  packages = ["."]
-  revision = "27d6fc05ae4d0cba5a5c646925f3aec369353ca1"
+  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  pruneopts = "NUT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
 
 [[projects]]
+  digest = "1:a62049a8fa554d688c8db4845c65ddcd5986b75f3a851e4fb563c6893d292e38"
   name = "github.com/golang/mock"
   packages = ["gomock"]
+  pruneopts = "NUT"
   revision = "13f360950a79f5864a972c786a10a50e44b69541"
   version = "v1.0.0"
 
 [[projects]]
-  name = "github.com/golang/protobuf"
-  packages = ["proto"]
-  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  pruneopts = "NUT"
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:0331452965d8695c0a5633e0f509012987681a654f388f2ad0c3b2d7f7004b1c"
+  name = "github.com/stretchr/testify"
+  packages = [
+    "assert",
+    "require",
+  ]
+  pruneopts = "NUT"
+  revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
+  version = "v1.2.2"
+
+[[projects]]
   branch = "master"
+  digest = "1:845c2878ddaa174523d1e096d61e0ebb349855d81dde54e6dbc2c3dbf431b68a"
   name = "golang.org/x/net"
-  packages = ["context","context/ctxhttp","websocket"]
+  packages = ["websocket"]
+  pruneopts = "NUT"
   revision = "22ae77b79946ea320088417e4d50825671d82d57"
 
 [[projects]]
-  branch = "master"
-  name = "golang.org/x/oauth2"
-  packages = [".","internal"]
-  revision = "2f32c3ac0fa4fb807a0fcefb0b6f2468a0d99bd0"
-
-[[projects]]
-  name = "google.golang.org/appengine"
-  packages = ["internal","internal/base","internal/datastore","internal/log","internal/remote_api","internal/urlfetch","urlfetch"]
-  revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
-  version = "v1.0.0"
-
-[[projects]]
   branch = "v1"
+  digest = "1:9cac97867c339fd55f00089b6667a943a27f6311e2394e2f57f9e7926037d125"
   name = "gopkg.in/errgo.v1"
   packages = ["."]
+  pruneopts = "NUT"
   revision = "442357a80af5c6bf9b6d51ae791a39c3421004f3"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "42e202ca797c1abb58d1c6a74af2bec6ce6d097938ac99f483aefae197f0054b"
+  input-imports = [
+    "github.com/golang/mock/gomock",
+    "github.com/stretchr/testify/assert",
+    "github.com/stretchr/testify/require",
+    "golang.org/x/net/websocket",
+    "gopkg.in/errgo.v1",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
