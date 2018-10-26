@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.0
+
+* Add AppsForceHTTPS
+* Add AppsStickySession
+* Add AppID in App subresources
+* Collaborator.Status is now of type CollaboratorStatus, and constants are defined
 
 ## v1.4.1
 
