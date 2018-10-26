@@ -24,23 +24,3 @@
   unused-packages = true
   go-tests = true
   non-go = true
-
-[[override]]
-  branch = "master"
-  name = "github.com/Scalingo/gopassword"
-
-[[constraint]]
-  name = "github.com/golang/mock"
-  version = "1.0.0"
-
-[[constraint]]
-  branch = "master"
-  name = "golang.org/x/net"
-
-[[override]]
-  branch = "master"
-  name = "golang.org/x/oauth2"
-
-[[constraint]]
-  branch = "v1"
-  name = "gopkg.in/errgo.v1"

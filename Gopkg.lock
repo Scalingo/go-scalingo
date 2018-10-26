@@ -10,12 +10,12 @@
   version = "v1.1.1"
 
 [[projects]]
-  digest = "1:a62049a8fa554d688c8db4845c65ddcd5986b75f3a851e4fb563c6893d292e38"
+  digest = "1:bc38c7c481812e178d85160472e231c5e1c9a7f5845d67e23ee4e706933c10d8"
   name = "github.com/golang/mock"
   packages = ["gomock"]
   pruneopts = "NUT"
-  revision = "13f360950a79f5864a972c786a10a50e44b69541"
-  version = "v1.0.0"
+  revision = "c34cdb4725f4c3844d095133c6e40e448b86589b"
+  version = "v1.1.1"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
@@ -38,19 +38,22 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:845c2878ddaa174523d1e096d61e0ebb349855d81dde54e6dbc2c3dbf431b68a"
+  digest = "1:290b8002a96a5f5c1bd8316884f6e2414f5fb1e46a22bbd5a1ff0d45dc944cb3"
   name = "golang.org/x/net"
-  packages = ["websocket"]
+  packages = [
+    "context",
+    "websocket",
+  ]
   pruneopts = "NUT"
-  revision = "22ae77b79946ea320088417e4d50825671d82d57"
+  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
 
 [[projects]]
-  branch = "v1"
-  digest = "1:9cac97867c339fd55f00089b6667a943a27f6311e2394e2f57f9e7926037d125"
+  digest = "1:7ca89186e2916a78912e707418b8f1ed4c8cc0a8068342427b671a5650c2edc5"
   name = "gopkg.in/errgo.v1"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "442357a80af5c6bf9b6d51ae791a39c3421004f3"
+  revision = "b20caedf0710d0988e92b5f2d76843ad1f231f2d"
+  version = "v1.0.0"
 
 [solve-meta]
   analyzer-name = "dep"
