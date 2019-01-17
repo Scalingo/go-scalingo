@@ -3,6 +3,8 @@
 ## v1.5.2
 
 * Remove os.Exit(), reliquat from split between CLI and client.
+* Update wording
+* Fix display of alert table
 
 ## v1.5.1
 
