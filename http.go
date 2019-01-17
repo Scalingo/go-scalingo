@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"reflect"
 	"time"
 
@@ -135,8 +134,7 @@ func (req *APIRequest) Do() (*http.Response, error) {
 	now := time.Now()
 	res, err := req.doRequest(req.HTTPRequest)
 	if err != nil {
-		fmt.Printf("Fail to query %s: %v\n", req.HTTPRequest.Host, err)
-		os.Exit(1)
+		return nil, fmt.Errorf("Fail to query %s: %v", req.HTTPRequest.Host, err)
 	}
 	debug.Printf(io.Indent("Duration: %v", 6), time.Now().Sub(now))
 
