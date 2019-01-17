@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.2
+
+* Remove os.Exit(), reliquat from split between CLI and client.
+
 ## v1.5.1
 
 * Update deps
