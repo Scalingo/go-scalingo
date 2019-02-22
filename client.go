@@ -13,6 +13,7 @@ type API interface {
 	AppsService
 	AlertsService
 	AutoscalersService
+	BackupsService
 	CollaboratorsService
 	DeploymentsService
 	DomainsService
@@ -33,8 +34,8 @@ type API interface {
 	UsersService
 
 	ScalingoAPI() http.Client
-	//	AuthAPI() (http.Client, error)
-	//	DBAPI(app, addon string) (http.Client, error)
+	AuthAPI() http.Client
+	DBAPI(app, addon string) http.Client
 }
 
 var _ API = (*Client)(nil)

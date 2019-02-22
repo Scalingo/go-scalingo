@@ -26,7 +26,7 @@ var apisConfig = map[string]apiConfig{
 		EnvironmentKey:  "SCALINGO_API_URL",
 	},
 	DBAPI: {
-		DefaultEndpoint: "https://db-api.scalingo.com",
+		DefaultEndpoint: "https://db-api.scalingo.com/api",
 		EnvironmentKey:  "SCALINGO_DB_API",
 	},
 }
