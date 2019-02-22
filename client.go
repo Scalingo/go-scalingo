@@ -2,14 +2,10 @@ package scalingo
 
 import (
 	"crypto/tls"
-	"errors"
-	"net/http"
 	"time"
-)
 
-type HTTPClient interface {
-	Do(*http.Request) (*http.Response, error)
-}
+	"github.com/Scalingo/go-scalingo/http"
+)
 
 type API interface {
 	AddonsService
@@ -36,86 +32,60 @@ type API interface {
 	TokensService
 	UsersService
 
-	TokenGenerator
-
-	APIVersion() string
-	Endpoint() string
-	HTTPClient() HTTPClient
+	ScalingoAPI() http.Client
+	//	AuthAPI() (http.Client, error)
+	//	DBAPI(app, addon string) (http.Client, error)
 }
 
 var _ API = (*Client)(nil)
 
 type Client struct {
-	tokenGenerator TokenGenerator
-	endpoint       string
-	authEndpoint   string
-	TLSConfig      *tls.Config
-	apiVersion     string
-	httpClient     HTTPClient
+	config ClientConfig
 }
 
 type ClientConfig struct {
-	Timeout        time.Duration
-	Endpoint       string
-	AuthEndpoint   string
-	TLSConfig      *tls.Config
-	TokenGenerator TokenGenerator
-	APIVersion     string
-	APIToken       string
+	Timeout   time.Duration
+	TLSConfig *tls.Config
+	APIToken  string
 }
 
 func NewClient(cfg ClientConfig) *Client {
-	if cfg.Timeout == 0 {
-		cfg.Timeout = 30 * time.Second
-	}
-	if cfg.Endpoint == "" {
-		cfg.Endpoint = defaultEndpoint
-	}
-	if cfg.TLSConfig == nil {
-		cfg.TLSConfig = &tls.Config{}
-	}
-
-	if cfg.APIVersion == "" {
-		cfg.APIVersion = defaultAPIVersion
-	}
-
-	c := Client{
-		tokenGenerator: cfg.TokenGenerator,
-		endpoint:       cfg.Endpoint,
-		authEndpoint:   cfg.AuthEndpoint,
-		apiVersion:     cfg.APIVersion,
-		TLSConfig:      cfg.TLSConfig,
-		httpClient: &http.Client{
-			Timeout: cfg.Timeout,
-			Transport: &http.Transport{
-				Proxy:           http.ProxyFromEnvironment,
-				TLSClientConfig: cfg.TLSConfig,
-			},
-		},
-	}
-
-	if len(cfg.APIToken) != 0 && c.tokenGenerator == nil {
-		c.tokenGenerator = c.GetAPITokenGenerator(cfg.APIToken)
-	}
-
-	return &c
+	client := &Client{}
+	return client
 }
 
-func (c *Client) HTTPClient() HTTPClient {
-	return c.httpClient
-}
-
-func (c *Client) GetAccessToken() (string, error) {
-	if c.tokenGenerator == nil {
-		return "", errors.New("no token generator")
+func (c *Client) ScalingoAPI() http.Client {
+	var tokenGenerator http.TokenGenerator
+	if len(c.config.APIToken) != 0 {
+		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}
-	return c.tokenGenerator.GetAccessToken()
+
+	return http.NewClient(http.ScalingoAPI, http.ClientConfig{
+		Timeout:        c.config.Timeout,
+		TLSConfig:      c.config.TLSConfig,
+		APIVersion:     "1",
+		TokenGenerator: tokenGenerator,
+	})
 }
 
-func (c *Client) APIVersion() string {
-	return c.apiVersion
+func (c *Client) DBAPI(app, addon string) http.Client {
+	return http.NewClient(http.DBAPI, http.ClientConfig{
+		Timeout:        c.config.Timeout,
+		TLSConfig:      c.config.TLSConfig,
+		TokenGenerator: http.NewAddonTokenGenerator(app, addon, c),
+	})
 }
 
-func (c *Client) Endpoint() string {
-	return c.endpoint
+func (c *Client) AuthAPI() http.Client {
+	var tokenGenerator http.TokenGenerator
+	if len(c.config.APIToken) != 0 {
+		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
+	}
+
+	return http.NewClient(http.AuthAPI, http.ClientConfig{
+		Timeout:        c.config.Timeout,
+		TLSConfig:      c.config.TLSConfig,
+		APIVersion:     "1",
+		TokenGenerator: tokenGenerator,
+	})
 }

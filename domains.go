@@ -39,7 +39,7 @@ type DomainRes struct {
 
 func (c *Client) DomainsList(app string) ([]Domain, error) {
 	var domainRes DomainsRes
-	err := c.subresourceList(app, "domains", nil, &domainRes)
+	err := c.ScalingoAPI().SubresourceList("apps", app, "domains", nil, &domainRes)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
@@ -48,7 +48,7 @@ func (c *Client) DomainsList(app string) ([]Domain, error) {
 
 func (c *Client) DomainsAdd(app string, d Domain) (Domain, error) {
 	var domainRes DomainRes
-	err := c.subresourceAdd(app, "domains", DomainRes{d}, &domainRes)
+	err := c.ScalingoAPI().SubresourceAdd("apps", app, "domains", DomainRes{d}, &domainRes)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
@@ -56,12 +56,12 @@ func (c *Client) DomainsAdd(app string, d Domain) (Domain, error) {
 }
 
 func (c *Client) DomainsRemove(app, id string) error {
-	return c.subresourceDelete(app, "domains", id)
+	return c.ScalingoAPI().SubresourceDelete("apps", app, "domains", id)
 }
 
 func (c *Client) DomainsUpdate(app, id, cert, key string) (Domain, error) {
 	var domainRes DomainRes
-	err := c.subresourceUpdate(app, "domains", id, DomainRes{Domain: Domain{TLSCert: cert, TLSKey: key}}, &domainRes)
+	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: Domain{TLSCert: cert, TLSKey: key}}, &domainRes)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
@@ -71,7 +71,7 @@ func (c *Client) DomainsUpdate(app, id, cert, key string) (Domain, error) {
 func (c *Client) DomainsShow(app, id string) (Domain, error) {
 	var domainRes DomainRes
 
-	err := c.subresourceGet(app, "domains", id, nil, &domainRes)
+	err := c.ScalingoAPI().SubresourceGet("apps", app, "domains", id, nil, &domainRes)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
@@ -81,7 +81,7 @@ func (c *Client) DomainsShow(app, id string) (Domain, error) {
 
 func (c *Client) DomainSetCanonical(app, id string) (Domain, error) {
 	var domainRes DomainRes
-	err := c.subresourceUpdate(app, "domains", id, DomainRes{Domain: Domain{Canonical: true}}, &domainRes)
+	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: Domain{Canonical: true}}, &domainRes)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
@@ -97,7 +97,7 @@ func (c *Client) DomainUnsetCanonical(app string) (Domain, error) {
 	for _, domain := range domains {
 		if domain.Canonical {
 			var domainRes DomainRes
-			err := c.subresourceUpdate(app, "domains", domain.ID, DomainRes{Domain: Domain{Canonical: false}}, &domainRes)
+			err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", domain.ID, DomainRes{Domain: Domain{Canonical: false}}, &domainRes)
 			if err != nil {
 				return Domain{}, errgo.Mask(err)
 			}
