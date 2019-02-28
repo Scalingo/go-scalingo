@@ -47,7 +47,7 @@ func (mr *MockTokensServiceMockRecorder) TokenCreate(arg0 interface{}) *gomock.C
 }
 
 // TokenExchange mocks base method
-func (m *MockTokensService) TokenExchange(arg0 go_scalingo.TokenExchangeParams) (string, error) {
+func (m *MockTokensService) TokenExchange(arg0 string) (string, error) {
 	ret := m.ctrl.Call(m, "TokenExchange", arg0)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)

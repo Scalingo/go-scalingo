@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"errors"
+	"fmt"
 	"time"
 
 	"gopkg.in/errgo.v1"
@@ -91,6 +92,7 @@ func (c *Client) DomainSetCanonical(app, id string) (Domain, error) {
 func (c *Client) DomainUnsetCanonical(app string) (Domain, error) {
 	domains, err := c.DomainsList(app)
 	if err != nil {
+		fmt.Println("TATA")
 		return Domain{}, errgo.Mask(err)
 	}
 

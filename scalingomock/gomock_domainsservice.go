@@ -33,6 +33,32 @@ func (m *MockDomainsService) EXPECT() *MockDomainsServiceMockRecorder {
 	return m.recorder
 }
 
+// DomainSetCanonical mocks base method
+func (m *MockDomainsService) DomainSetCanonical(arg0, arg1 string) (go_scalingo.Domain, error) {
+	ret := m.ctrl.Call(m, "DomainSetCanonical", arg0, arg1)
+	ret0, _ := ret[0].(go_scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainSetCanonical indicates an expected call of DomainSetCanonical
+func (mr *MockDomainsServiceMockRecorder) DomainSetCanonical(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCanonical", reflect.TypeOf((*MockDomainsService)(nil).DomainSetCanonical), arg0, arg1)
+}
+
+// DomainUnsetCanonical mocks base method
+func (m *MockDomainsService) DomainUnsetCanonical(arg0 string) (go_scalingo.Domain, error) {
+	ret := m.ctrl.Call(m, "DomainUnsetCanonical", arg0)
+	ret0, _ := ret[0].(go_scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainUnsetCanonical indicates an expected call of DomainUnsetCanonical
+func (mr *MockDomainsServiceMockRecorder) DomainUnsetCanonical(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCanonical", reflect.TypeOf((*MockDomainsService)(nil).DomainUnsetCanonical), arg0)
+}
+
 // DomainsAdd mocks base method
 func (m *MockDomainsService) DomainsAdd(arg0 string, arg1 go_scalingo.Domain) (go_scalingo.Domain, error) {
 	ret := m.ctrl.Call(m, "DomainsAdd", arg0, arg1)

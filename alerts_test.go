@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
+	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -87,6 +89,8 @@ func TestAlertsClient(t *testing.T) {
 			},
 		} {
 			t.Run(msg, func(t *testing.T) {
+				ctrl := gomock.NewController(t)
+				defer ctrl.Finish()
 				handler := func(w http.ResponseWriter, r *http.Request) {
 					assert.Equal(t, test.expectedMethod, r.Method)
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
@@ -106,10 +110,12 @@ func TestAlertsClient(t *testing.T) {
 				ts := httptest.NewServer(http.HandlerFunc(handler))
 				defer ts.Close()
 
+				os.Setenv("SCALINGO_API_URL", ts.URL)
 				c := NewClient(ClientConfig{
-					Endpoint:       ts.URL,
-					TokenGenerator: NewStaticTokenGenerator("test"),
+					APIToken: "test",
 				})
+
+				c.authClient = MockAuth(ctrl)
 
 				err := test.testedClientCall(c)
 				if run.invalidResponse {
