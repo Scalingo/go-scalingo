@@ -10,6 +10,7 @@ import (
 
 type BackupsService interface {
 	BackupList(app string, addonID string) ([]Backup, error)
+	BackupShow(app, addonID, backupID string) (*Backup, error)
 	BackupDownloadURL(app, addonID, backupID string) (string, error)
 }
 
@@ -33,7 +34,11 @@ type Backup struct {
 }
 
 type BackupsRes struct {
-	Backups []Backup `json:"backups"`
+	Backups []Backup `json:"database_backups"`
+}
+
+type BackupRes struct {
+	Backup Backup `json:"database_backup"`
 }
 
 type DownloadURLRes struct {
@@ -49,10 +54,20 @@ func (c *Client) BackupList(app string, addonID string) ([]Backup, error) {
 	return backupRes.Backups, nil
 }
 
+func (c *Client) BackupShow(app, addonID, backup string) (*Backup, error) {
+	var backupRes BackupRes
+	err := c.DBAPI(app, addonID).ResourceGet("backups", backup, nil, &backupRes)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to get backup")
+	}
+	return &backupRes.Backup, nil
+
+}
+
 func (c *Client) BackupDownloadURL(app, addonID, backupID string) (string, error) {
 	req := &http.APIRequest{
-		Method: "GET",
-		URL:    "/backups/" + backupID + "/archive",
+		Method:   "GET",
+		Endpoint: "/databases/" + addonID + "/backups/" + backupID + "/archive",
 	}
 	resp, err := c.DBAPI(app, addonID).Do(req)
 	if err != nil {
