@@ -42,7 +42,7 @@ type DownloadURLRes struct {
 
 func (c *Client) BackupList(app string, addonID string) ([]Backup, error) {
 	var backupRes BackupsRes
-	err := c.DBAPI(app, addonID).ResourceList("backups", nil, &backupRes)
+	err := c.DBAPI(app, addonID).SubresourceList("databases", addonID, "backups", nil, &backupRes)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to get backup")
 	}

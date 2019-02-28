@@ -152,3 +152,7 @@ func (c *Client) TokenShow(id int) (Token, error) {
 
 	return tokenRes.Token, nil
 }
+
+func (c *Client) GetAccessToken() (string, error) {
+	return c.ScalingoAPI().TokenGenerator().GetAccessToken()
+}

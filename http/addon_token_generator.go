@@ -1,6 +1,8 @@
 package http
 
-import errgo "gopkg.in/errgo.v1"
+import (
+	errgo "gopkg.in/errgo.v1"
+)
 
 type AddonTokenGenerator struct {
 	appID     string
@@ -14,8 +16,9 @@ type AdddonTokenExchanger interface {
 
 func NewAddonTokenGenerator(app, addon string, exchanger AdddonTokenExchanger) TokenGenerator {
 	return &AddonTokenGenerator{
-		appID:   app,
-		addonID: addon,
+		appID:     app,
+		addonID:   addon,
+		exchanger: exchanger,
 	}
 }
 

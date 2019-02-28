@@ -18,22 +18,27 @@ const (
 
 var apisConfig = map[string]apiConfig{
 	AuthAPI: {
-		DefaultEndpoint: "https://auth.scalingo.com",
-		EnvironmentKey:  "SCALINGO_AUTH_URL",
+		DefaultEndpoint:  "https://auth.scalingo.com",
+		EnvironmentKey:   "SCALINGO_AUTH_URL",
+		HasVersionPrefix: true,
 	},
 	ScalingoAPI: {
-		DefaultEndpoint: "https://api.scalingo.com",
-		EnvironmentKey:  "SCALINGO_API_URL",
+		DefaultEndpoint:  "https://api.scalingo.com",
+		EnvironmentKey:   "SCALINGO_API_URL",
+		HasVersionPrefix: true,
 	},
 	DBAPI: {
 		DefaultEndpoint: "https://db-api.scalingo.com/api",
-		EnvironmentKey:  "SCALINGO_DB_API",
+		EnvironmentKey:  "SCALINGO_DB_URL",
+		Prefix:          "/api",
 	},
 }
 
 type apiConfig struct {
-	DefaultEndpoint string
-	EnvironmentKey  string
+	DefaultEndpoint  string
+	EnvironmentKey   string
+	HasVersionPrefix bool
+	Prefix           string
 }
 
 type Client interface {
@@ -67,8 +72,8 @@ type client struct {
 	tokenGenerator TokenGenerator
 	endpoint       string
 	apiConfig      apiConfig
-	apiVersion     string
 	httpClient     *http.Client
+	prefix         string
 }
 
 func NewClient(api string, cfg ClientConfig) Client {
@@ -79,15 +84,25 @@ func NewClient(api string, cfg ClientConfig) Client {
 		cfg.TLSConfig = &tls.Config{}
 	}
 
+	config := apisConfig[api]
+
 	if cfg.APIVersion == "" {
 		cfg.APIVersion = defaultAPIVersion
 	}
 
-	config := apisConfig[api]
+	var prefix string
+
+	if config.HasVersionPrefix {
+		prefix = fmt.Sprintf("/v%v", cfg.APIVersion)
+	}
+
+	if config.Prefix != "" {
+		prefix = config.Prefix
+	}
 
 	c := client{
+		prefix:         prefix,
 		tokenGenerator: cfg.TokenGenerator,
-		apiVersion:     cfg.APIVersion,
 		apiConfig:      config,
 		httpClient: &http.Client{
 			Timeout: cfg.Timeout,
@@ -211,8 +226,8 @@ func (c *client) BaseURL() string {
 		endpoint = os.Getenv(c.apiConfig.EnvironmentKey)
 	}
 
-	if c.apiVersion != "" {
-		return fmt.Sprintf("%s/v%s", endpoint, c.apiVersion)
+	if c.prefix != "" {
+		return fmt.Sprintf("%s%s", endpoint, c.prefix)
 	}
 	return endpoint
 }

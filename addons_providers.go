@@ -71,5 +71,8 @@ func (c *Client) AddonProviderPlansList(addon string) ([]*Plan, error) {
 		Endpoint: "/addon_providers/" + addon + "/plans",
 	}
 	err := c.ScalingoAPI().DoRequest(req, &params)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to get plans")
+	}
 	return params.Plans, nil
 }

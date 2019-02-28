@@ -32,6 +32,7 @@ type API interface {
 	SourcesService
 	TokensService
 	UsersService
+	http.TokenGenerator
 
 	ScalingoAPI() http.Client
 	AuthAPI() http.Client
@@ -51,7 +52,9 @@ type ClientConfig struct {
 }
 
 func NewClient(cfg ClientConfig) *Client {
-	client := &Client{}
+	client := &Client{
+		config: cfg,
+	}
 	return client
 }
 
