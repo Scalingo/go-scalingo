@@ -1,0 +1,9 @@
+{
+  "base_package": "github.com/Scalingo/go-scalingo",
+  "mocks": [
+    {
+      "interface" : "Client",
+      "src_package" : "http"
+    }
+  ]
+}

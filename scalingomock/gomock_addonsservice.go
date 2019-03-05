@@ -58,6 +58,19 @@ func (mr *MockAddonsServiceMockRecorder) AddonProvision(arg0, arg1, arg2 interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvision", reflect.TypeOf((*MockAddonsService)(nil).AddonProvision), arg0, arg1, arg2)
 }
 
+// AddonToken mocks base method
+func (m *MockAddonsService) AddonToken(arg0, arg1 string) (string, error) {
+	ret := m.ctrl.Call(m, "AddonToken", arg0, arg1)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddonToken indicates an expected call of AddonToken
+func (mr *MockAddonsServiceMockRecorder) AddonToken(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonToken", reflect.TypeOf((*MockAddonsService)(nil).AddonToken), arg0, arg1)
+}
+
 // AddonUpgrade mocks base method
 func (m *MockAddonsService) AddonUpgrade(arg0, arg1, arg2 string) (go_scalingo.AddonRes, error) {
 	ret := m.ctrl.Call(m, "AddonUpgrade", arg0, arg1, arg2)

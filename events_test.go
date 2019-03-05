@@ -1,12 +1,12 @@
 package scalingo
 
 import (
-	"io/ioutil"
-	"net/http"
-	"strings"
+	"encoding/json"
 	"testing"
 
-	"github.com/Scalingo/go-scalingo/test"
+	"github.com/Scalingo/go-scalingo/http/httpmock"
+	gomock "github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/require"
 )
 
 var eventsListCases = map[string]struct {
@@ -15,16 +15,12 @@ var eventsListCases = map[string]struct {
 	Body           string
 	Code           int
 	EventsCount    int
-	ReqURL         string
-	ReqMethod      string
 	Error          error
 }{
 	"test get list of events with no event": {
 		App:         "app-1",
 		Body:        `{"events": [], "meta": {"pagination": {"prev_page": 1, "current_page": 1, "next_page": 1, "total_pages": 1, "total_count": 0}}}`,
 		EventsCount: 0,
-		ReqURL:      "https://api.scalingo.com/v1/apps/app-1/events?page=0&per_page=0",
-		ReqMethod:   "GET",
 	},
 	"test get list of events with 1 event": {
 		App:         "app-1",
@@ -41,36 +37,23 @@ var eventsListCases = map[string]struct {
 func TestEventsList(t *testing.T) {
 	for msg, c := range eventsListCases {
 		t.Run(msg, func(t *testing.T) {
-			hc := test.NewHTTPClient()
-			tg := newtokenGeneratorMock()
-			tg.setAccessToken("token")
-			client := NewClient(ClientConfig{
-				TokenGenerator: tg,
-			})
-			client.httpClient = hc
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+			client := NewClient(ClientConfig{})
+			apiMock := httpmock.NewMockClient(ctrl)
+			client.apiClient = apiMock
 
-			res := new(http.Response)
-			res.Body = ioutil.NopCloser(strings.NewReader(c.Body))
-			res.StatusCode = 200
-			hc.SetResponseData(res)
+			apiMock.EXPECT().SubresourceList("apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_, _, _ string, _ interface{}, res interface{}) {
+				err := json.Unmarshal([]byte(c.Body), &res)
+				require.NoError(t, err)
+			}).Return(nil)
 
 			events, _, err := client.EventsList(c.App, c.PaginationOpts)
-			if len(hc.Calls) != 1 {
-				t.Errorf("expected 1 http request, got %v", len(hc.Calls))
-			}
 			if len(events) != c.EventsCount {
 				t.Errorf("expected %d event, got %v", c.EventsCount, len(events))
 			}
 			if err != c.Error {
 				t.Errorf("expected '%v' error got %v", c.Error, err)
-			}
-
-			req := hc.Calls[0]
-			if c.ReqURL != "" && req.URL.String() != c.ReqURL {
-				t.Errorf("expected request to URL %v, got %v", c.ReqURL, req.URL.String())
-			}
-			if c.ReqMethod != "" && req.Method != c.ReqMethod {
-				t.Errorf("expected request with verb %v, got %v", c.ReqMethod, req.Method)
 			}
 		})
 	}

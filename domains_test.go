@@ -5,8 +5,10 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
+	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -70,6 +72,9 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 
 	for msg, run := range runs {
 		t.Run(msg, func(t *testing.T) {
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				// If request domains list
 				if r.Method == "GET" && r.URL.Path == "/v1/apps/my-app/domains" {
@@ -91,10 +96,11 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			}))
 			defer ts.Close()
 
+			os.Setenv("SCALINGO_API_URL", ts.URL)
 			c := NewClient(ClientConfig{
-				Endpoint:       ts.URL,
-				TokenGenerator: NewStaticTokenGenerator("test"),
+				APIToken: "test",
 			})
+			c.authClient = MockAuth(ctrl)
 
 			err := run.testedClientCall(c)
 			if run.expectedError != "" {

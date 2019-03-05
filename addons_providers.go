@@ -1,8 +1,7 @@
 package scalingo
 
 import (
-	"encoding/json"
-
+	"github.com/Scalingo/go-scalingo/http"
 	"gopkg.in/errgo.v1"
 )
 
@@ -38,21 +37,14 @@ type ListParams struct {
 }
 
 func (c *Client) AddonProvidersList() ([]*AddonProvider, error) {
-	req := &APIRequest{
-		Client:   c,
+	req := &http.APIRequest{
 		NoAuth:   true,
 		Endpoint: "/addon_providers",
 	}
-	res, err := req.Do()
+	var params ListParams
+	err := c.ScalingoAPI().DoRequest(req, &params)
 	if err != nil {
 		return nil, errgo.Mask(err)
-	}
-	defer res.Body.Close()
-
-	var params ListParams
-	err = json.NewDecoder(res.Body).Decode(&params)
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
 	}
 
 	return params.AddonProviders, nil
@@ -73,22 +65,14 @@ func (c *Client) AddonProviderPlansList(addon string) ([]*Plan, error) {
 		addon = correctAddon
 	}
 
-	req := &APIRequest{
-		Client:   c,
+	var params PlansParams
+	req := &http.APIRequest{
 		NoAuth:   true,
 		Endpoint: "/addon_providers/" + addon + "/plans",
 	}
-	res, err := req.Do()
+	err := c.ScalingoAPI().DoRequest(req, &params)
 	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
+		return nil, errgo.Notef(err, "fail to get plans")
 	}
-	defer res.Body.Close()
-
-	var params PlansParams
-	err = ParseJSON(res, &params)
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
 	return params.Plans, nil
 }
