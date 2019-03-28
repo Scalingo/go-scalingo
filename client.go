@@ -51,7 +51,7 @@ type Client struct {
 type ClientConfig struct {
 	Timeout             time.Duration
 	TLSConfig           *tls.Config
-	Endpoint            string
+	APIEndpoint         string
 	AuthEndpoint        string
 	DatabaseAPIEndpoint string
 	APIToken            string
@@ -78,7 +78,7 @@ func (c *Client) ScalingoAPI() http.Client {
 		TLSConfig:      c.config.TLSConfig,
 		APIVersion:     "1",
 		TokenGenerator: tokenGenerator,
-		Endpoint:       c.config.Endpoint,
+		Endpoint:       c.config.APIEndpoint,
 	})
 }
 
