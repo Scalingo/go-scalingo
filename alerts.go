@@ -16,18 +16,20 @@ type AlertsService interface {
 
 var _ AlertsService = (*Client)(nil)
 
-type Alert struct {
+// AlertInternal is an alert with the time.Duration attributes being the string
+// representation. This is how the alerter service expects them.
+type AlertInternal struct {
 	ID            string  `json:"id"`
 	AppID         string  `json:"app_id"`
 	ContainerType string  `json:"container_type"`
 	Metric        string  `json:"metric"`
 	Limit         float64 `json:"limit"`
+	Disabled      bool    `json:"disabled"`
+	SendWhenBelow bool    `json:"send_when_below"`
 	// DurationBeforeTrigger and RemindEvery are string parse-able using
 	// time.ParseDuration
 	DurationBeforeTrigger string `json:"duration_before_trigger"`
 	RemindEvery           string `json:"remind_every"`
-	Disabled              bool   `json:"disabled"`
-	SendWhenBelow         bool   `json:"send_when_below"`
 }
 
 type AlertsRes struct {
@@ -35,7 +37,15 @@ type AlertsRes struct {
 }
 
 type AlertRes struct {
-	Alert Alert `json:"alert"`
+	Alert *Alert `json:"alert"`
+}
+
+// Alert represents an alert with the duration attributes being...
+// time.Duration.
+type Alert struct {
+	*AlertInternal
+	DurationBeforeTrigger time.Duration `json:"duration_before_trigger"`
+	RemindEvery           time.Duration `json:"remind_every"`
 }
 
 func (c *Client) AlertsList(app string) ([]*Alert, error) {
@@ -59,25 +69,27 @@ type AlertAddParams struct {
 
 func (c *Client) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
 	var alertRes AlertRes
-	alert := Alert{
+	a := &AlertInternal{
 		ContainerType: params.ContainerType,
 		Metric:        params.Metric,
 		Limit:         params.Limit,
 		SendWhenBelow: params.SendWhenBelow,
 	}
 	if params.RemindEvery != nil {
-		alert.RemindEvery = (*params.RemindEvery).String()
+		a.RemindEvery = (*params.RemindEvery).String()
 	}
 	if params.DurationBeforeTrigger != nil {
-		alert.RemindEvery = (*params.DurationBeforeTrigger).String()
+		a.DurationBeforeTrigger = (*params.DurationBeforeTrigger).String()
 	}
-	err := c.ScalingoAPI().SubresourceAdd("apps", app, "alerts", AlertRes{
-		Alert: alert,
+	err := c.ScalingoAPI().SubresourceAdd("apps", app, "alerts", struct {
+		Alert *AlertInternal `json:"alert"`
+	}{
+		Alert: a,
 	}, &alertRes)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to query the API to create an alert")
 	}
-	return &alertRes.Alert, nil
+	return alertRes.Alert, nil
 }
 
 func (c *Client) AlertShow(app, id string) (*Alert, error) {
@@ -86,7 +98,7 @@ func (c *Client) AlertShow(app, id string) (*Alert, error) {
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to query the API to show an alert")
 	}
-	return &alertRes.Alert, nil
+	return alertRes.Alert, nil
 }
 
 type AlertUpdateParams struct {
@@ -106,7 +118,7 @@ func (c *Client) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, 
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to query the API to update an alert")
 	}
-	return &alertRes.Alert, nil
+	return alertRes.Alert, nil
 }
 
 func (c *Client) AlertRemove(app, id string) error {
