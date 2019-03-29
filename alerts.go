@@ -22,9 +22,12 @@ type Alert struct {
 	ContainerType string  `json:"container_type"`
 	Metric        string  `json:"metric"`
 	Limit         float64 `json:"limit"`
-	RemindEvery   string  `json:"remind_every"`
-	Disabled      bool    `json:"disabled"`
-	SendWhenBelow bool    `json:"send_when_below"`
+	// DurationBeforeTrigger and RemindEvery are string parse-able using
+	// time.ParseDuration
+	DurationBeforeTrigger string `json:"duration_before_trigger"`
+	RemindEvery           string `json:"remind_every"`
+	Disabled              bool   `json:"disabled"`
+	SendWhenBelow         bool   `json:"send_when_below"`
 }
 
 type AlertsRes struct {
@@ -45,12 +48,13 @@ func (c *Client) AlertsList(app string) ([]*Alert, error) {
 }
 
 type AlertAddParams struct {
-	ContainerType string
-	Metric        string
-	Limit         float64
-	RemindEvery   *time.Duration
-	SendWhenBelow bool
-	Notifiers     []string
+	ContainerType         string
+	Metric                string
+	Limit                 float64
+	RemindEvery           *time.Duration
+	DurationBeforeTrigger *time.Duration
+	SendWhenBelow         bool
+	Notifiers             []string
 }
 
 func (c *Client) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
@@ -63,6 +67,9 @@ func (c *Client) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
 	}
 	if params.RemindEvery != nil {
 		alert.RemindEvery = (*params.RemindEvery).String()
+	}
+	if params.DurationBeforeTrigger != nil {
+		alert.RemindEvery = (*params.DurationBeforeTrigger).String()
 	}
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "alerts", AlertRes{
 		Alert: alert,
@@ -83,13 +90,14 @@ func (c *Client) AlertShow(app, id string) (*Alert, error) {
 }
 
 type AlertUpdateParams struct {
-	ContainerType *string        `json:"container_type,omitempty"`
-	Metric        *string        `json:"metric,omitempty"`
-	Limit         *float64       `json:"limit,omitempty"`
-	Disabled      *bool          `json:"disabled,omitempty"`
-	RemindEvery   *time.Duration `json:"remind_every,omitempty"`
-	SendWhenBelow *bool          `json:"send_when_below,omitempty"`
-	Notifiers     *[]string      `json:"notifiers,omitempty"`
+	ContainerType         *string        `json:"container_type,omitempty"`
+	Metric                *string        `json:"metric,omitempty"`
+	Limit                 *float64       `json:"limit,omitempty"`
+	Disabled              *bool          `json:"disabled,omitempty"`
+	DurationBeforeTrigger *time.Duration `json:"duration_before_trigger,omitempty"`
+	RemindEvery           *time.Duration `json:"remind_every,omitempty"`
+	SendWhenBelow         *bool          `json:"send_when_below,omitempty"`
+	Notifiers             *[]string      `json:"notifiers,omitempty"`
 }
 
 func (c *Client) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, error) {
