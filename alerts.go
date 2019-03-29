@@ -42,7 +42,7 @@ func (c *Client) AlertsList(app string) ([]*Alert, error) {
 	var alertsRes AlertsRes
 	err := c.ScalingoAPI().SubresourceList("apps", app, "alerts", nil, &alertsRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to query the API to list an alert")
 	}
 	return alertsRes.Alerts, nil
 }
@@ -75,7 +75,7 @@ func (c *Client) AlertAdd(app string, params AlertAddParams) (*Alert, error) {
 		Alert: alert,
 	}, &alertRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to query the API to create an alert")
 	}
 	return &alertRes.Alert, nil
 }
@@ -84,7 +84,7 @@ func (c *Client) AlertShow(app, id string) (*Alert, error) {
 	var alertRes AlertRes
 	err := c.ScalingoAPI().SubresourceGet("apps", app, "alerts", id, nil, &alertRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to query the API to show an alert")
 	}
 	return &alertRes.Alert, nil
 }
@@ -104,7 +104,7 @@ func (c *Client) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, 
 	var alertRes AlertRes
 	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "alerts", id, params, &alertRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to query the API to update an alert")
 	}
 	return &alertRes.Alert, nil
 }
@@ -112,7 +112,7 @@ func (c *Client) AlertUpdate(app, id string, params AlertUpdateParams) (*Alert, 
 func (c *Client) AlertRemove(app, id string) error {
 	err := c.ScalingoAPI().SubresourceDelete("apps", app, "alerts", id)
 	if err != nil {
-		return errgo.Mask(err, errgo.Any)
+		return errgo.Notef(err, "fail to query the API to remove an alert")
 	}
 	return nil
 }
