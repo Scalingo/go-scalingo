@@ -6,9 +6,10 @@ package scalingomock
 
 import (
 	go_scalingo "github.com/Scalingo/go-scalingo"
+	http "github.com/Scalingo/go-scalingo/http"
 	gomock "github.com/golang/mock/gomock"
 	websocket "golang.org/x/net/websocket"
-	http "net/http"
+	http0 "net/http"
 	reflect "reflect"
 )
 
@@ -33,18 +34,6 @@ func NewMockAPI(ctrl *gomock.Controller) *MockAPI {
 // EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 	return m.recorder
-}
-
-// APIVersion mocks base method
-func (m *MockAPI) APIVersion() string {
-	ret := m.ctrl.Call(m, "APIVersion")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
-
-// APIVersion indicates an expected call of APIVersion
-func (mr *MockAPIMockRecorder) APIVersion() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "APIVersion", reflect.TypeOf((*MockAPI)(nil).APIVersion))
 }
 
 // AddonDestroy mocks base method
@@ -96,6 +85,19 @@ func (m *MockAPI) AddonProvision(arg0, arg1, arg2 string) (go_scalingo.AddonRes,
 // AddonProvision indicates an expected call of AddonProvision
 func (mr *MockAPIMockRecorder) AddonProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvision", reflect.TypeOf((*MockAPI)(nil).AddonProvision), arg0, arg1, arg2)
+}
+
+// AddonToken mocks base method
+func (m *MockAPI) AddonToken(arg0, arg1 string) (string, error) {
+	ret := m.ctrl.Call(m, "AddonToken", arg0, arg1)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddonToken indicates an expected call of AddonToken
+func (mr *MockAPIMockRecorder) AddonToken(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonToken", reflect.TypeOf((*MockAPI)(nil).AddonToken), arg0, arg1)
 }
 
 // AddonUpgrade mocks base method
@@ -213,6 +215,19 @@ func (mr *MockAPIMockRecorder) AppsDestroy(arg0, arg1 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsDestroy", reflect.TypeOf((*MockAPI)(nil).AppsDestroy), arg0, arg1)
 }
 
+// AppsForceHTTPS mocks base method
+func (m *MockAPI) AppsForceHTTPS(arg0 string, arg1 bool) (*go_scalingo.App, error) {
+	ret := m.ctrl.Call(m, "AppsForceHTTPS", arg0, arg1)
+	ret0, _ := ret[0].(*go_scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsForceHTTPS indicates an expected call of AppsForceHTTPS
+func (mr *MockAPIMockRecorder) AppsForceHTTPS(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsForceHTTPS", reflect.TypeOf((*MockAPI)(nil).AppsForceHTTPS), arg0, arg1)
+}
+
 // AppsList mocks base method
 func (m *MockAPI) AppsList() ([]*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsList")
@@ -253,9 +268,9 @@ func (mr *MockAPIMockRecorder) AppsRename(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // AppsRestart mocks base method
-func (m *MockAPI) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) (*http.Response, error) {
+func (m *MockAPI) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) (*http0.Response, error) {
 	ret := m.ctrl.Call(m, "AppsRestart", arg0, arg1)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -266,9 +281,9 @@ func (mr *MockAPIMockRecorder) AppsRestart(arg0, arg1 interface{}) *gomock.Call 
 }
 
 // AppsScale mocks base method
-func (m *MockAPI) AppsScale(arg0 string, arg1 *go_scalingo.AppsScaleParams) (*http.Response, error) {
+func (m *MockAPI) AppsScale(arg0 string, arg1 *go_scalingo.AppsScaleParams) (*http0.Response, error) {
 	ret := m.ctrl.Call(m, "AppsScale", arg0, arg1)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -304,6 +319,19 @@ func (mr *MockAPIMockRecorder) AppsStats(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStats", reflect.TypeOf((*MockAPI)(nil).AppsStats), arg0)
 }
 
+// AppsStickySession mocks base method
+func (m *MockAPI) AppsStickySession(arg0 string, arg1 bool) (*go_scalingo.App, error) {
+	ret := m.ctrl.Call(m, "AppsStickySession", arg0, arg1)
+	ret0, _ := ret[0].(*go_scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsStickySession indicates an expected call of AppsStickySession
+func (mr *MockAPIMockRecorder) AppsStickySession(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStickySession", reflect.TypeOf((*MockAPI)(nil).AppsStickySession), arg0, arg1)
+}
+
 // AppsTransfer mocks base method
 func (m *MockAPI) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
 	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
@@ -315,6 +343,18 @@ func (m *MockAPI) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
 // AppsTransfer indicates an expected call of AppsTransfer
 func (mr *MockAPIMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAPI)(nil).AppsTransfer), arg0, arg1)
+}
+
+// AuthAPI mocks base method
+func (m *MockAPI) AuthAPI() http.Client {
+	ret := m.ctrl.Call(m, "AuthAPI")
+	ret0, _ := ret[0].(http.Client)
+	return ret0
+}
+
+// AuthAPI indicates an expected call of AuthAPI
+func (mr *MockAPIMockRecorder) AuthAPI() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AuthAPI", reflect.TypeOf((*MockAPI)(nil).AuthAPI))
 }
 
 // AutoscalerAdd mocks base method
@@ -355,6 +395,45 @@ func (mr *MockAPIMockRecorder) AutoscalersList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalersList", reflect.TypeOf((*MockAPI)(nil).AutoscalersList), arg0)
 }
 
+// BackupDownloadURL mocks base method
+func (m *MockAPI) BackupDownloadURL(arg0, arg1, arg2 string) (string, error) {
+	ret := m.ctrl.Call(m, "BackupDownloadURL", arg0, arg1, arg2)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// BackupDownloadURL indicates an expected call of BackupDownloadURL
+func (mr *MockAPIMockRecorder) BackupDownloadURL(arg0, arg1, arg2 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupDownloadURL", reflect.TypeOf((*MockAPI)(nil).BackupDownloadURL), arg0, arg1, arg2)
+}
+
+// BackupList mocks base method
+func (m *MockAPI) BackupList(arg0, arg1 string) ([]go_scalingo.Backup, error) {
+	ret := m.ctrl.Call(m, "BackupList", arg0, arg1)
+	ret0, _ := ret[0].([]go_scalingo.Backup)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// BackupList indicates an expected call of BackupList
+func (mr *MockAPIMockRecorder) BackupList(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupList", reflect.TypeOf((*MockAPI)(nil).BackupList), arg0, arg1)
+}
+
+// BackupShow mocks base method
+func (m *MockAPI) BackupShow(arg0, arg1, arg2 string) (*go_scalingo.Backup, error) {
+	ret := m.ctrl.Call(m, "BackupShow", arg0, arg1, arg2)
+	ret0, _ := ret[0].(*go_scalingo.Backup)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// BackupShow indicates an expected call of BackupShow
+func (mr *MockAPIMockRecorder) BackupShow(arg0, arg1, arg2 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupShow", reflect.TypeOf((*MockAPI)(nil).BackupShow), arg0, arg1, arg2)
+}
+
 // CollaboratorAdd mocks base method
 func (m *MockAPI) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, error) {
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1)
@@ -393,6 +472,18 @@ func (mr *MockAPIMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockAPI)(nil).CollaboratorsList), arg0)
 }
 
+// DBAPI mocks base method
+func (m *MockAPI) DBAPI(arg0, arg1 string) http.Client {
+	ret := m.ctrl.Call(m, "DBAPI", arg0, arg1)
+	ret0, _ := ret[0].(http.Client)
+	return ret0
+}
+
+// DBAPI indicates an expected call of DBAPI
+func (mr *MockAPIMockRecorder) DBAPI(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DBAPI", reflect.TypeOf((*MockAPI)(nil).DBAPI), arg0, arg1)
+}
+
 // Deployment mocks base method
 func (m *MockAPI) Deployment(arg0, arg1 string) (*go_scalingo.Deployment, error) {
 	ret := m.ctrl.Call(m, "Deployment", arg0, arg1)
@@ -420,9 +511,9 @@ func (mr *MockAPIMockRecorder) DeploymentList(arg0 interface{}) *gomock.Call {
 }
 
 // DeploymentLogs mocks base method
-func (m *MockAPI) DeploymentLogs(arg0 string) (*http.Response, error) {
+func (m *MockAPI) DeploymentLogs(arg0 string) (*http0.Response, error) {
 	ret := m.ctrl.Call(m, "DeploymentLogs", arg0)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -456,6 +547,32 @@ func (m *MockAPI) DeploymentsCreate(arg0 string, arg1 *go_scalingo.DeploymentsCr
 // DeploymentsCreate indicates an expected call of DeploymentsCreate
 func (mr *MockAPIMockRecorder) DeploymentsCreate(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentsCreate", reflect.TypeOf((*MockAPI)(nil).DeploymentsCreate), arg0, arg1)
+}
+
+// DomainSetCanonical mocks base method
+func (m *MockAPI) DomainSetCanonical(arg0, arg1 string) (go_scalingo.Domain, error) {
+	ret := m.ctrl.Call(m, "DomainSetCanonical", arg0, arg1)
+	ret0, _ := ret[0].(go_scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainSetCanonical indicates an expected call of DomainSetCanonical
+func (mr *MockAPIMockRecorder) DomainSetCanonical(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainSetCanonical), arg0, arg1)
+}
+
+// DomainUnsetCanonical mocks base method
+func (m *MockAPI) DomainUnsetCanonical(arg0 string) (go_scalingo.Domain, error) {
+	ret := m.ctrl.Call(m, "DomainUnsetCanonical", arg0)
+	ret0, _ := ret[0].(go_scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainUnsetCanonical indicates an expected call of DomainUnsetCanonical
+func (mr *MockAPIMockRecorder) DomainUnsetCanonical(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainUnsetCanonical), arg0)
 }
 
 // DomainsAdd mocks base method
@@ -509,18 +626,6 @@ func (mr *MockAPIMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3 interface{})
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockAPI)(nil).DomainsUpdate), arg0, arg1, arg2, arg3)
 }
 
-// Endpoint mocks base method
-func (m *MockAPI) Endpoint() string {
-	ret := m.ctrl.Call(m, "Endpoint")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
-
-// Endpoint indicates an expected call of Endpoint
-func (mr *MockAPIMockRecorder) Endpoint() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Endpoint", reflect.TypeOf((*MockAPI)(nil).Endpoint))
-}
-
 // EventsList mocks base method
 func (m *MockAPI) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
 	ret := m.ctrl.Call(m, "EventsList", arg0, arg1)
@@ -546,18 +651,6 @@ func (m *MockAPI) GetAccessToken() (string, error) {
 // GetAccessToken indicates an expected call of GetAccessToken
 func (mr *MockAPIMockRecorder) GetAccessToken() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccessToken", reflect.TypeOf((*MockAPI)(nil).GetAccessToken))
-}
-
-// HTTPClient mocks base method
-func (m *MockAPI) HTTPClient() go_scalingo.HTTPClient {
-	ret := m.ctrl.Call(m, "HTTPClient")
-	ret0, _ := ret[0].(go_scalingo.HTTPClient)
-	return ret0
-}
-
-// HTTPClient indicates an expected call of HTTPClient
-func (mr *MockAPIMockRecorder) HTTPClient() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HTTPClient", reflect.TypeOf((*MockAPI)(nil).HTTPClient))
 }
 
 // KeysAdd mocks base method
@@ -612,9 +705,9 @@ func (mr *MockAPIMockRecorder) Login(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // Logs mocks base method
-func (m *MockAPI) Logs(arg0 string, arg1 int, arg2 string) (*http.Response, error) {
+func (m *MockAPI) Logs(arg0 string, arg1 int, arg2 string) (*http0.Response, error) {
 	ret := m.ctrl.Call(m, "Logs", arg0, arg1, arg2)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -651,9 +744,9 @@ func (mr *MockAPIMockRecorder) LogsArchivesByCursor(arg0, arg1 interface{}) *gom
 }
 
 // LogsURL mocks base method
-func (m *MockAPI) LogsURL(arg0 string) (*http.Response, error) {
+func (m *MockAPI) LogsURL(arg0 string) (*http0.Response, error) {
 	ret := m.ctrl.Call(m, "LogsURL", arg0)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -830,6 +923,18 @@ func (mr *MockAPIMockRecorder) Run(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockAPI)(nil).Run), arg0)
 }
 
+// ScalingoAPI mocks base method
+func (m *MockAPI) ScalingoAPI() http.Client {
+	ret := m.ctrl.Call(m, "ScalingoAPI")
+	ret0, _ := ret[0].(http.Client)
+	return ret0
+}
+
+// ScalingoAPI indicates an expected call of ScalingoAPI
+func (mr *MockAPIMockRecorder) ScalingoAPI() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ScalingoAPI", reflect.TypeOf((*MockAPI)(nil).ScalingoAPI))
+}
+
 // Self mocks base method
 func (m *MockAPI) Self() (*go_scalingo.User, error) {
 	ret := m.ctrl.Call(m, "Self")
@@ -882,7 +987,7 @@ func (mr *MockAPIMockRecorder) TokenCreate(arg0 interface{}) *gomock.Call {
 }
 
 // TokenExchange mocks base method
-func (m *MockAPI) TokenExchange(arg0 go_scalingo.TokenExchangeParams) (string, error) {
+func (m *MockAPI) TokenExchange(arg0 string) (string, error) {
 	ret := m.ctrl.Call(m, "TokenExchange", arg0)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)

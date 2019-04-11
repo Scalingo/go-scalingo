@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.0.0
+
+* Integration of Database API authentication
+* Ability to query backup/logs of addon
+* Add missing Addon#Status field
+
+## v1.5.2
+
+* Remove os.Exit(), reliquat from split between CLI and client.
+* Update wording
+* Fix display of alert table
+
 ## v1.5.1
 
 * Update deps
