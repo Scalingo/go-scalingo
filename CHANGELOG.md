@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.0
+
+* StacksList() to list available runtime stacks
+* Add AppsSetStack() to update the stack of an app
+
 ## v2.0.0
 
 * Integration of Database API authentication
