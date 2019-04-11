@@ -191,27 +191,21 @@ func (c *Client) AppsTransfer(name string, email string) (*App, error) {
 }
 
 func (c *Client) AppsSetStack(app string, stackID string) (*App, error) {
-	req := &APIRequest{
-		Client:   c,
+	req := &httpclient.APIRequest{
 		Method:   "PATCH",
 		Endpoint: "/apps/" + app,
-		Expected: Statuses{200},
+		Expected: httpclient.Statuses{200},
 		Params: map[string]interface{}{
 			"app": map[string]string{
 				"stack_id": stackID,
 			},
 		},
 	}
-	res, err := req.Do()
+
+	var appRes AppResponse
+	err := c.ScalingoAPI().DoRequest(req, &appRes)
 	if err != nil {
 		return nil, err
-	}
-	defer res.Body.Close()
-
-	var appRes *AppResponse
-	err = ParseJSON(res, &appRes)
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
 	}
 
 	return appRes.App, nil
