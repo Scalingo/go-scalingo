@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1
+
+* Add StaticTokenGenerator in ClientConfig to ensure retrocompatibility
+
 ## v2.1.0
 
 * StacksList() to list available runtime stacks
