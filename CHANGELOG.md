@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.2.0
+
+* Add `OperationsShowFromURL(url string) (*Operation, error)` to ease the use
+  of the Operation URL returned after a Scale/Restart action
+* Add `OperationStatus` and `OperationType` types with the right constants
+* Remove `Plan.TextDescription` which was never used
+
 ## v2.1.1
 
 * Add StaticTokenGenerator in ClientConfig to ensure retrocompatibility
