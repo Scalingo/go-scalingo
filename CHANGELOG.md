@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.2.1
+
+* Add `Description` and `LogoURL` to `NotificationPlatform` struct
+
 ## v2.2.0
 
 * Add `OperationsShowFromURL(url string) (*Operation, error)` to ease the use
