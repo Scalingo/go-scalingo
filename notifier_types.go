@@ -18,6 +18,7 @@ type Notifier struct {
 	Name           string                 `json:"name,omitempty"`
 	Type           NotifierType           `json:"type"`
 	SendAllEvents  *bool                  `json:"send_all_events,omitempty"`
+	SendAllAlerts  *bool                  `json:"send_all_alerts,omitempty"`
 	SelectedEvents []EventTypeStruct      `json:"selected_events,omitempty"`
 	TypeData       map[string]interface{} `json:"-"`
 	RawTypeData    json.RawMessage        `json:"type_data"`
@@ -48,6 +49,7 @@ type DetailedNotifier interface {
 	GetName() string
 	GetType() NotifierType
 	GetSendAllEvents() bool
+	GetSendAllAlerts() bool
 	GetSelectedEvents() []EventTypeStruct
 	IsActive() bool
 	When() string
@@ -76,6 +78,10 @@ func (not *Notifier) GetType() NotifierType {
 
 func (not *Notifier) GetSendAllEvents() bool {
 	return *not.SendAllEvents
+}
+
+func (not *Notifier) GetSendAllAlerts() bool {
+	return *not.SendAllAlerts
 }
 
 func (not *Notifier) GetSelectedEvents() []EventTypeStruct {

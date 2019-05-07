@@ -20,6 +20,7 @@ type NotifierParams struct {
 	Active         *bool
 	Name           string
 	SendAllEvents  *bool
+	SendAllAlerts  *bool
 	SelectedEvents []string
 	PlatformID     string
 
