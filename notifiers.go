@@ -7,9 +7,9 @@ import (
 
 type NotifiersService interface {
 	NotifiersList(app string) (Notifiers, error)
-	NotifierProvision(app, notifierType string, params NotifierParams) (*Notifier, error)
+	NotifierProvision(app string, params NotifierParams) (*Notifier, error)
 	NotifierByID(app, ID string) (*Notifier, error)
-	NotifierUpdate(app, ID, notifierType string, params NotifierParams) (*Notifier, error)
+	NotifierUpdate(app, ID string, params NotifierParams) (*Notifier, error)
 	NotifierDestroy(app, ID string) error
 }
 
@@ -58,9 +58,9 @@ func (c *Client) NotifiersList(app string) (Notifiers, error) {
 	return notifiers, nil
 }
 
-func (c *Client) NotifierProvision(app, notifierType string, params NotifierParams) (*Notifier, error) {
+func (c *Client) NotifierProvision(app string, params NotifierParams) (*Notifier, error) {
 	var notifierRes notifierRequestRes
-	notifier := NewOutputNotifier(notifierType, params)
+	notifier := newOutputNotifier(params)
 	notifierRequestParams := &notifierRequestParams{notifier}
 
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "notifiers", notifierRequestParams, &notifierRes)
@@ -81,9 +81,9 @@ func (c *Client) NotifierByID(app, ID string) (*Notifier, error) {
 	return &notifierRes.Notifier, nil
 }
 
-func (c *Client) NotifierUpdate(app, ID, notifierType string, params NotifierParams) (*Notifier, error) {
+func (c *Client) NotifierUpdate(app, ID string, params NotifierParams) (*Notifier, error) {
 	var notifierRes notifierRequestRes
-	notifier := NewOutputNotifier(notifierType, params)
+	notifier := newOutputNotifier(params)
 	notifierRequestParams := &notifierRequestParams{notifier}
 
 	debug.Printf("[Notifier params]\n%+v", notifier)
