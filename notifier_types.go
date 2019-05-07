@@ -39,7 +39,7 @@ type NotifierTypeDataParams struct {
 	WebhookURL  string   `json:"webhook_url,omitempty"`
 	Emails      []string `json:"emails,omitempty"`
 	UserIDs     []string `json:"user_ids,omitempty"`
-	PhoneNumber string   `json:"phone_number",omitempty`
+	PhoneNumber string   `json:"phone_number,omitempty"`
 }
 
 type NotifierType string
