@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.3.0
+
+* Update `NotifierUpdate`/`NotifierProvision` params, Add missing field `Notifier.SendAllAlerts`
+
 ## v2.2.1
 
 * Add `Description` and `LogoURL` to `NotificationPlatform` struct
