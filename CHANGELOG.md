@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.0
+
+# Update `Notifier` methods to match the API: ie. accept SelectedEventIDs as input and output
+
 ## v2.3.0
 
 * Update `NotifierUpdate`/`NotifierProvision` params, Add missing field `Notifier.SendAllAlerts`
