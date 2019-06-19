@@ -35,6 +35,7 @@ func (m *MockVariablesService) EXPECT() *MockVariablesServiceMockRecorder {
 
 // VariableMultipleSet mocks base method
 func (m *MockVariablesService) VariableMultipleSet(arg0 string, arg1 go_scalingo.Variables) (go_scalingo.Variables, int, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableMultipleSet", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(int)
@@ -44,11 +45,13 @@ func (m *MockVariablesService) VariableMultipleSet(arg0 string, arg1 go_scalingo
 
 // VariableMultipleSet indicates an expected call of VariableMultipleSet
 func (mr *MockVariablesServiceMockRecorder) VariableMultipleSet(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableMultipleSet", reflect.TypeOf((*MockVariablesService)(nil).VariableMultipleSet), arg0, arg1)
 }
 
 // VariableSet mocks base method
 func (m *MockVariablesService) VariableSet(arg0, arg1, arg2 string) (*go_scalingo.Variable, int, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableSet", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Variable)
 	ret1, _ := ret[1].(int)
@@ -58,11 +61,13 @@ func (m *MockVariablesService) VariableSet(arg0, arg1, arg2 string) (*go_scaling
 
 // VariableSet indicates an expected call of VariableSet
 func (mr *MockVariablesServiceMockRecorder) VariableSet(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableSet", reflect.TypeOf((*MockVariablesService)(nil).VariableSet), arg0, arg1, arg2)
 }
 
 // VariableUnset mocks base method
 func (m *MockVariablesService) VariableUnset(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableUnset", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -70,11 +75,13 @@ func (m *MockVariablesService) VariableUnset(arg0, arg1 string) error {
 
 // VariableUnset indicates an expected call of VariableUnset
 func (mr *MockVariablesServiceMockRecorder) VariableUnset(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableUnset", reflect.TypeOf((*MockVariablesService)(nil).VariableUnset), arg0, arg1)
 }
 
 // VariablesList mocks base method
 func (m *MockVariablesService) VariablesList(arg0 string) (go_scalingo.Variables, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(error)
@@ -83,11 +90,13 @@ func (m *MockVariablesService) VariablesList(arg0 string) (go_scalingo.Variables
 
 // VariablesList indicates an expected call of VariablesList
 func (mr *MockVariablesServiceMockRecorder) VariablesList(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariablesList", reflect.TypeOf((*MockVariablesService)(nil).VariablesList), arg0)
 }
 
 // VariablesListWithoutAlias mocks base method
 func (m *MockVariablesService) VariablesListWithoutAlias(arg0 string) (go_scalingo.Variables, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesListWithoutAlias", arg0)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(error)
@@ -96,5 +105,6 @@ func (m *MockVariablesService) VariablesListWithoutAlias(arg0 string) (go_scalin
 
 // VariablesListWithoutAlias indicates an expected call of VariablesListWithoutAlias
 func (mr *MockVariablesServiceMockRecorder) VariablesListWithoutAlias(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariablesListWithoutAlias", reflect.TypeOf((*MockVariablesService)(nil).VariablesListWithoutAlias), arg0)
 }

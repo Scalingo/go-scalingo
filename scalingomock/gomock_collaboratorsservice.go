@@ -35,6 +35,7 @@ func (m *MockCollaboratorsService) EXPECT() *MockCollaboratorsServiceMockRecorde
 
 // CollaboratorAdd mocks base method
 func (m *MockCollaboratorsService) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
@@ -43,11 +44,13 @@ func (m *MockCollaboratorsService) CollaboratorAdd(arg0, arg1 string) (go_scalin
 
 // CollaboratorAdd indicates an expected call of CollaboratorAdd
 func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorAdd(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorAdd", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorAdd), arg0, arg1)
 }
 
 // CollaboratorRemove mocks base method
 func (m *MockCollaboratorsService) CollaboratorRemove(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -55,11 +58,13 @@ func (m *MockCollaboratorsService) CollaboratorRemove(arg0, arg1 string) error {
 
 // CollaboratorRemove indicates an expected call of CollaboratorRemove
 func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorRemove(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorRemove", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorRemove), arg0, arg1)
 }
 
 // CollaboratorsList mocks base method
 func (m *MockCollaboratorsService) CollaboratorsList(arg0 string) ([]go_scalingo.Collaborator, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorsList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
@@ -68,5 +73,6 @@ func (m *MockCollaboratorsService) CollaboratorsList(arg0 string) ([]go_scalingo
 
 // CollaboratorsList indicates an expected call of CollaboratorsList
 func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorsList), arg0)
 }

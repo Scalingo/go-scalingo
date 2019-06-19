@@ -35,6 +35,7 @@ func (m *MockSourcesService) EXPECT() *MockSourcesServiceMockRecorder {
 
 // SourcesCreate mocks base method
 func (m *MockSourcesService) SourcesCreate() (*go_scalingo.Source, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SourcesCreate")
 	ret0, _ := ret[0].(*go_scalingo.Source)
 	ret1, _ := ret[1].(error)
@@ -43,5 +44,6 @@ func (m *MockSourcesService) SourcesCreate() (*go_scalingo.Source, error) {
 
 // SourcesCreate indicates an expected call of SourcesCreate
 func (mr *MockSourcesServiceMockRecorder) SourcesCreate() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SourcesCreate", reflect.TypeOf((*MockSourcesService)(nil).SourcesCreate))
 }

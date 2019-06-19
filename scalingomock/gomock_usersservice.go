@@ -35,6 +35,7 @@ func (m *MockUsersService) EXPECT() *MockUsersServiceMockRecorder {
 
 // Self mocks base method
 func (m *MockUsersService) Self() (*go_scalingo.User, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Self")
 	ret0, _ := ret[0].(*go_scalingo.User)
 	ret1, _ := ret[1].(error)
@@ -43,11 +44,13 @@ func (m *MockUsersService) Self() (*go_scalingo.User, error) {
 
 // Self indicates an expected call of Self
 func (mr *MockUsersServiceMockRecorder) Self() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockUsersService)(nil).Self))
 }
 
 // UpdateUser mocks base method
 func (m *MockUsersService) UpdateUser(arg0 go_scalingo.UpdateUserParams) (*go_scalingo.User, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", arg0)
 	ret0, _ := ret[0].(*go_scalingo.User)
 	ret1, _ := ret[1].(error)
@@ -56,5 +59,6 @@ func (m *MockUsersService) UpdateUser(arg0 go_scalingo.UpdateUserParams) (*go_sc
 
 // UpdateUser indicates an expected call of UpdateUser
 func (mr *MockUsersServiceMockRecorder) UpdateUser(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUsersService)(nil).UpdateUser), arg0)
 }

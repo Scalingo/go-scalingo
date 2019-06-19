@@ -36,6 +36,7 @@ func (m *MockAppsService) EXPECT() *MockAppsServiceMockRecorder {
 
 // AppsCreate mocks base method
 func (m *MockAppsService) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -44,11 +45,13 @@ func (m *MockAppsService) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scali
 
 // AppsCreate indicates an expected call of AppsCreate
 func (mr *MockAppsServiceMockRecorder) AppsCreate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsCreate", reflect.TypeOf((*MockAppsService)(nil).AppsCreate), arg0)
 }
 
 // AppsDestroy mocks base method
 func (m *MockAppsService) AppsDestroy(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -56,11 +59,13 @@ func (m *MockAppsService) AppsDestroy(arg0, arg1 string) error {
 
 // AppsDestroy indicates an expected call of AppsDestroy
 func (mr *MockAppsServiceMockRecorder) AppsDestroy(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsDestroy", reflect.TypeOf((*MockAppsService)(nil).AppsDestroy), arg0, arg1)
 }
 
 // AppsForceHTTPS mocks base method
 func (m *MockAppsService) AppsForceHTTPS(arg0 string, arg1 bool) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsForceHTTPS", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -69,11 +74,13 @@ func (m *MockAppsService) AppsForceHTTPS(arg0 string, arg1 bool) (*go_scalingo.A
 
 // AppsForceHTTPS indicates an expected call of AppsForceHTTPS
 func (mr *MockAppsServiceMockRecorder) AppsForceHTTPS(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsForceHTTPS", reflect.TypeOf((*MockAppsService)(nil).AppsForceHTTPS), arg0, arg1)
 }
 
 // AppsList mocks base method
 func (m *MockAppsService) AppsList() ([]*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsList")
 	ret0, _ := ret[0].([]*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -82,11 +89,13 @@ func (m *MockAppsService) AppsList() ([]*go_scalingo.App, error) {
 
 // AppsList indicates an expected call of AppsList
 func (mr *MockAppsServiceMockRecorder) AppsList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsList", reflect.TypeOf((*MockAppsService)(nil).AppsList))
 }
 
 // AppsPs mocks base method
 func (m *MockAppsService) AppsPs(arg0 string) ([]go_scalingo.ContainerType, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsPs", arg0)
 	ret0, _ := ret[0].([]go_scalingo.ContainerType)
 	ret1, _ := ret[1].(error)
@@ -95,11 +104,13 @@ func (m *MockAppsService) AppsPs(arg0 string) ([]go_scalingo.ContainerType, erro
 
 // AppsPs indicates an expected call of AppsPs
 func (mr *MockAppsServiceMockRecorder) AppsPs(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsPs", reflect.TypeOf((*MockAppsService)(nil).AppsPs), arg0)
 }
 
 // AppsRename mocks base method
 func (m *MockAppsService) AppsRename(arg0, arg1 string) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRename", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -108,11 +119,13 @@ func (m *MockAppsService) AppsRename(arg0, arg1 string) (*go_scalingo.App, error
 
 // AppsRename indicates an expected call of AppsRename
 func (mr *MockAppsServiceMockRecorder) AppsRename(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRename", reflect.TypeOf((*MockAppsService)(nil).AppsRename), arg0, arg1)
 }
 
 // AppsRestart mocks base method
 func (m *MockAppsService) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) (*http.Response, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", arg0, arg1)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
@@ -121,11 +134,13 @@ func (m *MockAppsService) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestart
 
 // AppsRestart indicates an expected call of AppsRestart
 func (mr *MockAppsServiceMockRecorder) AppsRestart(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRestart", reflect.TypeOf((*MockAppsService)(nil).AppsRestart), arg0, arg1)
 }
 
 // AppsScale mocks base method
 func (m *MockAppsService) AppsScale(arg0 string, arg1 *go_scalingo.AppsScaleParams) (*http.Response, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", arg0, arg1)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
@@ -134,11 +149,13 @@ func (m *MockAppsService) AppsScale(arg0 string, arg1 *go_scalingo.AppsScalePara
 
 // AppsScale indicates an expected call of AppsScale
 func (mr *MockAppsServiceMockRecorder) AppsScale(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsScale", reflect.TypeOf((*MockAppsService)(nil).AppsScale), arg0, arg1)
 }
 
 // AppsShow mocks base method
 func (m *MockAppsService) AppsShow(arg0 string) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsShow", arg0)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -147,11 +164,13 @@ func (m *MockAppsService) AppsShow(arg0 string) (*go_scalingo.App, error) {
 
 // AppsShow indicates an expected call of AppsShow
 func (mr *MockAppsServiceMockRecorder) AppsShow(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsShow", reflect.TypeOf((*MockAppsService)(nil).AppsShow), arg0)
 }
 
 // AppsStats mocks base method
 func (m *MockAppsService) AppsStats(arg0 string) (*go_scalingo.AppStatsRes, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStats", arg0)
 	ret0, _ := ret[0].(*go_scalingo.AppStatsRes)
 	ret1, _ := ret[1].(error)
@@ -160,11 +179,13 @@ func (m *MockAppsService) AppsStats(arg0 string) (*go_scalingo.AppStatsRes, erro
 
 // AppsStats indicates an expected call of AppsStats
 func (mr *MockAppsServiceMockRecorder) AppsStats(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStats", reflect.TypeOf((*MockAppsService)(nil).AppsStats), arg0)
 }
 
 // AppsStickySession mocks base method
 func (m *MockAppsService) AppsStickySession(arg0 string, arg1 bool) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStickySession", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -173,11 +194,13 @@ func (m *MockAppsService) AppsStickySession(arg0 string, arg1 bool) (*go_scaling
 
 // AppsStickySession indicates an expected call of AppsStickySession
 func (mr *MockAppsServiceMockRecorder) AppsStickySession(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStickySession", reflect.TypeOf((*MockAppsService)(nil).AppsStickySession), arg0, arg1)
 }
 
 // AppsTransfer mocks base method
 func (m *MockAppsService) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -186,5 +209,6 @@ func (m *MockAppsService) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, err
 
 // AppsTransfer indicates an expected call of AppsTransfer
 func (mr *MockAppsServiceMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAppsService)(nil).AppsTransfer), arg0, arg1)
 }

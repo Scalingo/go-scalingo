@@ -35,6 +35,7 @@ func (m *MockBackupsService) EXPECT() *MockBackupsServiceMockRecorder {
 
 // BackupDownloadURL mocks base method
 func (m *MockBackupsService) BackupDownloadURL(arg0, arg1, arg2 string) (string, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupDownloadURL", arg0, arg1, arg2)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -43,11 +44,13 @@ func (m *MockBackupsService) BackupDownloadURL(arg0, arg1, arg2 string) (string,
 
 // BackupDownloadURL indicates an expected call of BackupDownloadURL
 func (mr *MockBackupsServiceMockRecorder) BackupDownloadURL(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupDownloadURL", reflect.TypeOf((*MockBackupsService)(nil).BackupDownloadURL), arg0, arg1, arg2)
 }
 
 // BackupList mocks base method
 func (m *MockBackupsService) BackupList(arg0, arg1 string) ([]go_scalingo.Backup, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupList", arg0, arg1)
 	ret0, _ := ret[0].([]go_scalingo.Backup)
 	ret1, _ := ret[1].(error)
@@ -56,11 +59,13 @@ func (m *MockBackupsService) BackupList(arg0, arg1 string) ([]go_scalingo.Backup
 
 // BackupList indicates an expected call of BackupList
 func (mr *MockBackupsServiceMockRecorder) BackupList(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupList", reflect.TypeOf((*MockBackupsService)(nil).BackupList), arg0, arg1)
 }
 
 // BackupShow mocks base method
 func (m *MockBackupsService) BackupShow(arg0, arg1, arg2 string) (*go_scalingo.Backup, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupShow", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Backup)
 	ret1, _ := ret[1].(error)
@@ -69,5 +74,6 @@ func (m *MockBackupsService) BackupShow(arg0, arg1, arg2 string) (*go_scalingo.B
 
 // BackupShow indicates an expected call of BackupShow
 func (mr *MockBackupsServiceMockRecorder) BackupShow(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupShow", reflect.TypeOf((*MockBackupsService)(nil).BackupShow), arg0, arg1, arg2)
 }

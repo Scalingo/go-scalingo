@@ -35,6 +35,7 @@ func (m *MockNotificationPlatformsService) EXPECT() *MockNotificationPlatformsSe
 
 // NotificationPlatformByName mocks base method
 func (m *MockNotificationPlatformsService) NotificationPlatformByName(arg0 string) ([]*go_scalingo.NotificationPlatform, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformByName", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
@@ -43,11 +44,13 @@ func (m *MockNotificationPlatformsService) NotificationPlatformByName(arg0 strin
 
 // NotificationPlatformByName indicates an expected call of NotificationPlatformByName
 func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformByName(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformByName", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformByName), arg0)
 }
 
 // NotificationPlatformsList mocks base method
 func (m *MockNotificationPlatformsService) NotificationPlatformsList() ([]*go_scalingo.NotificationPlatform, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformsList")
 	ret0, _ := ret[0].([]*go_scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
@@ -56,5 +59,6 @@ func (m *MockNotificationPlatformsService) NotificationPlatformsList() ([]*go_sc
 
 // NotificationPlatformsList indicates an expected call of NotificationPlatformsList
 func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformsList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformsList", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformsList))
 }
