@@ -19,7 +19,7 @@ func TestNewClient(t *testing.T) {
 			require.Len(t, split, 2)
 			assert.Equal(t, "static-token", split[1])
 			w.WriteHeader(200)
-			w.Write([]byte(`{"user": {}}`))
+			w.Write([]byte(`{"apps": []}`))
 		}))
 		defer server.Close()
 
@@ -28,7 +28,7 @@ func TestNewClient(t *testing.T) {
 			StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
 		})
 
-		_, err := client.Self()
+		_, err := client.AppsList()
 		require.NoError(t, err)
 	})
 
