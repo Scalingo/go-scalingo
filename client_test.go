@@ -19,7 +19,7 @@ func TestNewClient(t *testing.T) {
 			require.Len(t, split, 2)
 			assert.Equal(t, "static-token", split[1])
 			w.WriteHeader(200)
-			w.Write([]byte(`{"user": {}}`))
+			w.Write([]byte(`{"apps": []}`))
 		}))
 		defer server.Close()
 
@@ -28,34 +28,33 @@ func TestNewClient(t *testing.T) {
 			StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
 		})
 
-		_, err := client.Self()
+		_, err := client.AppsList()
 		require.NoError(t, err)
 	})
 
 	t.Run("it should exchange the API token for a JWT", func(t *testing.T) {
 		authserver := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			_, password, ok := r.BasicAuth()
-			require.True(t, ok)
-			assert.Equal(t, "api-token", password)
-			w.WriteHeader(200)
-			w.Write([]byte(`{"token": "jwt-token"}`))
+			if strings.Contains(r.URL.Path, "exchange") {
+				_, password, ok := r.BasicAuth()
+				require.True(t, ok)
+				assert.Equal(t, "api-token", password)
+				w.WriteHeader(200)
+				w.Write([]byte(`{"token": "jwt-token"}`))
+			}
+			if strings.Contains(r.URL.Path, "self") {
+				auth := r.Header.Get("Authorization")
+				require.NotEmpty(t, auth)
+				split := strings.Split(auth, " ")
+				require.Len(t, split, 2)
+				assert.Equal(t, "jwt-token", split[1])
+				w.WriteHeader(200)
+				w.Write([]byte(`{"user": {}}`))
+			}
 		}))
 		defer authserver.Close()
 
-		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			auth := r.Header.Get("Authorization")
-			require.NotEmpty(t, auth)
-			split := strings.Split(auth, " ")
-			require.Len(t, split, 2)
-			assert.Equal(t, "jwt-token", split[1])
-			w.WriteHeader(200)
-			w.Write([]byte(`{"user": {}}`))
-		}))
-		defer server.Close()
-
 		client := NewClient(ClientConfig{
 			AuthEndpoint: authserver.URL,
-			APIEndpoint:  server.URL,
 			APIToken:     "api-token",
 		})
 
