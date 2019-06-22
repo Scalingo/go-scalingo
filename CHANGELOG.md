@@ -1,12 +1,17 @@
 # Changelog
 
+## v2.4.2
+
+* UsersSelf is now based on AuthenticationService not API anymore
+* Add RegionsList() to get the list of available platform regions
+
 ## v2.4.1
 
-# Implement new methods on Client: `EventTypesList` and `EventCategoriesList`
+* Implement new methods on Client: `EventTypesList` and `EventCategoriesList`
 
 ## v2.4.0
 
-# Update `Notifier` methods to match the API: ie. accept SelectedEventIDs as input and output
+* Update `Notifier` methods to match the API: ie. accept SelectedEventIDs as input and output
 
 ## v2.3.0
 
