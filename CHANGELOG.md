@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.3
+
+* Add SSH to Region to configure SSH endpoint for SSH-based operations
+
 ## v2.4.2
 
 * UsersSelf is now based on AuthenticationService not API anymore
