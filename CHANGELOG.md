@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.4
+
+* Display request ID in the debug logs
+
 ## v2.4.3
 
 * Add SSH to Region to configure SSH endpoint for SSH-based operations
