@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.5
+
+* Add missing fields in the App struct
+
 ## v2.4.4
 
 * Display request ID in the debug logs
