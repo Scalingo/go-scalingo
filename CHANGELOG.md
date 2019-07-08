@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.6
+
+* Add Default attribute to Region
+
 ## v2.4.5
 
 * Add missing fields in the App struct
