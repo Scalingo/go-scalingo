@@ -40,6 +40,16 @@ func (c *Client) IntegrationsList() ([]Integration, error) {
 	return res.Integrations, nil
 }
 
+func (c *Client) IntegrationsShow(id string) (*Integration, error) {
+	var res IntegrationRes
+
+	err := c.AuthAPI().ResourceGet("integrations", id, nil, &res)
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+	return &res.Integration, nil
+}
+
 func (c *Client) IntegrationsCreate(scmType string, url string, accessToken string) (*Integration, error) {
 	payload := IntegrationRes{Integration{
 		ScmType:     scmType,
@@ -62,4 +72,14 @@ func (c *Client) IntegrationsDestroy(id string) error {
 		return errgo.Mask(err)
 	}
 	return nil
+}
+
+func (c *Client) IntegrationsImportKeys(id string) ([]Key, error) {
+	var res KeysRes
+
+	err := c.AuthAPI().SubresourceList("integrations", id, "import_keys", nil, &res)
+	if err != nil {
+		return nil, errgo.Mask(err)
+	}
+	return res.Keys, nil
 }
