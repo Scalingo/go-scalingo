@@ -19,7 +19,7 @@ type Integration struct {
 	Username    string `json:"username,omitempty"`
 	Email       string `json:"email,omitempty"`
 	AvatarUrl   string `json:"avatar_url,omitempty"`
-	ProfileUrl  string `json:"avatar_url,omitempty"`
+	ProfileUrl  string `json:"profile_url,omitempty"`
 }
 
 type IntegrationRes struct {
