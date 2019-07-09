@@ -24,6 +24,7 @@ type AppsService interface {
 	AppsDestroy(name string, currentName string) error
 	AppsRename(name string, newName string) (*App, error)
 	AppsTransfer(name string, email string) (*App, error)
+	AppsSetStack(name string, stackID string) (*App, error)
 	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
@@ -100,6 +101,10 @@ type App struct {
 	CreatedAt      *time.Time `json:"created_at"`
 	UpdatedAt      *time.Time `json:"update_at"`
 	Links          *AppLinks  `json:"links"`
+	StackID        string     `json:"stack_id"`
+	StickySession  bool       `json:"sticky_session"`
+	ForceHTTPS     bool       `json:"force_https"`
+	RouterLogs     bool       `json:"router_logs"`
 }
 
 func (app App) String() string {
@@ -184,6 +189,27 @@ func (c *Client) AppsTransfer(name string, email string) (*App, error) {
 	err := c.ScalingoAPI().DoRequest(req, &appRes)
 	if err != nil {
 		return nil, err
+	}
+
+	return appRes.App, nil
+}
+
+func (c *Client) AppsSetStack(app string, stackID string) (*App, error) {
+	req := &httpclient.APIRequest{
+		Method:   "PATCH",
+		Endpoint: "/apps/" + app,
+		Expected: httpclient.Statuses{200},
+		Params: map[string]interface{}{
+			"app": map[string]string{
+				"stack_id": stackID,
+			},
+		},
+	}
+
+	var appRes AppResponse
+	err := c.ScalingoAPI().DoRequest(req, &appRes)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to request Scalingo API")
 	}
 
 	return appRes.App, nil
