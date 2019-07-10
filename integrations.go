@@ -81,7 +81,7 @@ func (c *Client) IntegrationsImportKeys(id string) ([]Key, error) {
 	var res KeysRes
 
 	var err = c.AuthAPI().DoRequest(&http.APIRequest{
-		Method:   "GET",
+		Method:   "POST",
 		Endpoint: "/integrations/" + id + "/import_keys",
 		Params:   nil,
 		Expected: http.Statuses{201},
