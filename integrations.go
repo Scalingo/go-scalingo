@@ -1,6 +1,9 @@
 package scalingo
 
-import "gopkg.in/errgo.v1"
+import (
+	"github.com/Scalingo/go-scalingo/http"
+	"gopkg.in/errgo.v1"
+)
 
 type IntegrationsService interface {
 	IntegrationsList() ([]Integration, error)
@@ -77,7 +80,12 @@ func (c *Client) IntegrationsDestroy(id string) error {
 func (c *Client) IntegrationsImportKeys(id string) ([]Key, error) {
 	var res KeysRes
 
-	err := c.AuthAPI().SubresourceList("integrations", id, "import_keys", nil, &res)
+	var err = c.AuthAPI().DoRequest(&http.APIRequest{
+		Method:   "GET",
+		Endpoint: "/integrations/" + id + "/import_keys",
+		Params:   nil,
+		Expected: http.Statuses{201},
+	}, &res)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
