@@ -35,7 +35,6 @@ func (m *MockLogsService) EXPECT() *MockLogsServiceMockRecorder {
 
 // Logs mocks base method
 func (m *MockLogsService) Logs(arg0 string, arg1 int, arg2 string) (*http.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Logs", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockLogsService) Logs(arg0 string, arg1 int, arg2 string) (*http.Respon
 
 // Logs indicates an expected call of Logs
 func (mr *MockLogsServiceMockRecorder) Logs(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Logs", reflect.TypeOf((*MockLogsService)(nil).Logs), arg0, arg1, arg2)
 }
 
 // LogsURL mocks base method
 func (m *MockLogsService) LogsURL(arg0 string) (*http.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsURL", arg0)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
@@ -59,6 +56,5 @@ func (m *MockLogsService) LogsURL(arg0 string) (*http.Response, error) {
 
 // LogsURL indicates an expected call of LogsURL
 func (mr *MockLogsServiceMockRecorder) LogsURL(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsURL", reflect.TypeOf((*MockLogsService)(nil).LogsURL), arg0)
 }

@@ -37,7 +37,6 @@ func (m *MockDeploymentsService) EXPECT() *MockDeploymentsServiceMockRecorder {
 
 // Deployment mocks base method
 func (m *MockDeploymentsService) Deployment(arg0, arg1 string) (*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Deployment", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -46,13 +45,11 @@ func (m *MockDeploymentsService) Deployment(arg0, arg1 string) (*go_scalingo.Dep
 
 // Deployment indicates an expected call of Deployment
 func (mr *MockDeploymentsServiceMockRecorder) Deployment(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Deployment", reflect.TypeOf((*MockDeploymentsService)(nil).Deployment), arg0, arg1)
 }
 
 // DeploymentList mocks base method
 func (m *MockDeploymentsService) DeploymentList(arg0 string) ([]*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -61,13 +58,11 @@ func (m *MockDeploymentsService) DeploymentList(arg0 string) ([]*go_scalingo.Dep
 
 // DeploymentList indicates an expected call of DeploymentList
 func (mr *MockDeploymentsServiceMockRecorder) DeploymentList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentList", reflect.TypeOf((*MockDeploymentsService)(nil).DeploymentList), arg0)
 }
 
 // DeploymentLogs mocks base method
 func (m *MockDeploymentsService) DeploymentLogs(arg0 string) (*http.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentLogs", arg0)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
@@ -76,13 +71,11 @@ func (m *MockDeploymentsService) DeploymentLogs(arg0 string) (*http.Response, er
 
 // DeploymentLogs indicates an expected call of DeploymentLogs
 func (mr *MockDeploymentsServiceMockRecorder) DeploymentLogs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentLogs", reflect.TypeOf((*MockDeploymentsService)(nil).DeploymentLogs), arg0)
 }
 
 // DeploymentStream mocks base method
 func (m *MockDeploymentsService) DeploymentStream(arg0 string) (*websocket.Conn, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentStream", arg0)
 	ret0, _ := ret[0].(*websocket.Conn)
 	ret1, _ := ret[1].(error)
@@ -91,13 +84,11 @@ func (m *MockDeploymentsService) DeploymentStream(arg0 string) (*websocket.Conn,
 
 // DeploymentStream indicates an expected call of DeploymentStream
 func (mr *MockDeploymentsServiceMockRecorder) DeploymentStream(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentStream", reflect.TypeOf((*MockDeploymentsService)(nil).DeploymentStream), arg0)
 }
 
 // DeploymentsCreate mocks base method
 func (m *MockDeploymentsService) DeploymentsCreate(arg0 string, arg1 *go_scalingo.DeploymentsCreateParams) (*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentsCreate", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -106,6 +97,5 @@ func (m *MockDeploymentsService) DeploymentsCreate(arg0 string, arg1 *go_scaling
 
 // DeploymentsCreate indicates an expected call of DeploymentsCreate
 func (mr *MockDeploymentsServiceMockRecorder) DeploymentsCreate(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentsCreate", reflect.TypeOf((*MockDeploymentsService)(nil).DeploymentsCreate), arg0, arg1)
 }

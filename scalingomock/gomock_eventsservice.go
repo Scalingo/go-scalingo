@@ -35,7 +35,6 @@ func (m *MockEventsService) EXPECT() *MockEventsServiceMockRecorder {
 
 // EventsList mocks base method
 func (m *MockEventsService) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventsList", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Events)
 	ret1, _ := ret[1].(go_scalingo.PaginationMeta)
@@ -45,13 +44,11 @@ func (m *MockEventsService) EventsList(arg0 string, arg1 go_scalingo.PaginationO
 
 // EventsList indicates an expected call of EventsList
 func (mr *MockEventsServiceMockRecorder) EventsList(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EventsList", reflect.TypeOf((*MockEventsService)(nil).EventsList), arg0, arg1)
 }
 
 // UserEventsList mocks base method
 func (m *MockEventsService) UserEventsList(arg0 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserEventsList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Events)
 	ret1, _ := ret[1].(go_scalingo.PaginationMeta)
@@ -61,6 +58,5 @@ func (m *MockEventsService) UserEventsList(arg0 go_scalingo.PaginationOpts) (go_
 
 // UserEventsList indicates an expected call of UserEventsList
 func (mr *MockEventsServiceMockRecorder) UserEventsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserEventsList", reflect.TypeOf((*MockEventsService)(nil).UserEventsList), arg0)
 }

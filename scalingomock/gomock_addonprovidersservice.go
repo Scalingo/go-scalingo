@@ -35,7 +35,6 @@ func (m *MockAddonProvidersService) EXPECT() *MockAddonProvidersServiceMockRecor
 
 // AddonProviderPlansList mocks base method
 func (m *MockAddonProvidersService) AddonProviderPlansList(arg0 string) ([]*go_scalingo.Plan, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Plan)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockAddonProvidersService) AddonProviderPlansList(arg0 string) ([]*go_s
 
 // AddonProviderPlansList indicates an expected call of AddonProviderPlansList
 func (mr *MockAddonProvidersServiceMockRecorder) AddonProviderPlansList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAddonProvidersService)(nil).AddonProviderPlansList), arg0)
 }
 
 // AddonProvidersList mocks base method
 func (m *MockAddonProvidersService) AddonProvidersList() ([]*go_scalingo.AddonProvider, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvidersList")
 	ret0, _ := ret[0].([]*go_scalingo.AddonProvider)
 	ret1, _ := ret[1].(error)
@@ -59,6 +56,5 @@ func (m *MockAddonProvidersService) AddonProvidersList() ([]*go_scalingo.AddonPr
 
 // AddonProvidersList indicates an expected call of AddonProvidersList
 func (mr *MockAddonProvidersServiceMockRecorder) AddonProvidersList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvidersList", reflect.TypeOf((*MockAddonProvidersService)(nil).AddonProvidersList))
 }

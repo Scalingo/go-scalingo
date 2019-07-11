@@ -35,7 +35,6 @@ func (m *MockAutoscalersService) EXPECT() *MockAutoscalersServiceMockRecorder {
 
 // AutoscalerAdd mocks base method
 func (m *MockAutoscalersService) AutoscalerAdd(arg0 string, arg1 go_scalingo.AutoscalerAddParams) (*go_scalingo.Autoscaler, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalerAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockAutoscalersService) AutoscalerAdd(arg0 string, arg1 go_scalingo.Aut
 
 // AutoscalerAdd indicates an expected call of AutoscalerAdd
 func (mr *MockAutoscalersServiceMockRecorder) AutoscalerAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerAdd", reflect.TypeOf((*MockAutoscalersService)(nil).AutoscalerAdd), arg0, arg1)
 }
 
 // AutoscalerRemove mocks base method
 func (m *MockAutoscalersService) AutoscalerRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalerRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -58,13 +55,11 @@ func (m *MockAutoscalersService) AutoscalerRemove(arg0, arg1 string) error {
 
 // AutoscalerRemove indicates an expected call of AutoscalerRemove
 func (mr *MockAutoscalersServiceMockRecorder) AutoscalerRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerRemove", reflect.TypeOf((*MockAutoscalersService)(nil).AutoscalerRemove), arg0, arg1)
 }
 
 // AutoscalersList mocks base method
 func (m *MockAutoscalersService) AutoscalersList(arg0 string) ([]go_scalingo.Autoscaler, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalersList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
@@ -73,6 +68,5 @@ func (m *MockAutoscalersService) AutoscalersList(arg0 string) ([]go_scalingo.Aut
 
 // AutoscalersList indicates an expected call of AutoscalersList
 func (mr *MockAutoscalersServiceMockRecorder) AutoscalersList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalersList", reflect.TypeOf((*MockAutoscalersService)(nil).AutoscalersList), arg0)
 }

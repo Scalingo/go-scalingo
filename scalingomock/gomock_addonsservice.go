@@ -35,7 +35,6 @@ func (m *MockAddonsService) EXPECT() *MockAddonsServiceMockRecorder {
 
 // AddonDestroy mocks base method
 func (m *MockAddonsService) AddonDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -43,28 +42,11 @@ func (m *MockAddonsService) AddonDestroy(arg0, arg1 string) error {
 
 // AddonDestroy indicates an expected call of AddonDestroy
 func (mr *MockAddonsServiceMockRecorder) AddonDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonDestroy", reflect.TypeOf((*MockAddonsService)(nil).AddonDestroy), arg0, arg1)
-}
-
-// AddonLogsURL mocks base method
-func (m *MockAddonsService) AddonLogsURL(arg0, arg1 string) (string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddonLogsURL", arg0, arg1)
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// AddonLogsURL indicates an expected call of AddonLogsURL
-func (mr *MockAddonsServiceMockRecorder) AddonLogsURL(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonLogsURL", reflect.TypeOf((*MockAddonsService)(nil).AddonLogsURL), arg0, arg1)
 }
 
 // AddonProvision mocks base method
 func (m *MockAddonsService) AddonProvision(arg0, arg1, arg2 string) (go_scalingo.AddonRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvision", arg0, arg1, arg2)
 	ret0, _ := ret[0].(go_scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
@@ -73,13 +55,11 @@ func (m *MockAddonsService) AddonProvision(arg0, arg1, arg2 string) (go_scalingo
 
 // AddonProvision indicates an expected call of AddonProvision
 func (mr *MockAddonsServiceMockRecorder) AddonProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvision", reflect.TypeOf((*MockAddonsService)(nil).AddonProvision), arg0, arg1, arg2)
 }
 
 // AddonToken mocks base method
 func (m *MockAddonsService) AddonToken(arg0, arg1 string) (string, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonToken", arg0, arg1)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -88,13 +68,11 @@ func (m *MockAddonsService) AddonToken(arg0, arg1 string) (string, error) {
 
 // AddonToken indicates an expected call of AddonToken
 func (mr *MockAddonsServiceMockRecorder) AddonToken(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonToken", reflect.TypeOf((*MockAddonsService)(nil).AddonToken), arg0, arg1)
 }
 
 // AddonUpgrade mocks base method
 func (m *MockAddonsService) AddonUpgrade(arg0, arg1, arg2 string) (go_scalingo.AddonRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonUpgrade", arg0, arg1, arg2)
 	ret0, _ := ret[0].(go_scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
@@ -103,13 +81,11 @@ func (m *MockAddonsService) AddonUpgrade(arg0, arg1, arg2 string) (go_scalingo.A
 
 // AddonUpgrade indicates an expected call of AddonUpgrade
 func (mr *MockAddonsServiceMockRecorder) AddonUpgrade(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonUpgrade", reflect.TypeOf((*MockAddonsService)(nil).AddonUpgrade), arg0, arg1, arg2)
 }
 
 // AddonsList mocks base method
 func (m *MockAddonsService) AddonsList(arg0 string) ([]*go_scalingo.Addon, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Addon)
 	ret1, _ := ret[1].(error)
@@ -118,6 +94,5 @@ func (m *MockAddonsService) AddonsList(arg0 string) ([]*go_scalingo.Addon, error
 
 // AddonsList indicates an expected call of AddonsList
 func (mr *MockAddonsServiceMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonsList", reflect.TypeOf((*MockAddonsService)(nil).AddonsList), arg0)
 }

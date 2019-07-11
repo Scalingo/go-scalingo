@@ -35,7 +35,6 @@ func (m *MockNotifiersService) EXPECT() *MockNotifiersServiceMockRecorder {
 
 // NotifierByID mocks base method
 func (m *MockNotifiersService) NotifierByID(arg0, arg1 string) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierByID", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockNotifiersService) NotifierByID(arg0, arg1 string) (*go_scalingo.Not
 
 // NotifierByID indicates an expected call of NotifierByID
 func (mr *MockNotifiersServiceMockRecorder) NotifierByID(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierByID", reflect.TypeOf((*MockNotifiersService)(nil).NotifierByID), arg0, arg1)
 }
 
 // NotifierDestroy mocks base method
 func (m *MockNotifiersService) NotifierDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -58,13 +55,11 @@ func (m *MockNotifiersService) NotifierDestroy(arg0, arg1 string) error {
 
 // NotifierDestroy indicates an expected call of NotifierDestroy
 func (mr *MockNotifiersServiceMockRecorder) NotifierDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierDestroy", reflect.TypeOf((*MockNotifiersService)(nil).NotifierDestroy), arg0, arg1)
 }
 
 // NotifierProvision mocks base method
 func (m *MockNotifiersService) NotifierProvision(arg0, arg1 string, arg2 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierProvision", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -73,13 +68,11 @@ func (m *MockNotifiersService) NotifierProvision(arg0, arg1 string, arg2 go_scal
 
 // NotifierProvision indicates an expected call of NotifierProvision
 func (mr *MockNotifiersServiceMockRecorder) NotifierProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierProvision", reflect.TypeOf((*MockNotifiersService)(nil).NotifierProvision), arg0, arg1, arg2)
 }
 
 // NotifierUpdate mocks base method
 func (m *MockNotifiersService) NotifierUpdate(arg0, arg1, arg2 string, arg3 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierUpdate", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -88,13 +81,11 @@ func (m *MockNotifiersService) NotifierUpdate(arg0, arg1, arg2 string, arg3 go_s
 
 // NotifierUpdate indicates an expected call of NotifierUpdate
 func (mr *MockNotifiersServiceMockRecorder) NotifierUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierUpdate", reflect.TypeOf((*MockNotifiersService)(nil).NotifierUpdate), arg0, arg1, arg2, arg3)
 }
 
 // NotifiersList mocks base method
 func (m *MockNotifiersService) NotifiersList(arg0 string) (go_scalingo.Notifiers, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifiersList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Notifiers)
 	ret1, _ := ret[1].(error)
@@ -103,6 +94,5 @@ func (m *MockNotifiersService) NotifiersList(arg0 string) (go_scalingo.Notifiers
 
 // NotifiersList indicates an expected call of NotifiersList
 func (mr *MockNotifiersServiceMockRecorder) NotifiersList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifiersList", reflect.TypeOf((*MockNotifiersService)(nil).NotifiersList), arg0)
 }

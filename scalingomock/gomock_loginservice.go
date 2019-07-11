@@ -35,7 +35,6 @@ func (m *MockLoginService) EXPECT() *MockLoginServiceMockRecorder {
 
 // Login mocks base method
 func (m *MockLoginService) Login(arg0, arg1 string) (*go_scalingo.LoginResponse, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Login", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.LoginResponse)
 	ret1, _ := ret[1].(error)
@@ -44,6 +43,5 @@ func (m *MockLoginService) Login(arg0, arg1 string) (*go_scalingo.LoginResponse,
 
 // Login indicates an expected call of Login
 func (mr *MockLoginServiceMockRecorder) Login(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockLoginService)(nil).Login), arg0, arg1)
 }

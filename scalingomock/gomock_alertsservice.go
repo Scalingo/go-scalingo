@@ -35,7 +35,6 @@ func (m *MockAlertsService) EXPECT() *MockAlertsServiceMockRecorder {
 
 // AlertAdd mocks base method
 func (m *MockAlertsService) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockAlertsService) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParam
 
 // AlertAdd indicates an expected call of AlertAdd
 func (mr *MockAlertsServiceMockRecorder) AlertAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertAdd", reflect.TypeOf((*MockAlertsService)(nil).AlertAdd), arg0, arg1)
 }
 
 // AlertRemove mocks base method
 func (m *MockAlertsService) AlertRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -58,13 +55,11 @@ func (m *MockAlertsService) AlertRemove(arg0, arg1 string) error {
 
 // AlertRemove indicates an expected call of AlertRemove
 func (mr *MockAlertsServiceMockRecorder) AlertRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertRemove", reflect.TypeOf((*MockAlertsService)(nil).AlertRemove), arg0, arg1)
 }
 
 // AlertShow mocks base method
 func (m *MockAlertsService) AlertShow(arg0, arg1 string) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertShow", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -73,13 +68,11 @@ func (m *MockAlertsService) AlertShow(arg0, arg1 string) (*go_scalingo.Alert, er
 
 // AlertShow indicates an expected call of AlertShow
 func (mr *MockAlertsServiceMockRecorder) AlertShow(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertShow", reflect.TypeOf((*MockAlertsService)(nil).AlertShow), arg0, arg1)
 }
 
 // AlertUpdate mocks base method
 func (m *MockAlertsService) AlertUpdate(arg0, arg1 string, arg2 go_scalingo.AlertUpdateParams) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertUpdate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -88,13 +81,11 @@ func (m *MockAlertsService) AlertUpdate(arg0, arg1 string, arg2 go_scalingo.Aler
 
 // AlertUpdate indicates an expected call of AlertUpdate
 func (mr *MockAlertsServiceMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertUpdate", reflect.TypeOf((*MockAlertsService)(nil).AlertUpdate), arg0, arg1, arg2)
 }
 
 // AlertsList mocks base method
 func (m *MockAlertsService) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -103,6 +94,5 @@ func (m *MockAlertsService) AlertsList(arg0 string) ([]*go_scalingo.Alert, error
 
 // AlertsList indicates an expected call of AlertsList
 func (mr *MockAlertsServiceMockRecorder) AlertsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertsList", reflect.TypeOf((*MockAlertsService)(nil).AlertsList), arg0)
 }

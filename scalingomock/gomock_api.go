@@ -38,7 +38,6 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 
 // AddonDestroy mocks base method
 func (m *MockAPI) AddonDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -46,28 +45,11 @@ func (m *MockAPI) AddonDestroy(arg0, arg1 string) error {
 
 // AddonDestroy indicates an expected call of AddonDestroy
 func (mr *MockAPIMockRecorder) AddonDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonDestroy", reflect.TypeOf((*MockAPI)(nil).AddonDestroy), arg0, arg1)
-}
-
-// AddonLogsURL mocks base method
-func (m *MockAPI) AddonLogsURL(arg0, arg1 string) (string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddonLogsURL", arg0, arg1)
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// AddonLogsURL indicates an expected call of AddonLogsURL
-func (mr *MockAPIMockRecorder) AddonLogsURL(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonLogsURL", reflect.TypeOf((*MockAPI)(nil).AddonLogsURL), arg0, arg1)
 }
 
 // AddonProviderPlansList mocks base method
 func (m *MockAPI) AddonProviderPlansList(arg0 string) ([]*go_scalingo.Plan, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Plan)
 	ret1, _ := ret[1].(error)
@@ -76,13 +58,11 @@ func (m *MockAPI) AddonProviderPlansList(arg0 string) ([]*go_scalingo.Plan, erro
 
 // AddonProviderPlansList indicates an expected call of AddonProviderPlansList
 func (mr *MockAPIMockRecorder) AddonProviderPlansList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAPI)(nil).AddonProviderPlansList), arg0)
 }
 
 // AddonProvidersList mocks base method
 func (m *MockAPI) AddonProvidersList() ([]*go_scalingo.AddonProvider, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvidersList")
 	ret0, _ := ret[0].([]*go_scalingo.AddonProvider)
 	ret1, _ := ret[1].(error)
@@ -91,13 +71,11 @@ func (m *MockAPI) AddonProvidersList() ([]*go_scalingo.AddonProvider, error) {
 
 // AddonProvidersList indicates an expected call of AddonProvidersList
 func (mr *MockAPIMockRecorder) AddonProvidersList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvidersList", reflect.TypeOf((*MockAPI)(nil).AddonProvidersList))
 }
 
 // AddonProvision mocks base method
 func (m *MockAPI) AddonProvision(arg0, arg1, arg2 string) (go_scalingo.AddonRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvision", arg0, arg1, arg2)
 	ret0, _ := ret[0].(go_scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
@@ -106,13 +84,11 @@ func (m *MockAPI) AddonProvision(arg0, arg1, arg2 string) (go_scalingo.AddonRes,
 
 // AddonProvision indicates an expected call of AddonProvision
 func (mr *MockAPIMockRecorder) AddonProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProvision", reflect.TypeOf((*MockAPI)(nil).AddonProvision), arg0, arg1, arg2)
 }
 
 // AddonToken mocks base method
 func (m *MockAPI) AddonToken(arg0, arg1 string) (string, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonToken", arg0, arg1)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -121,13 +97,11 @@ func (m *MockAPI) AddonToken(arg0, arg1 string) (string, error) {
 
 // AddonToken indicates an expected call of AddonToken
 func (mr *MockAPIMockRecorder) AddonToken(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonToken", reflect.TypeOf((*MockAPI)(nil).AddonToken), arg0, arg1)
 }
 
 // AddonUpgrade mocks base method
 func (m *MockAPI) AddonUpgrade(arg0, arg1, arg2 string) (go_scalingo.AddonRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonUpgrade", arg0, arg1, arg2)
 	ret0, _ := ret[0].(go_scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
@@ -136,13 +110,11 @@ func (m *MockAPI) AddonUpgrade(arg0, arg1, arg2 string) (go_scalingo.AddonRes, e
 
 // AddonUpgrade indicates an expected call of AddonUpgrade
 func (mr *MockAPIMockRecorder) AddonUpgrade(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonUpgrade", reflect.TypeOf((*MockAPI)(nil).AddonUpgrade), arg0, arg1, arg2)
 }
 
 // AddonsList mocks base method
 func (m *MockAPI) AddonsList(arg0 string) ([]*go_scalingo.Addon, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Addon)
 	ret1, _ := ret[1].(error)
@@ -151,13 +123,11 @@ func (m *MockAPI) AddonsList(arg0 string) ([]*go_scalingo.Addon, error) {
 
 // AddonsList indicates an expected call of AddonsList
 func (mr *MockAPIMockRecorder) AddonsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonsList", reflect.TypeOf((*MockAPI)(nil).AddonsList), arg0)
 }
 
 // AlertAdd mocks base method
 func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -166,13 +136,11 @@ func (m *MockAPI) AlertAdd(arg0 string, arg1 go_scalingo.AlertAddParams) (*go_sc
 
 // AlertAdd indicates an expected call of AlertAdd
 func (mr *MockAPIMockRecorder) AlertAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertAdd", reflect.TypeOf((*MockAPI)(nil).AlertAdd), arg0, arg1)
 }
 
 // AlertRemove mocks base method
 func (m *MockAPI) AlertRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -180,13 +148,11 @@ func (m *MockAPI) AlertRemove(arg0, arg1 string) error {
 
 // AlertRemove indicates an expected call of AlertRemove
 func (mr *MockAPIMockRecorder) AlertRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertRemove", reflect.TypeOf((*MockAPI)(nil).AlertRemove), arg0, arg1)
 }
 
 // AlertShow mocks base method
 func (m *MockAPI) AlertShow(arg0, arg1 string) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertShow", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -195,13 +161,11 @@ func (m *MockAPI) AlertShow(arg0, arg1 string) (*go_scalingo.Alert, error) {
 
 // AlertShow indicates an expected call of AlertShow
 func (mr *MockAPIMockRecorder) AlertShow(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertShow", reflect.TypeOf((*MockAPI)(nil).AlertShow), arg0, arg1)
 }
 
 // AlertUpdate mocks base method
 func (m *MockAPI) AlertUpdate(arg0, arg1 string, arg2 go_scalingo.AlertUpdateParams) (*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertUpdate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -210,13 +174,11 @@ func (m *MockAPI) AlertUpdate(arg0, arg1 string, arg2 go_scalingo.AlertUpdatePar
 
 // AlertUpdate indicates an expected call of AlertUpdate
 func (mr *MockAPIMockRecorder) AlertUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertUpdate", reflect.TypeOf((*MockAPI)(nil).AlertUpdate), arg0, arg1, arg2)
 }
 
 // AlertsList mocks base method
 func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Alert)
 	ret1, _ := ret[1].(error)
@@ -225,13 +187,11 @@ func (m *MockAPI) AlertsList(arg0 string) ([]*go_scalingo.Alert, error) {
 
 // AlertsList indicates an expected call of AlertsList
 func (mr *MockAPIMockRecorder) AlertsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AlertsList", reflect.TypeOf((*MockAPI)(nil).AlertsList), arg0)
 }
 
 // AppsCreate mocks base method
 func (m *MockAPI) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsCreate", arg0)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -240,13 +200,11 @@ func (m *MockAPI) AppsCreate(arg0 go_scalingo.AppsCreateOpts) (*go_scalingo.App,
 
 // AppsCreate indicates an expected call of AppsCreate
 func (mr *MockAPIMockRecorder) AppsCreate(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsCreate", reflect.TypeOf((*MockAPI)(nil).AppsCreate), arg0)
 }
 
 // AppsDestroy mocks base method
 func (m *MockAPI) AppsDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -254,13 +212,11 @@ func (m *MockAPI) AppsDestroy(arg0, arg1 string) error {
 
 // AppsDestroy indicates an expected call of AppsDestroy
 func (mr *MockAPIMockRecorder) AppsDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsDestroy", reflect.TypeOf((*MockAPI)(nil).AppsDestroy), arg0, arg1)
 }
 
 // AppsForceHTTPS mocks base method
 func (m *MockAPI) AppsForceHTTPS(arg0 string, arg1 bool) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsForceHTTPS", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -269,13 +225,11 @@ func (m *MockAPI) AppsForceHTTPS(arg0 string, arg1 bool) (*go_scalingo.App, erro
 
 // AppsForceHTTPS indicates an expected call of AppsForceHTTPS
 func (mr *MockAPIMockRecorder) AppsForceHTTPS(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsForceHTTPS", reflect.TypeOf((*MockAPI)(nil).AppsForceHTTPS), arg0, arg1)
 }
 
 // AppsList mocks base method
 func (m *MockAPI) AppsList() ([]*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsList")
 	ret0, _ := ret[0].([]*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -284,13 +238,11 @@ func (m *MockAPI) AppsList() ([]*go_scalingo.App, error) {
 
 // AppsList indicates an expected call of AppsList
 func (mr *MockAPIMockRecorder) AppsList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsList", reflect.TypeOf((*MockAPI)(nil).AppsList))
 }
 
 // AppsPs mocks base method
 func (m *MockAPI) AppsPs(arg0 string) ([]go_scalingo.ContainerType, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsPs", arg0)
 	ret0, _ := ret[0].([]go_scalingo.ContainerType)
 	ret1, _ := ret[1].(error)
@@ -299,13 +251,11 @@ func (m *MockAPI) AppsPs(arg0 string) ([]go_scalingo.ContainerType, error) {
 
 // AppsPs indicates an expected call of AppsPs
 func (mr *MockAPIMockRecorder) AppsPs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsPs", reflect.TypeOf((*MockAPI)(nil).AppsPs), arg0)
 }
 
 // AppsRename mocks base method
 func (m *MockAPI) AppsRename(arg0, arg1 string) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRename", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -314,13 +264,11 @@ func (m *MockAPI) AppsRename(arg0, arg1 string) (*go_scalingo.App, error) {
 
 // AppsRename indicates an expected call of AppsRename
 func (mr *MockAPIMockRecorder) AppsRename(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRename", reflect.TypeOf((*MockAPI)(nil).AppsRename), arg0, arg1)
 }
 
 // AppsRestart mocks base method
 func (m *MockAPI) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) (*http0.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", arg0, arg1)
 	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
@@ -329,13 +277,11 @@ func (m *MockAPI) AppsRestart(arg0 string, arg1 *go_scalingo.AppsRestartParams) 
 
 // AppsRestart indicates an expected call of AppsRestart
 func (mr *MockAPIMockRecorder) AppsRestart(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRestart", reflect.TypeOf((*MockAPI)(nil).AppsRestart), arg0, arg1)
 }
 
 // AppsScale mocks base method
 func (m *MockAPI) AppsScale(arg0 string, arg1 *go_scalingo.AppsScaleParams) (*http0.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", arg0, arg1)
 	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
@@ -344,13 +290,11 @@ func (m *MockAPI) AppsScale(arg0 string, arg1 *go_scalingo.AppsScaleParams) (*ht
 
 // AppsScale indicates an expected call of AppsScale
 func (mr *MockAPIMockRecorder) AppsScale(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsScale", reflect.TypeOf((*MockAPI)(nil).AppsScale), arg0, arg1)
 }
 
 // AppsShow mocks base method
 func (m *MockAPI) AppsShow(arg0 string) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsShow", arg0)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -359,13 +303,11 @@ func (m *MockAPI) AppsShow(arg0 string) (*go_scalingo.App, error) {
 
 // AppsShow indicates an expected call of AppsShow
 func (mr *MockAPIMockRecorder) AppsShow(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsShow", reflect.TypeOf((*MockAPI)(nil).AppsShow), arg0)
 }
 
 // AppsStats mocks base method
 func (m *MockAPI) AppsStats(arg0 string) (*go_scalingo.AppStatsRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStats", arg0)
 	ret0, _ := ret[0].(*go_scalingo.AppStatsRes)
 	ret1, _ := ret[1].(error)
@@ -374,13 +316,11 @@ func (m *MockAPI) AppsStats(arg0 string) (*go_scalingo.AppStatsRes, error) {
 
 // AppsStats indicates an expected call of AppsStats
 func (mr *MockAPIMockRecorder) AppsStats(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStats", reflect.TypeOf((*MockAPI)(nil).AppsStats), arg0)
 }
 
 // AppsStickySession mocks base method
 func (m *MockAPI) AppsStickySession(arg0 string, arg1 bool) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStickySession", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -389,13 +329,11 @@ func (m *MockAPI) AppsStickySession(arg0 string, arg1 bool) (*go_scalingo.App, e
 
 // AppsStickySession indicates an expected call of AppsStickySession
 func (mr *MockAPIMockRecorder) AppsStickySession(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsStickySession", reflect.TypeOf((*MockAPI)(nil).AppsStickySession), arg0, arg1)
 }
 
 // AppsTransfer mocks base method
 func (m *MockAPI) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsTransfer", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.App)
 	ret1, _ := ret[1].(error)
@@ -404,13 +342,11 @@ func (m *MockAPI) AppsTransfer(arg0, arg1 string) (*go_scalingo.App, error) {
 
 // AppsTransfer indicates an expected call of AppsTransfer
 func (mr *MockAPIMockRecorder) AppsTransfer(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsTransfer", reflect.TypeOf((*MockAPI)(nil).AppsTransfer), arg0, arg1)
 }
 
 // AuthAPI mocks base method
 func (m *MockAPI) AuthAPI() http.Client {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AuthAPI")
 	ret0, _ := ret[0].(http.Client)
 	return ret0
@@ -418,13 +354,11 @@ func (m *MockAPI) AuthAPI() http.Client {
 
 // AuthAPI indicates an expected call of AuthAPI
 func (mr *MockAPIMockRecorder) AuthAPI() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AuthAPI", reflect.TypeOf((*MockAPI)(nil).AuthAPI))
 }
 
 // AutoscalerAdd mocks base method
 func (m *MockAPI) AutoscalerAdd(arg0 string, arg1 go_scalingo.AutoscalerAddParams) (*go_scalingo.Autoscaler, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalerAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
@@ -433,13 +367,11 @@ func (m *MockAPI) AutoscalerAdd(arg0 string, arg1 go_scalingo.AutoscalerAddParam
 
 // AutoscalerAdd indicates an expected call of AutoscalerAdd
 func (mr *MockAPIMockRecorder) AutoscalerAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerAdd", reflect.TypeOf((*MockAPI)(nil).AutoscalerAdd), arg0, arg1)
 }
 
 // AutoscalerRemove mocks base method
 func (m *MockAPI) AutoscalerRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalerRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -447,13 +379,11 @@ func (m *MockAPI) AutoscalerRemove(arg0, arg1 string) error {
 
 // AutoscalerRemove indicates an expected call of AutoscalerRemove
 func (mr *MockAPIMockRecorder) AutoscalerRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalerRemove", reflect.TypeOf((*MockAPI)(nil).AutoscalerRemove), arg0, arg1)
 }
 
 // AutoscalersList mocks base method
 func (m *MockAPI) AutoscalersList(arg0 string) ([]go_scalingo.Autoscaler, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalersList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
@@ -462,13 +392,11 @@ func (m *MockAPI) AutoscalersList(arg0 string) ([]go_scalingo.Autoscaler, error)
 
 // AutoscalersList indicates an expected call of AutoscalersList
 func (mr *MockAPIMockRecorder) AutoscalersList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AutoscalersList", reflect.TypeOf((*MockAPI)(nil).AutoscalersList), arg0)
 }
 
 // BackupDownloadURL mocks base method
 func (m *MockAPI) BackupDownloadURL(arg0, arg1, arg2 string) (string, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupDownloadURL", arg0, arg1, arg2)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -477,13 +405,11 @@ func (m *MockAPI) BackupDownloadURL(arg0, arg1, arg2 string) (string, error) {
 
 // BackupDownloadURL indicates an expected call of BackupDownloadURL
 func (mr *MockAPIMockRecorder) BackupDownloadURL(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupDownloadURL", reflect.TypeOf((*MockAPI)(nil).BackupDownloadURL), arg0, arg1, arg2)
 }
 
 // BackupList mocks base method
 func (m *MockAPI) BackupList(arg0, arg1 string) ([]go_scalingo.Backup, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupList", arg0, arg1)
 	ret0, _ := ret[0].([]go_scalingo.Backup)
 	ret1, _ := ret[1].(error)
@@ -492,13 +418,11 @@ func (m *MockAPI) BackupList(arg0, arg1 string) ([]go_scalingo.Backup, error) {
 
 // BackupList indicates an expected call of BackupList
 func (mr *MockAPIMockRecorder) BackupList(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupList", reflect.TypeOf((*MockAPI)(nil).BackupList), arg0, arg1)
 }
 
 // BackupShow mocks base method
 func (m *MockAPI) BackupShow(arg0, arg1, arg2 string) (*go_scalingo.Backup, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupShow", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Backup)
 	ret1, _ := ret[1].(error)
@@ -507,13 +431,11 @@ func (m *MockAPI) BackupShow(arg0, arg1, arg2 string) (*go_scalingo.Backup, erro
 
 // BackupShow indicates an expected call of BackupShow
 func (mr *MockAPIMockRecorder) BackupShow(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BackupShow", reflect.TypeOf((*MockAPI)(nil).BackupShow), arg0, arg1, arg2)
 }
 
 // CollaboratorAdd mocks base method
 func (m *MockAPI) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
@@ -522,13 +444,11 @@ func (m *MockAPI) CollaboratorAdd(arg0, arg1 string) (go_scalingo.Collaborator, 
 
 // CollaboratorAdd indicates an expected call of CollaboratorAdd
 func (mr *MockAPIMockRecorder) CollaboratorAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorAdd", reflect.TypeOf((*MockAPI)(nil).CollaboratorAdd), arg0, arg1)
 }
 
 // CollaboratorRemove mocks base method
 func (m *MockAPI) CollaboratorRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -536,13 +456,11 @@ func (m *MockAPI) CollaboratorRemove(arg0, arg1 string) error {
 
 // CollaboratorRemove indicates an expected call of CollaboratorRemove
 func (mr *MockAPIMockRecorder) CollaboratorRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorRemove", reflect.TypeOf((*MockAPI)(nil).CollaboratorRemove), arg0, arg1)
 }
 
 // CollaboratorsList mocks base method
 func (m *MockAPI) CollaboratorsList(arg0 string) ([]go_scalingo.Collaborator, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorsList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
@@ -551,13 +469,11 @@ func (m *MockAPI) CollaboratorsList(arg0 string) ([]go_scalingo.Collaborator, er
 
 // CollaboratorsList indicates an expected call of CollaboratorsList
 func (mr *MockAPIMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockAPI)(nil).CollaboratorsList), arg0)
 }
 
 // DBAPI mocks base method
 func (m *MockAPI) DBAPI(arg0, arg1 string) http.Client {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DBAPI", arg0, arg1)
 	ret0, _ := ret[0].(http.Client)
 	return ret0
@@ -565,13 +481,11 @@ func (m *MockAPI) DBAPI(arg0, arg1 string) http.Client {
 
 // DBAPI indicates an expected call of DBAPI
 func (mr *MockAPIMockRecorder) DBAPI(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DBAPI", reflect.TypeOf((*MockAPI)(nil).DBAPI), arg0, arg1)
 }
 
 // Deployment mocks base method
 func (m *MockAPI) Deployment(arg0, arg1 string) (*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Deployment", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -580,13 +494,11 @@ func (m *MockAPI) Deployment(arg0, arg1 string) (*go_scalingo.Deployment, error)
 
 // Deployment indicates an expected call of Deployment
 func (mr *MockAPIMockRecorder) Deployment(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Deployment", reflect.TypeOf((*MockAPI)(nil).Deployment), arg0, arg1)
 }
 
 // DeploymentList mocks base method
 func (m *MockAPI) DeploymentList(arg0 string) ([]*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -595,13 +507,11 @@ func (m *MockAPI) DeploymentList(arg0 string) ([]*go_scalingo.Deployment, error)
 
 // DeploymentList indicates an expected call of DeploymentList
 func (mr *MockAPIMockRecorder) DeploymentList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentList", reflect.TypeOf((*MockAPI)(nil).DeploymentList), arg0)
 }
 
 // DeploymentLogs mocks base method
 func (m *MockAPI) DeploymentLogs(arg0 string) (*http0.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentLogs", arg0)
 	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
@@ -610,13 +520,11 @@ func (m *MockAPI) DeploymentLogs(arg0 string) (*http0.Response, error) {
 
 // DeploymentLogs indicates an expected call of DeploymentLogs
 func (mr *MockAPIMockRecorder) DeploymentLogs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentLogs", reflect.TypeOf((*MockAPI)(nil).DeploymentLogs), arg0)
 }
 
 // DeploymentStream mocks base method
 func (m *MockAPI) DeploymentStream(arg0 string) (*websocket.Conn, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentStream", arg0)
 	ret0, _ := ret[0].(*websocket.Conn)
 	ret1, _ := ret[1].(error)
@@ -625,13 +533,11 @@ func (m *MockAPI) DeploymentStream(arg0 string) (*websocket.Conn, error) {
 
 // DeploymentStream indicates an expected call of DeploymentStream
 func (mr *MockAPIMockRecorder) DeploymentStream(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentStream", reflect.TypeOf((*MockAPI)(nil).DeploymentStream), arg0)
 }
 
 // DeploymentsCreate mocks base method
 func (m *MockAPI) DeploymentsCreate(arg0 string, arg1 *go_scalingo.DeploymentsCreateParams) (*go_scalingo.Deployment, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentsCreate", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Deployment)
 	ret1, _ := ret[1].(error)
@@ -640,13 +546,11 @@ func (m *MockAPI) DeploymentsCreate(arg0 string, arg1 *go_scalingo.DeploymentsCr
 
 // DeploymentsCreate indicates an expected call of DeploymentsCreate
 func (mr *MockAPIMockRecorder) DeploymentsCreate(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentsCreate", reflect.TypeOf((*MockAPI)(nil).DeploymentsCreate), arg0, arg1)
 }
 
 // DomainSetCanonical mocks base method
 func (m *MockAPI) DomainSetCanonical(arg0, arg1 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainSetCanonical", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -655,13 +559,11 @@ func (m *MockAPI) DomainSetCanonical(arg0, arg1 string) (go_scalingo.Domain, err
 
 // DomainSetCanonical indicates an expected call of DomainSetCanonical
 func (mr *MockAPIMockRecorder) DomainSetCanonical(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainSetCanonical), arg0, arg1)
 }
 
 // DomainUnsetCanonical mocks base method
 func (m *MockAPI) DomainUnsetCanonical(arg0 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainUnsetCanonical", arg0)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -670,13 +572,11 @@ func (m *MockAPI) DomainUnsetCanonical(arg0 string) (go_scalingo.Domain, error) 
 
 // DomainUnsetCanonical indicates an expected call of DomainUnsetCanonical
 func (mr *MockAPIMockRecorder) DomainUnsetCanonical(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainUnsetCanonical), arg0)
 }
 
 // DomainsAdd mocks base method
 func (m *MockAPI) DomainsAdd(arg0 string, arg1 go_scalingo.Domain) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsAdd", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -685,13 +585,11 @@ func (m *MockAPI) DomainsAdd(arg0 string, arg1 go_scalingo.Domain) (go_scalingo.
 
 // DomainsAdd indicates an expected call of DomainsAdd
 func (mr *MockAPIMockRecorder) DomainsAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsAdd", reflect.TypeOf((*MockAPI)(nil).DomainsAdd), arg0, arg1)
 }
 
 // DomainsList mocks base method
 func (m *MockAPI) DomainsList(arg0 string) ([]go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -700,13 +598,11 @@ func (m *MockAPI) DomainsList(arg0 string) ([]go_scalingo.Domain, error) {
 
 // DomainsList indicates an expected call of DomainsList
 func (mr *MockAPIMockRecorder) DomainsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsList", reflect.TypeOf((*MockAPI)(nil).DomainsList), arg0)
 }
 
 // DomainsRemove mocks base method
 func (m *MockAPI) DomainsRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -714,13 +610,11 @@ func (m *MockAPI) DomainsRemove(arg0, arg1 string) error {
 
 // DomainsRemove indicates an expected call of DomainsRemove
 func (mr *MockAPIMockRecorder) DomainsRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsRemove", reflect.TypeOf((*MockAPI)(nil).DomainsRemove), arg0, arg1)
 }
 
 // DomainsUpdate mocks base method
 func (m *MockAPI) DomainsUpdate(arg0, arg1, arg2, arg3 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsUpdate", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -729,13 +623,11 @@ func (m *MockAPI) DomainsUpdate(arg0, arg1, arg2, arg3 string) (go_scalingo.Doma
 
 // DomainsUpdate indicates an expected call of DomainsUpdate
 func (mr *MockAPIMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockAPI)(nil).DomainsUpdate), arg0, arg1, arg2, arg3)
 }
 
 // EventsList mocks base method
 func (m *MockAPI) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventsList", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Events)
 	ret1, _ := ret[1].(go_scalingo.PaginationMeta)
@@ -745,13 +637,11 @@ func (m *MockAPI) EventsList(arg0 string, arg1 go_scalingo.PaginationOpts) (go_s
 
 // EventsList indicates an expected call of EventsList
 func (mr *MockAPIMockRecorder) EventsList(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EventsList", reflect.TypeOf((*MockAPI)(nil).EventsList), arg0, arg1)
 }
 
 // GetAccessToken mocks base method
 func (m *MockAPI) GetAccessToken() (string, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetAccessToken")
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -760,13 +650,11 @@ func (m *MockAPI) GetAccessToken() (string, error) {
 
 // GetAccessToken indicates an expected call of GetAccessToken
 func (mr *MockAPIMockRecorder) GetAccessToken() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccessToken", reflect.TypeOf((*MockAPI)(nil).GetAccessToken))
 }
 
 // KeysAdd mocks base method
 func (m *MockAPI) KeysAdd(arg0, arg1 string) (*go_scalingo.Key, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "KeysAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Key)
 	ret1, _ := ret[1].(error)
@@ -775,13 +663,11 @@ func (m *MockAPI) KeysAdd(arg0, arg1 string) (*go_scalingo.Key, error) {
 
 // KeysAdd indicates an expected call of KeysAdd
 func (mr *MockAPIMockRecorder) KeysAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysAdd", reflect.TypeOf((*MockAPI)(nil).KeysAdd), arg0, arg1)
 }
 
 // KeysDelete mocks base method
 func (m *MockAPI) KeysDelete(arg0 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "KeysDelete", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -789,13 +675,11 @@ func (m *MockAPI) KeysDelete(arg0 string) error {
 
 // KeysDelete indicates an expected call of KeysDelete
 func (mr *MockAPIMockRecorder) KeysDelete(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysDelete", reflect.TypeOf((*MockAPI)(nil).KeysDelete), arg0)
 }
 
 // KeysList mocks base method
 func (m *MockAPI) KeysList() ([]go_scalingo.Key, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "KeysList")
 	ret0, _ := ret[0].([]go_scalingo.Key)
 	ret1, _ := ret[1].(error)
@@ -804,13 +688,11 @@ func (m *MockAPI) KeysList() ([]go_scalingo.Key, error) {
 
 // KeysList indicates an expected call of KeysList
 func (mr *MockAPIMockRecorder) KeysList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysList", reflect.TypeOf((*MockAPI)(nil).KeysList))
 }
 
 // Login mocks base method
 func (m *MockAPI) Login(arg0, arg1 string) (*go_scalingo.LoginResponse, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Login", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.LoginResponse)
 	ret1, _ := ret[1].(error)
@@ -819,13 +701,11 @@ func (m *MockAPI) Login(arg0, arg1 string) (*go_scalingo.LoginResponse, error) {
 
 // Login indicates an expected call of Login
 func (mr *MockAPIMockRecorder) Login(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockAPI)(nil).Login), arg0, arg1)
 }
 
 // Logs mocks base method
 func (m *MockAPI) Logs(arg0 string, arg1 int, arg2 string) (*http0.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Logs", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
@@ -834,13 +714,11 @@ func (m *MockAPI) Logs(arg0 string, arg1 int, arg2 string) (*http0.Response, err
 
 // Logs indicates an expected call of Logs
 func (mr *MockAPIMockRecorder) Logs(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Logs", reflect.TypeOf((*MockAPI)(nil).Logs), arg0, arg1, arg2)
 }
 
 // LogsArchives mocks base method
 func (m *MockAPI) LogsArchives(arg0 string, arg1 int) (*go_scalingo.LogsArchivesResponse, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchives", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
@@ -849,13 +727,11 @@ func (m *MockAPI) LogsArchives(arg0 string, arg1 int) (*go_scalingo.LogsArchives
 
 // LogsArchives indicates an expected call of LogsArchives
 func (mr *MockAPIMockRecorder) LogsArchives(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsArchives", reflect.TypeOf((*MockAPI)(nil).LogsArchives), arg0, arg1)
 }
 
 // LogsArchivesByCursor mocks base method
 func (m *MockAPI) LogsArchivesByCursor(arg0, arg1 string) (*go_scalingo.LogsArchivesResponse, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchivesByCursor", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
@@ -864,13 +740,11 @@ func (m *MockAPI) LogsArchivesByCursor(arg0, arg1 string) (*go_scalingo.LogsArch
 
 // LogsArchivesByCursor indicates an expected call of LogsArchivesByCursor
 func (mr *MockAPIMockRecorder) LogsArchivesByCursor(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsArchivesByCursor", reflect.TypeOf((*MockAPI)(nil).LogsArchivesByCursor), arg0, arg1)
 }
 
 // LogsURL mocks base method
 func (m *MockAPI) LogsURL(arg0 string) (*http0.Response, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsURL", arg0)
 	ret0, _ := ret[0].(*http0.Response)
 	ret1, _ := ret[1].(error)
@@ -879,13 +753,11 @@ func (m *MockAPI) LogsURL(arg0 string) (*http0.Response, error) {
 
 // LogsURL indicates an expected call of LogsURL
 func (mr *MockAPIMockRecorder) LogsURL(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsURL", reflect.TypeOf((*MockAPI)(nil).LogsURL), arg0)
 }
 
 // NotificationDestroy mocks base method
 func (m *MockAPI) NotificationDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -893,13 +765,11 @@ func (m *MockAPI) NotificationDestroy(arg0, arg1 string) error {
 
 // NotificationDestroy indicates an expected call of NotificationDestroy
 func (mr *MockAPIMockRecorder) NotificationDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationDestroy", reflect.TypeOf((*MockAPI)(nil).NotificationDestroy), arg0, arg1)
 }
 
 // NotificationPlatformByName mocks base method
 func (m *MockAPI) NotificationPlatformByName(arg0 string) ([]*go_scalingo.NotificationPlatform, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformByName", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
@@ -908,13 +778,11 @@ func (m *MockAPI) NotificationPlatformByName(arg0 string) ([]*go_scalingo.Notifi
 
 // NotificationPlatformByName indicates an expected call of NotificationPlatformByName
 func (mr *MockAPIMockRecorder) NotificationPlatformByName(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformByName", reflect.TypeOf((*MockAPI)(nil).NotificationPlatformByName), arg0)
 }
 
 // NotificationPlatformsList mocks base method
 func (m *MockAPI) NotificationPlatformsList() ([]*go_scalingo.NotificationPlatform, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformsList")
 	ret0, _ := ret[0].([]*go_scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
@@ -923,13 +791,11 @@ func (m *MockAPI) NotificationPlatformsList() ([]*go_scalingo.NotificationPlatfo
 
 // NotificationPlatformsList indicates an expected call of NotificationPlatformsList
 func (mr *MockAPIMockRecorder) NotificationPlatformsList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformsList", reflect.TypeOf((*MockAPI)(nil).NotificationPlatformsList))
 }
 
 // NotificationProvision mocks base method
 func (m *MockAPI) NotificationProvision(arg0, arg1 string) (go_scalingo.NotificationRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationProvision", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.NotificationRes)
 	ret1, _ := ret[1].(error)
@@ -938,13 +804,11 @@ func (m *MockAPI) NotificationProvision(arg0, arg1 string) (go_scalingo.Notifica
 
 // NotificationProvision indicates an expected call of NotificationProvision
 func (mr *MockAPIMockRecorder) NotificationProvision(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationProvision", reflect.TypeOf((*MockAPI)(nil).NotificationProvision), arg0, arg1)
 }
 
 // NotificationUpdate mocks base method
 func (m *MockAPI) NotificationUpdate(arg0, arg1, arg2 string) (go_scalingo.NotificationRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationUpdate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(go_scalingo.NotificationRes)
 	ret1, _ := ret[1].(error)
@@ -953,13 +817,11 @@ func (m *MockAPI) NotificationUpdate(arg0, arg1, arg2 string) (go_scalingo.Notif
 
 // NotificationUpdate indicates an expected call of NotificationUpdate
 func (mr *MockAPIMockRecorder) NotificationUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationUpdate", reflect.TypeOf((*MockAPI)(nil).NotificationUpdate), arg0, arg1, arg2)
 }
 
 // NotificationsList mocks base method
 func (m *MockAPI) NotificationsList(arg0 string) ([]*go_scalingo.Notification, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationsList", arg0)
 	ret0, _ := ret[0].([]*go_scalingo.Notification)
 	ret1, _ := ret[1].(error)
@@ -968,13 +830,11 @@ func (m *MockAPI) NotificationsList(arg0 string) ([]*go_scalingo.Notification, e
 
 // NotificationsList indicates an expected call of NotificationsList
 func (mr *MockAPIMockRecorder) NotificationsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationsList", reflect.TypeOf((*MockAPI)(nil).NotificationsList), arg0)
 }
 
 // NotifierByID mocks base method
 func (m *MockAPI) NotifierByID(arg0, arg1 string) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierByID", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -983,13 +843,11 @@ func (m *MockAPI) NotifierByID(arg0, arg1 string) (*go_scalingo.Notifier, error)
 
 // NotifierByID indicates an expected call of NotifierByID
 func (mr *MockAPIMockRecorder) NotifierByID(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierByID", reflect.TypeOf((*MockAPI)(nil).NotifierByID), arg0, arg1)
 }
 
 // NotifierDestroy mocks base method
 func (m *MockAPI) NotifierDestroy(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -997,13 +855,11 @@ func (m *MockAPI) NotifierDestroy(arg0, arg1 string) error {
 
 // NotifierDestroy indicates an expected call of NotifierDestroy
 func (mr *MockAPIMockRecorder) NotifierDestroy(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierDestroy", reflect.TypeOf((*MockAPI)(nil).NotifierDestroy), arg0, arg1)
 }
 
 // NotifierProvision mocks base method
 func (m *MockAPI) NotifierProvision(arg0, arg1 string, arg2 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierProvision", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -1012,13 +868,11 @@ func (m *MockAPI) NotifierProvision(arg0, arg1 string, arg2 go_scalingo.Notifier
 
 // NotifierProvision indicates an expected call of NotifierProvision
 func (mr *MockAPIMockRecorder) NotifierProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierProvision", reflect.TypeOf((*MockAPI)(nil).NotifierProvision), arg0, arg1, arg2)
 }
 
 // NotifierUpdate mocks base method
 func (m *MockAPI) NotifierUpdate(arg0, arg1, arg2 string, arg3 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierUpdate", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(*go_scalingo.Notifier)
 	ret1, _ := ret[1].(error)
@@ -1027,13 +881,11 @@ func (m *MockAPI) NotifierUpdate(arg0, arg1, arg2 string, arg3 go_scalingo.Notif
 
 // NotifierUpdate indicates an expected call of NotifierUpdate
 func (mr *MockAPIMockRecorder) NotifierUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierUpdate", reflect.TypeOf((*MockAPI)(nil).NotifierUpdate), arg0, arg1, arg2, arg3)
 }
 
 // NotifiersList mocks base method
 func (m *MockAPI) NotifiersList(arg0 string) (go_scalingo.Notifiers, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifiersList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Notifiers)
 	ret1, _ := ret[1].(error)
@@ -1042,13 +894,11 @@ func (m *MockAPI) NotifiersList(arg0 string) (go_scalingo.Notifiers, error) {
 
 // NotifiersList indicates an expected call of NotifiersList
 func (mr *MockAPIMockRecorder) NotifiersList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifiersList", reflect.TypeOf((*MockAPI)(nil).NotifiersList), arg0)
 }
 
 // OperationsShow mocks base method
 func (m *MockAPI) OperationsShow(arg0, arg1 string) (*go_scalingo.Operation, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "OperationsShow", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.Operation)
 	ret1, _ := ret[1].(error)
@@ -1057,13 +907,11 @@ func (m *MockAPI) OperationsShow(arg0, arg1 string) (*go_scalingo.Operation, err
 
 // OperationsShow indicates an expected call of OperationsShow
 func (mr *MockAPIMockRecorder) OperationsShow(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OperationsShow", reflect.TypeOf((*MockAPI)(nil).OperationsShow), arg0, arg1)
 }
 
 // Run mocks base method
 func (m *MockAPI) Run(arg0 go_scalingo.RunOpts) (*go_scalingo.RunRes, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Run", arg0)
 	ret0, _ := ret[0].(*go_scalingo.RunRes)
 	ret1, _ := ret[1].(error)
@@ -1072,13 +920,11 @@ func (m *MockAPI) Run(arg0 go_scalingo.RunOpts) (*go_scalingo.RunRes, error) {
 
 // Run indicates an expected call of Run
 func (mr *MockAPIMockRecorder) Run(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockAPI)(nil).Run), arg0)
 }
 
 // ScalingoAPI mocks base method
 func (m *MockAPI) ScalingoAPI() http.Client {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ScalingoAPI")
 	ret0, _ := ret[0].(http.Client)
 	return ret0
@@ -1086,13 +932,11 @@ func (m *MockAPI) ScalingoAPI() http.Client {
 
 // ScalingoAPI indicates an expected call of ScalingoAPI
 func (mr *MockAPIMockRecorder) ScalingoAPI() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ScalingoAPI", reflect.TypeOf((*MockAPI)(nil).ScalingoAPI))
 }
 
 // Self mocks base method
 func (m *MockAPI) Self() (*go_scalingo.User, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Self")
 	ret0, _ := ret[0].(*go_scalingo.User)
 	ret1, _ := ret[1].(error)
@@ -1101,13 +945,11 @@ func (m *MockAPI) Self() (*go_scalingo.User, error) {
 
 // Self indicates an expected call of Self
 func (mr *MockAPIMockRecorder) Self() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockAPI)(nil).Self))
 }
 
 // SignUp mocks base method
 func (m *MockAPI) SignUp(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SignUp", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -1115,13 +957,11 @@ func (m *MockAPI) SignUp(arg0, arg1 string) error {
 
 // SignUp indicates an expected call of SignUp
 func (mr *MockAPIMockRecorder) SignUp(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockAPI)(nil).SignUp), arg0, arg1)
 }
 
 // SourcesCreate mocks base method
 func (m *MockAPI) SourcesCreate() (*go_scalingo.Source, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SourcesCreate")
 	ret0, _ := ret[0].(*go_scalingo.Source)
 	ret1, _ := ret[1].(error)
@@ -1130,13 +970,11 @@ func (m *MockAPI) SourcesCreate() (*go_scalingo.Source, error) {
 
 // SourcesCreate indicates an expected call of SourcesCreate
 func (mr *MockAPIMockRecorder) SourcesCreate() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SourcesCreate", reflect.TypeOf((*MockAPI)(nil).SourcesCreate))
 }
 
 // TokenCreate mocks base method
 func (m *MockAPI) TokenCreate(arg0 go_scalingo.TokenCreateParams) (go_scalingo.Token, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenCreate", arg0)
 	ret0, _ := ret[0].(go_scalingo.Token)
 	ret1, _ := ret[1].(error)
@@ -1145,13 +983,11 @@ func (m *MockAPI) TokenCreate(arg0 go_scalingo.TokenCreateParams) (go_scalingo.T
 
 // TokenCreate indicates an expected call of TokenCreate
 func (mr *MockAPIMockRecorder) TokenCreate(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenCreate", reflect.TypeOf((*MockAPI)(nil).TokenCreate), arg0)
 }
 
 // TokenExchange mocks base method
 func (m *MockAPI) TokenExchange(arg0 string) (string, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenExchange", arg0)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -1160,13 +996,11 @@ func (m *MockAPI) TokenExchange(arg0 string) (string, error) {
 
 // TokenExchange indicates an expected call of TokenExchange
 func (mr *MockAPIMockRecorder) TokenExchange(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenExchange", reflect.TypeOf((*MockAPI)(nil).TokenExchange), arg0)
 }
 
 // TokenShow mocks base method
 func (m *MockAPI) TokenShow(arg0 int) (go_scalingo.Token, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenShow", arg0)
 	ret0, _ := ret[0].(go_scalingo.Token)
 	ret1, _ := ret[1].(error)
@@ -1175,13 +1009,11 @@ func (m *MockAPI) TokenShow(arg0 int) (go_scalingo.Token, error) {
 
 // TokenShow indicates an expected call of TokenShow
 func (mr *MockAPIMockRecorder) TokenShow(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenShow", reflect.TypeOf((*MockAPI)(nil).TokenShow), arg0)
 }
 
 // TokensList mocks base method
 func (m *MockAPI) TokensList() (go_scalingo.Tokens, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokensList")
 	ret0, _ := ret[0].(go_scalingo.Tokens)
 	ret1, _ := ret[1].(error)
@@ -1190,13 +1022,11 @@ func (m *MockAPI) TokensList() (go_scalingo.Tokens, error) {
 
 // TokensList indicates an expected call of TokensList
 func (mr *MockAPIMockRecorder) TokensList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokensList", reflect.TypeOf((*MockAPI)(nil).TokensList))
 }
 
 // UpdateUser mocks base method
 func (m *MockAPI) UpdateUser(arg0 go_scalingo.UpdateUserParams) (*go_scalingo.User, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", arg0)
 	ret0, _ := ret[0].(*go_scalingo.User)
 	ret1, _ := ret[1].(error)
@@ -1205,13 +1035,11 @@ func (m *MockAPI) UpdateUser(arg0 go_scalingo.UpdateUserParams) (*go_scalingo.Us
 
 // UpdateUser indicates an expected call of UpdateUser
 func (mr *MockAPIMockRecorder) UpdateUser(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockAPI)(nil).UpdateUser), arg0)
 }
 
 // UserEventsList mocks base method
 func (m *MockAPI) UserEventsList(arg0 go_scalingo.PaginationOpts) (go_scalingo.Events, go_scalingo.PaginationMeta, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserEventsList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Events)
 	ret1, _ := ret[1].(go_scalingo.PaginationMeta)
@@ -1221,13 +1049,11 @@ func (m *MockAPI) UserEventsList(arg0 go_scalingo.PaginationOpts) (go_scalingo.E
 
 // UserEventsList indicates an expected call of UserEventsList
 func (mr *MockAPIMockRecorder) UserEventsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserEventsList", reflect.TypeOf((*MockAPI)(nil).UserEventsList), arg0)
 }
 
 // VariableMultipleSet mocks base method
 func (m *MockAPI) VariableMultipleSet(arg0 string, arg1 go_scalingo.Variables) (go_scalingo.Variables, int, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableMultipleSet", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(int)
@@ -1237,13 +1063,11 @@ func (m *MockAPI) VariableMultipleSet(arg0 string, arg1 go_scalingo.Variables) (
 
 // VariableMultipleSet indicates an expected call of VariableMultipleSet
 func (mr *MockAPIMockRecorder) VariableMultipleSet(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableMultipleSet", reflect.TypeOf((*MockAPI)(nil).VariableMultipleSet), arg0, arg1)
 }
 
 // VariableSet mocks base method
 func (m *MockAPI) VariableSet(arg0, arg1, arg2 string) (*go_scalingo.Variable, int, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableSet", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.Variable)
 	ret1, _ := ret[1].(int)
@@ -1253,13 +1077,11 @@ func (m *MockAPI) VariableSet(arg0, arg1, arg2 string) (*go_scalingo.Variable, i
 
 // VariableSet indicates an expected call of VariableSet
 func (mr *MockAPIMockRecorder) VariableSet(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableSet", reflect.TypeOf((*MockAPI)(nil).VariableSet), arg0, arg1, arg2)
 }
 
 // VariableUnset mocks base method
 func (m *MockAPI) VariableUnset(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableUnset", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -1267,13 +1089,11 @@ func (m *MockAPI) VariableUnset(arg0, arg1 string) error {
 
 // VariableUnset indicates an expected call of VariableUnset
 func (mr *MockAPIMockRecorder) VariableUnset(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariableUnset", reflect.TypeOf((*MockAPI)(nil).VariableUnset), arg0, arg1)
 }
 
 // VariablesList mocks base method
 func (m *MockAPI) VariablesList(arg0 string) (go_scalingo.Variables, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesList", arg0)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(error)
@@ -1282,13 +1102,11 @@ func (m *MockAPI) VariablesList(arg0 string) (go_scalingo.Variables, error) {
 
 // VariablesList indicates an expected call of VariablesList
 func (mr *MockAPIMockRecorder) VariablesList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariablesList", reflect.TypeOf((*MockAPI)(nil).VariablesList), arg0)
 }
 
 // VariablesListWithoutAlias mocks base method
 func (m *MockAPI) VariablesListWithoutAlias(arg0 string) (go_scalingo.Variables, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesListWithoutAlias", arg0)
 	ret0, _ := ret[0].(go_scalingo.Variables)
 	ret1, _ := ret[1].(error)
@@ -1297,6 +1115,5 @@ func (m *MockAPI) VariablesListWithoutAlias(arg0 string) (go_scalingo.Variables,
 
 // VariablesListWithoutAlias indicates an expected call of VariablesListWithoutAlias
 func (mr *MockAPIMockRecorder) VariablesListWithoutAlias(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VariablesListWithoutAlias", reflect.TypeOf((*MockAPI)(nil).VariablesListWithoutAlias), arg0)
 }

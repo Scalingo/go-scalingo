@@ -35,7 +35,6 @@ func (m *MockDomainsService) EXPECT() *MockDomainsServiceMockRecorder {
 
 // DomainSetCanonical mocks base method
 func (m *MockDomainsService) DomainSetCanonical(arg0, arg1 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainSetCanonical", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockDomainsService) DomainSetCanonical(arg0, arg1 string) (go_scalingo.
 
 // DomainSetCanonical indicates an expected call of DomainSetCanonical
 func (mr *MockDomainsServiceMockRecorder) DomainSetCanonical(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCanonical", reflect.TypeOf((*MockDomainsService)(nil).DomainSetCanonical), arg0, arg1)
 }
 
 // DomainUnsetCanonical mocks base method
 func (m *MockDomainsService) DomainUnsetCanonical(arg0 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainUnsetCanonical", arg0)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -59,13 +56,11 @@ func (m *MockDomainsService) DomainUnsetCanonical(arg0 string) (go_scalingo.Doma
 
 // DomainUnsetCanonical indicates an expected call of DomainUnsetCanonical
 func (mr *MockDomainsServiceMockRecorder) DomainUnsetCanonical(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCanonical", reflect.TypeOf((*MockDomainsService)(nil).DomainUnsetCanonical), arg0)
 }
 
 // DomainsAdd mocks base method
 func (m *MockDomainsService) DomainsAdd(arg0 string, arg1 go_scalingo.Domain) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsAdd", arg0, arg1)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -74,13 +69,11 @@ func (m *MockDomainsService) DomainsAdd(arg0 string, arg1 go_scalingo.Domain) (g
 
 // DomainsAdd indicates an expected call of DomainsAdd
 func (mr *MockDomainsServiceMockRecorder) DomainsAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsAdd", reflect.TypeOf((*MockDomainsService)(nil).DomainsAdd), arg0, arg1)
 }
 
 // DomainsList mocks base method
 func (m *MockDomainsService) DomainsList(arg0 string) ([]go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsList", arg0)
 	ret0, _ := ret[0].([]go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -89,13 +82,11 @@ func (m *MockDomainsService) DomainsList(arg0 string) ([]go_scalingo.Domain, err
 
 // DomainsList indicates an expected call of DomainsList
 func (mr *MockDomainsServiceMockRecorder) DomainsList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsList", reflect.TypeOf((*MockDomainsService)(nil).DomainsList), arg0)
 }
 
 // DomainsRemove mocks base method
 func (m *MockDomainsService) DomainsRemove(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsRemove", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -103,13 +94,11 @@ func (m *MockDomainsService) DomainsRemove(arg0, arg1 string) error {
 
 // DomainsRemove indicates an expected call of DomainsRemove
 func (mr *MockDomainsServiceMockRecorder) DomainsRemove(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsRemove", reflect.TypeOf((*MockDomainsService)(nil).DomainsRemove), arg0, arg1)
 }
 
 // DomainsUpdate mocks base method
 func (m *MockDomainsService) DomainsUpdate(arg0, arg1, arg2, arg3 string) (go_scalingo.Domain, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsUpdate", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(go_scalingo.Domain)
 	ret1, _ := ret[1].(error)
@@ -118,6 +107,5 @@ func (m *MockDomainsService) DomainsUpdate(arg0, arg1, arg2, arg3 string) (go_sc
 
 // DomainsUpdate indicates an expected call of DomainsUpdate
 func (mr *MockDomainsServiceMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockDomainsService)(nil).DomainsUpdate), arg0, arg1, arg2, arg3)
 }

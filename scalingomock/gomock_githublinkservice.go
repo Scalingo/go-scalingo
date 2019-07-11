@@ -35,7 +35,6 @@ func (m *MockGithubLinkService) EXPECT() *MockGithubLinkServiceMockRecorder {
 
 // GithubLinkAdd mocks base method
 func (m *MockGithubLinkService) GithubLinkAdd(arg0 string, arg1 go_scalingo.GithubLinkParams) (*go_scalingo.GithubLink, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GithubLinkAdd", arg0, arg1)
 	ret0, _ := ret[0].(*go_scalingo.GithubLink)
 	ret1, _ := ret[1].(error)
@@ -44,13 +43,11 @@ func (m *MockGithubLinkService) GithubLinkAdd(arg0 string, arg1 go_scalingo.Gith
 
 // GithubLinkAdd indicates an expected call of GithubLinkAdd
 func (mr *MockGithubLinkServiceMockRecorder) GithubLinkAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GithubLinkAdd", reflect.TypeOf((*MockGithubLinkService)(nil).GithubLinkAdd), arg0, arg1)
 }
 
 // GithubLinkDelete mocks base method
 func (m *MockGithubLinkService) GithubLinkDelete(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GithubLinkDelete", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -58,13 +55,11 @@ func (m *MockGithubLinkService) GithubLinkDelete(arg0, arg1 string) error {
 
 // GithubLinkDelete indicates an expected call of GithubLinkDelete
 func (mr *MockGithubLinkServiceMockRecorder) GithubLinkDelete(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GithubLinkDelete", reflect.TypeOf((*MockGithubLinkService)(nil).GithubLinkDelete), arg0, arg1)
 }
 
 // GithubLinkManualDeploy mocks base method
 func (m *MockGithubLinkService) GithubLinkManualDeploy(arg0, arg1, arg2 string) error {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GithubLinkManualDeploy", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -72,13 +67,11 @@ func (m *MockGithubLinkService) GithubLinkManualDeploy(arg0, arg1, arg2 string) 
 
 // GithubLinkManualDeploy indicates an expected call of GithubLinkManualDeploy
 func (mr *MockGithubLinkServiceMockRecorder) GithubLinkManualDeploy(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GithubLinkManualDeploy", reflect.TypeOf((*MockGithubLinkService)(nil).GithubLinkManualDeploy), arg0, arg1, arg2)
 }
 
 // GithubLinkShow mocks base method
 func (m *MockGithubLinkService) GithubLinkShow(arg0 string) (*go_scalingo.GithubLink, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GithubLinkShow", arg0)
 	ret0, _ := ret[0].(*go_scalingo.GithubLink)
 	ret1, _ := ret[1].(error)
@@ -87,13 +80,11 @@ func (m *MockGithubLinkService) GithubLinkShow(arg0 string) (*go_scalingo.Github
 
 // GithubLinkShow indicates an expected call of GithubLinkShow
 func (mr *MockGithubLinkServiceMockRecorder) GithubLinkShow(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GithubLinkShow", reflect.TypeOf((*MockGithubLinkService)(nil).GithubLinkShow), arg0)
 }
 
 // GithubLinkUpdate mocks base method
 func (m *MockGithubLinkService) GithubLinkUpdate(arg0, arg1 string, arg2 go_scalingo.GithubLinkParams) (*go_scalingo.GithubLink, error) {
-	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GithubLinkUpdate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*go_scalingo.GithubLink)
 	ret1, _ := ret[1].(error)
@@ -102,6 +93,5 @@ func (m *MockGithubLinkService) GithubLinkUpdate(arg0, arg1 string, arg2 go_scal
 
 // GithubLinkUpdate indicates an expected call of GithubLinkUpdate
 func (mr *MockGithubLinkServiceMockRecorder) GithubLinkUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GithubLinkUpdate", reflect.TypeOf((*MockGithubLinkService)(nil).GithubLinkUpdate), arg0, arg1, arg2)
 }
