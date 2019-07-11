@@ -71,6 +71,9 @@ func (c *Client) ScmRepoLinkShow(app string) (*ScmRepoLink, error) {
 	if err != nil {
 		return nil, err
 	}
+	if len(res.ScmRepoLinks) == 0 {
+		return nil, nil
+	}
 	return res.ScmRepoLinks[0], nil
 }
 
