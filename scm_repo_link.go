@@ -19,9 +19,9 @@ type ScmRepoLinkService interface {
 }
 
 type ScmRepoLinkParams struct {
-	Source                   string `json:"source"`
+	Source                   string `json:"source,omitempty"`
 	Branch                   string `json:"branch,omitempty"`
-	AuthIntegrationID        string `json:"auth_integration_id"`
+	AuthIntegrationID        string `json:"auth_integration_id,omitempty"`
 	AutoDeployEnabled        bool   `json:"auto_deploy_enabled,omitempty"`
 	DeployReviewAppsEnabled  bool   `json:"deploy_review_apps_enabled,omitempty"`
 	DestroyReviewAppsEnabled bool   `json:"destroy_review_apps_enabled,omitempty"`
