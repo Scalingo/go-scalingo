@@ -70,6 +70,7 @@ type AppsPsRes struct {
 type AppsCreateOpts struct {
 	Name      string `json:"name"`
 	ParentApp string `json:"parent_id"`
+	StackID   string `json:"stack_id"`
 }
 
 type AppResponse struct {
