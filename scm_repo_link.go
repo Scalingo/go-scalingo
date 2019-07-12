@@ -24,7 +24,6 @@ type ScmRepoLinkParams struct {
 	AuthIntegrationID        string `json:"auth_integration_id,omitempty"`
 	AutoDeployEnabled        bool   `json:"auto_deploy_enabled,omitempty"`
 	DeployReviewAppsEnabled  bool   `json:"deploy_review_apps_enabled,omitempty"`
-	DestroyReviewAppsEnabled bool   `json:"destroy_review_apps_enabled,omitempty"`
 	DestroyOnCloseEnabled    bool   `json:"delete_on_close_enabled,omitempty"`
 	HoursBeforeDeleteOnClose uint   `json:"hours_before_delete_on_close,omitempty"`
 	DestroyStaleEnabled      bool   `json:"delete_stale_enabled,omitempty"`
