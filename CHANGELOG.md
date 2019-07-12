@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.7
+
+* Add StackID field when creating a new app
+
 ## v2.4.6
 
 * Add Default attribute to Region
