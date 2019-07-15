@@ -19,12 +19,12 @@ const (
 )
 
 type RegionMigrationsService interface {
-	CreateRegionMigration(appID string) (RegionMigration, error)
+	CreateRegionMigration(appID string, params RegionMigrationParams) (RegionMigration, error)
 	ShowRegionMigration(appID, migrationID string) (RegionMigration, error)
 	ListRegionMigrations(appID string) ([]RegionMigration, error)
 }
 
-type MigrationParams struct {
+type RegionMigrationParams struct {
 	Destination string `json:"destination"`
 }
 
@@ -50,10 +50,10 @@ type Step struct {
 	Logs   string     `json:"logs"`
 }
 
-func (c *Client) CreateRegionMigration(appID string, params MigrationParams) (RegionMigration, error) {
+func (c *Client) CreateRegionMigration(appID string, params RegionMigrationParams) (RegionMigration, error) {
 	var migration RegionMigration
 
-	err := c.ScalingoAPI().SubresourceAdd("apps", appID, "region_migrations", map[string]MigrationParams{
+	err := c.ScalingoAPI().SubresourceAdd("apps", appID, "region_migrations", map[string]RegionMigrationParams{
 		"migration": params,
 	}, &migration)
 	if err != nil {
