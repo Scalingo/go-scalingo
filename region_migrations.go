@@ -29,14 +29,15 @@ type RegionMigrationParams struct {
 }
 
 type RegionMigration struct {
-	ID         string                `json:"id"`
-	AppName    string                `json:"app_name"`
-	AppID      string                `json:"app_id"`
-	NewAppID   string                `json:"new_app_id"`
-	Status     RegionMigrationStatus `json:"status"`
-	StartedAt  time.Time             `json:"started_at"`
-	FinishedAt time.Time             `json:"finished_at"`
-	Steps      Steps                 `json:"steps"`
+	ID          string                `json:"id"`
+	AppName     string                `json:"app_name"`
+	AppID       string                `json:"app_id"`
+	NewAppID    string                `json:"new_app_id"`
+	Destination string                `json:"destination"`
+	Status      RegionMigrationStatus `json:"status"`
+	StartedAt   time.Time             `json:"started_at"`
+	FinishedAt  time.Time             `json:"finished_at"`
+	Steps       Steps                 `json:"steps"`
 }
 
 type StepStatus string
