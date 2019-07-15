@@ -19,15 +19,15 @@ type ScmRepoLinkService interface {
 }
 
 type ScmRepoLinkParams struct {
-	Source                   string `json:"source,omitempty"`
-	Branch                   string `json:"branch,omitempty"`
-	AuthIntegrationID        string `json:"auth_integration_id,omitempty"`
-	AutoDeployEnabled        bool   `json:"auto_deploy_enabled"`
-	DeployReviewAppsEnabled  bool   `json:"deploy_review_apps_enabled"`
-	DestroyOnCloseEnabled    bool   `json:"delete_on_close_enabled"`
-	HoursBeforeDeleteOnClose uint   `json:"hours_before_delete_on_close"`
-	DestroyStaleEnabled      bool   `json:"delete_stale_enabled"`
-	HoursBeforeDeleteStale   uint   `json:"hours_before_delete_stale"`
+	Source                   *string `json:"source,omitempty"`
+	Branch                   *string `json:"branch,omitempty"`
+	AuthIntegrationID        *string `json:"auth_integration_id,omitempty"`
+	AutoDeployEnabled        *bool   `json:"auto_deploy_enabled"`
+	DeployReviewAppsEnabled  *bool   `json:"deploy_review_apps_enabled"`
+	DestroyOnCloseEnabled    *bool   `json:"delete_on_close_enabled"`
+	HoursBeforeDeleteOnClose *uint   `json:"hours_before_delete_on_close"`
+	DestroyStaleEnabled      *bool   `json:"delete_stale_enabled"`
+	HoursBeforeDeleteStale   *uint   `json:"hours_before_delete_stale"`
 }
 
 type ScmRepoLink struct {
