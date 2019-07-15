@@ -22,6 +22,7 @@ type ScmRepoLinkParams struct {
 	Source                   *string `json:"source,omitempty"`
 	Branch                   *string `json:"branch,omitempty"`
 	AuthIntegrationID        *string `json:"auth_integration_id,omitempty"`
+	ScmIntegrationUUID       *string `json:"scm_integration_uuid,omitempty"`
 	AutoDeployEnabled        *bool   `json:"auto_deploy_enabled,omitempty"`
 	DeployReviewAppsEnabled  *bool   `json:"deploy_review_apps_enabled,omitempty"`
 	DestroyOnCloseEnabled    *bool   `json:"delete_on_close_enabled,omitempty"`
