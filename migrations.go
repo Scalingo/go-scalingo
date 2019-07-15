@@ -18,21 +18,25 @@ const (
 	StepStatusError   StepStatus = "error"
 )
 
-type RegionMigrationService interface {
+type RegionMigrationsService interface {
 	CreateRegionMigration(appID string) (RegionMigration, error)
 	ShowRegionMigration(appID, migrationID string) (RegionMigration, error)
 	ListRegionMigrations(appID string) ([]RegionMigration, error)
 }
 
+type MigrationParams struct {
+	Destination string `json:"destination"`
+}
+
 type RegionMigration struct {
-	ID         string
-	AppName    string
-	AppID      string
-	NewAppID   string
-	Status     RegionMigrationStatus
-	StartedAt  time.Time
-	FinishedAt time.Time
-	Steps      Steps
+	ID         string                `json:"id"`
+	AppName    string                `json:"app_name"`
+	AppID      string                `json:"app_id"`
+	NewAppID   string                `json:"new_app_id"`
+	Status     RegionMigrationStatus `json:"status"`
+	StartedAt  time.Time             `json:"started_at"`
+	FinishedAt time.Time             `json:"finished_at"`
+	Steps      Steps                 `json:"steps"`
 }
 
 type StepStatus string
@@ -40,16 +44,18 @@ type RegionMigrationStatus string
 type Steps []Step
 
 type Step struct {
-	ID     string
-	Name   string
-	Status StepStatus
-	Logs   string
+	ID     string     `json:"id"`
+	Name   string     `json:"name"`
+	Status StepStatus `json:"status"`
+	Logs   string     `json:"logs"`
 }
 
-func (c *Client) CreateRegionMigration(appID string) (RegionMigration, error) {
+func (c *Client) CreateRegionMigration(appID string, params MigrationParams) (RegionMigration, error) {
 	var migration RegionMigration
 
-	err := c.ScalingoAPI().SubresourceAdd("apps", appID, "region_migrations", nil, &migration)
+	err := c.ScalingoAPI().SubresourceAdd("apps", appID, "region_migrations", map[string]MigrationParams{
+		"migration": params,
+	}, &migration)
 	if err != nil {
 		return migration, errgo.Notef(err, "fail to create migration")
 	}
