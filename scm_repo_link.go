@@ -44,7 +44,7 @@ type ScmRepoLink struct {
 	AuthIntegrationID        string            `json:"auth_integration_id"`
 	DeployReviewAppsEnabled  bool              `json:"deploy_review_apps_enabled"`
 	DeleteOnCloseEnabled     bool              `json:"delete_on_close_enabled"`
-	DeleteOnStaleEnabled     bool              `json:"delete_stale_enabled"`
+	DeleteStaleEnabled       bool              `json:"delete_stale_enabled"`
 	HoursBeforeDeleteOnClose uint              `json:"hours_before_delete_on_close"`
 	HoursBeforeDeleteStale   uint              `json:"hours_before_delete_stale"`
 	LastAutoDeployAt         time.Time         `json:"last_auto_deploy_at"`
