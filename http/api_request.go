@@ -18,7 +18,6 @@ import (
 var (
 	defaultEndpoint   = "https://api.scalingo.com"
 	defaultAPIVersion = "1"
-	ErrNoAuth         = errgo.New("authentication required")
 )
 
 type APIRequest struct {
@@ -52,7 +51,7 @@ func (c *client) FillDefaultValues(req *APIRequest) error {
 		var err error
 		req.Token, err = c.TokenGenerator().GetAccessToken()
 		if err != nil {
-			return ErrNoAuth
+			return errgo.Notef(err, "fail to get the access token for this request")
 		}
 	}
 
