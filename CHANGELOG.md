@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.8
+
+* Avoid using `errgo.Mask`
+
 ## v2.4.7
 
 * Add StackID field when creating a new app
