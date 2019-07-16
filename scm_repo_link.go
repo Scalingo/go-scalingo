@@ -8,7 +8,7 @@ import (
 
 type ScmRepoLinkService interface {
 	ScmRepoLinkShow(app string) (*ScmRepoLink, error)
-	ScmRepoLinkAdd(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
+	ScmRepoLinkCreate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
 	ScmRepoLinkUpdate(app, id string, params ScmRepoLinkParams) (*ScmRepoLink, error)
 	ScmRepoLinkDelete(app, id string) error
 
@@ -87,7 +87,7 @@ func (c *Client) ScmRepoLinkShow(app string) (*ScmRepoLink, error) {
 	return res.ScmRepoLinks[0], nil
 }
 
-func (c *Client) ScmRepoLinkAdd(app string, params ScmRepoLinkParams) (*ScmRepoLink, error) {
+func (c *Client) ScmRepoLinkCreate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error) {
 	payload := map[string]ScmRepoLinkParams{
 		"scm_repo_link": params,
 	}
