@@ -1,5 +1,10 @@
 # Changelog
 
+## To Be Released
+
+* Add `RegionMigrationsService`
+* Add `BackupCreate` method
+
 ## v2.4.8
 
 * Avoid using `errgo.Mask`
