@@ -7,15 +7,15 @@ import (
 )
 
 type ScmRepoLinkService interface {
-	ScmRepoLinkShow(app string) (*ScmRepoLink, error)
+	ScmRepoLinkIndex(app string) (*ScmRepoLink, error)
 	ScmRepoLinkCreate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
-	ScmRepoLinkUpdate(app, id string, params ScmRepoLinkParams) (*ScmRepoLink, error)
-	ScmRepoLinkDelete(app, id string) error
+	ScmRepoLinkUpdate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
+	ScmRepoLinkDelete(app string) error
 
-	ScmRepoLinkManualDeploy(app, id, branch string) error
-	ScmRepoLinkManualReviewApp(app, id, pullRequestId string) error
-	ScmRepoLinkDeployments(app, id string) ([]*Deployment, error)
-	ScmRepoLinkReviewApps(app, id string) ([]*ReviewApp, error)
+	ScmRepoLinkManualDeploy(app, branch string) error
+	ScmRepoLinkManualReviewApp(app, pullRequestId string) error
+	ScmRepoLinkDeployments(app string) ([]*Deployment, error)
+	ScmRepoLinkReviewApps(app string) ([]*ReviewApp, error)
 }
 
 type ScmRepoLinkParams struct {
@@ -61,10 +61,6 @@ type ScmRepoLinkResponse struct {
 	ScmRepoLink *ScmRepoLink `json:"scm_repo_link"`
 }
 
-type ScmRepoLinksResponse struct {
-	ScmRepoLinks []*ScmRepoLink `json:"scm_repo_links"`
-}
-
 type ScmRepoLinkDeploymentsResponse struct {
 	Deployments []*Deployment `json:"deployments"`
 }
@@ -75,74 +71,84 @@ type ScmRepoLinkReviewAppsResponse struct {
 
 var _ ScmRepoLinkService = (*Client)(nil)
 
-func (c *Client) ScmRepoLinkShow(app string) (*ScmRepoLink, error) {
-	var res ScmRepoLinksResponse
-	err := c.ScalingoAPI().SubresourceList("apps", app, "scm_repo_links", nil, &res)
+func (c *Client) ScmRepoLinkIndex(app string) (*ScmRepoLink, error) {
+	var res ScmRepoLinkResponse
+	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
+		Method:   "GET",
+		Endpoint: "/apps/" + app + "/scm_repo_link",
+		Expected: http.Statuses{200},
+	}, &res)
 	if err != nil {
 		return nil, err
 	}
-	if len(res.ScmRepoLinks) == 0 {
-		return nil, nil
-	}
-	return res.ScmRepoLinks[0], nil
+	return res.ScmRepoLink, nil
 }
 
 func (c *Client) ScmRepoLinkCreate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error) {
-	payload := map[string]ScmRepoLinkParams{
-		"scm_repo_link": params,
-	}
-
 	var res ScmRepoLinkResponse
-	err := c.ScalingoAPI().SubresourceAdd("apps", app, "scm_repo_links", payload, &res)
+	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
+		Method:   "POST",
+		Endpoint: "/apps/" + app + "/scm_repo_link",
+		Expected: http.Statuses{201},
+		Params:   map[string]ScmRepoLinkParams{"scm_repo_link": params},
+	}, &res)
 	if err != nil {
 		return nil, err
 	}
+
 	return res.ScmRepoLink, nil
 }
 
-func (c *Client) ScmRepoLinkUpdate(app, id string, params ScmRepoLinkParams) (*ScmRepoLink, error) {
-	payload := map[string]ScmRepoLinkParams{
-		"scm_repo_link": params,
-	}
-
+func (c *Client) ScmRepoLinkUpdate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error) {
 	var res ScmRepoLinkResponse
-	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "scm_repo_links", id, payload, &res)
+	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
+		Method:   "UPDATE",
+		Endpoint: "/apps/" + app + "/scm_repo_link",
+		Expected: http.Statuses{200},
+		Params:   map[string]ScmRepoLinkParams{"scm_repo_link": params},
+	}, &res)
 	if err != nil {
 		return nil, err
 	}
+
 	return res.ScmRepoLink, nil
 }
 
-func (c *Client) ScmRepoLinkDelete(app, id string) error {
-	return c.ScalingoAPI().SubresourceDelete("apps", app, "scm_repo_links", id)
+func (c *Client) ScmRepoLinkDelete(app string) error {
+	_, err := c.ScalingoAPI().Do(&http.APIRequest{
+		Method:   "DELETE",
+		Endpoint: "/apps/" + app + "/scm_repo_link",
+		Expected: http.Statuses{204},
+	})
+	return err
 }
 
-func (c *Client) ScmRepoLinkManualDeploy(app, id, branch string) error {
+func (c *Client) ScmRepoLinkManualDeploy(app, branch string) error {
 	_, err := c.ScalingoAPI().Do(&http.APIRequest{
 		Method:   "POST",
-		Endpoint: "/apps/" + app + "/scm_repo_links/" + id + "/manual_deploy",
+		Endpoint: "/apps/" + app + "/scm_repo_link/manual_deploy",
 		Expected: http.Statuses{200},
 		Params:   map[string]string{"branch": branch},
 	})
 	return err
 }
 
-func (c *Client) ScmRepoLinkManualReviewApp(app, id, pullRequestId string) error {
+func (c *Client) ScmRepoLinkManualReviewApp(app, pullRequestId string) error {
 	_, err := c.ScalingoAPI().Do(&http.APIRequest{
 		Method:   "POST",
-		Endpoint: "/apps/" + app + "/scm_repo_links/" + id + "/manual_review_app",
+		Endpoint: "/apps/" + app + "/scm_repo_link/manual_review_app",
 		Expected: http.Statuses{200},
 		Params:   map[string]string{"pull_request_id": pullRequestId},
 	})
 	return err
 }
 
-func (c *Client) ScmRepoLinkDeployments(app, id string) ([]*Deployment, error) {
+func (c *Client) ScmRepoLinkDeployments(app string) ([]*Deployment, error) {
 	var res ScmRepoLinkDeploymentsResponse
 
 	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
 		Method:   "GET",
-		Endpoint: "/apps/" + app + "/scm_repo_links/" + id + "/deployments",
+		Endpoint: "/apps/" + app + "/scm_repo_link/deployments",
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
@@ -151,12 +157,12 @@ func (c *Client) ScmRepoLinkDeployments(app, id string) ([]*Deployment, error) {
 	return res.Deployments, nil
 }
 
-func (c *Client) ScmRepoLinkReviewApps(app, id string) ([]*ReviewApp, error) {
+func (c *Client) ScmRepoLinkReviewApps(app string) ([]*ReviewApp, error) {
 	var res ScmRepoLinkReviewAppsResponse
 
 	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
 		Method:   "GET",
-		Endpoint: "/apps/" + app + "/scm_repo_links/" + id + "/review_apps",
+		Endpoint: "/apps/" + app + "/scm_repo_link/review_apps",
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
