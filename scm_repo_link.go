@@ -7,7 +7,7 @@ import (
 )
 
 type ScmRepoLinkService interface {
-	ScmRepoLinkIndex(app string) (*ScmRepoLink, error)
+	ScmRepoLinkShow(app string) (*ScmRepoLink, error)
 	ScmRepoLinkCreate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
 	ScmRepoLinkUpdate(app string, params ScmRepoLinkParams) (*ScmRepoLink, error)
 	ScmRepoLinkDelete(app string) error
@@ -71,7 +71,7 @@ type ScmRepoLinkReviewAppsResponse struct {
 
 var _ ScmRepoLinkService = (*Client)(nil)
 
-func (c *Client) ScmRepoLinkIndex(app string) (*ScmRepoLink, error) {
+func (c *Client) ScmRepoLinkShow(app string) (*ScmRepoLink, error) {
 	var res ScmRepoLinkResponse
 	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
 		Method:   "GET",
