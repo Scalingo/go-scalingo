@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## v2.4.9
+
 * Add `RegionMigrationsService`
 * Add `BackupCreate` method
 
