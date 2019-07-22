@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* Add `DatabaseShow`
+
 ## v2.5.0
 
 * Add periodic backups configuration method
