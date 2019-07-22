@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+* Add periodic backups configuration method
+* Add repo link calls
+* Backup creation returns a backup
+
 ## v2.4.9
 
 * Add `RegionMigrationsService`
