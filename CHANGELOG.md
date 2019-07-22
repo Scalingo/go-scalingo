@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## v2.5.1
+
 * Add `DatabaseShow`
 
 ## v2.5.0
