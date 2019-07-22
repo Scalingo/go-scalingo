@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## v2.5.0
+
 * Add periodic backups configuration method
 * Add repo link calls
 * Backup creation returns a backup
