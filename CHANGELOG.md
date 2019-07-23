@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* `sand_ip` is renamed to `private_ip`
+
 ## v2.5.1
 
 * Add `DatabaseShow`
