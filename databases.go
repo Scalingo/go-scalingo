@@ -65,13 +65,13 @@ const (
 )
 
 type Instance struct {
-	ID       string         `json:"id"`
-	Hostname string         `json:"hostname"`
-	Port     int            `json:"port"`
-	Status   InstanceStatus `json:"status"`
-	Type     InstanceType   `json:"type"`
-	Features []string       `json:"features"`
-	SandIP   string         `json:"sand_ip"`
+	ID        string         `json:"id"`
+	Hostname  string         `json:"hostname"`
+	Port      int            `json:"port"`
+	Status    InstanceStatus `json:"status"`
+	Type      InstanceType   `json:"type"`
+	Features  []string       `json:"features"`
+	PrivateIP string         `json:"private_ip"`
 }
 
 type DatabaseRes struct {
