@@ -79,12 +79,12 @@ type DatabaseRes struct {
 }
 
 func (c *Client) DatabaseShow(app, addonID string) (Database, error) {
-	var db Database
-	err := c.DBAPI(app, addonID).ResourceGet("databases", addonID, nil, &db)
+	var res DatabaseRes
+	err := c.DBAPI(app, addonID).ResourceGet("databases", addonID, nil, &res)
 	if err != nil {
 		return Database{}, errgo.Notef(err, "fail to get the database")
 	}
-	return db, nil
+	return res.Database, nil
 }
 
 type PeriodicBackupsConfigParams struct {

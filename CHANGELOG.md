@@ -3,6 +3,7 @@
 ## To Be Released
 
 * `sand_ip` is renamed to `private_ip`
+* Database#Show is now correctly parsing JSON from database API
 
 ## v2.5.1
 
