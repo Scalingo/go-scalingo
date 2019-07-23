@@ -1,6 +1,8 @@
 # Changelog
 
-## To Be Released
+## ToBeReleased
+
+## v2.5.2
 
 * `sand_ip` is renamed to `private_ip`
 * Database#Show is now correctly parsing JSON from database API
