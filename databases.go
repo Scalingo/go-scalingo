@@ -35,7 +35,7 @@ type Database struct {
 	CurrentOperationID         string              `json:"current_operation_id"`
 	Cluster                    bool                `json:"cluster"`
 	PeriodicBackupsEnabled     bool                `json:"periodic_backups_enabled"`
-	PeriodicBackupsScheduledAt int                 `json:"periodic_backups_scheduled_at"` // Hour of the day of the periodic backups (UTC)
+	PeriodicBackupsScheduledAt []int               `json:"periodic_backups_scheduled_at"` // Hours of the day of the periodic backups (UTC)
 }
 
 type InstanceStatus string
