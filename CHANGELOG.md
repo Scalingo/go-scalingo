@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v2.5.3
+
+* PeriodicBackupsScheduledAt is a slice of int
+
 ## v2.5.2
 
 * `sand_ip` is renamed to `private_ip`
