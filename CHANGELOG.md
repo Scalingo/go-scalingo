@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v2.5.4
+
+* Add constants for SCM integrations name [#124](https://github.com/Scalingo/go-scalingo/pull/124)
+
 ## v2.5.3
 
 * PeriodicBackupsScheduledAt is a slice of int
