@@ -6,14 +6,14 @@ import (
 	"github.com/Scalingo/go-scalingo/http"
 )
 
-type ScmType string
+type SCMType string
 
 // Type of SCM integrations
 const (
-	ScmGithubType           ScmType = "github"             // GitHub
-	ScmGithubEnterpriseType ScmType = "github-enterprise"  // GitHub Enterprise (private instance)
-	ScmGitlabType           ScmType = "gitlab"             // GitLab.com
-	ScmGitlabSelfHostedType ScmType = "gitlab-self-hosted" // GitLab self-hosted (private instance)
+	SCMGithubType           SCMType = "github"             // GitHub
+	SCMGithubEnterpriseType SCMType = "github-enterprise"  // GitHub Enterprise (private instance)
+	SCMGitlabType           SCMType = "gitlab"             // GitLab.com
+	SCMGitlabSelfHostedType SCMType = "gitlab-self-hosted" // GitLab self-hosted (private instance)
 )
 
 type IntegrationsService interface {
