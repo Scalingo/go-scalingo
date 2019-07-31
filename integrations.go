@@ -16,84 +16,88 @@ const (
 	SCMGitlabSelfHostedType SCMType = "gitlab-self-hosted" // GitLab self-hosted (private instance)
 )
 
-type IntegrationsService interface {
-	IntegrationsList() ([]Integration, error)
-	IntegrationsCreate(scmType string, url string, accessToken string) (*Integration, error)
-	IntegrationsDestroy(id string) error
+func (t SCMType) Str() string {
+	return string(t)
 }
 
-var _ IntegrationsService = (*Client)(nil)
-
-type Integration struct {
-	ID          string `json:"id,omitempty"`
-	ScmType     string `json:"scm_type"`
-	Url         string `json:"url"`
-	AccessToken string `json:"access_token"`
-	Uid         string `json:"uid,omitempty"`
-	Username    string `json:"username,omitempty"`
-	Email       string `json:"email,omitempty"`
-	AvatarUrl   string `json:"avatar_url,omitempty"`
-	ProfileUrl  string `json:"profile_url,omitempty"`
+type SCMIntegrationsService interface {
+	SCMIntegrationsList() ([]SCMIntegration, error)
+	SCMIntegrationsCreate(scmType SCMType, url string, accessToken string) (*SCMIntegration, error)
+	SCMIntegrationsDestroy(id string) error
 }
 
-type IntegrationRes struct {
-	Integration Integration `json:"integration"`
+var _ SCMIntegrationsService = (*Client)(nil)
+
+type SCMIntegration struct {
+	ID          string  `json:"id,omitempty"`
+	SCMType     SCMType `json:"scm_type"`
+	Url         string  `json:"url"`
+	AccessToken string  `json:"access_token"`
+	Uid         string  `json:"uid,omitempty"`
+	Username    string  `json:"username,omitempty"`
+	Email       string  `json:"email,omitempty"`
+	AvatarUrl   string  `json:"avatar_url,omitempty"`
+	ProfileUrl  string  `json:"profile_url,omitempty"`
 }
 
-type IntegrationsRes struct {
-	Integrations []Integration `json:"integrations"`
+type SCMIntegrationRes struct {
+	SCMIntegration SCMIntegration `json:"scm_integration"`
 }
 
-func (c *Client) IntegrationsList() ([]Integration, error) {
-	var res IntegrationsRes
+type SCMIntegrationsRes struct {
+	SCMIntegrations []SCMIntegration `json:"scm_integrations"`
+}
 
-	err := c.AuthAPI().ResourceList("integrations", nil, &res)
+func (c *Client) SCMIntegrationsList() ([]SCMIntegration, error) {
+	var res SCMIntegrationsRes
+
+	err := c.AuthAPI().ResourceList("scm_integrations", nil, &res)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
-	return res.Integrations, nil
+	return res.SCMIntegrations, nil
 }
 
-func (c *Client) IntegrationsShow(id string) (*Integration, error) {
-	var res IntegrationRes
+func (c *Client) SCMIntegrationsShow(id string) (*SCMIntegration, error) {
+	var res SCMIntegrationRes
 
-	err := c.AuthAPI().ResourceGet("integrations", id, nil, &res)
+	err := c.AuthAPI().ResourceGet("scm_integrations", id, nil, &res)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
-	return &res.Integration, nil
+	return &res.SCMIntegration, nil
 }
 
-func (c *Client) IntegrationsCreate(scmType string, url string, accessToken string) (*Integration, error) {
-	payload := IntegrationRes{Integration{
-		ScmType:     scmType,
+func (c *Client) SCMIntegrationsCreate(scmType SCMType, url string, accessToken string) (*SCMIntegration, error) {
+	payload := SCMIntegrationRes{SCMIntegration{
+		SCMType:     scmType,
 		Url:         url,
 		AccessToken: accessToken,
 	}}
-	var res IntegrationRes
+	var res SCMIntegrationRes
 
-	err := c.AuthAPI().ResourceAdd("integrations", payload, &res)
+	err := c.AuthAPI().ResourceAdd("scm_integrations", payload, &res)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
 
-	return &res.Integration, nil
+	return &res.SCMIntegration, nil
 }
 
-func (c *Client) IntegrationsDestroy(id string) error {
-	err := c.AuthAPI().ResourceDelete("integrations", id)
+func (c *Client) SCMIntegrationsDestroy(id string) error {
+	err := c.AuthAPI().ResourceDelete("scm_integrations", id)
 	if err != nil {
 		return errgo.Mask(err)
 	}
 	return nil
 }
 
-func (c *Client) IntegrationsImportKeys(id string) ([]Key, error) {
+func (c *Client) SCMIntegrationsImportKeys(id string) ([]Key, error) {
 	var res KeysRes
 
 	var err = c.AuthAPI().DoRequest(&http.APIRequest{
 		Method:   "POST",
-		Endpoint: "/integrations/" + id + "/import_keys",
+		Endpoint: "/scm_integrations/" + id + "/import_keys",
 		Params:   nil,
 		Expected: http.Statuses{201},
 	}, &res)
