@@ -3,6 +3,8 @@ package scalingo
 import (
 	"time"
 
+	"gopkg.in/errgo.v1"
+
 	"github.com/Scalingo/go-scalingo/http"
 )
 
@@ -22,7 +24,7 @@ type SCMRepoLinkParams struct {
 	Source                   *string `json:"source,omitempty"`
 	Branch                   *string `json:"branch,omitempty"`
 	AuthIntegrationUUID      *string `json:"auth_integration_uuid,omitempty"`
-	ScmIntegrationUUID       *string `json:"scm_integration_uuid,omitempty"`
+	SCMIntegrationUUID       *string `json:"scm_integration_uuid,omitempty"`
 	AutoDeployEnabled        *bool   `json:"auto_deploy_enabled,omitempty"`
 	DeployReviewAppsEnabled  *bool   `json:"deploy_review_apps_enabled,omitempty"`
 	DestroyOnCloseEnabled    *bool   `json:"delete_on_close_enabled,omitempty"`
@@ -41,8 +43,8 @@ type SCMRepoLink struct {
 	CreatedAt                time.Time         `json:"created_at"`
 	UpdatedAt                time.Time         `json:"updated_at"`
 	AutoDeployEnabled        bool              `json:"auto_deploy_enabled"`
-	ScmIntegrationUUID       string            `json:"scm_integration_uuid"`
-	AuthIntegrationID        string            `json:"auth_integration_id"`
+	SCMIntegrationUUID       string            `json:"scm_integration_uuid"`
+	AuthIntegrationUUID      string            `json:"auth_integration_uuid"`
 	DeployReviewAppsEnabled  bool              `json:"deploy_review_apps_enabled"`
 	DeleteOnCloseEnabled     bool              `json:"delete_on_close_enabled"`
 	DeleteStaleEnabled       bool              `json:"delete_stale_enabled"`
@@ -79,7 +81,7 @@ func (c *Client) SCMRepoLinkShow(app string) (*SCMRepoLink, error) {
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
-		return nil, err
+		return nil, errgo.Notef(err, "fail to get this SCM repo link")
 	}
 	return res.SCMRepoLink, nil
 }
@@ -93,7 +95,7 @@ func (c *Client) SCMRepoLinkCreate(app string, params SCMRepoLinkParams) (*SCMRe
 		Params:   map[string]SCMRepoLinkParams{"scm_repo_link": params},
 	}, &res)
 	if err != nil {
-		return nil, err
+		return nil, errgo.Notef(err, "fail to create the SCM repo link")
 	}
 
 	return res.SCMRepoLink, nil
@@ -108,7 +110,7 @@ func (c *Client) SCMRepoLinkUpdate(app string, params SCMRepoLinkParams) (*SCMRe
 		Params:   map[string]SCMRepoLinkParams{"scm_repo_link": params},
 	}, &res)
 	if err != nil {
-		return nil, err
+		return nil, errgo.Notef(err, "fail to update this SCM repo link")
 	}
 
 	return res.SCMRepoLink, nil
@@ -120,7 +122,10 @@ func (c *Client) SCMRepoLinkDelete(app string) error {
 		Endpoint: "/apps/" + app + "/scm_repo_link",
 		Expected: http.Statuses{204},
 	})
-	return err
+	if err != nil {
+		return errgo.Notef(err, "fail to delete this SCM repo link")
+	}
+	return nil
 }
 
 func (c *Client) SCMRepoLinkManualDeploy(app, branch string) error {
@@ -130,7 +135,10 @@ func (c *Client) SCMRepoLinkManualDeploy(app, branch string) error {
 		Expected: http.Statuses{200},
 		Params:   map[string]string{"branch": branch},
 	})
-	return err
+	if err != nil {
+		return errgo.Notef(err, "fail to trigger manual app deployment")
+	}
+	return nil
 }
 
 func (c *Client) SCMRepoLinkManualReviewApp(app, pullRequestId string) error {
@@ -140,7 +148,10 @@ func (c *Client) SCMRepoLinkManualReviewApp(app, pullRequestId string) error {
 		Expected: http.Statuses{200},
 		Params:   map[string]string{"pull_request_id": pullRequestId},
 	})
-	return err
+	if err != nil {
+		return errgo.Notef(err, "fail to trigger manual review app deployment")
+	}
+	return nil
 }
 
 func (c *Client) SCMRepoLinkDeployments(app string) ([]*Deployment, error) {
@@ -152,7 +163,7 @@ func (c *Client) SCMRepoLinkDeployments(app string) ([]*Deployment, error) {
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
-		return nil, err
+		return nil, errgo.Notef(err, "fail to list deployments of this SCM repo link")
 	}
 	return res.Deployments, nil
 }
@@ -166,7 +177,7 @@ func (c *Client) SCMRepoLinkReviewApps(app string) ([]*ReviewApp, error) {
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
-		return nil, err
+		return nil, errgo.Notef(err, "fail to list review apps of this SCM repo link")
 	}
 	return res.ReviewApps, nil
 }

@@ -22,22 +22,30 @@ func (t SCMType) Str() string {
 
 type SCMIntegrationsService interface {
 	SCMIntegrationsList() ([]SCMIntegration, error)
+	SCMIntegrationsShow(id string) (*SCMIntegration, error)
 	SCMIntegrationsCreate(scmType SCMType, url string, accessToken string) (*SCMIntegration, error)
-	SCMIntegrationsDestroy(id string) error
+	SCMIntegrationsDelete(id string) error
+	SCMIntegrationsImportKeys(id string) ([]Key, error)
 }
 
 var _ SCMIntegrationsService = (*Client)(nil)
 
 type SCMIntegration struct {
-	ID          string  `json:"id,omitempty"`
+	ID          string  `json:"id"`
 	SCMType     SCMType `json:"scm_type"`
-	Url         string  `json:"url"`
+	URL         string  `json:"url,omitempty"`
 	AccessToken string  `json:"access_token"`
-	Uid         string  `json:"uid,omitempty"`
-	Username    string  `json:"username,omitempty"`
-	Email       string  `json:"email,omitempty"`
-	AvatarUrl   string  `json:"avatar_url,omitempty"`
-	ProfileUrl  string  `json:"profile_url,omitempty"`
+	Uid         string  `json:"uid"`
+	Username    string  `json:"username"`
+	Email       string  `json:"email"`
+	AvatarURL   string  `json:"avatar_url"`
+	ProfileURL  string  `json:"profile_url"`
+}
+
+type SCMIntegrationParams struct {
+	SCMType     SCMType `json:"scm_type"`
+	URL         string  `json:"url,omitempty"`
+	AccessToken string  `json:"access_token"`
 }
 
 type SCMIntegrationRes struct {
@@ -48,12 +56,16 @@ type SCMIntegrationsRes struct {
 	SCMIntegrations []SCMIntegration `json:"scm_integrations"`
 }
 
+type SCMIntegrationParamsReq struct {
+	SCMIntegrationParams SCMIntegrationParams `json:"scm_integration"`
+}
+
 func (c *Client) SCMIntegrationsList() ([]SCMIntegration, error) {
 	var res SCMIntegrationsRes
 
 	err := c.AuthAPI().ResourceList("scm_integrations", nil, &res)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to list SCM integration")
 	}
 	return res.SCMIntegrations, nil
 }
@@ -63,31 +75,31 @@ func (c *Client) SCMIntegrationsShow(id string) (*SCMIntegration, error) {
 
 	err := c.AuthAPI().ResourceGet("scm_integrations", id, nil, &res)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to get this SCM integration")
 	}
 	return &res.SCMIntegration, nil
 }
 
 func (c *Client) SCMIntegrationsCreate(scmType SCMType, url string, accessToken string) (*SCMIntegration, error) {
-	payload := SCMIntegrationRes{SCMIntegration{
+	payload := SCMIntegrationParamsReq{SCMIntegrationParams{
 		SCMType:     scmType,
-		Url:         url,
+		URL:         url,
 		AccessToken: accessToken,
 	}}
 	var res SCMIntegrationRes
 
 	err := c.AuthAPI().ResourceAdd("scm_integrations", payload, &res)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to create the SCM integration")
 	}
 
 	return &res.SCMIntegration, nil
 }
 
-func (c *Client) SCMIntegrationsDestroy(id string) error {
+func (c *Client) SCMIntegrationsDelete(id string) error {
 	err := c.AuthAPI().ResourceDelete("scm_integrations", id)
 	if err != nil {
-		return errgo.Mask(err)
+		return errgo.Notef(err, "fail to delete this SCM integration")
 	}
 	return nil
 }
@@ -102,7 +114,7 @@ func (c *Client) SCMIntegrationsImportKeys(id string) ([]Key, error) {
 		Expected: http.Statuses{201},
 	}, &res)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to import ssh keys from this SCM integration")
 	}
 	return res.Keys, nil
 }
