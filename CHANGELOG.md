@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v2.5.5
+
+* Add SCMIntegrationService [#126](https://github.com/Scalingo/go-scalingo/pull/126)
+
 ## v2.5.4
 
 * Add constants for SCM integrations name [#124](https://github.com/Scalingo/go-scalingo/pull/124)
