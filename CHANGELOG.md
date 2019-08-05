@@ -2,6 +2,14 @@
 
 ## ToBeReleased
 
+* Add region support [#129](https://github.com/Scalingo/go-scalingo/pull/129)
+This comes with the following changes:
+ - Removed the `NewClient` method. You should use `New` instead
+ - Add the `Region` field to `ClientConfig`
+ - Drop support for the `SCALINGO_AUTH_URL`, `SCALINGO_API_URL`, `SCALINGO_DB_URL` environment variables. You should use the corresponding `ClientConfig` fields instead.
+ - Remove the default values for `APIEndpoint` and `DatabaseAPIEndpoint`
+ - Add some basic examples
+
 ## v2.5.5
 
 * Add SCMIntegrationService [#126](https://github.com/Scalingo/go-scalingo/pull/126)
