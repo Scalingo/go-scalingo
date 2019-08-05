@@ -14,7 +14,6 @@ type Stack struct {
 	Description string    `json:"description"`
 	BaseImage   string    `json:"base_image"`
 	Default     bool      `json:"default"`
-	Aliases     []string  `json:"aliases"`
 }
 
 type StacksService interface {
