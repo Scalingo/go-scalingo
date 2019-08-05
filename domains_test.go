@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	gomock "github.com/golang/mock/gomock"
@@ -96,13 +95,14 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			}))
 			defer ts.Close()
 
-			os.Setenv("SCALINGO_API_URL", ts.URL)
-			c := NewClient(ClientConfig{
-				APIToken: "test",
+			c, err := New(ClientConfig{
+				APIEndpoint: ts.URL,
+				APIToken:    "test",
 			})
 			c.authClient = MockAuth(ctrl)
+			require.NoError(t, err)
 
-			err := run.testedClientCall(c)
+			err = run.testedClientCall(c)
 			if run.expectedError != "" {
 				require.Error(t, err)
 				assert.Contains(t, err.Error(), run.expectedError)

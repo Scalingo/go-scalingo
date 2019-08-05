@@ -23,12 +23,13 @@ func TestNewClient(t *testing.T) {
 		}))
 		defer server.Close()
 
-		client := NewClient(ClientConfig{
+		client, err := New(ClientConfig{
 			APIEndpoint:          server.URL,
 			StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
 		})
+		require.NoError(t, err)
 
-		_, err := client.AppsList()
+		_, err = client.AppsList()
 		require.NoError(t, err)
 	})
 
@@ -53,12 +54,13 @@ func TestNewClient(t *testing.T) {
 		}))
 		defer authserver.Close()
 
-		client := NewClient(ClientConfig{
+		client, err := New(ClientConfig{
 			AuthEndpoint: authserver.URL,
 			APIToken:     "api-token",
 		})
+		require.NoError(t, err)
 
-		_, err := client.Self()
+		_, err = client.Self()
 		require.NoError(t, err)
 	})
 }

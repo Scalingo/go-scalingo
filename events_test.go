@@ -39,7 +39,8 @@ func TestEventsList(t *testing.T) {
 		t.Run(msg, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
-			client := NewClient(ClientConfig{})
+			client, err := New(ClientConfig{})
+			require.NoError(t, err)
 			apiMock := httpmock.NewMockClient(ctrl)
 			client.apiClient = apiMock
 
