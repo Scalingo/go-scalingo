@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v3.0.0
+
 * Add region support [#129](https://github.com/Scalingo/go-scalingo/pull/129)
 This comes with the following changes:
  - Removed the `NewClient` method. You should use `New` instead
