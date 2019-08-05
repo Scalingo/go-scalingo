@@ -2,9 +2,11 @@ package scalingo
 
 import (
 	"crypto/tls"
+	"fmt"
 	"time"
 
 	"github.com/Scalingo/go-scalingo/http"
+	errgo "gopkg.in/errgo.v1"
 )
 
 type API interface {
@@ -57,13 +59,42 @@ type ClientConfig struct {
 	AuthEndpoint        string
 	DatabaseAPIEndpoint string
 	APIToken            string
+	Region              string
 
 	// StaticTokenGenerator is present for retrocompatibility with legacy tokens
 	// DEPRECATED, Use standard APIToken field for normal operations
 	StaticTokenGenerator *StaticTokenGenerator
 }
 
+func New(cfg ClientConfig) (*Client, error) {
+	// If there's no region defined
+	if cfg.Region == "" {
+		return newClient(cfg), nil
+	}
+
+	// if a region was defined, create a temp client to query the auth service for region list
+	// then create the real client
+
+	tmpClient := newClient(cfg)
+	region, err := tmpClient.getRegion(cfg.Region)
+	if err == ErrRegionNotFound {
+		return nil, err
+	} else if err != nil {
+		return nil, errgo.Notef(err, "fail to get region informations")
+	}
+
+	cfg.APIEndpoint = region.API
+	cfg.DatabaseAPIEndpoint = region.DatabaseAPI
+	return newClient(cfg), nil
+}
+
+// NewClient is deprecated. Please use the New method instead
 func NewClient(cfg ClientConfig) *Client {
+	fmt.Printf("[Go-Scalingo] NewClient is deprecated and will be removed please use the New method.")
+	return newClient(cfg)
+}
+
+func newClient(cfg ClientConfig) *Client {
 	client := &Client{
 		config: cfg,
 	}

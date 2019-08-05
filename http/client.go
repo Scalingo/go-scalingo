@@ -201,6 +201,10 @@ func (c *client) SubresourceUpdate(resource, resourceID, subresource, id string,
 }
 
 func (c *client) DoRequest(req *APIRequest, data interface{}) error {
+	if c.endpoint == "" {
+		return errgo.New("API Endpoint is not defined, did you forget to pass the Region field to the New method?")
+	}
+
 	res, err := c.Do(req)
 	if err != nil {
 		return err
