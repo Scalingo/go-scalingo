@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	gomock "github.com/golang/mock/gomock"
@@ -110,14 +109,15 @@ func TestAlertsClient(t *testing.T) {
 				ts := httptest.NewServer(http.HandlerFunc(handler))
 				defer ts.Close()
 
-				os.Setenv("SCALINGO_API_URL", ts.URL)
-				c := NewClient(ClientConfig{
-					APIToken: "test",
+				c, err := New(ClientConfig{
+					APIEndpoint: ts.URL,
+					APIToken:    "test",
 				})
+				require.NoError(t, err)
 
 				c.authClient = MockAuth(ctrl)
 
-				err := test.testedClientCall(c)
+				err = test.testedClientCall(c)
 				if run.invalidResponse {
 					require.Error(t, err)
 				} else {

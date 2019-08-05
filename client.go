@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"crypto/tls"
-	"fmt"
 	"time"
 
 	"github.com/Scalingo/go-scalingo/http"
@@ -67,15 +66,24 @@ type ClientConfig struct {
 }
 
 func New(cfg ClientConfig) (*Client, error) {
-	// If there's no region defined
+	// Apply defaults
+	if cfg.AuthEndpoint == "" {
+		cfg.AuthEndpoint = "https://auth.scalingo.com"
+	}
+
+	// If there's no region defined return the client as is
 	if cfg.Region == "" {
-		return newClient(cfg), nil
+		return &Client{
+			config: cfg,
+		}, nil
 	}
 
 	// if a region was defined, create a temp client to query the auth service for region list
 	// then create the real client
+	tmpClient := &Client{
+		config: cfg,
+	}
 
-	tmpClient := newClient(cfg)
 	region, err := tmpClient.getRegion(cfg.Region)
 	if err == ErrRegionNotFound {
 		return nil, err
@@ -85,20 +93,9 @@ func New(cfg ClientConfig) (*Client, error) {
 
 	cfg.APIEndpoint = region.API
 	cfg.DatabaseAPIEndpoint = region.DatabaseAPI
-	return newClient(cfg), nil
-}
-
-// NewClient is deprecated. Please use the New method instead
-func NewClient(cfg ClientConfig) *Client {
-	fmt.Printf("[Go-Scalingo] NewClient is deprecated and will be removed please use the New method.")
-	return newClient(cfg)
-}
-
-func newClient(cfg ClientConfig) *Client {
-	client := &Client{
+	return &Client{
 		config: cfg,
-	}
-	return client
+	}, nil
 }
 
 func (c *Client) ScalingoAPI() http.Client {

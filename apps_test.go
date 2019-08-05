@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"testing"
 
 	gomock "github.com/golang/mock/gomock"
@@ -93,13 +92,15 @@ func TestAppsClient_Update(t *testing.T) {
 			}))
 			defer ts.Close()
 
-			os.Setenv("SCALINGO_API_URL", ts.URL)
-			c := NewClient(ClientConfig{
-				APIToken: "test",
+			c, err := New(ClientConfig{
+				APIEndpoint: ts.URL,
+				APIToken:    "test",
 			})
+			require.NoError(t, err)
+
 			c.authClient = MockAuth(ctrl)
 
-			err := run.testedClientCall(c)
+			err = run.testedClientCall(c)
 			require.NoError(t, err)
 		})
 	}
