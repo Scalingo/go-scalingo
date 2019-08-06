@@ -64,51 +64,52 @@ type EventUser struct {
 type EventTypeName string
 
 const (
-	EventNewApp             EventTypeName = "new_app"
-	EventEditApp            EventTypeName = "edit_app"
-	EventDeleteApp          EventTypeName = "delete_app"
-	EventRenameApp          EventTypeName = "rename_app"
-	EventTransferApp        EventTypeName = "transfer_app"
-	EventRestart            EventTypeName = "restart"
-	EventScale              EventTypeName = "scale"
-	EventStopApp            EventTypeName = "stop_app"
-	EventCrash              EventTypeName = "crash"
-	EventDeployment         EventTypeName = "deployment"
-	EventLinkGithub         EventTypeName = "link_github"
-	EventUnlinkGithub       EventTypeName = "unlink_github"
-	EventRun                EventTypeName = "run"
-	EventNewDomain          EventTypeName = "new_domain"
-	EventEditDomain         EventTypeName = "edit_domain"
-	EventDeleteDomain       EventTypeName = "delete_domain"
-	EventNewAddon           EventTypeName = "new_addon"
-	EventUpgradeAddon       EventTypeName = "upgrade_addon"
-	EventUpgradeDatabase    EventTypeName = "upgrade_database"
-	EventDeleteAddon        EventTypeName = "delete_addon"
-	EventResumeAddon        EventTypeName = "resume_addon"
-	EventSuspendAddon       EventTypeName = "suspend_addon"
-	EventNewCollaborator    EventTypeName = "new_collaborator"
-	EventAcceptCollaborator EventTypeName = "accept_collaborator"
-	EventDeleteCollaborator EventTypeName = "delete_collaborator"
-	EventNewVariable        EventTypeName = "new_variable"
-	EventEditVariable       EventTypeName = "edit_variable"
-	EventEditVariables      EventTypeName = "edit_variables"
-	EventDeleteVariable     EventTypeName = "delete_variable"
-	EventNewNotification    EventTypeName = "new_notification"
-	EventEditNotification   EventTypeName = "edit_notification"
-	EventDeleteNotification EventTypeName = "delete_notification"
-	EventAddCredit          EventTypeName = "add_credit"
-	EventAddPaymentMethod   EventTypeName = "add_payment_method"
-	EventAddVoucher         EventTypeName = "add_voucher"
-	EventAuthorizeGithub    EventTypeName = "authorize_github"
-	EventRevokeGithub       EventTypeName = "revoke_github"
-	EventNewKey             EventTypeName = "new_key"
-	EventDeleteKey          EventTypeName = "delete_key"
-	EventPaymentAttempt     EventTypeName = "payment_attempt"
-	EventNewAlert           EventTypeName = "new_alert"
-	EventAlert              EventTypeName = "alert"
-	EventDeleteAlert        EventTypeName = "delete_alert"
-	EventNewAutoscaler      EventTypeName = "new_autoscaler"
-	EventDeleteAutoscaler   EventTypeName = "delete_autoscaler"
+	EventNewApp               EventTypeName = "new_app"
+	EventEditApp              EventTypeName = "edit_app"
+	EventDeleteApp            EventTypeName = "delete_app"
+	EventRenameApp            EventTypeName = "rename_app"
+	EventTransferApp          EventTypeName = "transfer_app"
+	EventRestart              EventTypeName = "restart"
+	EventScale                EventTypeName = "scale"
+	EventStopApp              EventTypeName = "stop_app"
+	EventCrash                EventTypeName = "crash"
+	EventDeployment           EventTypeName = "deployment"
+	EventLinkGithub           EventTypeName = "link_github"
+	EventUnlinkGithub         EventTypeName = "unlink_github"
+	EventRun                  EventTypeName = "run"
+	EventNewDomain            EventTypeName = "new_domain"
+	EventEditDomain           EventTypeName = "edit_domain"
+	EventDeleteDomain         EventTypeName = "delete_domain"
+	EventNewAddon             EventTypeName = "new_addon"
+	EventUpgradeAddon         EventTypeName = "upgrade_addon"
+	EventUpgradeDatabase      EventTypeName = "upgrade_database"
+	EventDeleteAddon          EventTypeName = "delete_addon"
+	EventResumeAddon          EventTypeName = "resume_addon"
+	EventSuspendAddon         EventTypeName = "suspend_addon"
+	EventNewCollaborator      EventTypeName = "new_collaborator"
+	EventAcceptCollaborator   EventTypeName = "accept_collaborator"
+	EventDeleteCollaborator   EventTypeName = "delete_collaborator"
+	EventNewVariable          EventTypeName = "new_variable"
+	EventEditVariable         EventTypeName = "edit_variable"
+	EventEditVariables        EventTypeName = "edit_variables"
+	EventDeleteVariable       EventTypeName = "delete_variable"
+	EventNewNotification      EventTypeName = "new_notification"
+	EventEditNotification     EventTypeName = "edit_notification"
+	EventDeleteNotification   EventTypeName = "delete_notification"
+	EventAddCredit            EventTypeName = "add_credit"
+	EventAddPaymentMethod     EventTypeName = "add_payment_method"
+	EventAddVoucher           EventTypeName = "add_voucher"
+	EventAuthorizeGithub      EventTypeName = "authorize_github"
+	EventRevokeGithub         EventTypeName = "revoke_github"
+	EventNewKey               EventTypeName = "new_key"
+	EventDeleteKey            EventTypeName = "delete_key"
+	EventPaymentAttempt       EventTypeName = "payment_attempt"
+	EventNewAlert             EventTypeName = "new_alert"
+	EventAlert                EventTypeName = "alert"
+	EventDeleteAlert          EventTypeName = "delete_alert"
+	EventNewAutoscaler        EventTypeName = "new_autoscaler"
+	EventDeleteAutoscaler     EventTypeName = "delete_autoscaler"
+	EventStartRegionMigration EventTypeName = "start_region_migration"
 )
 
 type EventNewAppType struct {
@@ -806,6 +807,19 @@ func (ev *EventDeleteAutoscalerType) String() string {
 	return fmt.Sprintf("Alert deleted about %s on container %s", d.Metric, d.ContainerType)
 }
 
+type EventStartRegionMigrationTypeData struct {
+	MigrationID string `json:"migration_id"`
+}
+
+type EventStartRegionMigrationType struct {
+	Event
+	TypeData EventStartRegionMigrationTypeData `json:"type_data"`
+}
+
+func (ev *EventStartRegionMigrationType) String() string {
+	return "Application region migration started"
+}
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
@@ -898,6 +912,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventNewAutoscalerType{Event: ev}
 	case EventDeleteAutoscaler:
 		e = &EventDeleteAutoscalerType{Event: ev}
+	case EventStartRegionMigration:
+		e = &EventStartRegionMigrationType{Event: ev}
 	default:
 		return pev
 	}
