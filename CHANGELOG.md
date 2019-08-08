@@ -2,6 +2,11 @@
 
 ## ToBeReleased
 
+## v3.0.1
+
+* Fix HTTP verb for Repolink update
+* Set `omitempty` on ParentID and StackID when creating an App
+
 ## v3.0.0
 
 * Add region support [#129](https://github.com/Scalingo/go-scalingo/pull/129)
