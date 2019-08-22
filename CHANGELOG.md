@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Add support for the new SCM events [#134](https://github.com/Scalingo/go-scalingo/pull/134)
+
 ## v3.0.1
 
 * Fix HTTP verb for Repolink update
