@@ -27,6 +27,31 @@ type EventNewIntegrationTypeData struct {
 	} `json:"data"`
 }
 
+type EventDeleteIntegrationType struct {
+	Event
+	TypeData EventDeleteIntegrationTypeData `json:"type_data"`
+}
+
+func (ev *EventDeleteIntegrationType) String() string {
+	msg := fmt.Sprintf("%s", ev.TypeData.IntegrationType)
+	if ev.TypeData.IntegrationType == SCMGithubEnterpriseType ||
+		ev.TypeData.IntegrationType == SCMGitlabSelfHostedType {
+		msg = fmt.Sprintf("%s (%s)", msg, ev.TypeData.Data.URL)
+	}
+
+	return fmt.Sprintf("%s account '%s' has been revoked", msg, ev.TypeData.Data.Login)
+}
+
+type EventDeleteIntegrationTypeData struct {
+	IntegrationID   string  `json:"integration_id"`
+	IntegrationType SCMType `json:"integration_type"`
+	Data            struct {
+		Login     string `json:"login"`
+		AvatarURL string `json:"avatar_url"`
+		URL       string `json:"url"`
+	} `json:"data"`
+}
+
 type EventAuthorizeGithubType struct {
 	Event
 	TypeData EventAuthorizeGithubTypeData `json:"type_data"`

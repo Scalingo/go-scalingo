@@ -33,6 +33,9 @@ func (e *EventUnlinkSCMType) TypeDataPtr() interface{} {
 func (e *EventNewIntegrationType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+func (e *EventDeleteIntegrationType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventAuthorizeGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
