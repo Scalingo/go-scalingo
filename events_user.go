@@ -68,30 +68,6 @@ type EventAuthorizeGithubTypeData struct {
 	} `json:"github_user"`
 }
 
-type EventAuthorizeGitLabType struct {
-	Event
-	TypeData EventAuthorizeGitLabTypeData `json:"type_data"`
-}
-
-func (ev *EventAuthorizeGitLabType) String() string {
-	return fmt.Sprintf("GitLab account '%s' has been authorized", ev.TypeData.GitLabUser.Login)
-}
-
-type EventAuthorizeGitLabTypeData struct {
-	GitLabUser struct {
-		Login     string `json:"login"`
-		AvatarURL string `json:"avatar_url"`
-	} `json:"gitlab_user"`
-}
-
-type EventRevokeGitLabType struct {
-	Event
-}
-
-func (ev *EventRevokeGitLabType) String() string {
-	return fmt.Sprintf("GitLab authorization has been revoked")
-}
-
 type EventRevokeGithubType struct {
 	Event
 }

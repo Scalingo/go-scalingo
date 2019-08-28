@@ -42,12 +42,6 @@ func (e *EventAuthorizeGithubType) TypeDataPtr() interface{} {
 func (e *EventRevokeGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
-func (e *EventAuthorizeGitLabType) TypeDataPtr() interface{} {
-	return &e.TypeData
-}
-func (e *EventRevokeGitLabType) TypeDataPtr() interface{} {
-	return &e.TypeData
-}
 func (e *EventRunType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }

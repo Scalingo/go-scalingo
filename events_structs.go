@@ -79,9 +79,7 @@ const (
 	EventNewIntegration     EventTypeName = "new_integration"
 	EventDeleteIntegration  EventTypeName = "delete_integration"
 	EventAuthorizeGithub    EventTypeName = "authorize_github"
-	EventAuthorizeGitLab    EventTypeName = "authorize_gitlab"
 	EventRevokeGithub       EventTypeName = "revoke_github"
-	EventRevokeGitLab       EventTypeName = "revoke_gitlab"
 	EventRun                EventTypeName = "run"
 	EventNewDomain          EventTypeName = "new_domain"
 	EventEditDomain         EventTypeName = "edit_domain"
@@ -881,12 +879,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventDeleteIntegrationType{Event: ev}
 	case EventAuthorizeGithub:
 		e = &EventAuthorizeGithubType{Event: ev}
-	case EventAuthorizeGitLab:
-		e = &EventAuthorizeGitLabType{Event: ev}
 	case EventRevokeGithub:
 		e = &EventRevokeGithubType{Event: ev}
-	case EventRevokeGitLab:
-		e = &EventRevokeGitLabType{Event: ev}
 	case EventDeployment:
 		e = &EventDeploymentType{Event: ev}
 	case EventRun:
