@@ -8,7 +8,12 @@ type EventNewIntegrationType struct {
 }
 
 func (ev *EventNewIntegrationType) String() string {
-	msg := fmt.Sprintf("%s", ev.TypeData.IntegrationType)
+	integrationType, ok := SCMTypeDisplay[ev.TypeData.IntegrationType]
+	if !ok {
+		integrationType = string(ev.TypeData.IntegrationType)
+	}
+	msg := fmt.Sprintf("%s", integrationType)
+
 	if ev.TypeData.IntegrationType == SCMGithubEnterpriseType ||
 		ev.TypeData.IntegrationType == SCMGitlabSelfHostedType {
 		msg = fmt.Sprintf("%s (%s)", msg, ev.TypeData.Data.URL)
@@ -33,7 +38,12 @@ type EventDeleteIntegrationType struct {
 }
 
 func (ev *EventDeleteIntegrationType) String() string {
-	msg := fmt.Sprintf("%s", ev.TypeData.IntegrationType)
+	integrationType, ok := SCMTypeDisplay[ev.TypeData.IntegrationType]
+	if !ok {
+		integrationType = string(ev.TypeData.IntegrationType)
+	}
+	msg := fmt.Sprintf("%s", integrationType)
+
 	if ev.TypeData.IntegrationType == SCMGithubEnterpriseType ||
 		ev.TypeData.IntegrationType == SCMGitlabSelfHostedType {
 		msg = fmt.Sprintf("%s (%s)", msg, ev.TypeData.Data.URL)
