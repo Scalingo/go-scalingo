@@ -64,6 +64,7 @@ type EventUser struct {
 type EventTypeName string
 
 const (
+	EventNewUser            EventTypeName = "new_user"
 	EventNewApp             EventTypeName = "new_app"
 	EventEditApp            EventTypeName = "edit_app"
 	EventDeleteApp          EventTypeName = "delete_app"
@@ -116,6 +117,18 @@ const (
 	EventLinkGithub   EventTypeName = "link_github"
 	EventUnlinkGithub EventTypeName = "unlink_github"
 )
+
+type EventNewUserType struct {
+	Event
+	TypeData EventNewUserTypeData `json:"type_data"`
+}
+
+func (ev *EventNewUserType) String() string {
+	return fmt.Sprintf("You joined Scalingo. Hooray!")
+}
+
+type EventNewUserTypeData struct {
+}
 
 type EventNewAppType struct {
 	Event
@@ -851,6 +864,8 @@ func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
 	switch ev.Type {
+	case EventNewUser:
+		e = &EventNewUserType{Event: ev}
 	case EventNewApp:
 		e = &EventNewAppType{Event: ev}
 	case EventEditApp:
