@@ -77,6 +77,7 @@ const (
 	EventLinkSCM            EventTypeName = "link_scm"
 	EventUnlinkSCM          EventTypeName = "unlink_scm"
 	EventAuthorizeGithub    EventTypeName = "authorize_github"
+	EventNewIntegration     EventTypeName = "new_integration"
 	EventAuthorizeGitLab    EventTypeName = "authorize_gitlab"
 	EventRevokeGithub       EventTypeName = "revoke_github"
 	EventRevokeGitLab       EventTypeName = "revoke_gitlab"
@@ -873,6 +874,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventLinkSCMType{Event: ev}
 	case EventUnlinkSCM:
 		e = &EventUnlinkSCMType{Event: ev}
+	case EventNewIntegration:
+		e = &EventNewIntegrationType{Event: ev}
 	case EventAuthorizeGithub:
 		e = &EventAuthorizeGithubType{Event: ev}
 	case EventAuthorizeGitLab:

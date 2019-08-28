@@ -2,6 +2,31 @@ package scalingo
 
 import "fmt"
 
+type EventNewIntegrationType struct {
+	Event
+	TypeData EventNewIntegrationTypeData `json:"type_data"`
+}
+
+func (ev *EventNewIntegrationType) String() string {
+	msg := fmt.Sprintf("%s", ev.TypeData.IntegrationType)
+	if ev.TypeData.IntegrationType == SCMGithubEnterpriseType ||
+		ev.TypeData.IntegrationType == SCMGitlabSelfHostedType {
+		msg = fmt.Sprintf("%s (%s)", msg, ev.TypeData.Data.URL)
+	}
+
+	return fmt.Sprintf("%s account '%s' has been authorized", msg, ev.TypeData.Data.Login)
+}
+
+type EventNewIntegrationTypeData struct {
+	IntegrationID   string  `json:"integration_id"`
+	IntegrationType SCMType `json:"integration_type"`
+	Data            struct {
+		Login     string `json:"login"`
+		AvatarURL string `json:"avatar_url"`
+		URL       string `json:"url"`
+	} `json:"data"`
+}
+
 type EventAuthorizeGithubType struct {
 	Event
 	TypeData EventAuthorizeGithubTypeData `json:"type_data"`
