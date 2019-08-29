@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v3.0.3
+
 * Add support (again) for the new SCM events [#135](https://github.com/Scalingo/go-scalingo/pull/135)
 * Add support for the new user event [#136](https://github.com/Scalingo/go-scalingo/pull/136)
 
