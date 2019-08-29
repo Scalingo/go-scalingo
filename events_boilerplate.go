@@ -1,5 +1,8 @@
 package scalingo
 
+func (e *EventNewUserType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventNewAppType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
