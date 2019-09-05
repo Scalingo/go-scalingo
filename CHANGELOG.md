@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v3.0.4
+
 * Removed the `SCMRepoLinkParams` struct. You should use `SCMRepoLinkCreateParams` instead for creation call
 * Added the `SCMRepoLinkUpdateParams` struct, you should use this for update call.
 
