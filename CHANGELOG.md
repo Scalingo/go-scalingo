@@ -2,9 +2,13 @@
 
 ## ToBeReleased
 
+* Add `SCMType` to `SCMRepoLink`
+  [#138](https://github.com/Scalingo/go-scalingo/pull/138)
+
 ## v3.0.4
 
-* Removed the `SCMRepoLinkParams` struct. You should use `SCMRepoLinkCreateParams` instead for creation call
+* Removed the `SCMRepoLinkParams` struct. You should use
+  `SCMRepoLinkCreateParams` instead for creation call
 * Added the `SCMRepoLinkUpdateParams` struct, you should use this for update call.
 
 ## v3.0.3
