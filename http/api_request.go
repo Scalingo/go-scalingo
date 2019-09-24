@@ -110,6 +110,7 @@ func (c *client) Do(req *APIRequest) (*http.Response, error) {
 	}
 
 	debug.Printf("[API] %v %v\n", req.HTTPRequest.Method, req.HTTPRequest.URL)
+	debug.Printf(io.Indent(fmt.Sprintf("User-Agent: %v", req.HTTPRequest.UserAgent()), 6))
 	debug.Printf(io.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
 	debug.Printf(io.Indent("Params: %v", 6), req.Params)
 

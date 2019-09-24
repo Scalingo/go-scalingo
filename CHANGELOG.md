@@ -6,6 +6,8 @@
   [#138](https://github.com/Scalingo/go-scalingo/pull/138)
 * Better handling of 404 from API
   [#140](https://github.com/Scalingo/go-scalingo/pull/140)
+* Display the user agent in debug output
+  [#139](https://github.com/Scalingo/go-scalingo/pull/139)
 
 ## v3.0.4
 
