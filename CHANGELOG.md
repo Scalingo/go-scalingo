@@ -4,6 +4,8 @@
 
 * Add `SCMType` to `SCMRepoLink`
   [#138](https://github.com/Scalingo/go-scalingo/pull/138)
+* Better handling of 404 from API
+  [#140](https://github.com/Scalingo/go-scalingo/pull/140)
 
 ## v3.0.4
 
