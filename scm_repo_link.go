@@ -50,6 +50,7 @@ type SCMRepoLink struct {
 	Owner                    string            `json:"owner"`
 	Repo                     string            `json:"repo"`
 	Branch                   string            `json:"branch"`
+	SCMType                  SCMType           `json:"scm_type"`
 	CreatedAt                time.Time         `json:"created_at"`
 	UpdatedAt                time.Time         `json:"updated_at"`
 	AutoDeployEnabled        bool              `json:"auto_deploy_enabled"`
