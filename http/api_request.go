@@ -95,8 +95,9 @@ func (c *client) Do(req *APIRequest) (*http.Response, error) {
 		reader := bytes.NewReader(buffer)
 		req.HTTPRequest, err = http.NewRequest(req.Method, endpoint, reader)
 		if err != nil {
-			return nil, errgo.Notef(err, "fail to initialize the 'WITH_BODY' query")
+			return nil, errgo.Notef(err, "fail to initialize the '%s' query", req.Method)
 		}
+		req.HTTPRequest.Header.Add("User-Agent", c.userAgent)
 	case "GET", "DELETE":
 		values, err := req.BuildQueryFromParams()
 		if err != nil {
@@ -107,10 +108,11 @@ func (c *client) Do(req *APIRequest) (*http.Response, error) {
 		if err != nil {
 			return nil, errgo.Notef(err, "fail to initialize the '%s' query", req.Method)
 		}
+		req.HTTPRequest.Header.Add("User-Agent", c.userAgent)
 	}
 
 	debug.Printf("[API] %v %v\n", req.HTTPRequest.Method, req.HTTPRequest.URL)
-	debug.Printf(io.Indent(fmt.Sprintf("User-Agent: %v", req.HTTPRequest.UserAgent()), 6))
+	debug.Printf(io.Indent(fmt.Sprintf("User Agent: %v", req.HTTPRequest.UserAgent()), 6))
 	debug.Printf(io.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
 	debug.Printf(io.Indent("Params: %v", 6), req.Params)
 
