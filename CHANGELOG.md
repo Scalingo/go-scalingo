@@ -2,6 +2,11 @@
 
 ## ToBeReleased
 
+## v3.0.6
+
+* Add error management for 403 forbidden errors
+  [#143](https://github.com/Scalingo/go-scalingo/pull/143)
+
 ## v3.0.5
 
 * Add `SCMType` to `SCMRepoLink`
