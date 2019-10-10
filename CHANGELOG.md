@@ -2,6 +2,11 @@
 
 ## ToBeReleased
 
+## v3.0.7
+
+* Improve error management, get Code field from API for 403 and 400 errors
+  [#144](https://github.com/Scalingo/go-scalingo/pull/144)
+
 ## v3.0.6
 
 * Add error management for 403 forbidden errors
