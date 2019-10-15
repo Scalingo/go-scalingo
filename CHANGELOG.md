@@ -2,6 +2,11 @@
 
 ## ToBeReleased
 
+## v3.0.8
+
+* Add ability to give DstAppName to a RegionMigration
+  [#145](https://github.com/Scalingo/go-scalingo/pull/145)
+
 ## v3.0.7
 
 * Improve error management, get Code field from API for 403 and 400 errors
