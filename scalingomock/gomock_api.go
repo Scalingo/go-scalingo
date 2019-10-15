@@ -795,32 +795,6 @@ func (mr *MockAPIMockRecorder) NotificationPlatformsList() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformsList", reflect.TypeOf((*MockAPI)(nil).NotificationPlatformsList))
 }
 
-// NotificationProvision mocks base method
-func (m *MockAPI) NotificationProvision(arg0, arg1 string) (go_scalingo.NotificationRes, error) {
-	ret := m.ctrl.Call(m, "NotificationProvision", arg0, arg1)
-	ret0, _ := ret[0].(go_scalingo.NotificationRes)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// NotificationProvision indicates an expected call of NotificationProvision
-func (mr *MockAPIMockRecorder) NotificationProvision(arg0, arg1 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationProvision", reflect.TypeOf((*MockAPI)(nil).NotificationProvision), arg0, arg1)
-}
-
-// NotificationUpdate mocks base method
-func (m *MockAPI) NotificationUpdate(arg0, arg1, arg2 string) (go_scalingo.NotificationRes, error) {
-	ret := m.ctrl.Call(m, "NotificationUpdate", arg0, arg1, arg2)
-	ret0, _ := ret[0].(go_scalingo.NotificationRes)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// NotificationUpdate indicates an expected call of NotificationUpdate
-func (mr *MockAPIMockRecorder) NotificationUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationUpdate", reflect.TypeOf((*MockAPI)(nil).NotificationUpdate), arg0, arg1, arg2)
-}
-
 // NotifierByID mocks base method
 func (m *MockAPI) NotifierByID(arg0, arg1 string) (*go_scalingo.Notifier, error) {
 	ret := m.ctrl.Call(m, "NotifierByID", arg0, arg1)

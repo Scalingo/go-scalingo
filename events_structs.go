@@ -98,9 +98,6 @@ const (
 	EventEditVariable       EventTypeName = "edit_variable"
 	EventEditVariables      EventTypeName = "edit_variables"
 	EventDeleteVariable     EventTypeName = "delete_variable"
-	EventNewNotification    EventTypeName = "new_notification"
-	EventEditNotification   EventTypeName = "edit_notification"
-	EventDeleteNotification EventTypeName = "delete_notification"
 	EventAddCredit          EventTypeName = "add_credit"
 	EventAddPaymentMethod   EventTypeName = "add_payment_method"
 	EventAddVoucher         EventTypeName = "add_voucher"
@@ -685,47 +682,6 @@ type EventDeleteVariableTypeData struct {
 	EventVariable
 }
 
-type EventNotification struct {
-	NotificationType string `json:"notification_type"`
-	Active           bool   `json:"active"`
-	WebhookURL       string `json:"webhook_url"`
-}
-
-func (n *EventNotification) String() string {
-	state := "disabled"
-	if n.Active {
-		state = "enabled"
-	}
-	return fmt.Sprintf("%s: %s (%s)", n.NotificationType, n.WebhookURL, state)
-}
-
-type EventNewNotificationType struct {
-	Event
-	TypeData EventNotification `json:"type_data"`
-}
-
-func (ev *EventNewNotificationType) String() string {
-	return ev.TypeData.String()
-}
-
-type EventEditNotificationType struct {
-	Event
-	TypeData EventNotification `json:"type_data"`
-}
-
-func (ev *EventEditNotificationType) String() string {
-	return ev.TypeData.String()
-}
-
-type EventDeleteNotificationType struct {
-	Event
-	TypeData EventNotification `json:"type_data"`
-}
-
-func (ev *EventDeleteNotificationType) String() string {
-	return ev.TypeData.String()
-}
-
 type EventPaymentAttemptTypeData struct {
 	Amount        float32 `json:"amount"`
 	PaymentMethod string  `json:"payment_method"`
@@ -932,12 +888,6 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventEditVariablesType{Event: ev}
 	case EventDeleteVariable:
 		e = &EventDeleteVariableType{Event: ev}
-	case EventNewNotification:
-		e = &EventNewNotificationType{Event: ev}
-	case EventEditNotification:
-		e = &EventEditNotificationType{Event: ev}
-	case EventDeleteNotification:
-		e = &EventDeleteNotificationType{Event: ev}
 	case EventAddCredit:
 		e = &EventAddCreditType{Event: ev}
 	case EventAddPaymentMethod:
