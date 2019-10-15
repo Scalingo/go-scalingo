@@ -5,12 +5,13 @@
 package scalingomock
 
 import (
+	http0 "net/http"
+	reflect "reflect"
+
 	go_scalingo "github.com/Scalingo/go-scalingo"
 	http "github.com/Scalingo/go-scalingo/http"
 	gomock "github.com/golang/mock/gomock"
 	websocket "golang.org/x/net/websocket"
-	http0 "net/http"
-	reflect "reflect"
 )
 
 // MockAPI is a mock of API interface
@@ -818,19 +819,6 @@ func (m *MockAPI) NotificationUpdate(arg0, arg1, arg2 string) (go_scalingo.Notif
 // NotificationUpdate indicates an expected call of NotificationUpdate
 func (mr *MockAPIMockRecorder) NotificationUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationUpdate", reflect.TypeOf((*MockAPI)(nil).NotificationUpdate), arg0, arg1, arg2)
-}
-
-// NotificationsList mocks base method
-func (m *MockAPI) NotificationsList(arg0 string) ([]*go_scalingo.Notification, error) {
-	ret := m.ctrl.Call(m, "NotificationsList", arg0)
-	ret0, _ := ret[0].([]*go_scalingo.Notification)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// NotificationsList indicates an expected call of NotificationsList
-func (mr *MockAPIMockRecorder) NotificationsList(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationsList", reflect.TypeOf((*MockAPI)(nil).NotificationsList), arg0)
 }
 
 // NotifierByID mocks base method
