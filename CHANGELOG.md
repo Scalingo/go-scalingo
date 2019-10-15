@@ -2,6 +2,16 @@
 
 ## ToBeReleased
 
+* [API CHANGE] Remove `NewNotification`/`EditNotification`/`DeleteNotification` events
+* [API CHANGE] Remove interface NotificationsService and all included methods.
+```
+  NotificationsList(app string) ([]*Notification, error)
+  NotificationProvision(app, webHookURL string) (NotificationRes, error)
+  NotificationUpdate(app, ID, webHookURL string) (NotificationRes, error)
+  NotificationDestroy(app, ID string) error
+```
+  From now `NotifiersService` and methods should be used instead.
+
 ## v3.0.8
 
 * Add ability to give DstAppName to a RegionMigration

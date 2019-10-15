@@ -25,7 +25,6 @@ type API interface {
 	LogsArchivesService
 	LogsService
 	NotificationPlatformsService
-	NotificationsService
 	NotifiersService
 	OperationsService
 	RegionsService
