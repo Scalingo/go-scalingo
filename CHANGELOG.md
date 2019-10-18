@@ -11,6 +11,8 @@
   NotificationDestroy(app, ID string) error
 ```
   From now `NotifiersService` and methods should be used instead.
+* [API CHANGE] Remove `SCMIntegrationUUID` field from `SCMRepoLinkCreateParams` and `SCMRepoLink` structs.
+  [#148](https://github.com/Scalingo/go-scalingo/pull/148)
 
 ## v3.0.8
 
