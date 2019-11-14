@@ -820,7 +820,7 @@ func (ev *EventDeleteAutoscalerType) String() string {
 
 type EventAddonUpdatedTypeData struct {
 	EventAddon
-	Status            []string          `json:"status"`
+	Status            []AddonStatus     `json:"status"`
 	AttributesChanged map[string]string `json:"attributes_changed"`
 }
 
