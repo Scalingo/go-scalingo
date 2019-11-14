@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v3.1.0
+
+* New Event `AddonUpdatedEvent`
+
 * [API CHANGE] Remove `NewNotification`/`EditNotification`/`DeleteNotification` events
 * [API CHANGE] Remove interface NotificationsService and all included methods.
 ```
