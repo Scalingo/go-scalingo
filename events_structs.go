@@ -109,7 +109,7 @@ const (
 	EventDeleteAlert        EventTypeName = "delete_alert"
 	EventNewAutoscaler      EventTypeName = "new_autoscaler"
 	EventDeleteAutoscaler   EventTypeName = "delete_autoscaler"
-	EventUpdateAddonStatus  EventTypeName = "update_addon_status"
+	EventAddonUpdated       EventTypeName = "addon_updated"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -818,19 +818,19 @@ func (ev *EventDeleteAutoscalerType) String() string {
 	return fmt.Sprintf("Alert deleted about %s on container %s", d.Metric, d.ContainerType)
 }
 
-type EventUpdateAddonStatusTypeData struct {
+type EventAddonUpdatedTypeData struct {
 	EventAddon
-	Status string `json:"status"`
+	Status []string `json:"status"`
 }
 
-type EventUpdateAddonStatusType struct {
+type EventAddonUpdatedType struct {
 	Event
-	TypeData EventUpdateAddonStatusTypeData `json:"type_data"`
+	TypeData EventAddonUpdatedTypeData `json:"type_data"`
 }
 
-func (ev *EventUpdateAddonStatusType) String() string {
+func (ev *EventAddonUpdatedType) String() string {
 	d := ev.TypeData
-	return fmt.Sprintf("Addon %s %s status is now %s", d.AddonProviderName, d.ResourceID, d.Status)
+	return fmt.Sprintf("Addon %s %s updated", d.AddonProviderName, d.ResourceID)
 }
 
 func (pev *Event) Specialize() DetailedEvent {
@@ -927,8 +927,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventNewAutoscalerType{Event: ev}
 	case EventDeleteAutoscaler:
 		e = &EventDeleteAutoscalerType{Event: ev}
-	case EventUpdateAddonStatus:
-		e = &EventUpdateAddonStatusType{Event: ev}
+	case EventAddonUpdated:
+		e = &EventAddonUpdatedType{Event: ev}
 	// Deprecated events. Replaced by equivalent with SCM in the name instead of
 	// Github
 	case EventLinkGithub:
