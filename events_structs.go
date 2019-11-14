@@ -820,8 +820,10 @@ func (ev *EventDeleteAutoscalerType) String() string {
 
 type EventAddonUpdatedTypeData struct {
 	EventAddon
-	Status            []AddonStatus `json:"status"`
-	AttributesChanged []string      `json:"attributes_changed"`
+	// Status has only two items when is updated, the old value and the new value, in this order
+	Status []AddonStatus `json:"status"`
+	// AttributesChanged contain names of changed attributes
+	AttributesChanged []string `json:"attributes_changed"`
 }
 
 type EventAddonUpdatedType struct {
