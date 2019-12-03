@@ -2,6 +2,11 @@
 
 ## ToBeReleased
 
+## v3.1.1
+
+* Final structure of `AddonUpdatedEvent`
+  * Add `AddonResourceID` `AddonPlanName` and `AddonProviderName`
+
 ## v3.1.0
 
 * New Event `AddonUpdatedEvent`
