@@ -819,7 +819,12 @@ func (ev *EventDeleteAutoscalerType) String() string {
 }
 
 type EventAddonUpdatedTypeData struct {
-	EventAddon
+	AddonID           string `json:"addon_id"`
+	AddonPlanName     string `json:"addon_plan_name"`
+	AddonResourceID   string `json:"addon_resource_id"`
+	AddonProviderID   string `json:"addon_provider_id"`
+	AddonProviderName string `json:"addon_provider_name"`
+
 	// Status has only two items when is updated, the old value and the new value, in this order
 	Status []AddonStatus `json:"status"`
 	// AttributesChanged contain names of changed attributes
@@ -833,7 +838,10 @@ type EventAddonUpdatedType struct {
 
 func (ev *EventAddonUpdatedType) String() string {
 	d := ev.TypeData
-	return fmt.Sprintf("Addon %s %s updated", d.AddonProviderName, d.ResourceID)
+	return fmt.Sprintf(
+		"Addon %s %s updated, status %v -> %v",
+		d.AddonProviderName, d.AddonResourceID, d.Status[0], d.Status[1],
+	)
 }
 
 func (pev *Event) Specialize() DetailedEvent {
