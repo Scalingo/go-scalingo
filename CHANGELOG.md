@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v3.2.0
+
+* Add ability to reach AuthService with the `StaticTokenGenerator` (Use of a client with a predefined JWT)
+
 ## v3.1.1
 
 * Final structure of `AddonUpdatedEvent`
