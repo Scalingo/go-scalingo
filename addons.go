@@ -79,9 +79,20 @@ func (c *Client) AddonShow(app, addonID string) (Addon, error) {
 	return addonRes.Addon, nil
 }
 
-func (c *Client) AddonProvision(app, addon, planID string) (AddonRes, error) {
+// AddonProvisionParams gathers all arguments which can be sent to provision an addon
+type AddonProvisionParams struct {
+	AddonProviderID string            `json:"addon_provider_id"`
+	PlanID          string            `json:"plan_id"`
+	Options         map[string]string `json:"options"`
+}
+
+type AddonProvisionParamsWrapper struct {
+	Addon AddonProvisionParams `json:"addon"`
+}
+
+func (c *Client) AddonProvision(app string, params AddonProvisionParams) (AddonRes, error) {
 	var addonRes AddonRes
-	err := c.ScalingoAPI().SubresourceAdd("apps", app, "addons", AddonRes{Addon: Addon{AddonProviderID: addon, PlanID: planID}}, &addonRes)
+	err := c.ScalingoAPI().SubresourceAdd("apps", app, "addons", AddonProvisionParamsWrapper{params}, &addonRes)
 	if err != nil {
 		return AddonRes{}, errgo.Mask(err, errgo.Any)
 	}
