@@ -10,7 +10,7 @@ import (
 
 type AddonsService interface {
 	AddonsList(app string) ([]*Addon, error)
-	AddonProvision(app, addon, planID string) (AddonRes, error)
+	AddonProvision(app string, params AddonProvisionParams) (AddonRes, error)
 	AddonDestroy(app, addonID string) error
 	AddonUpgrade(app, addonID, planID string) (AddonRes, error)
 	AddonToken(app, addonID string) (string, error)
