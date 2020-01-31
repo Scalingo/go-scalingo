@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v4.0.0
+
+* Add the ability to pass options when provisioning an addon
+
 ## v3.2.0
 
 * Add ability to reach AuthService with the `StaticTokenGenerator` (Use of a client with a predefined JWT)
