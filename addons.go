@@ -12,7 +12,7 @@ type AddonsService interface {
 	AddonsList(app string) ([]*Addon, error)
 	AddonProvision(app string, params AddonProvisionParams) (AddonRes, error)
 	AddonDestroy(app, addonID string) error
-	AddonUpgrade(app, addonID, planID string) (AddonRes, error)
+	AddonUpgrade(app, addonID string, params AddonUpgradeParams) (AddonRes, error)
 	AddonToken(app, addonID string) (string, error)
 	AddonLogsURL(app, addonID string) (string, error)
 }
@@ -28,14 +28,12 @@ const (
 )
 
 type Addon struct {
-	ID              string         `json:"id"`
-	AppID           string         `json:"app_id"`
-	ResourceID      string         `json:"resource_id"`
-	PlanID          string         `json:"plan_id"`
-	AddonProviderID string         `json:"addon_provider_id"`
-	Status          AddonStatus    `json:"status"`
-	Plan            *Plan          `json:"plan"`
-	AddonProvider   *AddonProvider `json:"addon_provider"`
+	ID            string         `json:"id"`
+	AppID         string         `json:"app_id"`
+	ResourceID    string         `json:"resource_id"`
+	Status        AddonStatus    `json:"status"`
+	Plan          *Plan          `json:"plan"`
+	AddonProvider *AddonProvider `json:"addon_provider"`
 }
 
 type AddonsRes struct {
@@ -103,9 +101,20 @@ func (c *Client) AddonDestroy(app, addonID string) error {
 	return c.ScalingoAPI().SubresourceDelete("apps", app, "addons", addonID)
 }
 
-func (c *Client) AddonUpgrade(app, addonID, planID string) (AddonRes, error) {
+type AddonUpgradeParams struct {
+	PlanID string `json:"plan_id"`
+}
+
+type AddonUpgradeParamsWrapper struct {
+	Addon AddonUpgradeParams `json:"addon"`
+}
+
+func (c *Client) AddonUpgrade(app, addonID string, params AddonUpgradeParams) (AddonRes, error) {
 	var addonRes AddonRes
-	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "addons", addonID, AddonRes{Addon: Addon{PlanID: planID}}, &addonRes)
+	err := c.ScalingoAPI().SubresourceUpdate(
+		"apps", app, "addons", addonID,
+		AddonUpgradeParamsWrapper{Addon: params}, &addonRes,
+	)
 	if err != nil {
 		return AddonRes{}, errgo.Mask(err, errgo.Any)
 	}
