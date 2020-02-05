@@ -4,6 +4,10 @@
     {
       "interface" : "Client",
       "src_package" : "http"
+    }, {
+      "interface": "TokensService",
+      "src_package": "http",
+      "mock_file": "http/tokensservicemock/tokensservice_mock.go"
     }
   ]
 }
