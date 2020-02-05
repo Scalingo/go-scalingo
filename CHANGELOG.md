@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v4.1.0
+
+* Change AddonUpgrade signature, take a struct instead of a simple string for planID
+
 ## v4.0.0
 
 * Add the ability to pass options when provisioning an addon
