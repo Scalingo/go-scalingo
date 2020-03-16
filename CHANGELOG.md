@@ -2,6 +2,87 @@
 
 ## ToBeReleased
 
+## v4.2.0
+
+* Add a JWT token cache when a client is reused, a new JWT token will be only used if the previous has expired.
+
+## v4.1.0
+
+* Change AddonUpgrade signature, take a struct instead of a simple string for planID
+
+## v4.0.0
+
+* Add the ability to pass options when provisioning an addon
+
+## v3.2.0
+
+* Add ability to reach AuthService with the `StaticTokenGenerator` (Use of a client with a predefined JWT)
+
+## v3.1.1
+
+* Final structure of `AddonUpdatedEvent`
+  * Add `AddonResourceID` `AddonPlanName` and `AddonProviderName`
+
+## v3.1.0
+
+* New Event `AddonUpdatedEvent`
+
+* [API CHANGE] Remove `NewNotification`/`EditNotification`/`DeleteNotification` events
+* [API CHANGE] Remove interface NotificationsService and all included methods.
+```
+  NotificationsList(app string) ([]*Notification, error)
+  NotificationProvision(app, webHookURL string) (NotificationRes, error)
+  NotificationUpdate(app, ID, webHookURL string) (NotificationRes, error)
+  NotificationDestroy(app, ID string) error
+```
+  From now `NotifiersService` and methods should be used instead.
+* [API CHANGE] Remove `SCMIntegrationUUID` field from `SCMRepoLinkCreateParams` and `SCMRepoLink` structs.
+  [#148](https://github.com/Scalingo/go-scalingo/pull/148)
+
+## v3.0.8
+
+* Add ability to give DstAppName to a RegionMigration
+  [#145](https://github.com/Scalingo/go-scalingo/pull/145)
+
+## v3.0.7
+
+* Improve error management, get Code field from API for 403 and 400 errors
+  [#144](https://github.com/Scalingo/go-scalingo/pull/144)
+
+## v3.0.6
+
+* Add error management for 403 forbidden errors
+  [#143](https://github.com/Scalingo/go-scalingo/pull/143)
+
+## v3.0.5
+
+* Add `SCMType` to `SCMRepoLink`
+  [#138](https://github.com/Scalingo/go-scalingo/pull/138)
+* Better handling of 404 from API
+  [#140](https://github.com/Scalingo/go-scalingo/pull/140)
+* Display the user agent in debug output
+  [#139](https://github.com/Scalingo/go-scalingo/pull/139)
+
+## v3.0.4
+
+* Removed the `SCMRepoLinkParams` struct. You should use
+  `SCMRepoLinkCreateParams` instead for creation call
+* Added the `SCMRepoLinkUpdateParams` struct, you should use this for update call.
+
+## v3.0.3
+
+* Add support (again) for the new SCM events [#135](https://github.com/Scalingo/go-scalingo/pull/135)
+* Add support for the new user event [#136](https://github.com/Scalingo/go-scalingo/pull/136)
+
+## v3.0.2
+
+* Add support for the new SCM events [#134](https://github.com/Scalingo/go-scalingo/pull/134)
+
+## v3.0.1
+
+* Fix HTTP verb for Repolink update
+* Set `omitempty` on ParentID and StackID when creating an App
+
 ## v3.0.0
 
 * Add region support [#129](https://github.com/Scalingo/go-scalingo/pull/129)

@@ -25,7 +25,6 @@ type API interface {
 	LogsArchivesService
 	LogsService
 	NotificationPlatformsService
-	NotificationsService
 	NotifiersService
 	OperationsService
 	RegionsService
@@ -59,6 +58,7 @@ type ClientConfig struct {
 	DatabaseAPIEndpoint string
 	APIToken            string
 	Region              string
+	UserAgent           string
 
 	// StaticTokenGenerator is present for retrocompatibility with legacy tokens
 	// DEPRECATED, Use standard APIToken field for normal operations
@@ -69,6 +69,9 @@ func New(cfg ClientConfig) (*Client, error) {
 	// Apply defaults
 	if cfg.AuthEndpoint == "" {
 		cfg.AuthEndpoint = "https://auth.scalingo.com"
+	}
+	if cfg.UserAgent == "" {
+		cfg.UserAgent = "go-scalingo v" + Version
 	}
 
 	// If there's no region defined return the client as is
@@ -112,6 +115,7 @@ func (c *Client) ScalingoAPI() http.Client {
 	}
 
 	return http.NewClient(http.ScalingoAPI, http.ClientConfig{
+		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
 		APIVersion:     "1",
@@ -136,7 +140,11 @@ func (c *Client) AuthAPI() http.Client {
 	if c.authClient != nil {
 		return c.authClient
 	}
+
 	var tokenGenerator http.TokenGenerator
+	if c.config.StaticTokenGenerator != nil {
+		tokenGenerator = c.config.StaticTokenGenerator
+	}
 	if len(c.config.APIToken) != 0 {
 		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}

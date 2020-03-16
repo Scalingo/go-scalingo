@@ -13,6 +13,7 @@ import (
 type (
 	BadRequestError struct {
 		ErrMessage string `json:"error"`
+		Code       string `json:"code"`
 	}
 
 	PaymentRequiredError struct {
@@ -24,6 +25,11 @@ type (
 	NotFoundError struct {
 		Resource string `json:"resource"`
 		Err      string `json:"error"`
+	}
+
+	ForbiddenError struct {
+		Err  string `json:"error"`
+		Code string `json:"code"`
 	}
 
 	UnprocessableEntity struct {
@@ -70,8 +76,12 @@ func (err NotFoundError) Error() string {
 		return fmt.Sprintf("The application was not found, did you make a typo?")
 	} else if err.Resource == "container_type" {
 		return fmt.Sprintf("This type of container was not found, please ensure it is present in your Procfile\n→ http://doc.scalingo.com/internals/procfile")
-	} else {
+	} else if err.Resource != "" {
 		return fmt.Sprintf("The %s was not found", err.Resource)
+	} else {
+		// Sometimes the API does not return a resource in the body, but the error
+		// message is self-explained.
+		return err.Err
 	}
 }
 
@@ -81,6 +91,10 @@ func (err UnprocessableEntity) Error() string {
 		errArray = append(errArray, fmt.Sprintf("* %s → %s", attr, strings.Join(attrErrs, ", ")))
 	}
 	return strings.Join(errArray, "\n")
+}
+
+func (err ForbiddenError) Error() string {
+	return fmt.Sprintf("Request forbidden (403): %v", err.Err)
 }
 
 func NewRequestFailedError(res *http.Response, req *APIRequest) error {
@@ -105,6 +119,13 @@ func NewRequestFailedError(res *http.Response, req *APIRequest) error {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: paymentRequiredErr, Req: req}
+	case 403:
+		var forbiddenError ForbiddenError
+		err := parseJSON(res, &forbiddenError)
+		if err != nil {
+			return err
+		}
+		return &RequestFailedError{Code: res.StatusCode, APIError: forbiddenError, Req: req}
 	case 404:
 		var notFoundErr NotFoundError
 		err := parseJSON(res, &notFoundErr)
