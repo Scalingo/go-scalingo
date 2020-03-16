@@ -821,6 +821,8 @@ func (ev *EventDeleteAutoscalerType) String() string {
 
 type EventStartRegionMigrationTypeData struct {
 	MigrationID string `json:"migration_id"`
+	Destination string `json:"destination"`
+	DstAppName  string `json:"dst_app_name"`
 }
 
 type EventStartRegionMigrationType struct {
@@ -829,7 +831,7 @@ type EventStartRegionMigrationType struct {
 }
 
 func (ev *EventStartRegionMigrationType) String() string {
-	return "Application region migration started"
+	return fmt.Sprintf("Application region migration started to %s/%s", ev.TypeData.Destination, ev.TypeData.DstAppName)
 }
 
 type EventAddonUpdatedTypeData struct {
