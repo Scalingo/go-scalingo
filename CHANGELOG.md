@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v4.3.0
+
+* Add StartRegionMigration event
+
 ## v4.2.0
 
 * Add a JWT token cache when a client is reused, a new JWT token will be only used if the previous has expired.
