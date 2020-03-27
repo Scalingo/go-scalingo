@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+## v4.3.1
+
+* Add `Source` field to RegionMigration
+
 ## v4.3.0
 
 * Add StartRegionMigration event
