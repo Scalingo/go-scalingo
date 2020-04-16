@@ -14,6 +14,7 @@ const (
 	RegionMigrationStatusRunning          RegionMigrationStatus = "running"
 	RegionMigrationStatusPrepared         RegionMigrationStatus = "prepared"
 	RegionMigrationStatusDataMigrated     RegionMigrationStatus = "data-migrated"
+	RegionMigrationStatusAborting         RegionMigrationStatus = "aborting"
 	RegionMigrationStatusAborted          RegionMigrationStatus = "aborted"
 	RegionMigrationStatusError            RegionMigrationStatus = "error"
 	RegionMigrationStatusDone             RegionMigrationStatus = "done"
