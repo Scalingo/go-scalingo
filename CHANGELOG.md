@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Add `aborting` status to the list of RegionMigrationStatus
+
 ## v4.3.1
 
 * Add `Source` field to RegionMigration
