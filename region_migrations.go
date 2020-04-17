@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	RegionMigrationStatusScheduled        RegionMigrationStatus = "scheduled"
+	RegionMigrationStatusCreated          RegionMigrationStatus = "created"
 	RegionMigrationStatusPreflightSuccess RegionMigrationStatus = "preflight-success"
 	RegionMigrationStatusPreflightError   RegionMigrationStatus = "preflight-error"
 	RegionMigrationStatusRunning          RegionMigrationStatus = "running"
