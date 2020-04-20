@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v4.4.0
+
 * Rename `scheduled` to `created` in RegionMigrationStatus list
 * Add `aborting` status to the list of RegionMigrationStatus
 
