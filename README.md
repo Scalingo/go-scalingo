@@ -12,3 +12,17 @@ Bump new version number in:
 
 Tag and release a new version on GitHub
 [here](https://github.com/Scalingo/go-scalingo/releases/new).
+
+## Add Support for a New Event
+
+A couple of files must be updated when adding support for a new event type. For
+instance if your event type is named `my_event`:
+* `events_struct.go`:
+    * Add the `EventMyEvent` constant
+    * Add the `EventMyEventTypeData` structure
+    * Add `EventMyEventType` structure which embeds a field `TypeData` of the
+        type `EventMyEventTypeData`.
+    * Implement function `String` for `EventMyEventType`
+    * Add support for this event type in the `Specialize` function
+* `events_boilerplate.go`: implement the `TypeDataPtr` function for the new
+    `EventMyEventType` structure.
