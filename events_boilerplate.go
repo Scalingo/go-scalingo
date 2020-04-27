@@ -132,6 +132,9 @@ func (e *EventNewAutoscalerType) TypeDataPtr() interface{} {
 func (e *EventDeleteAutoscalerType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+func (e *EventAddonUpdatedType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventLinkGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
