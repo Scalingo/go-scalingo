@@ -15,12 +15,8 @@ type LogDrain struct {
 	URL   string `json:"url"`
 }
 
-type LogDrainsRes struct {
-	LogDrains []LogDrain
-}
-
 type LogDrainRes struct {
-	LogDrain LogDrain `json:"log_drain"`
+	LogDrain LogDrain `json:"drain"`
 }
 
 func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
@@ -33,16 +29,14 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 }
 
 type LogDrainAddParams struct {
-	AppID string `json:"app_id"`
-	URL   string `json:"url"`
+	URL string `json:"url"`
 }
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error) {
 	var logDrainRes LogDrainRes
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "log_drains", LogDrainRes{
 		LogDrain: LogDrain{
-			AppID: params.AppID,
-			URL:   params.URL,
+			URL: params.URL,
 		},
 	}, &logDrainRes)
 	if err != nil {
@@ -52,12 +46,12 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 }
 
 func (c *Client) LogDrainInfo(app, id string) (*LogDrain, error) {
-	var logDrainRes LogDrainRes
+	var logDrainRes LogDrain
 	err := c.ScalingoAPI().SubresourceGet("apps", app, "log_drains", id, nil, &logDrainRes)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
-	return &logDrainRes.LogDrain, nil
+	return &logDrainRes, nil
 }
 
 func (c *Client) LogDrainRemove(app, id string) error {
