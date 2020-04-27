@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Fix support for `addon_updated` and `start_region_migration` event types
+
 ## v4.4.0
 
 * Rename `scheduled` to `created` in RegionMigrationStatus list
