@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v4.4.1
+
 * Fix support for `addon_updated` and `start_region_migration` event types
 * Fix who created a `restart` or `edit_variable` event types
 
