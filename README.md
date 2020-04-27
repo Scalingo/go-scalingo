@@ -12,19 +12,3 @@ Bump new version number in:
 
 Tag and release a new version on GitHub
 [here](https://github.com/Scalingo/go-scalingo/releases/new).
-
-## Mocks
-
-Generate the mocks with:
-
-```shell
-for interface in $(grep --extended-regexp --no-message --no-filename "type (.*Service|API|TokenGenerator) interface" ./* | grep -v  mockgen | cut -d " " -f 2)
-do
-  echo "Generating mock for $interface"
-  if [[ $interface != "SubresourceService" ]]; then
-    mockgen -destination scalingomock/gomock_$(echo $interface | tr '[:upper:]' '[:lower:]').go -package scalingomock github.com/Scalingo/go-scalingo $interface
-  else
-    mockgen -destination gomock_$(echo $interface | tr '[:upper:]' '[:lower:]').go -package scalingo github.com/Scalingo/go-scalingo $interface
-  fi
-done
-```
