@@ -1,6 +1,7 @@
 package scalingo
 
 import (
+	httpclient "github.com/Scalingo/go-scalingo/http"
 	"gopkg.in/errgo.v1"
 )
 
@@ -15,9 +16,18 @@ type LogDrain struct {
 	URL   string `json:"url"`
 }
 
+type errorRes struct {
+	Error string `json:"error"`
+}
+
 type LogDrainRes struct {
 	LogDrain LogDrain `json:"drain"`
+	Errors   errorRes `json:"errors"`
 }
+
+// type LogDrainReq struct {
+// 	LogDrain LogDrain `json:"drain"`
+// }
 
 func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 	var logDrainsRes []LogDrain
@@ -34,14 +44,28 @@ type LogDrainAddParams struct {
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error) {
 	var logDrainRes LogDrainRes
-	err := c.ScalingoAPI().SubresourceAdd("apps", app, "log_drains", LogDrainRes{
+	// var logDrainReq LogDrainReq
+	payload := LogDrainRes{
 		LogDrain: LogDrain{
 			URL: params.URL,
 		},
-	}, &logDrainRes)
+	}
+	req := &httpclient.APIRequest{
+		Method:   "POST",
+		Endpoint: "/" + "apps" + "/" + app + "/" + "log_drains",
+		Expected: httpclient.Statuses{201, 422},
+		Params:   payload,
+	}
+
+	err := c.ScalingoAPI().DoRequest(req, &logDrainRes)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
+
+	if logDrainRes.Errors.Error != "" {
+		return nil, errgo.New(logDrainRes.Errors.Error)
+	}
+	// fmt.Println("result:", logDrainRes)
 	return &logDrainRes.LogDrain, nil
 }
 
