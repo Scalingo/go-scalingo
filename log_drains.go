@@ -52,7 +52,7 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 	}
 	req := &httpclient.APIRequest{
 		Method:   "POST",
-		Endpoint: "/" + "apps" + "/" + app + "/" + "log_drains",
+		Endpoint: "/apps/" + app + "/log_drains",
 		Expected: httpclient.Statuses{201, 422},
 		Params:   payload,
 	}
