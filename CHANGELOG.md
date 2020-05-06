@@ -2,6 +2,10 @@
 
 ## ToBeReleased
 
+* Add `LogDrainsList` resource, to call the list of drains of an app from logs-service via public API
+
+* Add `LogDrainsService` service
+* Add `LogDrainsList` resource, to call the list of drains of an app from logs-service via public API
 ## v4.4.1
 
 * Fix support for `addon_updated` and `start_region_migration` event types
