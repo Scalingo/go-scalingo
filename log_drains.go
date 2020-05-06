@@ -25,10 +25,6 @@ type LogDrainRes struct {
 	Errors   errorRes `json:"errors"`
 }
 
-// type LogDrainReq struct {
-// 	LogDrain LogDrain `json:"drain"`
-// }
-
 func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 	var logDrainsRes []LogDrain
 	err := c.ScalingoAPI().SubresourceList("apps", app, "log_drains", nil, &logDrainsRes)
@@ -44,7 +40,6 @@ type LogDrainAddParams struct {
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error) {
 	var logDrainRes LogDrainRes
-	// var logDrainReq LogDrainReq
 	payload := LogDrainRes{
 		LogDrain: LogDrain{
 			URL: params.URL,
@@ -65,7 +60,6 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 	if logDrainRes.Errors.Error != "" {
 		return nil, errgo.New(logDrainRes.Errors.Error)
 	}
-	// fmt.Println("result:", logDrainRes)
 	return &logDrainRes.LogDrain, nil
 }
 
