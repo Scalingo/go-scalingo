@@ -33,9 +33,6 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 }
 
 type LogDrainAddParams struct {
-	// Type      string `json:"drain_type"`
-	// Status    string `json:"status"`
-	// TargetURL string `json:"targetURL"`
 	AppID string `json:"app_id"`
 	URL   string `json:"url"`
 }
@@ -44,9 +41,6 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 	var logDrainRes LogDrainRes
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "log_drains", LogDrainRes{
 		LogDrain: LogDrain{
-			// Type:      params.Type,
-			// TargetURL: params.TargetURL,
-			// Status:    params.Status,
 			AppID: params.AppID,
 			URL:   params.URL,
 		},
