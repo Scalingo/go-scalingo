@@ -17,8 +17,8 @@ type LogDrain struct {
 	URL   string `json:"url"`
 }
 
-type LogDrainReq struct {
-	LogDrain LogDrain `json:"drain"`
+type logDrainReq struct {
+	Drain LogDrain `json:"drain"`
 }
 
 type logDrainRes struct {
@@ -40,8 +40,8 @@ type LogDrainAddParams struct {
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*Client, error) {
 	var logDrainRes logDrainRes
-	payload := LogDrainReq{
-		LogDrain: LogDrain{
+	payload := logDrainReq{
+		Drain: LogDrain{
 			URL: params.URL,
 		},
 	}
