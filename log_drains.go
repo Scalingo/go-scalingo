@@ -7,7 +7,7 @@ import (
 
 type LogDrainsService interface {
 	LogDrainsList(app string) ([]LogDrain, error)
-	LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error)
+	LogDrainAdd(app string, params LogDrainAddParams) (*Client, error)
 }
 
 var _ LogDrainsService = (*Client)(nil)
@@ -17,13 +17,12 @@ type LogDrain struct {
 	URL   string `json:"url"`
 }
 
-type errorRes struct {
-	Error string `json:"error"`
+type LogDrainReq struct {
+	LogDrain LogDrain `json:"drain"`
 }
 
-type LogDrainRes struct {
-	LogDrain LogDrain `json:"drain"`
-	Errors   errorRes `json:"errors"`
+type logDrainRes struct {
+	Error string `json:"error"`
 }
 
 func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
@@ -39,13 +38,14 @@ type LogDrainAddParams struct {
 	URL string `json:"url"`
 }
 
-func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error) {
-	var logDrainRes LogDrainRes
-	payload := LogDrainRes{
+func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*Client, error) {
+	var logDrainRes logDrainRes
+	payload := LogDrainReq{
 		LogDrain: LogDrain{
 			URL: params.URL,
 		},
 	}
+
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/log_drains",
@@ -55,11 +55,12 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 
 	err := c.ScalingoAPI().DoRequest(req, &logDrainRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return c, errgo.Notef(err, "fail to add drain")
 	}
 
-	if logDrainRes.Errors.Error != "" {
-		return nil, errgo.New(logDrainRes.Errors.Error)
+	if logDrainRes.Error != "" {
+		return c, errgo.Notef(err, logDrainRes.Error)
 	}
-	return &logDrainRes.LogDrain, nil
+
+	return c, nil
 }

@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Add `LogDrainsAdd` function to add log drains to an application
+
 ## v4.5.1
 
 * Add `HasFailed` and `HasFailedString` to deployments
