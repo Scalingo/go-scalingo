@@ -7,6 +7,7 @@ import (
 
 type LogDrainsService interface {
 	LogDrainsList(app string) ([]LogDrain, error)
+	LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, error)
 }
 
 var _ LogDrainsService = (*Client)(nil)
@@ -61,21 +62,4 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrain, e
 		return nil, errgo.New(logDrainRes.Errors.Error)
 	}
 	return &logDrainRes.LogDrain, nil
-}
-
-func (c *Client) LogDrainInfo(app, id string) (*LogDrain, error) {
-	var logDrainRes LogDrain
-	err := c.ScalingoAPI().SubresourceGet("apps", app, "log_drains", id, nil, &logDrainRes)
-	if err != nil {
-		return nil, errgo.Mask(err)
-	}
-	return &logDrainRes, nil
-}
-
-func (c *Client) LogDrainRemove(app, id string) error {
-	err := c.ScalingoAPI().SubresourceDelete("apps", app, "log_drains", id)
-	if err != nil {
-		return errgo.Mask(err)
-	}
-	return nil
 }

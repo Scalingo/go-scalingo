@@ -40,6 +40,22 @@ func TestLogDrainsClient(t *testing.T) {
 				},
 			},
 		},
+		{
+			action: "add",
+			testedClientCall: func(c LogDrainsService) error {
+				_, err := c.LogDrainAdd(appName, LogDrainAddParams{
+					URL: logDrainURL,
+				})
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/log_drains",
+			expectedMethod:   "POST",
+			response: LogDrain{
+				AppID: logDrainID,
+				URL:   logDrainURL,
+			},
+			responseStatus: 201,
+		},
 	}
 
 	for _, test := range tests {
