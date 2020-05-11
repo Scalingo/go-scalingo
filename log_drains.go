@@ -7,7 +7,7 @@ import (
 
 type LogDrainsService interface {
 	LogDrainsList(app string) ([]LogDrain, error)
-	LogDrainAdd(app string, params LogDrainAddParams) (*Client, error)
+	LogDrainAdd(app string, params LogDrainAddParams) (*LogDrainRes, error)
 }
 
 var _ LogDrainsService = (*Client)(nil)
@@ -15,14 +15,18 @@ var _ LogDrainsService = (*Client)(nil)
 type LogDrain struct {
 	AppID string `json:"app_id"`
 	URL   string `json:"url"`
+	Type  string `json:"type"`
+	Token string `json:"token"`
+	Param string `json:"param"`
 }
 
 type logDrainReq struct {
 	Drain LogDrain `json:"drain"`
 }
 
-type logDrainRes struct {
-	Error string `json:"error"`
+type LogDrainRes struct {
+	Drain LogDrain `json:"drain"`
+	Error string   `json:"error"`
 }
 
 func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
@@ -35,14 +39,20 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 }
 
 type LogDrainAddParams struct {
-	URL string `json:"url"`
+	URL   string `json:"url"`
+	Type  string `json:"type"`
+	Token string `json:"token"`
+	Param string `json:"param"`
 }
 
-func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*Client, error) {
-	var logDrainRes logDrainRes
+func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrainRes, error) {
+	var logDrainRes LogDrainRes
 	payload := logDrainReq{
 		Drain: LogDrain{
-			URL: params.URL,
+			URL:   params.URL,
+			Type:  params.Type,
+			Token: params.Token,
+			Param: params.Param,
 		},
 	}
 
@@ -55,12 +65,12 @@ func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*Client, err
 
 	err := c.ScalingoAPI().DoRequest(req, &logDrainRes)
 	if err != nil {
-		return c, errgo.Notef(err, "fail to add drain")
+		return nil, errgo.Notef(err, "fail to add drain")
 	}
 
 	if logDrainRes.Error != "" {
-		return c, errgo.Notef(err, logDrainRes.Error)
+		return nil, errgo.Notef(err, logDrainRes.Error)
 	}
 
-	return c, nil
+	return &logDrainRes, nil
 }
