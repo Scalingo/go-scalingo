@@ -13,11 +13,13 @@ type LogDrainsService interface {
 var _ LogDrainsService = (*Client)(nil)
 
 type LogDrain struct {
-	AppID string `json:"app_id"`
-	URL   string `json:"url"`
-	Type  string `json:"type"`
-	Token string `json:"token"`
-	Param string `json:"param"`
+	AppID       string `json:"app_id"`
+	URL         string `json:"url"`
+	Type        string `json:"type"`
+	Host        string `json:"host"`
+	Port        string `json:"port"`
+	Token       string `json:"token"`
+	DrainRegion string `json:"drain_region"`
 }
 
 type logDrainReq struct {
@@ -39,20 +41,24 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 }
 
 type LogDrainAddParams struct {
-	URL   string `json:"url"`
-	Type  string `json:"type"`
-	Token string `json:"token"`
-	Param string `json:"param"`
+	Type        string `json:"type"`
+	URL         string `json:"url"`
+	Port        string `json:"port"`
+	Host        string `json:"host"`
+	Token       string `json:"token"`
+	DrainRegion string `json:"drain_region"`
 }
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrainRes, error) {
 	var logDrainRes LogDrainRes
 	payload := logDrainReq{
 		Drain: LogDrain{
-			URL:   params.URL,
-			Type:  params.Type,
-			Token: params.Token,
-			Param: params.Param,
+			Type:        params.Type,
+			URL:         params.URL,
+			Host:        params.Host,
+			Port:        params.Port,
+			Token:       params.Token,
+			DrainRegion: params.DrainRegion,
 		},
 	}
 

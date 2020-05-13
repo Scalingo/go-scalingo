@@ -44,7 +44,9 @@ func TestLogDrainsClient(t *testing.T) {
 			action: "add",
 			testedClientCall: func(c LogDrainsService) error {
 				_, err := c.LogDrainAdd(appName, LogDrainAddParams{
-					URL: logDrainURL,
+					Type: "syslog",
+					Host: "localhost",
+					Port: "8080",
 				})
 				return err
 			},
