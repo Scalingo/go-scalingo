@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v4.5.1
+
 * Add `HasFailed` and `HasFailedString` to deployments
 
 ## v4.5.0
