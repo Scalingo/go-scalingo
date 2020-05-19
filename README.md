@@ -28,3 +28,8 @@ instance if your event type is named `my_event`:
         event type can be created by an addon.
 * `events_boilerplate.go`: implement the `TypeDataPtr` function for the new
     `EventMyEventType` structure.
+
+## Client HTTP Errors
+
+HTTP errors are managed by the file [http/errors.go](https://github.com/Scalingo/go-scalingo/blob/master/http/errors.go).
+It follows the scalingo standards detailed in the [developers documentation](https://developers.scalingo.com/index#errors).
