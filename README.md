@@ -31,5 +31,7 @@ instance if your event type is named `my_event`:
 
 ## Client HTTP Errors
 
-HTTP errors are managed by the file [http/errors.go](https://github.com/Scalingo/go-scalingo/blob/master/http/errors.go).
-It follows the scalingo standards detailed in the [developers documentation](https://developers.scalingo.com/index#errors).
+HTTP errors are managed in the file
+[http/errors.go](https://github.com/Scalingo/go-scalingo/blob/master/http/errors.go).
+It follows the Scalingo standards detailed in the
+[developers documentation](https://developers.scalingo.com/index#errors).
