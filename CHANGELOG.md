@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v4.5.2
+
 * Add `LogDrainsAdd` function to add log drains to an application
 
 ## v4.5.1
