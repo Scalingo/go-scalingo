@@ -10,8 +10,18 @@ Bump new version number in:
 - `README.md`
 - `version.go`
 
-Tag and release a new version on GitHub
-[here](https://github.com/Scalingo/go-scalingo/releases/new).
+Commit, tag and create a new release:
+
+```sh
+git add CHANGELOG.md README.md version.go
+git commit -m "Bump v4.5.2"
+git tag v4.5.2
+git push --tags
+hub release create v4.5.2
+```
+
+The title of the release should be the version number and the text of the
+release is the same as the changelog.
 
 ## Add Support for a New Event
 
@@ -33,5 +43,5 @@ instance if your event type is named `my_event`:
 
 HTTP errors are managed in the file
 [http/errors.go](https://github.com/Scalingo/go-scalingo/blob/master/http/errors.go).
-It follows the Scalingo standards detailed in the
-[developers documentation](https://developers.scalingo.com/index#errors).
+It follows the Scalingo standards detailed in the [developers
+documentation](https://developers.scalingo.com/index#errors).
