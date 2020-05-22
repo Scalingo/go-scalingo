@@ -25,10 +25,6 @@ type LogDrain struct {
 	DrainRegion string `json:"drain_region"`
 }
 
-type logDrainReq struct {
-	Drain LogDrain `json:"drain"`
-}
-
 type LogDrainRes struct {
 	Drain LogDrain `json:"drain"`
 }
