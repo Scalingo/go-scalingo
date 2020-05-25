@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Add `LogDrainRemove` function to remove log drain to an application
+
 ## v4.5.2
 
 * Add `LogDrainsAdd` function to add log drains to an application
