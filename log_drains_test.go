@@ -58,6 +58,17 @@ func TestLogDrainsClient(t *testing.T) {
 			},
 			responseStatus: 201,
 		},
+		{
+			action: "remove",
+			testedClientCall: func(c LogDrainsService) error {
+				err := c.LogDrainRemove(appName, logDrainURL)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/log_drains",
+			expectedMethod:   "DELETE",
+			response:         nil,
+			responseStatus:   204,
+		},
 	}
 
 	for _, test := range tests {
