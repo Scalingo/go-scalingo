@@ -66,11 +66,8 @@ func TestLogDrainsClient(t *testing.T) {
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
 			expectedMethod:   "DELETE",
-			response: LogDrain{
-				AppID: logDrainID,
-				URL:   logDrainURL,
-			},
-			responseStatus: 200,
+			response:         nil,
+			responseStatus:   204,
 		},
 	}
 
