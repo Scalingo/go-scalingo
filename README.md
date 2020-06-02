@@ -39,6 +39,7 @@ Commit, tag and create a new release:
 git add CHANGELOG.md README.md version.go
 git commit -m "Bump v4.5.3"
 git tag v4.5.3
+git push origin master
 git push --tags
 hub release create v4.5.3
 ```
