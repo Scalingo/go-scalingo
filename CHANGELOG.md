@@ -5,6 +5,7 @@
 ## v4.5.3
 
 * Add `LogDrainRemove` function to remove log drain from an application
+* Fix infinite recursion on some events
 
 ## v4.5.2
 
