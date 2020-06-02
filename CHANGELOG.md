@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+## v4.5.4
+
 * Fix infinite recursion on some events
 
 ## v4.5.3
