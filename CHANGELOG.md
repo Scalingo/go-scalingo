@@ -2,6 +2,8 @@
 
 ## ToBeReleased
 
+* Update GET /log_drains route to return object instead of array
+
 ## v4.5.4
 
 * Fix infinite recursion on some events
