@@ -33,12 +33,13 @@ func TestLogDrainsClient(t *testing.T) {
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
 			expectedMethod:   "GET",
-			response: []LogDrain{
-				{
-					AppID: logDrainID,
-					URL:   logDrainURL,
-				},
-			},
+			response: LogDrainsRes{
+				[]LogDrain{
+					{
+						AppID: logDrainID,
+						URL:   logDrainURL,
+					},
+				}},
 		},
 		{
 			action: "add",
