@@ -2,7 +2,49 @@
 
 # Go client for Scalingo API v4.5.4
 
-## Add Support for a New Event
+This repository is the Go client for the [Scalingo APIs](https://developers.scalingo.com/)
+
+## Getting started
+
+```
+package main
+
+import (
+	"github.com/Scalingo/go-scalingo"
+)
+
+func getClient() (*scalingo.Client, error) {
+	config := scalingo.ClientConfig{
+		APIEndpoint: "https://api.osc-fr1.scalingo.com", // Possible endpoints can be found at https://developers.scalingo.com/
+		APIToken: "tk-us-XYZXYZYZ", // You can create a token in the dashboard at Profile > Token > Create new token
+	}
+	return scalingo.New(config)
+}
+
+func main() {
+	client, err := getClient()
+	PanicOnError(err)
+	apps, err := client.AppsList()
+	PanicOnError(err)
+	for _, app := range apps {
+		println("App: " + app.Name)
+	}
+}
+
+func PanicOnError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+```
+## Explore
+
+As this go client maps all the public scalingo APIs, you can explore the [API documentation](https://developers.scalingo.com/)
+If you need an implementation example, you can take a look at the [Scalingo CLI code](https://github.com/Scalingo/cli)  
+
+## Repository processes
+
+### Add Support for a New Event
 
 A couple of files must be updated when adding support for a new event type. For
 instance if your event type is named `my_event`:
@@ -18,14 +60,14 @@ instance if your event type is named `my_event`:
 * `events_boilerplate.go`: implement the `TypeDataPtr` function for the new
     `EventMyEventType` structure.
 
-## Client HTTP Errors
+### Client HTTP Errors
 
 HTTP errors are managed in the file
 [http/errors.go](https://github.com/Scalingo/go-scalingo/blob/master/http/errors.go).
 It follows the Scalingo standards detailed in the [developers
 documentation](https://developers.scalingo.com/index#errors).
 
-## Release a New Version
+### Release a New Version
 
 Bump new version number in:
 
