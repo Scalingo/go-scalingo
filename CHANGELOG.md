@@ -1,6 +1,8 @@
 # Changelog
 
-## ToBeReleased
+## To be Released
+
+## v4.5.5
 
 * Update GET /log_drains route to return object instead of array
 
