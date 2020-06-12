@@ -15,6 +15,7 @@ func TestLogDrainsClient(t *testing.T) {
 	appName := "my-app"
 	logDrainID := "my-id"
 	logDrainURL := "tcp+tls://localhost:8080"
+	addonID := "addon_uuid"
 
 	tests := []struct {
 		action           string
@@ -37,6 +38,22 @@ func TestLogDrainsClient(t *testing.T) {
 				[]LogDrain{
 					{
 						AppID: logDrainID,
+						URL:   logDrainURL,
+					},
+				}},
+		},
+		{
+			action: "addon list",
+			testedClientCall: func(c LogDrainsService) error {
+				_, err := c.LogDrainsAddonList(appName, addonID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/log_drains",
+			expectedMethod:   "GET",
+			response: LogDrainsRes{
+				[]LogDrain{
+					{
+						AppID: addonID,
 						URL:   logDrainURL,
 					},
 				}},
@@ -71,7 +88,18 @@ func TestLogDrainsClient(t *testing.T) {
 			responseStatus:   204,
 		},
 	}
-
+	// {
+	// 	"drains": [
+	// 		{
+	// 			"app_id": "5e9eb163c09a4900012d60ca",
+	// 			"url": "tcp+tls://logs.papertrailapp.com:10303"
+	// 		},
+	// 		{
+	// 			"app_id": "5e9eb163c09a4900012d60ca",
+	// 			"url": "ovh://:e8ea17bd-34e5-47b6-a016-675077053417@gra3.logs.ovh.com:6514"
+	// 		}
+	// 	]
+	// }
 	for _, test := range tests {
 		for msg, run := range map[string]struct {
 			invalidResponse bool
