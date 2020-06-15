@@ -15,7 +15,7 @@ import (
 
 func getClient() (*scalingo.Client, error) {
 	config := scalingo.ClientConfig{
-		APIEndpoint: "https://api.osc-fr1.scalingo.com", // Possible endpoints can be found at https://developers.scalingo.com/
+		APIEndpoint: "https://api.osc-fr1.scalingo.com", // Possible endpoints can be found at https://developers.scalingo.com/#endpoints
 		APIToken: "tk-us-XYZXYZYZ", // You can create a token in the dashboard at Profile > Token > Create new token
 	}
 	return scalingo.New(config)
