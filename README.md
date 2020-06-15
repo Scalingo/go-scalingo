@@ -23,17 +23,15 @@ func getClient() (*scalingo.Client, error) {
 
 func main() {
 	client, err := getClient()
-	PanicOnError(err)
-	apps, err := client.AppsList()
-	PanicOnError(err)
-	for _, app := range apps {
-		println("App: " + app.Name)
-	}
-}
-
-func PanicOnError(err error) {
 	if err != nil {
 		panic(err)
+	}
+	apps, err := client.AppsList()
+	if err != nil {
+		panic(err)
+	}
+	for _, app := range apps {
+		println("App: " + app.Name)
 	}
 }
 ```
