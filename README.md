@@ -4,7 +4,7 @@
 
 This repository is the Go client for the [Scalingo APIs](https://developers.scalingo.com/)
 
-## Getting started
+## Getting Started
 
 ```
 package main
