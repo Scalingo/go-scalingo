@@ -6,7 +6,7 @@ This repository is the Go client for the [Scalingo APIs](https://developers.scal
 
 ## Getting Started
 
-```
+```go
 package main
 
 import (
