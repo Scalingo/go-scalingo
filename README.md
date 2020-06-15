@@ -42,7 +42,7 @@ func PanicOnError(err error) {
 As this Go client maps all the public Scalingo APIs, you can explore the [API documentation](https://developers.scalingo.com/).
 If you need an implementation example, you can take a look at the [Scalingo CLI code](https://github.com/Scalingo/cli).
 
-## Repository processes
+## Repository Processes
 
 ### Add Support for a New Event
 
