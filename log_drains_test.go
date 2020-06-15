@@ -88,18 +88,7 @@ func TestLogDrainsClient(t *testing.T) {
 			responseStatus:   204,
 		},
 	}
-	// {
-	// 	"drains": [
-	// 		{
-	// 			"app_id": "5e9eb163c09a4900012d60ca",
-	// 			"url": "tcp+tls://logs.papertrailapp.com:10303"
-	// 		},
-	// 		{
-	// 			"app_id": "5e9eb163c09a4900012d60ca",
-	// 			"url": "ovh://:e8ea17bd-34e5-47b6-a016-675077053417@gra3.logs.ovh.com:6514"
-	// 		}
-	// 	]
-	// }
+
 	for _, test := range tests {
 		for msg, run := range map[string]struct {
 			invalidResponse bool
