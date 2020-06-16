@@ -30,7 +30,13 @@ type LogDrainRes struct {
 	Drain LogDrain `json:"drain"`
 }
 
+type AddonRes struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
 type LogDrainsRes struct {
+	Addon  AddonRes   `json:"addon"`
 	Drains []LogDrain `json:"drains"`
 }
 
@@ -45,13 +51,18 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 
 func (c *Client) LogDrainsAddonList(app string, addonID string) ([]LogDrain, error) {
 	var logDrainsRes LogDrainsRes
-	params := make(map[string]string)
 
-	params["addon_id"] = addonID
-	err := c.ScalingoAPI().SubresourceList("apps", app, "log_drains", params, &logDrainsRes)
+	req := &httpclient.APIRequest{
+		Method:   "GET",
+		Endpoint: "apps/" + app + "/addon/" + addonID + "/log_drains",
+	}
+
+	data := logDrainsRes
+	err := c.ScalingoAPI().DoRequest(req, &data)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to list the log drains")
 	}
+
 	return logDrainsRes.Drains, nil
 }
 
