@@ -48,9 +48,14 @@ func TestLogDrainsClient(t *testing.T) {
 				_, err := c.LogDrainsAddonList(appName, addonID)
 				return err
 			},
-			expectedEndpoint: "/v1/apps/my-app/log_drains",
+			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
 			expectedMethod:   "GET",
-			response: LogDrainsRes{
+			response: LogDrainsAddonRes{
+				LogDrainsAddon{
+					UUID: addonID,
+					Name: "addon name",
+					Plan: "addon plan",
+				},
 				[]LogDrain{
 					{
 						AppID: addonID,
