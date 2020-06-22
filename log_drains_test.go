@@ -50,12 +50,7 @@ func TestLogDrainsClient(t *testing.T) {
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
 			expectedMethod:   "GET",
-			response: LogDrainsAddonRes{
-				LogDrainsAddon{
-					UUID: addonID,
-					Name: "addon name",
-					Plan: "addon plan",
-				},
+			response: LogDrainsRes{
 				[]LogDrain{
 					{
 						AppID: addonID,
