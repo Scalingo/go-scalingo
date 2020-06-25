@@ -2,6 +2,8 @@
 
 ## To be Released
 
+* Add `LogDrainsAddonList` function to list log drains of an addon
+
 ## v4.5.5
 
 * Update GET /log_drains route to return object instead of array

@@ -15,6 +15,7 @@ func TestLogDrainsClient(t *testing.T) {
 	appName := "my-app"
 	logDrainID := "my-id"
 	logDrainURL := "tcp+tls://localhost:8080"
+	addonID := "addon_uuid"
 
 	tests := []struct {
 		action           string
@@ -37,6 +38,22 @@ func TestLogDrainsClient(t *testing.T) {
 				[]LogDrain{
 					{
 						AppID: logDrainID,
+						URL:   logDrainURL,
+					},
+				}},
+		},
+		{
+			action: "addon list",
+			testedClientCall: func(c LogDrainsService) error {
+				_, err := c.LogDrainsAddonList(appName, addonID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
+			expectedMethod:   "GET",
+			response: LogDrainsRes{
+				[]LogDrain{
+					{
+						AppID: addonID,
 						URL:   logDrainURL,
 					},
 				}},
