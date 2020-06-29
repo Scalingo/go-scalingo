@@ -2,6 +2,8 @@
 
 ## To be Released
 
+* Add `LogDrainAddonAdd` function to add a log drain to an addon
+
 ## v4.5.6
 
 * Add `LogDrainsAddonList` function to list log drains of an addon

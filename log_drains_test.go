@@ -77,6 +77,24 @@ func TestLogDrainsClient(t *testing.T) {
 			responseStatus: 201,
 		},
 		{
+			action: "addon add",
+			testedClientCall: func(c LogDrainsService) error {
+				_, err := c.LogDrainAddonAdd(appName, addonID, LogDrainAddParams{
+					Type: "syslog",
+					Host: "localhost",
+					Port: "8080",
+				})
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
+			expectedMethod:   "POST",
+			response: LogDrain{
+				AppID: logDrainID,
+				URL:   logDrainURL,
+			},
+			responseStatus: 201,
+		},
+		{
 			action: "remove",
 			testedClientCall: func(c LogDrainsService) error {
 				err := c.LogDrainRemove(appName, logDrainURL)
