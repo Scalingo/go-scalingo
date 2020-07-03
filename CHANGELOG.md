@@ -2,6 +2,8 @@
 
 ## To be Released
 
+* Add `LogDrainAddonRemove` function to remove a log drain from an addon
+
 ## v4.5.7
 
 * Add `LogDrainAddonAdd` function to add a log drain to an addon

@@ -105,6 +105,17 @@ func TestLogDrainsClient(t *testing.T) {
 			response:         nil,
 			responseStatus:   204,
 		},
+		{
+			action: "addon remove",
+			testedClientCall: func(c LogDrainsService) error {
+				err := c.LogDrainAddonRemove(appName, addonID, logDrainURL)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
+			expectedMethod:   "DELETE",
+			response:         nil,
+			responseStatus:   204,
+		},
 	}
 
 	for _, test := range tests {
