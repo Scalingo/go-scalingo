@@ -2,6 +2,10 @@
 
 ## To be Released
 
+## 4.6.0
+
+* Add `queued` deployment status and add it to `IsFinishedString`
+
 ## v4.5.8
 
 * Add `LogDrainAddonRemove` function to remove a log drain from an addon
