@@ -1,6 +1,9 @@
 # Changelog
 
-## To be Released
+## To Be Released
+
+* Add support for route `PATCH /users/stop_free_trial`
+* Deprecate the use of `UpdateUser` to stop a user free trial
 
 ## 4.6.0
 
