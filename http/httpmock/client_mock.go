@@ -92,18 +92,18 @@ func (mr *MockClientMockRecorder) HTTPClient() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HTTPClient", reflect.TypeOf((*MockClient)(nil).HTTPClient))
 }
 
-// IsAuthenticated mocks base method.
-func (m *MockClient) IsAuthenticated() bool {
+// IsAuthenticatedClient mocks base method.
+func (m *MockClient) IsAuthenticatedClient() bool {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsAuthenticated")
+	ret := m.ctrl.Call(m, "IsAuthenticatedClient")
 	ret0, _ := ret[0].(bool)
 	return ret0
 }
 
-// IsAuthenticated indicates an expected call of IsAuthenticated.
-func (mr *MockClientMockRecorder) IsAuthenticated() *gomock.Call {
+// IsAuthenticatedClient indicates an expected call of IsAuthenticatedClient.
+func (mr *MockClientMockRecorder) IsAuthenticatedClient() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsAuthenticated", reflect.TypeOf((*MockClient)(nil).IsAuthenticated))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsAuthenticatedClient", reflect.TypeOf((*MockClient)(nil).IsAuthenticatedClient))
 }
 
 // ResourceAdd mocks base method.
