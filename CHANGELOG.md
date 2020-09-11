@@ -2,6 +2,9 @@
 
 ## To Be Released
 
+* Add EventNewLogDrainType and EventDeleteLogDrainType event
+* Add EventNewAddonLogDrainType and EventDeleteAddonLogDrainType event
+
 ## 4.7.1
 
 * Add support for optionally authenticated routes
