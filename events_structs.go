@@ -913,6 +913,7 @@ func (ev *EventDeleteLogDrainType) String() string {
 // New addon log drain
 type EventNewAddonLogDrainTypeData struct {
 	URL       string `json:"url"`
+	AddonUUID string `json:"addon_uuid"`
 	AddonName string `json:"addon_name"`
 }
 
@@ -928,6 +929,7 @@ func (ev *EventNewAddonLogDrainType) String() string {
 // Delete addon log drain
 type EventDeleteAddonLogDrainTypeData struct {
 	URL       string `json:"url"`
+	AddonUUID string `json:"addon_uuid"`
 	AddonName string `json:"addon_name"`
 }
 
