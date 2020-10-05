@@ -2,6 +2,9 @@
 
 ## To Be Released
 
+* Make the API prefix version configurable for all APIs
+* Deserialize app.Region returned by API
+
 ## 4.7.2
 
 * Add EventNewLogDrainType and EventDeleteLogDrainType event
