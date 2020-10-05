@@ -4,6 +4,7 @@
 
 * Make the API prefix version configurable for all APIs
 * Deserialize app.Region returned by API
+* Migrate to go mod
 
 ## 4.7.2
 
