@@ -16,11 +16,6 @@ import (
 	"gopkg.in/errgo.v1"
 )
 
-var (
-	defaultEndpoint   = "https://api.scalingo.com"
-	defaultAPIVersion = "1"
-)
-
 type APIRequest struct {
 	NoAuth      bool
 	URL         string
