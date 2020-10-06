@@ -2,8 +2,11 @@
 
 ## To Be Released
 
+## 4.8.0
+
 * Make the API prefix version configurable for all APIs
 * Deserialize app.Region returned by API
+* Fix panic GithubLinkShow when an app does not have one
 * Migrate to go mod
 
 ## 4.7.2
