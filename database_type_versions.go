@@ -46,7 +46,7 @@ func (c Client) DatabaseTypeVersion(appID, addonID, versionID string) (DatabaseT
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
-		return res.DatabaseTypeVersion, errgo.Notef(err, "fail to get database version %v", versionID)
+		return res.DatabaseTypeVersion, errgo.Notef(err, "fail to get database type version %v", versionID)
 	}
 	return res.DatabaseTypeVersion, nil
 }
