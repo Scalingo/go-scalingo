@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* Add support for database_type_versions#show endpoint
+
 ## 4.8.0
 
 * Make the API prefix version configurable for all APIs
