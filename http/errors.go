@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Scalingo/go-scalingo/debug"
 	"gopkg.in/errgo.v1"
+
+	"github.com/Scalingo/go-scalingo/debug"
 )
 
 type (
@@ -75,7 +76,7 @@ func (err NotFoundError) Error() string {
 	if err.Resource == "app" {
 		return fmt.Sprintf("The application was not found, did you make a typo?")
 	} else if err.Resource == "container_type" {
-		return fmt.Sprintf("This type of container was not found, please ensure it is present in your Procfile\n→ http://doc.scalingo.com/internals/procfile")
+		return fmt.Sprintf("This type of container was not found, please ensure it is present in your Procfile\n→ https://doc.scalingo.com/platform/app/procfile")
 	} else if err.Resource != "" {
 		return fmt.Sprintf("The %s was not found", err.Resource)
 	} else {
