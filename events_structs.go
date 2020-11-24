@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/debug"
+	"github.com/Scalingo/go-scalingo/v4/debug"
 )
 
 type Event struct {

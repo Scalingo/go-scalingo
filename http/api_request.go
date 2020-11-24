@@ -11,8 +11,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/debug"
-	pkgio "github.com/Scalingo/go-scalingo/io"
+	"github.com/Scalingo/go-scalingo/v4/debug"
+	pkgio "github.com/Scalingo/go-scalingo/v4/io"
 	"gopkg.in/errgo.v1"
 )
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/debug"
+	"github.com/Scalingo/go-scalingo/v4/debug"
 	errgo "gopkg.in/errgo.v1"
 )
 

@@ -3,6 +3,7 @@
 ## To Be Released
 
 * Add support for database_type_versions#show endpoint
+* Go module v4
 
 ## 4.8.0
 

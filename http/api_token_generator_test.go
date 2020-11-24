@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/http/tokensservicemock"
+	"github.com/Scalingo/go-scalingo/v4/http/tokensservicemock"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"

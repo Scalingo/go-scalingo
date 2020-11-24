@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/http"
+	"github.com/Scalingo/go-scalingo/v4/http"
 	"gopkg.in/errgo.v1"
 )
 

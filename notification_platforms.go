@@ -3,9 +3,9 @@ package scalingo
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/go-scalingo/http"
+	"github.com/Scalingo/go-scalingo/v4/http"
 
-	"github.com/Scalingo/go-scalingo/debug"
+	"github.com/Scalingo/go-scalingo/v4/debug"
 
 	errgo "gopkg.in/errgo.v1"
 )

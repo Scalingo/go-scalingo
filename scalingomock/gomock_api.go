@@ -8,8 +8,8 @@ import (
 	http0 "net/http"
 	reflect "reflect"
 
-	go_scalingo "github.com/Scalingo/go-scalingo"
-	http "github.com/Scalingo/go-scalingo/http"
+	go_scalingo "github.com/Scalingo/go-scalingo/v4"
+	http "github.com/Scalingo/go-scalingo/v4/http"
 	gomock "github.com/golang/mock/gomock"
 	websocket "golang.org/x/net/websocket"
 )
