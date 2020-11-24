@@ -8,7 +8,7 @@ import (
 	http0 "net/http"
 	reflect "reflect"
 
-	http "github.com/Scalingo/go-scalingo/http"
+	http "github.com/Scalingo/go-scalingo/v4/http"
 	gomock "github.com/golang/mock/gomock"
 )
 

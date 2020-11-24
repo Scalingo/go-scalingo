@@ -5,7 +5,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/http"
+	"github.com/Scalingo/go-scalingo/v4/http"
 )
 
 type UsersService interface {

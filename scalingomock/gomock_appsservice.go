@@ -5,7 +5,7 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo"
+	go_scalingo "github.com/Scalingo/go-scalingo/v4"
 	gomock "github.com/golang/mock/gomock"
 	http "net/http"
 	reflect "reflect"

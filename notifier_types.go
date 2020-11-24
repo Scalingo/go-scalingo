@@ -3,7 +3,7 @@ package scalingo
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/go-scalingo/debug"
+	"github.com/Scalingo/go-scalingo/v4/debug"
 )
 
 // Used to omit attributes
