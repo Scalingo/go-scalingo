@@ -5,9 +5,10 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo/v4"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	scalingo "github.com/Scalingo/go-scalingo"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockTokensService is a mock of TokensService interface
@@ -34,20 +35,23 @@ func (m *MockTokensService) EXPECT() *MockTokensServiceMockRecorder {
 }
 
 // TokenCreate mocks base method
-func (m *MockTokensService) TokenCreate(arg0 go_scalingo.TokenCreateParams) (go_scalingo.Token, error) {
+func (m *MockTokensService) TokenCreate(arg0 scalingo.TokenCreateParams) (scalingo.Token, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenCreate", arg0)
-	ret0, _ := ret[0].(go_scalingo.Token)
+	ret0, _ := ret[0].(scalingo.Token)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // TokenCreate indicates an expected call of TokenCreate
 func (mr *MockTokensServiceMockRecorder) TokenCreate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenCreate", reflect.TypeOf((*MockTokensService)(nil).TokenCreate), arg0)
 }
 
 // TokenExchange mocks base method
 func (m *MockTokensService) TokenExchange(arg0 string) (string, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenExchange", arg0)
 	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
@@ -56,31 +60,36 @@ func (m *MockTokensService) TokenExchange(arg0 string) (string, error) {
 
 // TokenExchange indicates an expected call of TokenExchange
 func (mr *MockTokensServiceMockRecorder) TokenExchange(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenExchange", reflect.TypeOf((*MockTokensService)(nil).TokenExchange), arg0)
 }
 
 // TokenShow mocks base method
-func (m *MockTokensService) TokenShow(arg0 int) (go_scalingo.Token, error) {
+func (m *MockTokensService) TokenShow(arg0 int) (scalingo.Token, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenShow", arg0)
-	ret0, _ := ret[0].(go_scalingo.Token)
+	ret0, _ := ret[0].(scalingo.Token)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // TokenShow indicates an expected call of TokenShow
 func (mr *MockTokensServiceMockRecorder) TokenShow(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokenShow", reflect.TypeOf((*MockTokensService)(nil).TokenShow), arg0)
 }
 
 // TokensList mocks base method
-func (m *MockTokensService) TokensList() (go_scalingo.Tokens, error) {
+func (m *MockTokensService) TokensList() (scalingo.Tokens, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokensList")
-	ret0, _ := ret[0].(go_scalingo.Tokens)
+	ret0, _ := ret[0].(scalingo.Tokens)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // TokensList indicates an expected call of TokensList
 func (mr *MockTokensServiceMockRecorder) TokensList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TokensList", reflect.TypeOf((*MockTokensService)(nil).TokensList))
 }

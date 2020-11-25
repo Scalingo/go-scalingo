@@ -5,9 +5,10 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo/v4"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	scalingo "github.com/Scalingo/go-scalingo"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockNotifiersService is a mock of NotifiersService interface
@@ -34,20 +35,23 @@ func (m *MockNotifiersService) EXPECT() *MockNotifiersServiceMockRecorder {
 }
 
 // NotifierByID mocks base method
-func (m *MockNotifiersService) NotifierByID(arg0, arg1 string) (*go_scalingo.Notifier, error) {
+func (m *MockNotifiersService) NotifierByID(arg0, arg1 string) (*scalingo.Notifier, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierByID", arg0, arg1)
-	ret0, _ := ret[0].(*go_scalingo.Notifier)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // NotifierByID indicates an expected call of NotifierByID
 func (mr *MockNotifiersServiceMockRecorder) NotifierByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierByID", reflect.TypeOf((*MockNotifiersService)(nil).NotifierByID), arg0, arg1)
 }
 
 // NotifierDestroy mocks base method
 func (m *MockNotifiersService) NotifierDestroy(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierDestroy", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -55,44 +59,51 @@ func (m *MockNotifiersService) NotifierDestroy(arg0, arg1 string) error {
 
 // NotifierDestroy indicates an expected call of NotifierDestroy
 func (mr *MockNotifiersServiceMockRecorder) NotifierDestroy(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierDestroy", reflect.TypeOf((*MockNotifiersService)(nil).NotifierDestroy), arg0, arg1)
 }
 
 // NotifierProvision mocks base method
-func (m *MockNotifiersService) NotifierProvision(arg0, arg1 string, arg2 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	ret := m.ctrl.Call(m, "NotifierProvision", arg0, arg1, arg2)
-	ret0, _ := ret[0].(*go_scalingo.Notifier)
+func (m *MockNotifiersService) NotifierProvision(arg0 string, arg1 scalingo.NotifierParams) (*scalingo.Notifier, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NotifierProvision", arg0, arg1)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // NotifierProvision indicates an expected call of NotifierProvision
-func (mr *MockNotifiersServiceMockRecorder) NotifierProvision(arg0, arg1, arg2 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierProvision", reflect.TypeOf((*MockNotifiersService)(nil).NotifierProvision), arg0, arg1, arg2)
+func (mr *MockNotifiersServiceMockRecorder) NotifierProvision(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierProvision", reflect.TypeOf((*MockNotifiersService)(nil).NotifierProvision), arg0, arg1)
 }
 
 // NotifierUpdate mocks base method
-func (m *MockNotifiersService) NotifierUpdate(arg0, arg1, arg2 string, arg3 go_scalingo.NotifierParams) (*go_scalingo.Notifier, error) {
-	ret := m.ctrl.Call(m, "NotifierUpdate", arg0, arg1, arg2, arg3)
-	ret0, _ := ret[0].(*go_scalingo.Notifier)
+func (m *MockNotifiersService) NotifierUpdate(arg0, arg1 string, arg2 scalingo.NotifierParams) (*scalingo.Notifier, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "NotifierUpdate", arg0, arg1, arg2)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // NotifierUpdate indicates an expected call of NotifierUpdate
-func (mr *MockNotifiersServiceMockRecorder) NotifierUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierUpdate", reflect.TypeOf((*MockNotifiersService)(nil).NotifierUpdate), arg0, arg1, arg2, arg3)
+func (mr *MockNotifiersServiceMockRecorder) NotifierUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifierUpdate", reflect.TypeOf((*MockNotifiersService)(nil).NotifierUpdate), arg0, arg1, arg2)
 }
 
 // NotifiersList mocks base method
-func (m *MockNotifiersService) NotifiersList(arg0 string) (go_scalingo.Notifiers, error) {
+func (m *MockNotifiersService) NotifiersList(arg0 string) (scalingo.Notifiers, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifiersList", arg0)
-	ret0, _ := ret[0].(go_scalingo.Notifiers)
+	ret0, _ := ret[0].(scalingo.Notifiers)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // NotifiersList indicates an expected call of NotifiersList
 func (mr *MockNotifiersServiceMockRecorder) NotifiersList(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotifiersList", reflect.TypeOf((*MockNotifiersService)(nil).NotifiersList), arg0)
 }

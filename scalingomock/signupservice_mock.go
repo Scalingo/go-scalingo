@@ -5,8 +5,9 @@
 package scalingomock
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockSignUpService is a mock of SignUpService interface
@@ -34,6 +35,7 @@ func (m *MockSignUpService) EXPECT() *MockSignUpServiceMockRecorder {
 
 // SignUp mocks base method
 func (m *MockSignUpService) SignUp(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SignUp", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -41,5 +43,6 @@ func (m *MockSignUpService) SignUp(arg0, arg1 string) error {
 
 // SignUp indicates an expected call of SignUp
 func (mr *MockSignUpServiceMockRecorder) SignUp(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockSignUpService)(nil).SignUp), arg0, arg1)
 }

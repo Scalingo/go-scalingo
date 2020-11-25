@@ -5,9 +5,10 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo/v4"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	scalingo "github.com/Scalingo/go-scalingo"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockOperationsService is a mock of OperationsService interface
@@ -34,14 +35,16 @@ func (m *MockOperationsService) EXPECT() *MockOperationsServiceMockRecorder {
 }
 
 // OperationsShow mocks base method
-func (m *MockOperationsService) OperationsShow(arg0, arg1 string) (*go_scalingo.Operation, error) {
+func (m *MockOperationsService) OperationsShow(arg0, arg1 string) (*scalingo.Operation, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "OperationsShow", arg0, arg1)
-	ret0, _ := ret[0].(*go_scalingo.Operation)
+	ret0, _ := ret[0].(*scalingo.Operation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // OperationsShow indicates an expected call of OperationsShow
 func (mr *MockOperationsServiceMockRecorder) OperationsShow(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OperationsShow", reflect.TypeOf((*MockOperationsService)(nil).OperationsShow), arg0, arg1)
 }

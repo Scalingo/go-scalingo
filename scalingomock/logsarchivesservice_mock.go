@@ -5,9 +5,10 @@
 package scalingomock
 
 import (
-	go_scalingo "github.com/Scalingo/go-scalingo/v4"
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	scalingo "github.com/Scalingo/go-scalingo"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockLogsArchivesService is a mock of LogsArchivesService interface
@@ -34,27 +35,31 @@ func (m *MockLogsArchivesService) EXPECT() *MockLogsArchivesServiceMockRecorder 
 }
 
 // LogsArchives mocks base method
-func (m *MockLogsArchivesService) LogsArchives(arg0 string, arg1 int) (*go_scalingo.LogsArchivesResponse, error) {
+func (m *MockLogsArchivesService) LogsArchives(arg0 string, arg1 int) (*scalingo.LogsArchivesResponse, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchives", arg0, arg1)
-	ret0, _ := ret[0].(*go_scalingo.LogsArchivesResponse)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // LogsArchives indicates an expected call of LogsArchives
 func (mr *MockLogsArchivesServiceMockRecorder) LogsArchives(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsArchives", reflect.TypeOf((*MockLogsArchivesService)(nil).LogsArchives), arg0, arg1)
 }
 
 // LogsArchivesByCursor mocks base method
-func (m *MockLogsArchivesService) LogsArchivesByCursor(arg0, arg1 string) (*go_scalingo.LogsArchivesResponse, error) {
+func (m *MockLogsArchivesService) LogsArchivesByCursor(arg0, arg1 string) (*scalingo.LogsArchivesResponse, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchivesByCursor", arg0, arg1)
-	ret0, _ := ret[0].(*go_scalingo.LogsArchivesResponse)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // LogsArchivesByCursor indicates an expected call of LogsArchivesByCursor
 func (mr *MockLogsArchivesServiceMockRecorder) LogsArchivesByCursor(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsArchivesByCursor", reflect.TypeOf((*MockLogsArchivesService)(nil).LogsArchivesByCursor), arg0, arg1)
 }
