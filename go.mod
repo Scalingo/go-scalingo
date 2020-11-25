@@ -3,7 +3,6 @@ module github.com/Scalingo/go-scalingo/v4
 go 1.13
 
 require (
-	github.com/Scalingo/go-scalingo v3.2.0+incompatible
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/golang/mock v1.4.0
