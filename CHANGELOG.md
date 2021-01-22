@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* Add `Flags` field to `App`
+
 ## 4.8.2
 
 * Update mocks
