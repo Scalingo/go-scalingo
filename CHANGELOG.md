@@ -2,6 +2,9 @@
 
 ## To Be Released
 
+* Add missing fields `Plan.SKU` (corresponding catalogue name)
+  [#198](https://github.com/Scalingo/go-scalingo/pull/198) thanks @mackwic
+
 ## 4.9.0
 
 * Add `Flags` field to `App`
