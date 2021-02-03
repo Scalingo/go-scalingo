@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 4.10.0
+
 * Remove headers from `Request` of `http.parseJSON` returned error
   [#199](https://github.com/Scalingo/go-scalingo/pull/199)
 * Add missing fields `Plan.SKU` (corresponding catalogue name)
