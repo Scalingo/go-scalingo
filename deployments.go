@@ -50,6 +50,22 @@ type Deployment struct {
 	Links          *DeploymentLinks `json:"links"`
 }
 
+// DeploymentEventStatus hold all different kind of event handled by deployment stream
+type DeploymentEventStatus string
+
+const (
+	EventKeepalive DeploymentEventStatus = "ping"
+	EventNew       DeploymentEventStatus = "new"
+	EventLog       DeploymentEventStatus = "log"
+	EventStatus    DeploymentEventStatus = "status"
+)
+
+type DeployEvent struct {
+	ID   string                `json:"id"`
+	Type DeploymentEventStatus `json:"type"`
+	Data json.RawMessage       `json:"data"`
+}
+
 type DeploymentsCreateParams struct {
 	GitRef    *string `json:"git_ref"`
 	SourceURL string  `json:"source_url"`
