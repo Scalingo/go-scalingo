@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 4.11.0
+
 * Add `DeployEvent` structure which represents a deployment stream event sent on the websocket [#200](https://github.com/Scalingo/go-scalingo/pull/200)
 
 ## 4.10.0
