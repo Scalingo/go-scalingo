@@ -50,20 +50,32 @@ type Deployment struct {
 	Links          *DeploymentLinks `json:"links"`
 }
 
-// DeploymentEventStatus hold all different kind of event handled by deployment stream
+// DeploymentEventStatus holds all different deployment stream types of event.
 type DeploymentEventStatus string
 
 const (
-	EventKeepalive DeploymentEventStatus = "ping"
-	EventNew       DeploymentEventStatus = "new"
-	EventLog       DeploymentEventStatus = "log"
-	EventStatus    DeploymentEventStatus = "status"
+	EventPing   DeploymentEventStatus = "ping"
+	EventNew    DeploymentEventStatus = "new"
+	EventLog    DeploymentEventStatus = "log"
+	EventStatus DeploymentEventStatus = "status"
 )
 
+// DeployEvent represents a deployment stream event sent on the websocket.
 type DeployEvent struct {
+	// ID of the deployment which this event belongs to
 	ID   string                `json:"id"`
 	Type DeploymentEventStatus `json:"type"`
 	Data json.RawMessage       `json:"data"`
+}
+
+// DeployEventDataLog is the data type present in the DeployEvent.Data field if the DeployEvent.Type is EventLog
+type DeployEventDataLog struct {
+	Content string `json:"content"`
+}
+
+// DeployEventDataStatus is the data type present in the DeployEvent.Data field if the DeployEvent.Type is EventStatus
+type DeployEventDataStatus struct {
+	Status string `json:"Status"`
 }
 
 type DeploymentsCreateParams struct {
@@ -156,6 +168,7 @@ func (c *Client) DeploymentLogs(deployURL string) (*http.Response, error) {
 	return c.ScalingoAPI().Do(req)
 }
 
+// DeploymentStream returns a websocket connection to follow the various deployment events happening on an application. The type of the data sent on this connection is DeployEvent.
 func (c *Client) DeploymentStream(deployURL string) (*websocket.Conn, error) {
 	token, err := c.ScalingoAPI().TokenGenerator().GetAccessToken()
 	if err != nil {
