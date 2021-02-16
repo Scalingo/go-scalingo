@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* Rename `DeployEvent*` structures to `DeploymentEvent*` [201](https://github.com/Scalingo/go-scalingo/pull/201)
+* Rename `DeployEvent*` structures to `DeploymentEvent*` [#201](https://github.com/Scalingo/go-scalingo/pull/201)
 
 ## 4.11.0
 
