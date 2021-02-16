@@ -50,32 +50,32 @@ type Deployment struct {
 	Links          *DeploymentLinks `json:"links"`
 }
 
-// DeploymentEventStatus holds all different deployment stream types of event.
-type DeploymentEventStatus string
+// DeploymentEventType holds all different deployment stream types of event.
+type DeploymentEventType string
 
 const (
-	EventPing   DeploymentEventStatus = "ping"
-	EventNew    DeploymentEventStatus = "new"
-	EventLog    DeploymentEventStatus = "log"
-	EventStatus DeploymentEventStatus = "status"
+	DeploymentEventTypePing   DeploymentEventType = "ping"
+	DeploymentEventTypeNew    DeploymentEventType = "new"
+	DeploymentEventTypeLog    DeploymentEventType = "log"
+	DeploymentEventTypeStatus DeploymentEventType = "status"
 )
 
-// DeployEvent represents a deployment stream event sent on the websocket.
-type DeployEvent struct {
+// DeploymentEvent represents a deployment stream event sent on the websocket.
+type DeploymentEvent struct {
 	// ID of the deployment which this event belongs to
-	ID   string                `json:"id"`
-	Type DeploymentEventStatus `json:"type"`
-	Data json.RawMessage       `json:"data"`
+	ID   string              `json:"id"`
+	Type DeploymentEventType `json:"type"`
+	Data json.RawMessage     `json:"data"`
 }
 
-// DeployEventDataLog is the data type present in the DeployEvent.Data field if the DeployEvent.Type is EventLog
-type DeployEventDataLog struct {
+// DeploymentEventDataLog is the data type present in the DeploymentEvent.Data field if the DeploymentEvent.Type is DeploymentEventDataLog
+type DeploymentEventDataLog struct {
 	Content string `json:"content"`
 }
 
-// DeployEventDataStatus is the data type present in the DeployEvent.Data field if the DeployEvent.Type is EventStatus
-type DeployEventDataStatus struct {
-	Status string `json:"Status"`
+// DeploymentEventDataStatus is the data type present in the DeploymentEvent.Data field if the DeploymentEvent.Type is DeploymentEventDataStatus
+type DeploymentEventDataStatus struct {
+	Status DeploymentStatus `json:"status"`
 }
 
 type DeploymentsCreateParams struct {
