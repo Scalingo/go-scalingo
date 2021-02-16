@@ -75,7 +75,7 @@ type DeploymentEventDataLog struct {
 
 // DeploymentEventDataStatus is the data type present in the DeploymentEvent.Data field if the DeploymentEvent.Type is DeploymentEventDataStatus
 type DeploymentEventDataStatus struct {
-	Status string `json:"Status"`
+	Status string `json:"status"`
 }
 
 type DeploymentsCreateParams struct {
