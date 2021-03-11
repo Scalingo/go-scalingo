@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* Add `Limits` field to `App`
+
 ## 4.11.1
 
 * Rename `DeployEvent*` structures to `DeploymentEvent*` [#201](https://github.com/Scalingo/go-scalingo/pull/201)
