@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 4.12.0
+
 * Add `Limits` field to `App`
 
 ## 4.11.1
