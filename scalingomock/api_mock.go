@@ -304,6 +304,21 @@ func (mr *MockAPIMockRecorder) AppsList() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsList", reflect.TypeOf((*MockAPI)(nil).AppsList))
 }
 
+// AppsPs mocks base method.
+func (m *MockAPI) AppsPs(arg0 string) ([]scalingo.Container, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AppsPs", arg0)
+	ret0, _ := ret[0].([]scalingo.Container)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsPs indicates an expected call of AppsPs.
+func (mr *MockAPIMockRecorder) AppsPs(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsPs", reflect.TypeOf((*MockAPI)(nil).AppsPs), arg0)
+}
+
 // AppsRename mocks base method.
 func (m *MockAPI) AppsRename(arg0, arg1 string) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
