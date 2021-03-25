@@ -601,6 +601,20 @@ func (mr *MockAPIMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockAPI)(nil).CollaboratorsList), arg0)
 }
 
+// ContainersStop mocks base method.
+func (m *MockAPI) ContainersStop(arg0, arg1 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ContainersStop", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ContainersStop indicates an expected call of ContainersStop.
+func (mr *MockAPIMockRecorder) ContainersStop(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ContainersStop", reflect.TypeOf((*MockAPI)(nil).ContainersStop), arg0, arg1)
+}
+
 // CreateRegionMigration mocks base method.
 func (m *MockAPI) CreateRegionMigration(arg0 string, arg1 scalingo.RegionMigrationParams) (scalingo.RegionMigration, error) {
 	m.ctrl.T.Helper()
