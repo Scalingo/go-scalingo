@@ -2,9 +2,12 @@
 
 ## To Be Released
 
+* Rename `AppsPs` to `AppsContainerTypes` [#204](https://github.com/Scalingo/go-scalingo/pull/204)
+* Add `AppsPs` to list all application's containers [#204](https://github.com/Scalingo/go-scalingo/pull/204)
+
 ## 4.12.0
 
-* Add `Limits` field to `App`
+* Add `Limits` field to `App` [#203](https://github.com/Scalingo/go-scalingo/pull/203)
 
 ## 4.11.1
 

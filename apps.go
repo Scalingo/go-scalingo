@@ -28,7 +28,8 @@ type AppsService interface {
 	AppsRestart(app string, scope *AppsRestartParams) (*http.Response, error)
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
-	AppsPs(app string) ([]ContainerType, error)
+	AppsContainerTypes(app string) ([]ContainerType, error)
+	AppsPs(app string) ([]Container, error)
 	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
 	AppsForceHTTPS(name string, enable bool) (*App, error)
 	AppsStickySession(name string, enable bool) (*App, error)
@@ -64,6 +65,10 @@ type AppsScaleParams struct {
 }
 
 type AppsPsRes struct {
+	Containers []Container `json:"containers"`
+}
+
+type AppsContainerTypesRes struct {
 	Containers []ContainerType `json:"containers"`
 }
 
@@ -257,17 +262,30 @@ func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
 	return &stats, nil
 }
 
-func (c *Client) AppsPs(app string) ([]ContainerType, error) {
+func (c *Client) AppsPs(app string) ([]Container, error) {
 	var containersRes AppsPsRes
 	req := &httpclient.APIRequest{
-		Endpoint: "/apps/" + app + "/containers",
+		Endpoint: "/apps/" + app + "/ps",
 	}
 	err := c.ScalingoAPI().DoRequest(req, &containersRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to execute the GET request to list containers")
 	}
 
 	return containersRes.Containers, nil
+}
+
+func (c *Client) AppsContainerTypes(app string) ([]ContainerType, error) {
+	var containerTypesRes AppsContainerTypesRes
+	req := &httpclient.APIRequest{
+		Endpoint: "/apps/" + app + "/containers",
+	}
+	err := c.ScalingoAPI().DoRequest(req, &containerTypesRes)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to execute the GET request to list container types")
+	}
+
+	return containerTypesRes.Containers, nil
 }
 
 func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response, error) {
