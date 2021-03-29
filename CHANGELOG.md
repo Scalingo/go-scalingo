@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat: add user agent to auth and DB API requests [#206](https://github.com/Scalingo/go-scalingo/pull/206)
 * feat(event): add suport for notifier events [#205](https://github.com/Scalingo/go-scalingo/pull/205)
 * Add `ContainersStop` to stop a running one-off container [#204](https://github.com/Scalingo/go-scalingo/pull/204)
 * Rename `AppsPs` to `AppsContainerTypes` [#204](https://github.com/Scalingo/go-scalingo/pull/204)
