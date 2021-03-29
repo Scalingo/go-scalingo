@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(domain): add SSL status [#207](https://github.com/Scalingo/go-scalingo/pull/207)
 * feat: add user agent to auth and DB API requests [#206](https://github.com/Scalingo/go-scalingo/pull/206)
 * feat(event): add suport for notifier events [#205](https://github.com/Scalingo/go-scalingo/pull/205)
 * Add `ContainersStop` to stop a running one-off container [#204](https://github.com/Scalingo/go-scalingo/pull/204)
