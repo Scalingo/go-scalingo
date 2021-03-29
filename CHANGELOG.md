@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(event): add suport for notifier events [#205](https://github.com/Scalingo/go-scalingo/pull/205)
 * Add `ContainersStop` to stop a running one-off container [#204](https://github.com/Scalingo/go-scalingo/pull/204)
 * Rename `AppsPs` to `AppsContainerTypes` [#204](https://github.com/Scalingo/go-scalingo/pull/204)
 * Add `AppsPs` to list all application's containers [#204](https://github.com/Scalingo/go-scalingo/pull/204)
