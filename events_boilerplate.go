@@ -163,6 +163,10 @@ func (e *EventEditNotifierType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
+func (e *EventDeleteNotifierType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventLinkGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
