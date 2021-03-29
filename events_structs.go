@@ -115,6 +115,7 @@ const (
 	EventDeleteLogDrain       EventTypeName = "delete_log_drain"
 	EventNewAddonLogDrain     EventTypeName = "new_addon_log_drain"
 	EventDeleteAddonLogDrain  EventTypeName = "delete_addon_log_drain"
+	EventNewNotifier          EventTypeName = "new_notifier"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -128,7 +129,7 @@ type EventNewUserType struct {
 }
 
 func (ev *EventNewUserType) String() string {
-	return fmt.Sprintf("You joined Scalingo. Hooray!")
+	return "You joined Scalingo. Hooray!"
 }
 
 type EventNewUserTypeData struct {
@@ -942,6 +943,38 @@ func (ev *EventDeleteAddonLogDrainType) String() string {
 	return fmt.Sprintf("Log drain deleted on %s addon for %s app", ev.TypeData.AddonName, ev.AppName)
 }
 
+// New notifier
+type EventNewNotifierTypeData struct {
+	NotifierName     string                 `json:"notifier_name"`
+	Active           bool                   `json:"active"`
+	SendAllEvents    bool                   `json:"send_all_events"`
+	SelectedEvents   []string               `json:"selected_events"`
+	NotifierType     string                 `json:"notifier_type"`
+	NotifierTypeData map[string]interface{} `json:"notifier_type_data"`
+	PlatformName     string                 `json:"platform_name"`
+}
+
+type EventNewNotifierType struct {
+	Event
+	TypeData EventNewNotifierTypeData `json:"type_data"`
+}
+
+var NotifierPlatformNames = map[string]string{
+	"email":       "E-mail",
+	"rocker_chat": "Rocket Chat",
+	"slack":       "Slack",
+	"webhook":     "Webhook",
+}
+
+func (ev *EventNewNotifierType) String() string {
+	d := ev.TypeData
+	platformName, ok := NotifierPlatformNames[d.PlatformName]
+	if !ok {
+		platformName = "unknown"
+	}
+	return fmt.Sprintf("Notifier '%s' created for the platform '%s' on %s app", d.NotifierName, platformName, ev.AppName)
+}
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
@@ -1048,6 +1081,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventNewAddonLogDrainType{Event: ev}
 	case EventDeleteAddonLogDrain:
 		e = &EventDeleteAddonLogDrainType{Event: ev}
+	case EventNewNotifier:
+		e = &EventNewNotifierType{Event: ev}
 	// Deprecated events. Replaced by equivalent with SCM in the name instead of
 	// Github
 	case EventLinkGithub:

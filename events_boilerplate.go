@@ -155,6 +155,10 @@ func (e *EventDeleteAddonLogDrainType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
+func (e *EventNewNotifierType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventLinkGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
