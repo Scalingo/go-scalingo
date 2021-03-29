@@ -159,6 +159,10 @@ func (e *EventNewNotifierType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
+func (e *EventEditNotifierType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventLinkGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }

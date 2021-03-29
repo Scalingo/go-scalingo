@@ -116,6 +116,7 @@ const (
 	EventNewAddonLogDrain     EventTypeName = "new_addon_log_drain"
 	EventDeleteAddonLogDrain  EventTypeName = "delete_addon_log_drain"
 	EventNewNotifier          EventTypeName = "new_notifier"
+	EventEditNotifier         EventTypeName = "edit_notifier"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -975,6 +976,27 @@ func (ev *EventNewNotifierType) String() string {
 	return fmt.Sprintf("Notifier '%s' created for the platform '%s' on %s app", d.NotifierName, platformName, ev.AppName)
 }
 
+// Edit notifier
+type EventEditNotifierTypeData struct {
+	NotifierName     string                 `json:"notifier_name"`
+	Active           bool                   `json:"active"`
+	SendAllEvents    bool                   `json:"send_all_events"`
+	SelectedEvents   []string               `json:"selected_events"`
+	NotifierType     string                 `json:"notifier_type"`
+	NotifierTypeData map[string]interface{} `json:"notifier_type_data"`
+	PlatformName     string                 `json:"platform_name"`
+}
+
+type EventEditNotifierType struct {
+	Event
+	TypeData EventEditNotifierTypeData `json:"type_data"`
+}
+
+func (ev *EventEditNotifierType) String() string {
+	d := ev.TypeData
+	return fmt.Sprintf("Notifier '%s' edited on %s app", d.NotifierName, ev.AppName)
+}
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
@@ -1083,6 +1105,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventDeleteAddonLogDrainType{Event: ev}
 	case EventNewNotifier:
 		e = &EventNewNotifierType{Event: ev}
+	case EventEditNotifier:
+		e = &EventEditNotifierType{Event: ev}
 	// Deprecated events. Replaced by equivalent with SCM in the name instead of
 	// Github
 	case EventLinkGithub:
