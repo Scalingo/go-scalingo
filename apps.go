@@ -29,7 +29,9 @@ type AppsService interface {
 	AppsCreate(opts AppsCreateOpts) (*App, error)
 	AppsStats(app string) (*AppStatsRes, error)
 	AppsContainerTypes(app string) ([]ContainerType, error)
-	AppsPs(app string) ([]Container, error)
+	// Deprecated: Use AppsContainerTypes instead
+	AppsPs(app string) ([]ContainerType, error)
+	AppsContainersPs(app string) ([]Container, error)
 	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
 	AppsForceHTTPS(name string, enable bool) (*App, error)
 	AppsStickySession(name string, enable bool) (*App, error)
@@ -262,7 +264,12 @@ func (c *Client) AppsStats(app string) (*AppStatsRes, error) {
 	return &stats, nil
 }
 
-func (c *Client) AppsPs(app string) ([]Container, error) {
+// Deprecated: Use AppsContainerTypes instead
+func (c *Client) AppsPs(app string) ([]ContainerType, error) {
+	return c.AppsContainerTypes(app)
+}
+
+func (c *Client) AppsContainersPs(app string) ([]Container, error) {
 	var containersRes AppsPsRes
 	req := &httpclient.APIRequest{
 		Endpoint: "/apps/" + app + "/ps",

@@ -245,6 +245,21 @@ func (mr *MockAPIMockRecorder) AppsContainerTypes(arg0 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsContainerTypes", reflect.TypeOf((*MockAPI)(nil).AppsContainerTypes), arg0)
 }
 
+// AppsContainersPs mocks base method.
+func (m *MockAPI) AppsContainersPs(arg0 string) ([]scalingo.Container, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AppsContainersPs", arg0)
+	ret0, _ := ret[0].([]scalingo.Container)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsContainersPs indicates an expected call of AppsContainersPs.
+func (mr *MockAPIMockRecorder) AppsContainersPs(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsContainersPs", reflect.TypeOf((*MockAPI)(nil).AppsContainersPs), arg0)
+}
+
 // AppsCreate mocks base method.
 func (m *MockAPI) AppsCreate(arg0 scalingo.AppsCreateOpts) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
@@ -305,10 +320,10 @@ func (mr *MockAPIMockRecorder) AppsList() *gomock.Call {
 }
 
 // AppsPs mocks base method.
-func (m *MockAPI) AppsPs(arg0 string) ([]scalingo.Container, error) {
+func (m *MockAPI) AppsPs(arg0 string) ([]scalingo.ContainerType, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsPs", arg0)
-	ret0, _ := ret[0].([]scalingo.Container)
+	ret0, _ := ret[0].([]scalingo.ContainerType)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
