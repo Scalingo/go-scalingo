@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 4.13.0
+
 * feat(domain): add SSL status [#207](https://github.com/Scalingo/go-scalingo/pull/207)
 * feat: add user agent to auth and DB API requests [#206](https://github.com/Scalingo/go-scalingo/pull/206)
 * feat(event): add support for notifier events [#205](https://github.com/Scalingo/go-scalingo/pull/205)
