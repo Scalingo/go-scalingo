@@ -645,6 +645,21 @@ func (mr *MockAPIMockRecorder) CreateRegionMigration(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateRegionMigration", reflect.TypeOf((*MockAPI)(nil).CreateRegionMigration), arg0, arg1)
 }
 
+// CronTasksAdd mocks base method.
+func (m *MockAPI) CronTasksAdd(arg0 string, arg1 scalingo.CronTasks) (scalingo.CronTasks, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CronTasksAdd", arg0, arg1)
+	ret0, _ := ret[0].(scalingo.CronTasks)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CronTasksAdd indicates an expected call of CronTasksAdd.
+func (mr *MockAPIMockRecorder) CronTasksAdd(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CronTasksAdd", reflect.TypeOf((*MockAPI)(nil).CronTasksAdd), arg0, arg1)
+}
+
 // DBAPI mocks base method.
 func (m *MockAPI) DBAPI(arg0, arg1 string) http.Client {
 	m.ctrl.T.Helper()

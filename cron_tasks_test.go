@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCronTasksClient(t *testing.T) {
+func TestCronTasksClient_CronTasksAdd(t *testing.T) {
 	appName := "my-app"
 
 	tests := []struct {
@@ -39,7 +39,7 @@ func TestCronTasksClient(t *testing.T) {
 		for msg, run := range map[string]struct {
 			invalidResponse bool
 		}{
-			"it should fail if it fails to " + test.action + "the subresource": {
+			"it should fail if it fails to " + test.action + " the subresource": {
 				invalidResponse: true,
 			},
 			"it should succeed if it succeeds to " + test.action + " the subresource": {

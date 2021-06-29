@@ -10,6 +10,7 @@
 * Add `ContainersStop` to stop a running one-off container [#204](https://github.com/Scalingo/go-scalingo/pull/204)
 * Add `AppsContainersPs` to list all application's containers [#204](https://github.com/Scalingo/go-scalingo/pull/204) and [#208](https://github.com/Scalingo/go-scalingo/pull/208)
 * Add `AppsContainerTypes` and deprecate `AppsPs` [#204](https://github.com/Scalingo/go-scalingo/pull/204) and [#208](https://github.com/Scalingo/go-scalingo/pull/208)
+* Add support for route `POST /apps/{app_id}/cron_tasks` [#213](https://github.com/Scalingo/go-scalingo/pull/213)
 
 ## 4.12.0
 
