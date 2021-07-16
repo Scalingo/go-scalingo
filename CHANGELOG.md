@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* build(deps): bump github.com/golang/mock from 1.5.0 to 1.6.0
+
 ## 4.13.0
 
 * feat(domain): add SSL status [#207](https://github.com/Scalingo/go-scalingo/pull/207)
