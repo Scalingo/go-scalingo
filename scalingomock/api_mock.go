@@ -645,19 +645,19 @@ func (mr *MockAPIMockRecorder) CreateRegionMigration(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateRegionMigration", reflect.TypeOf((*MockAPI)(nil).CreateRegionMigration), arg0, arg1)
 }
 
-// CronTasksAdd mocks base method.
-func (m *MockAPI) CronTasksAdd(arg0 string, arg1 scalingo.CronTasks) (scalingo.CronTasks, error) {
+// CronTasksGet mocks base method.
+func (m *MockAPI) CronTasksGet(arg0 string) (scalingo.CronTasks, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CronTasksAdd", arg0, arg1)
+	ret := m.ctrl.Call(m, "CronTasksGet", arg0)
 	ret0, _ := ret[0].(scalingo.CronTasks)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// CronTasksAdd indicates an expected call of CronTasksAdd.
-func (mr *MockAPIMockRecorder) CronTasksAdd(arg0, arg1 interface{}) *gomock.Call {
+// CronTasksGet indicates an expected call of CronTasksGet.
+func (mr *MockAPIMockRecorder) CronTasksGet(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CronTasksAdd", reflect.TypeOf((*MockAPI)(nil).CronTasksAdd), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CronTasksGet", reflect.TypeOf((*MockAPI)(nil).CronTasksGet), arg0)
 }
 
 // DBAPI mocks base method.

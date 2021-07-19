@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestCronTasksClient_CronTasksAdd(t *testing.T) {
+func TestCronTasksClient_CronTasksGet(t *testing.T) {
 	appName := "my-app"
 
 	tests := []struct {
@@ -23,15 +23,15 @@ func TestCronTasksClient_CronTasksAdd(t *testing.T) {
 		responseStatus   int
 	}{
 		{
-			action: "add",
+			action: "get",
 			testedClientCall: func(c CronTasksService) error {
-				_, err := c.CronTasksAdd(appName, CronTasks{})
+				_, err := c.CronTasksGet(appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/cron_tasks",
-			expectedMethod:   "POST",
+			expectedMethod:   "GET",
 			response:         CronTasks{},
-			responseStatus:   201,
+			responseStatus:   200,
 		},
 	}
 
