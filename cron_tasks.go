@@ -5,7 +5,7 @@ import (
 )
 
 type CronTasksService interface {
-	CronTasksAdd(app string, params CronTasks) (CronTasks, error)
+	CronTasksGet(app string) (CronTasks, error)
 }
 
 var _ CronTasksService = (*Client)(nil)
@@ -19,11 +19,11 @@ type CronTasks struct {
 	Jobs []Job `json:"jobs"`
 }
 
-func (c *Client) CronTasksAdd(app string, params CronTasks) (CronTasks, error) {
+func (c *Client) CronTasksGet(app string) (CronTasks, error) {
 	resp := CronTasks{}
-	err := c.ScalingoAPI().SubresourceAdd("apps", app, "cron_tasks", params, &resp)
+	err := c.ScalingoAPI().SubresourceList("apps", app, "cron_tasks", nil, &resp)
 	if err != nil {
-		return CronTasks{}, errgo.Notef(err, "fail to add cron tasks")
+		return CronTasks{}, errgo.Notef(err, "fail to get cron tasks")
 	}
 	return resp, nil
 }
