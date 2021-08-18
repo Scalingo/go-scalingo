@@ -3,6 +3,7 @@
 ## To Be Released
 
 * build(deps): bump github.com/golang/mock from 1.5.0 to 1.6.0
+* Add `DeploymentUUID` to the deployment event and fix a typo [#216](https://github.com/Scalingo/go-scalingo/pull/216)
 
 ## 4.13.0
 
