@@ -4,6 +4,8 @@
 
 * build(deps): bump github.com/golang/mock from 1.5.0 to 1.6.0
 * Add `DeploymentUUID` to the deployment event and fix a typo [#216](https://github.com/Scalingo/go-scalingo/pull/216)
+* build(deps): replace deprecated github.com/dgrijalva/jwt-go with github.com/golang-jwt/jwt
+* chore: update from Go 1.13 to 1.17
 
 ## 4.13.0
 
