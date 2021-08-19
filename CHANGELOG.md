@@ -2,8 +2,9 @@
 
 ## To Be Released
 
-* fix(token): correctly deserialize the `ID`
-* feat(token): add the `LastUsedAt` field
+* fix(apps): typo on the `UpdatedAt` field of the Apps [#220](https://github.com/Scalingo/go-scalingo/pull/220)
+* fix(token): correctly deserialize the `ID` [#222](https://github.com/Scalingo/go-scalingo/pull/222)
+* feat(token): add the `LastUsedAt` field [#222](https://github.com/Scalingo/go-scalingo/pull/222)
 
 ## 4.13.1
 
