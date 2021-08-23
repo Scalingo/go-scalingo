@@ -12,7 +12,7 @@ import (
 )
 
 type DeploymentsService interface {
-	DeploymentList(app string) ([]*Deployment, error)
+	DeploymentList(app string, opts PaginationOpts) ([]*Deployment, PaginationMeta, error)
 	Deployment(app string, deploy string) (*Deployment, error)
 	DeploymentLogs(deployURL string) (*http.Response, error)
 	DeploymentStream(deployURL string) (*websocket.Conn, error)
@@ -113,6 +113,9 @@ func IsFinishedString(status DeploymentStatus) bool {
 
 type DeploymentList struct {
 	Deployments []*Deployment `json:"deployments"`
+	Meta struct {
+		PaginationMeta PaginationMeta `json:"pagination"`
+	}
 }
 
 type DeploymentLinks struct {
@@ -128,17 +131,14 @@ type AuthStruct struct {
 	Data AuthenticationData `json:"data"`
 }
 
-func (c *Client) DeploymentList(app string) ([]*Deployment, error) {
+func (c *Client) DeploymentList(app string, opts PaginationOpts) ([]*Deployment, PaginationMeta, error) {
 	var deployments DeploymentList
-	req := &httpclient.APIRequest{
-		Endpoint: "/apps/" + app + "/deployments",
-	}
-	err := c.ScalingoAPI().DoRequest(req, &deployments)
+	err := c.ScalingoAPI().SubresourceList("apps", app, "deployments", opts.ToMap(), &deployments)
 	if err != nil {
-		return []*Deployment{}, errgo.Mask(err, errgo.Any)
+		return []*Deployment{}, PaginationMeta{}, errgo.Mask(err, errgo.Any)
 	}
 
-	return deployments.Deployments, nil
+	return deployments.Deployments, deployments.Meta.PaginationMeta, nil
 }
 
 func (c *Client) Deployment(app string, deploy string) (*Deployment, error) {
