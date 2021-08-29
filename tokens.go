@@ -34,7 +34,7 @@ func IsOTPRequired(err error) bool {
 }
 
 type Token struct {
-	ID        int       `json:"int"`
+	ID        string    `json:"id"`
 	Name      string    `json:"name"`
 	CreatedAt time.Time `json:"created_at"`
 	Token     string    `json:"token"`
