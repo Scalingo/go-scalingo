@@ -704,6 +704,22 @@ func (mr *MockAPIMockRecorder) DeploymentList(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentList", reflect.TypeOf((*MockAPI)(nil).DeploymentList), arg0)
 }
 
+// DeploymentListWithPagination mocks base method.
+func (m *MockAPI) DeploymentListWithPagination(arg0 string, arg1 scalingo.PaginationOpts) ([]*scalingo.Deployment, scalingo.PaginationMeta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeploymentListWithPagination", arg0, arg1)
+	ret0, _ := ret[0].([]*scalingo.Deployment)
+	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// DeploymentListWithPagination indicates an expected call of DeploymentListWithPagination.
+func (mr *MockAPIMockRecorder) DeploymentListWithPagination(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeploymentListWithPagination", reflect.TypeOf((*MockAPI)(nil).DeploymentListWithPagination), arg0, arg1)
+}
+
 // DeploymentLogs mocks base method.
 func (m *MockAPI) DeploymentLogs(arg0 string) (*http0.Response, error) {
 	m.ctrl.T.Helper()
