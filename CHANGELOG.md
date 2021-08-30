@@ -6,6 +6,7 @@
 * fix(token): correctly deserialize the `ID` [#222](https://github.com/Scalingo/go-scalingo/pull/222)
 * feat(token): add the `LastUsedAt` field [#222](https://github.com/Scalingo/go-scalingo/pull/222)
 * feat(deployments): add the `DeploymentListWithPagination` method [#221](https://github.com/Scalingo/go-scalingo/pull/221)
+* feat(addon): add the `ProvisionedAt` and `DeprovisionedAt` fields [#224](https://github.com/Scalingo/go-scalingo/pull/224)
 
 ## 4.13.1
 
