@@ -2,6 +2,9 @@
 
 ## To Be Released
 
+* fix(token): correctly deserialize the `ID`
+* feat(token): add the `LastUsedAt` field
+
 ## 4.13.1
 
 * build(deps): bump github.com/golang/mock from 1.5.0 to 1.6.0
