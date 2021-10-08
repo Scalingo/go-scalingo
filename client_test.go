@@ -37,8 +37,8 @@ func TestNewClient(t *testing.T) {
 	})
 
 	t.Run("it should exchange the API token for a JWT", func(t *testing.T) {
-		claims := &jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
+		claims := &jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
 		}
 		jwtToken := jwt.NewWithClaims(jwt.SigningMethodNone, claims)
 		jwt, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)

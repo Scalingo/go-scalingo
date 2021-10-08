@@ -52,8 +52,8 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 			expect: func(t *testing.T, s *tokensservicemock.MockTokensService, token string) {
 				s.EXPECT().TokenExchange(apiToken).Return(token, nil)
 
-				claims := &jwt.StandardClaims{
-					ExpiresAt: time.Now().Add(5 * time.Minute).Unix(),
+				claims := &jwt.RegisteredClaims{
+					ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
 				}
 				jwtToken := jwt.NewWithClaims(jwt.SigningMethodNone, claims)
 				jwt, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)
@@ -79,8 +79,8 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 			s := tokensservicemock.NewMockTokensService(ctrl)
 			gen := NewAPITokenGenerator(s, apiToken)
 
-			claims := &jwt.StandardClaims{
-				ExpiresAt: time.Now().Add(c.tokenTTL).Unix(),
+			claims := &jwt.RegisteredClaims{
+				ExpiresAt: jwt.NewNumericDate(time.Now().Add(c.tokenTTL)),
 			}
 			jwtToken := jwt.NewWithClaims(jwt.SigningMethodNone, claims)
 			jwt, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)
