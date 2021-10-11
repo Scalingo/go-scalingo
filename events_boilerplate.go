@@ -24,6 +24,9 @@ func (e *EventScaleType) TypeDataPtr() interface{} {
 func (e *EventCrashType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+func (e *EventRepeatedCrashType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventDeploymentType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
