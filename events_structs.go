@@ -108,6 +108,7 @@ const (
 	EventAlert                EventTypeName = "alert"
 	EventDeleteAlert          EventTypeName = "delete_alert"
 	EventNewAutoscaler        EventTypeName = "new_autoscaler"
+	EventEditAutoscaler       EventTypeName = "edit_autoscaler"
 	EventDeleteAutoscaler     EventTypeName = "delete_autoscaler"
 	EventAddonUpdated         EventTypeName = "addon_updated"
 	EventStartRegionMigration EventTypeName = "start_region_migration"
@@ -309,7 +310,7 @@ func (ev *EventDeploymentType) String() string {
 
 type EventDeploymentTypeData struct {
 	DeploymentID   string `json:"deployment_id"`
-	Pusher          string `json:"pusher"`
+	Pusher         string `json:"pusher"`
 	GitRef         string `json:"git_ref"`
 	Status         string `json:"status"`
 	Duration       int    `json:"duration"`
@@ -829,6 +830,25 @@ func (ev *EventNewAutoscalerType) String() string {
 	return fmt.Sprintf("Autoscaler created about %s on container %s (target: %s)", d.Metric, d.ContainerType, d.TargetText)
 }
 
+type EventEditAutoscalerTypeData struct {
+	ContainerType string  `json:"container_type"`
+	MinContainers int     `json:"min_containers"`
+	MaxContainers int     `json:"max_containers"`
+	Metric        string  `json:"metric"`
+	Target        float64 `json:"target"`
+	TargetText    string  `json:"target_text"`
+}
+
+type EventEditAutoscalerType struct {
+	Event
+	TypeData EventEditAutoscalerTypeData `json:"type_data"`
+}
+
+func (ev *EventEditAutoscalerType) String() string {
+	d := ev.TypeData
+	return fmt.Sprintf("Autoscaler edited about %s on container %s (target: %s)", d.Metric, d.ContainerType, d.TargetText)
+}
+
 type EventDeleteAutoscalerTypeData struct {
 	ContainerType string `json:"container_type"`
 	Metric        string `json:"metric"`
@@ -1112,6 +1132,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventDeleteAlertType{Event: ev}
 	case EventNewAutoscaler:
 		e = &EventNewAutoscalerType{Event: ev}
+	case EventEditAutoscaler:
+		e = &EventEditAutoscalerType{Event: ev}
 	case EventDeleteAutoscaler:
 		e = &EventDeleteAutoscalerType{Event: ev}
 	case EventAddonUpdated:

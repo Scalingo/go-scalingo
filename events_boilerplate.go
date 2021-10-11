@@ -129,6 +129,9 @@ func (e *EventDeleteAlertType) TypeDataPtr() interface{} {
 func (e *EventNewAutoscalerType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+func (e *EventEditAutoscalerType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventDeleteAutoscalerType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
