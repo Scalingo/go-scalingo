@@ -74,6 +74,7 @@ const (
 	EventScale                EventTypeName = "scale"
 	EventStopApp              EventTypeName = "stop_app"
 	EventCrash                EventTypeName = "crash"
+	EventRepeatedCrash        EventTypeName = "repeated_crash"
 	EventDeployment           EventTypeName = "deployment"
 	EventLinkSCM              EventTypeName = "link_scm"
 	EventUnlinkSCM            EventTypeName = "unlink_scm"
@@ -298,6 +299,27 @@ type EventCrashTypeData struct {
 	LogsUrl       string `json:"logs_url"`
 }
 
+type EventRepeatedCrashType struct {
+	Event
+	TypeData EventRepeatedCrashTypeData `json:"type_data"`
+}
+
+func (ev *EventRepeatedCrashType) String() string {
+	msg := fmt.Sprintf("container '%v' has crashed repeatedly", ev.TypeData.ContainerType)
+
+	if ev.TypeData.CrashLogs != "" {
+		msg += fmt.Sprintf(" (logs on %s)", ev.TypeData.LogsUrl)
+	}
+
+	return msg
+}
+
+type EventRepeatedCrashTypeData struct {
+	ContainerType string `json:"container_type"`
+	CrashLogs     string `json:"crash_logs"`
+	LogsUrl       string `json:"logs_url"`
+}
+
 type EventDeploymentType struct {
 	Event
 	TypeData EventDeploymentTypeData `json:"type_data"`
@@ -309,7 +331,7 @@ func (ev *EventDeploymentType) String() string {
 
 type EventDeploymentTypeData struct {
 	DeploymentID   string `json:"deployment_id"`
-	Pusher          string `json:"pusher"`
+	Pusher         string `json:"pusher"`
 	GitRef         string `json:"git_ref"`
 	Status         string `json:"status"`
 	Duration       int    `json:"duration"`

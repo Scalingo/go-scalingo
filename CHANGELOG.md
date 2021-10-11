@@ -4,6 +4,7 @@
 
 * build(deps): bump github.com/golang-jwt/jwt/v4 from 4.0.0 to 4.1.0 [#225](https://github.com/Scalingo/go-scalingo/pull/225)
 * chore: use jwt.RegistredClaims instead of jwt.StandardClaims [#227](https://github.com/Scalingo/go-scalingo/pull/227)
+* feat(events) implement event for repeated crash [#229](https://github.com/Scalingo/go-scalingo/pull/229)
 
 ## 4.14.0
 
