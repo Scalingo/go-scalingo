@@ -835,8 +835,8 @@ func (ev *EventDeleteAlertType) String() string {
 
 type EventNewAutoscalerTypeData struct {
 	ContainerType string  `json:"container_type"`
-	MinContainers int     `json:"min_containers"`
-	MaxContainers int     `json:"max_containers"`
+	MinContainers int     `json:"min_containers,string"`
+	MaxContainers int     `json:"max_containers,string"`
 	Metric        string  `json:"metric"`
 	Target        float64 `json:"target"`
 	TargetText    string  `json:"target_text"`
@@ -854,8 +854,8 @@ func (ev *EventNewAutoscalerType) String() string {
 
 type EventEditAutoscalerTypeData struct {
 	ContainerType string  `json:"container_type"`
-	MinContainers int     `json:"min_containers"`
-	MaxContainers int     `json:"max_containers"`
+	MinContainers int     `json:"min_containers,string"`
+	MaxContainers int     `json:"max_containers,string"`
 	Metric        string  `json:"metric"`
 	Target        float64 `json:"target"`
 	TargetText    string  `json:"target_text"`
