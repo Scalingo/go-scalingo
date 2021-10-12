@@ -1,6 +1,9 @@
 # Changelog
 
 ## To Be Released
+
+## 4.14.2
+
 fix(events): change type expected in json parsing from implicit int to explicit string [#230](https://github.com/Scalingo/go-scalingo/pull/230)
 
 ## 4.14.1
