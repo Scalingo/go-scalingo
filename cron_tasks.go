@@ -11,8 +11,10 @@ type CronTasksService interface {
 var _ CronTasksService = (*Client)(nil)
 
 type Job struct {
-	Command string `json:"command"`
-	Size    string `json:"size,omitempty"`
+	Command       string `json:"command"`
+	Size          string `json:"size,omitempty"`
+	LastExecution string `json:"last_execution,omitempty"`
+	NextExecution string `json:"next_execution,omitempty"`
 }
 
 type CronTasks struct {
