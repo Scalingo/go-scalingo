@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/Scalingo/go-scalingo/v4/http/httpmock"
 	gomock "github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/Scalingo/go-scalingo/v4/http/httpmock"
 )
 
 var eventsListCases = map[string]struct {
