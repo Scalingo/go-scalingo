@@ -4,10 +4,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v4/http/tokensservicemock"
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
+
+	"github.com/Scalingo/go-scalingo/v4/http/tokensservicemock"
 )
 
 func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
