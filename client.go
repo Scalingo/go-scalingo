@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"time"
 
-	errgo "gopkg.in/errgo.v1"
+	"gopkg.in/errgo.v1"
 
 	"github.com/Scalingo/go-scalingo/v4/http"
 )
