@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat: add support to list container sizes [#234](https://github.com/Scalingo/go-scalingo/pull/234)
+
 ## 4.14.3
 
 * feat(cron-task): Add fields to cron tasks model [#231](https://github.com/Scalingo/go-scalingo/pull/231)
