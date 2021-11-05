@@ -18,7 +18,7 @@ type AddonsService interface {
 	AddonUpgrade(app, addonID string, params AddonUpgradeParams) (AddonRes, error)
 	AddonToken(app, addonID string) (string, error)
 	AddonLogsURL(app, addonID string) (string, error)
-	AddonLogsArchives(app, addonId string, page int)(*LogsArchivesResponse, error)
+	AddonLogsArchives(app, addonId string, page int) (*LogsArchivesResponse, error)
 }
 
 var _ AddonsService = (*Client)(nil)
