@@ -51,6 +51,21 @@ func (mr *MockAPIMockRecorder) AddonDestroy(arg0, arg1 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonDestroy", reflect.TypeOf((*MockAPI)(nil).AddonDestroy), arg0, arg1)
 }
 
+// AddonLogsArchives mocks base method.
+func (m *MockAPI) AddonLogsArchives(arg0, arg1 string, arg2 int) (*scalingo.LogsArchivesResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddonLogsArchives", arg0, arg1, arg2)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddonLogsArchives indicates an expected call of AddonLogsArchives.
+func (mr *MockAPIMockRecorder) AddonLogsArchives(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonLogsArchives", reflect.TypeOf((*MockAPI)(nil).AddonLogsArchives), arg0, arg1, arg2)
+}
+
 // AddonLogsURL mocks base method.
 func (m *MockAPI) AddonLogsURL(arg0, arg1 string) (string, error) {
 	m.ctrl.T.Helper()
@@ -364,6 +379,21 @@ func (mr *MockAPIMockRecorder) AppsRestart(arg0, arg1 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRestart", reflect.TypeOf((*MockAPI)(nil).AppsRestart), arg0, arg1)
 }
 
+// AppsRouterLogs mocks base method.
+func (m *MockAPI) AppsRouterLogs(arg0 string, arg1 bool) (*scalingo.App, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AppsRouterLogs", arg0, arg1)
+	ret0, _ := ret[0].(*scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsRouterLogs indicates an expected call of AppsRouterLogs.
+func (mr *MockAPIMockRecorder) AppsRouterLogs(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRouterLogs", reflect.TypeOf((*MockAPI)(nil).AppsRouterLogs), arg0, arg1)
+}
+
 // AppsScale mocks base method.
 func (m *MockAPI) AppsScale(arg0 string, arg1 *scalingo.AppsScaleParams) (*http0.Response, error) {
 	m.ctrl.T.Helper()
@@ -614,6 +644,21 @@ func (m *MockAPI) CollaboratorsList(arg0 string) ([]scalingo.Collaborator, error
 func (mr *MockAPIMockRecorder) CollaboratorsList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorsList", reflect.TypeOf((*MockAPI)(nil).CollaboratorsList), arg0)
+}
+
+// ContainerSizesList mocks base method.
+func (m *MockAPI) ContainerSizesList() ([]scalingo.ContainerSize, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ContainerSizesList")
+	ret0, _ := ret[0].([]scalingo.ContainerSize)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ContainerSizesList indicates an expected call of ContainerSizesList.
+func (mr *MockAPIMockRecorder) ContainerSizesList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ContainerSizesList", reflect.TypeOf((*MockAPI)(nil).ContainerSizesList))
 }
 
 // ContainersStop mocks base method.
@@ -1371,6 +1416,21 @@ func (m *MockAPI) SourcesCreate() (*scalingo.Source, error) {
 func (mr *MockAPIMockRecorder) SourcesCreate() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SourcesCreate", reflect.TypeOf((*MockAPI)(nil).SourcesCreate))
+}
+
+// StacksList mocks base method.
+func (m *MockAPI) StacksList() ([]scalingo.Stack, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "StacksList")
+	ret0, _ := ret[0].([]scalingo.Stack)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// StacksList indicates an expected call of StacksList.
+func (mr *MockAPIMockRecorder) StacksList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StacksList", reflect.TypeOf((*MockAPI)(nil).StacksList))
 }
 
 // TokenCreate mocks base method.

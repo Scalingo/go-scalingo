@@ -169,6 +169,21 @@ func (mr *MockAppsServiceMockRecorder) AppsRestart(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRestart", reflect.TypeOf((*MockAppsService)(nil).AppsRestart), arg0, arg1)
 }
 
+// AppsRouterLogs mocks base method.
+func (m *MockAppsService) AppsRouterLogs(arg0 string, arg1 bool) (*scalingo.App, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AppsRouterLogs", arg0, arg1)
+	ret0, _ := ret[0].(*scalingo.App)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AppsRouterLogs indicates an expected call of AppsRouterLogs.
+func (mr *MockAppsServiceMockRecorder) AppsRouterLogs(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppsRouterLogs", reflect.TypeOf((*MockAppsService)(nil).AppsRouterLogs), arg0, arg1)
+}
+
 // AppsScale mocks base method.
 func (m *MockAppsService) AppsScale(arg0 string, arg1 *scalingo.AppsScaleParams) (*http.Response, error) {
 	m.ctrl.T.Helper()
