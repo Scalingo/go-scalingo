@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 4.15.0
+
 * feat: add support to list container sizes [#234](https://github.com/Scalingo/go-scalingo/pull/234)
 * feat(addons): add the `AddonLogsArchives` method [#235](https://github.com/Scalingo/go-scalingo/pull/235)
 * feat(apps): add `AppsRouterLogs` method [#236](https://github.com/Scalingo/go-scalingo/pull/236)
