@@ -23,7 +23,30 @@ func TestAppsClient_Update(t *testing.T) {
 		response         interface{}
 		responseStatus   int
 	}{
-		"it should enable the app force-https attribute": {
+		"it should enable the app router_logs attribute": {
+			testedClientCall: func(c AppsService) error {
+				_, err := c.AppsRouterLogs(appName, true)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app",
+			expectedMethod:   "PUT",
+			expectedParams:   `{"router_logs":true}`,
+			response:         &AppResponse{},
+			responseStatus:   200,
+		},
+		"it should disable the app router_logs attribute": {
+			testedClientCall: func(c AppsService) error {
+				_, err := c.AppsRouterLogs(appName, false)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app",
+			expectedMethod:   "PUT",
+			expectedParams:   `{"router_logs":false}`,
+			response:         &AppResponse{},
+			responseStatus:   200,
+		},
+
+		"it should enable the app force_https attribute": {
 			testedClientCall: func(c AppsService) error {
 				_, err := c.AppsForceHTTPS(appName, true)
 				return err
@@ -34,7 +57,7 @@ func TestAppsClient_Update(t *testing.T) {
 			response:         &AppResponse{},
 			responseStatus:   200,
 		},
-		"it should disable the app force-https attribute": {
+		"it should disable the app force_https attribute": {
 			testedClientCall: func(c AppsService) error {
 				_, err := c.AppsForceHTTPS(appName, false)
 				return err
@@ -79,7 +102,8 @@ func TestAppsClient_Update(t *testing.T) {
 				assert.Equal(t, run.expectedMethod, r.Method)
 				assert.Equal(t, run.expectedEndpoint, r.URL.Path)
 				buf := new(bytes.Buffer)
-				buf.ReadFrom(r.Body)
+				_, err := buf.ReadFrom(r.Body)
+				require.NoError(t, err)
 				assert.Equal(t, run.expectedParams, buf.String())
 
 				if run.responseStatus != 0 {

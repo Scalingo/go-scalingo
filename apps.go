@@ -36,6 +36,7 @@ type AppsService interface {
 	AppsScale(app string, params *AppsScaleParams) (*http.Response, error)
 	AppsForceHTTPS(name string, enable bool) (*App, error)
 	AppsStickySession(name string, enable bool) (*App, error)
+	AppsRouterLogs(name string, enable bool) (*App, error)
 }
 
 var _ AppsService = (*Client)(nil)
@@ -311,6 +312,12 @@ func (c *Client) AppsScale(app string, params *AppsScaleParams) (*http.Response,
 func (c *Client) AppsForceHTTPS(name string, enable bool) (*App, error) {
 	return c.appsUpdate(name, map[string]interface{}{
 		"force_https": enable,
+	})
+}
+
+func (c *Client) AppsRouterLogs(name string, enable bool) (*App, error) {
+	return c.appsUpdate(name, map[string]interface{}{
+		"router_logs": enable,
 	})
 }
 
