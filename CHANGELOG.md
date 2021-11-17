@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* refactor: replace use of the deprecated ioutil package [#238](https://github.com/Scalingo/go-scalingo/pull/238)
+
 ## 4.15.1
 
 * chore: generate missing mocks from v4.15.0
