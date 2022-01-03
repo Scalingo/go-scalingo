@@ -3,6 +3,7 @@
 ## To Be Released
 
 * refactor: replace use of the deprecated ioutil package [#238](https://github.com/Scalingo/go-scalingo/pull/238)
+* build(deps): bump github.com/golang-jwt/jwt/v4 from 4.1.0 to 4.2.0
 
 ## 4.15.1
 
