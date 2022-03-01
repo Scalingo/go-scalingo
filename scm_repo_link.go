@@ -69,7 +69,7 @@ type SCMRepoLinkLinker struct {
 	ID       string `json:"id"`
 }
 
-type ScmRepoLinksResponse struct {
+type SCMRepoLinksResponse struct {
 	SCMRepoLinks []*SCMRepoLink `json:"scm_repo_links"`
 }
 
@@ -88,7 +88,7 @@ type SCMRepoLinkReviewAppsResponse struct {
 var _ SCMRepoLinkService = (*Client)(nil)
 
 func (c *Client) SCMRepoLinkList() ([]*SCMRepoLink, error) {
-	var res ScmRepoLinksResponse
+	var res SCMRepoLinksResponse
 	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
 		Method:   "GET",
 		Endpoint: "/scm_repo_links",
