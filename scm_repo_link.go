@@ -9,6 +9,7 @@ import (
 )
 
 type SCMRepoLinkService interface {
+	SCMRepoLinkList() ([]*SCMRepoLink, error)
 	SCMRepoLinkShow(app string) (*SCMRepoLink, error)
 	SCMRepoLinkCreate(app string, params SCMRepoLinkCreateParams) (*SCMRepoLink, error)
 	SCMRepoLinkUpdate(app string, params SCMRepoLinkUpdateParams) (*SCMRepoLink, error)
@@ -68,6 +69,10 @@ type SCMRepoLinkLinker struct {
 	ID       string `json:"id"`
 }
 
+type SCMRepoLinksResponse struct {
+	SCMRepoLinks []*SCMRepoLink `json:"scm_repo_links"`
+}
+
 type ScmRepoLinkResponse struct {
 	SCMRepoLink *SCMRepoLink `json:"scm_repo_link"`
 }
@@ -81,6 +86,19 @@ type SCMRepoLinkReviewAppsResponse struct {
 }
 
 var _ SCMRepoLinkService = (*Client)(nil)
+
+func (c *Client) SCMRepoLinkList() ([]*SCMRepoLink, error) {
+	var res SCMRepoLinksResponse
+	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
+		Method:   "GET",
+		Endpoint: "/scm_repo_links",
+		Expected: http.Statuses{200},
+	}, &res)
+	if err != nil {
+		return nil, errgo.Notef(err, "fail to list SCM repo links")
+	}
+	return res.SCMRepoLinks, nil
+}
 
 func (c *Client) SCMRepoLinkShow(app string) (*SCMRepoLink, error) {
 	var res ScmRepoLinkResponse
