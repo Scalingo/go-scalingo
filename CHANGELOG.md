@@ -3,8 +3,9 @@
 ## To Be Released
 
 * refactor: replace use of the deprecated ioutil package [#238](https://github.com/Scalingo/go-scalingo/pull/238)
-* build(deps): bump github.com/golang-jwt/jwt/v4 from 4.1.0 to 4.3.0
 * feat(scm-repo-link): Add `SCMRepoLinkList` method [#241](https://github.com/Scalingo/go-scalingo/pull/241)
+* build(deps): bump github.com/golang-jwt/jwt/v4 from 4.1.0 to 4.3.0
+* build(deps): bump github.com/stretchr/testify from 1.7.0 to 1.7.1
 
 ## 4.15.1
 
