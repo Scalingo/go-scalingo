@@ -9,7 +9,7 @@ import (
 )
 
 type SCMRepoLinkService interface {
-	SCMRepoLinkList() ([]*SCMRepoLink, error)
+	SCMRepoLinkList(opts PaginationOpts) ([]*SCMRepoLink, PaginationMeta, error)
 	SCMRepoLinkShow(app string) (*SCMRepoLink, error)
 	SCMRepoLinkCreate(app string, params SCMRepoLinkCreateParams) (*SCMRepoLink, error)
 	SCMRepoLinkUpdate(app string, params SCMRepoLinkUpdateParams) (*SCMRepoLink, error)
@@ -71,6 +71,9 @@ type SCMRepoLinkLinker struct {
 
 type SCMRepoLinksResponse struct {
 	SCMRepoLinks []*SCMRepoLink `json:"scm_repo_links"`
+	Meta         struct {
+		PaginationMeta PaginationMeta `json:"pagination"`
+	}
 }
 
 type ScmRepoLinkResponse struct {
@@ -87,17 +90,13 @@ type SCMRepoLinkReviewAppsResponse struct {
 
 var _ SCMRepoLinkService = (*Client)(nil)
 
-func (c *Client) SCMRepoLinkList() ([]*SCMRepoLink, error) {
+func (c *Client) SCMRepoLinkList(opts PaginationOpts) ([]*SCMRepoLink, PaginationMeta, error) {
 	var res SCMRepoLinksResponse
-	err := c.ScalingoAPI().DoRequest(&http.APIRequest{
-		Method:   "GET",
-		Endpoint: "/scm_repo_links",
-		Expected: http.Statuses{200},
-	}, &res)
+	err := c.ScalingoAPI().ResourceList("scm_repo_links", opts.ToMap(), &res)
 	if err != nil {
-		return nil, errgo.Notef(err, "fail to list SCM repo links")
+		return nil, PaginationMeta{}, errgo.Notef(err, "fail to list SCM repo links")
 	}
-	return res.SCMRepoLinks, nil
+	return res.SCMRepoLinks, res.Meta.PaginationMeta, nil
 }
 
 func (c *Client) SCMRepoLinkShow(app string) (*SCMRepoLink, error) {

@@ -24,6 +24,7 @@
   "github.com/Scalingo/go-scalingo.RegionMigrationsService": "ed 50 aa c2 e6 58 be fe ce 17 d5 0d df 91 b1 47 bf 55 88 04",
   "github.com/Scalingo/go-scalingo.RegionsService": "d2 55 32 ef 32 50 5a 93 b3 26 4e c5 b5 31 21 b7 73 93 e7 ff",
   "github.com/Scalingo/go-scalingo.RunsService": "55 f8 2c 5d f5 fb 99 10 d1 90 bb 33 45 3b db f5 fd 11 6d f7",
+  "github.com/Scalingo/go-scalingo.SCMRepoLinkService": "d6 88 be ed 23 13 c4 a0 32 06 8b 9b 1f 22 53 14 27 90 15 cb",
   "github.com/Scalingo/go-scalingo.SignUpService": "fa 3a 32 a3 5a 34 f1 d6 05 2b d3 75 9d c9 5a cc 36 e9 16 10",
   "github.com/Scalingo/go-scalingo.SourcesService": "f7 49 05 a0 75 6b a3 55 98 5b b5 8c 9c bc 6c d4 f4 7a aa 53",
   "github.com/Scalingo/go-scalingo.TokensService": "ef 7a fa 50 20 42 e6 3d 43 cf 7f 61 a7 03 04 ed 8d 77 b0 9b",
