@@ -20,13 +20,8 @@ type LogDrainsService interface {
 var _ LogDrainsService = (*Client)(nil)
 
 type LogDrain struct {
-	AppID       string `json:"app_id"`
-	URL         string `json:"url"`
-	Type        string `json:"type"`
-	Host        string `json:"host"`
-	Port        string `json:"port"`
-	Token       string `json:"token"`
-	DrainRegion string `json:"drain_region"`
+	AppID string `json:"app_id"`
+	URL   string `json:"url"`
 }
 
 type LogDrainRes struct {
@@ -56,6 +51,10 @@ func (c *Client) LogDrainsAddonList(app string, addonID string) (LogDrainsRes, e
 	return logDrainsRes, nil
 }
 
+type LogDrainAddPayload struct {
+	Drain LogDrainAddParams `json:"drain"`
+}
+
 type LogDrainAddParams struct {
 	Type        string `json:"type"`
 	URL         string `json:"url"`
@@ -67,15 +66,8 @@ type LogDrainAddParams struct {
 
 func (c *Client) LogDrainAdd(app string, params LogDrainAddParams) (*LogDrainRes, error) {
 	var logDrainRes LogDrainRes
-	payload := LogDrainRes{
-		Drain: LogDrain{
-			Type:        params.Type,
-			URL:         params.URL,
-			Host:        params.Host,
-			Port:        params.Port,
-			Token:       params.Token,
-			DrainRegion: params.DrainRegion,
-		},
+	payload := LogDrainAddPayload{
+		Drain: params,
 	}
 
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "log_drains", payload, &logDrainRes)
@@ -128,15 +120,8 @@ func (c *Client) LogDrainAddonRemove(app, addonID string, URL string) error {
 
 func (c *Client) LogDrainAddonAdd(app string, addonID string, params LogDrainAddParams) (*LogDrainRes, error) {
 	var logDrainRes LogDrainRes
-	payload := LogDrainRes{
-		Drain: LogDrain{
-			Type:        params.Type,
-			URL:         params.URL,
-			Host:        params.Host,
-			Port:        params.Port,
-			Token:       params.Token,
-			DrainRegion: params.DrainRegion,
-		},
+	payload := LogDrainAddPayload{
+		Drain: params,
 	}
 
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "addons/"+addonID+"/log_drains", payload, &logDrainRes)
