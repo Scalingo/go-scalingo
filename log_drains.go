@@ -13,7 +13,7 @@ type LogDrainsService interface {
 	LogDrainAdd(app string, params LogDrainAddParams) (*LogDrainRes, error)
 	LogDrainRemove(app, URL string) error
 	LogDrainAddonRemove(app, addonID string, URL string) error
-	LogDrainsAddonList(app string, addonID string) (LogDrainsRes, error)
+	LogDrainsAddonList(app string, addonID string) ([]LogDrain, error)
 	LogDrainAddonAdd(app string, addonID string, params LogDrainAddParams) (*LogDrainRes, error)
 }
 
@@ -41,14 +41,14 @@ func (c *Client) LogDrainsList(app string) ([]LogDrain, error) {
 	return logDrainsRes.Drains, nil
 }
 
-func (c *Client) LogDrainsAddonList(app string, addonID string) (LogDrainsRes, error) {
+func (c *Client) LogDrainsAddonList(app string, addonID string) ([]LogDrain, error) {
 	var logDrainsRes LogDrainsRes
 
 	err := c.ScalingoAPI().SubresourceList("apps", app, "addons/"+addonID+"/log_drains", nil, &logDrainsRes)
 	if err != nil {
-		return logDrainsRes, errgo.Notef(err, "fail to list the log drains of the addon %s", addonID)
+		return nil, errgo.Notef(err, "fail to list the log drains of the addon %s", addonID)
 	}
-	return logDrainsRes, nil
+	return logDrainsRes.Drains, nil
 }
 
 type LogDrainAddPayload struct {
