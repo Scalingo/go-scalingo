@@ -1078,10 +1078,10 @@ func (mr *MockAPIMockRecorder) LogDrainRemove(arg0, arg1 interface{}) *gomock.Ca
 }
 
 // LogDrainsAddonList mocks base method.
-func (m *MockAPI) LogDrainsAddonList(arg0, arg1 string) (scalingo.LogDrainsRes, error) {
+func (m *MockAPI) LogDrainsAddonList(arg0, arg1 string) ([]scalingo.LogDrain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogDrainsAddonList", arg0, arg1)
-	ret0, _ := ret[0].(scalingo.LogDrainsRes)
+	ret0, _ := ret[0].([]scalingo.LogDrain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
