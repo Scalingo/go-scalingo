@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"gopkg.in/errgo.v1"
@@ -89,13 +88,9 @@ func (c *Client) DomainsRemove(app, id string) error {
 	return c.ScalingoAPI().SubresourceDelete("apps", app, "domains", id)
 }
 
-func (c *Client) DomainsUpdate(app, id, cert, key string) (Domain, error) {
-	var domainRes DomainRes
-	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: Domain{TLSCert: cert, TLSKey: key}}, &domainRes)
-	if err != nil {
-		return Domain{}, errgo.Mask(err)
-	}
-	return domainRes.Domain, nil
+// Deprecated: use DomainsSetCanonical, DomainUnsetCanonical, DomainSetCertificate or DomainUnsetCertificate
+func (c *Client) DomainsUpdate(app, id, tlsCert, tlsKey string) (Domain, error) {
+	return c.domainsUpdate(app, id, Domain{TLSCert: tlsCert, TLSKey: tlsKey})
 }
 
 func (c *Client) DomainsShow(app, id string) (Domain, error) {
@@ -109,30 +104,36 @@ func (c *Client) DomainsShow(app, id string) (Domain, error) {
 	return domainRes.Domain, nil
 }
 
-func (c *Client) DomainSetCanonical(app, id string) (Domain, error) {
+func (c *Client) domainsUpdate(app, id string, domain Domain) (Domain, error) {
 	var domainRes DomainRes
-	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: Domain{Canonical: true}}, &domainRes)
+	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: domain}, &domainRes)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
 	return domainRes.Domain, nil
 }
 
+func (c *Client) DomainSetCanonical(app, id string) (Domain, error) {
+	domain, err := c.domainsUpdate(app, id, Domain{Canonical: true})
+	if err != nil {
+		return Domain{}, errgo.Notef(err, "fail to set the domain as canonical")
+	}
+	return domain, nil
+}
+
 func (c *Client) DomainUnsetCanonical(app string) (Domain, error) {
 	domains, err := c.DomainsList(app)
 	if err != nil {
-		fmt.Println("TATA")
-		return Domain{}, errgo.Mask(err)
+		return Domain{}, errgo.Notef(err, "fail to list the domains to unset the canonical one")
 	}
 
 	for _, domain := range domains {
 		if domain.Canonical {
-			var domainRes DomainRes
-			err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", domain.ID, DomainRes{Domain: Domain{Canonical: false}}, &domainRes)
+			domain, err := c.domainsUpdate(app, domain.ID, Domain{Canonical: false})
 			if err != nil {
-				return Domain{}, errgo.Mask(err)
+				return Domain{}, errgo.Notef(err, "fail to unset the domain as canonical")
 			}
-			return domainRes.Domain, nil
+			return domain, nil
 		}
 	}
 	return Domain{}, errors.New("no canonical domain configured")
