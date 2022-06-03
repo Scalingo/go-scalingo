@@ -9,6 +9,7 @@
 * feat(log-drains): The `LogDrainsAddonList` now returns the list of log drains [#246](https://github.com/Scalingo/go-scalingo/pull/246)
 * feat(log-drains): Cleanup the LogDrain struct [#246](https://github.com/Scalingo/go-scalingo/pull/246)
 * refactor(domain): deprecate DomainsUpdate
+* feat(domains): add DomainSetCertificate and DomainUnsetCertificate methods
 
 ## 4.15.1
 

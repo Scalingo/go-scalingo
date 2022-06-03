@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	gomock "github.com/golang/mock/gomock"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -16,7 +16,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 	appName := "my-app"
 	domainID := "domain-id"
 
-	runs := map[string]struct {
+	tests := map[string]struct {
 		testedClientCall func(c DomainsService) error
 		expectedEndpoint string
 		expectedMethod   string
@@ -55,6 +55,16 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			expectedParams:   `"canonical":false`,
 			responseStatus:   200,
 		},
+		"it should unset the domain certificate": {
+			testedClientCall: func(c DomainsService) error {
+				_, err := c.DomainUnsetCertificate(appName, domainID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
+			expectedMethod:   "PATCH",
+			expectedParams:   `"tlscert":"","tlskey":""`,
+			responseStatus:   200,
+		},
 		"it should return an error if there is no canonical domain": {
 			mockDomainsList: func(t *testing.T, w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(200)
@@ -69,7 +79,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 		},
 	}
 
-	for msg, run := range runs {
+	for msg, test := range tests {
 		t.Run(msg, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
@@ -77,35 +87,35 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				// If request domains list
 				if r.Method == "GET" && r.URL.Path == "/v1/apps/my-app/domains" {
-					require.NotNil(t, run.mockDomainsList)
-					run.mockDomainsList(t, w, r)
+					require.NotNil(t, test.mockDomainsList)
+					test.mockDomainsList(t, w, r)
 					return
 				}
-				assert.Equal(t, run.expectedMethod, r.Method)
-				assert.Equal(t, run.expectedEndpoint, r.URL.Path)
+				assert.Equal(t, test.expectedMethod, r.Method)
+				assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 				buf := new(bytes.Buffer)
 				buf.ReadFrom(r.Body)
-				assert.Contains(t, buf.String(), run.expectedParams)
+				assert.Contains(t, buf.String(), test.expectedParams)
 
-				if run.responseStatus != 0 {
-					w.WriteHeader(run.responseStatus)
+				if test.responseStatus != 0 {
+					w.WriteHeader(test.responseStatus)
 				}
 				err := json.NewEncoder(w).Encode(DomainRes{})
 				assert.NoError(t, err)
 			}))
 			defer ts.Close()
 
-			c, err := New(ClientConfig{
+			scalingoClient, err := New(ClientConfig{
 				APIEndpoint: ts.URL,
 				APIToken:    "test",
 			})
-			c.authClient = MockAuth(ctrl)
+			scalingoClient.authClient = MockAuth(ctrl)
 			require.NoError(t, err)
 
-			err = run.testedClientCall(c)
-			if run.expectedError != "" {
+			err = test.testedClientCall(scalingoClient)
+			if test.expectedError != "" {
 				require.Error(t, err)
-				assert.Contains(t, err.Error(), run.expectedError)
+				assert.Contains(t, err.Error(), test.expectedError)
 			} else {
 				require.NoError(t, err)
 			}

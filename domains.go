@@ -14,6 +14,8 @@ type DomainsService interface {
 	DomainsUpdate(app, id, cert, key string) (Domain, error)
 	DomainSetCanonical(app, id string) (Domain, error)
 	DomainUnsetCanonical(app string) (Domain, error)
+	DomainSetCertificate(app, id, tlsCert, tlsKey string) (Domain, error)
+	DomainUnsetCertificate(app, id string) (Domain, error)
 }
 
 var _ DomainsService = (*Client)(nil)
@@ -56,6 +58,11 @@ type Domain struct {
 	AcmeDNSFqdn       string             `json:"acme_dns_fqdn"`
 	AcmeDNSValue      string             `json:"acme_dns_value"`
 	AcmeDNSError      ACMEErrorVariables `json:"acme_dns_error"`
+}
+
+type domainUnsetCertificateParams struct {
+	TLSCert string `json:"tlscert"`
+	TLSKey  string `json:"tlskey"`
 }
 
 type DomainsRes struct {
@@ -107,6 +114,27 @@ func (c *Client) DomainsShow(app, id string) (Domain, error) {
 func (c *Client) domainsUpdate(app, id string, domain Domain) (Domain, error) {
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: domain}, &domainRes)
+	if err != nil {
+		return Domain{}, errgo.Mask(err)
+	}
+	return domainRes.Domain, nil
+}
+
+func (c *Client) DomainSetCertificate(app, id, tlsCert, tlsKey string) (Domain, error) {
+	domain, err := c.domainsUpdate(app, id, Domain{TLSCert: tlsCert, TLSKey: tlsKey})
+	if err != nil {
+		return Domain{}, errgo.Notef(err, "fail to set the domain as canonical")
+	}
+	return domain, nil
+}
+
+func (c *Client) DomainUnsetCertificate(app, id string) (Domain, error) {
+	var domainRes DomainRes
+	err := c.ScalingoAPI().SubresourceUpdate(
+		"apps", app, "domains", id, map[string]domainUnsetCertificateParams{
+			"domain": {TLSCert: "", TLSKey: ""},
+		}, &domainRes,
+	)
 	if err != nil {
 		return Domain{}, errgo.Mask(err)
 	}
