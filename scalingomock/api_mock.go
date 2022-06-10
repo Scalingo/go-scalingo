@@ -825,6 +825,21 @@ func (mr *MockAPIMockRecorder) DomainSetCanonical(arg0, arg1 interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainSetCanonical), arg0, arg1)
 }
 
+// DomainSetCertificate mocks base method.
+func (m *MockAPI) DomainSetCertificate(arg0, arg1, arg2, arg3 string) (scalingo.Domain, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DomainSetCertificate", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainSetCertificate indicates an expected call of DomainSetCertificate.
+func (mr *MockAPIMockRecorder) DomainSetCertificate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainSetCertificate", reflect.TypeOf((*MockAPI)(nil).DomainSetCertificate), arg0, arg1, arg2, arg3)
+}
+
 // DomainUnsetCanonical mocks base method.
 func (m *MockAPI) DomainUnsetCanonical(arg0 string) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
@@ -838,6 +853,21 @@ func (m *MockAPI) DomainUnsetCanonical(arg0 string) (scalingo.Domain, error) {
 func (mr *MockAPIMockRecorder) DomainUnsetCanonical(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCanonical", reflect.TypeOf((*MockAPI)(nil).DomainUnsetCanonical), arg0)
+}
+
+// DomainUnsetCertificate mocks base method.
+func (m *MockAPI) DomainUnsetCertificate(arg0, arg1 string) (scalingo.Domain, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DomainUnsetCertificate", arg0, arg1)
+	ret0, _ := ret[0].(scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainUnsetCertificate indicates an expected call of DomainUnsetCertificate.
+func (mr *MockAPIMockRecorder) DomainUnsetCertificate(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainUnsetCertificate", reflect.TypeOf((*MockAPI)(nil).DomainUnsetCertificate), arg0, arg1)
 }
 
 // DomainsAdd mocks base method.
