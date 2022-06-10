@@ -60,6 +60,8 @@ type Domain struct {
 	AcmeDNSError      ACMEErrorVariables `json:"acme_dns_error"`
 }
 
+// domainUnsetCertificateParams is the params of the request to unset the domain certificate.
+// We need a dedicated structure rather than using `Domain` so that we remove omitempty from the JSON tags.
 type domainUnsetCertificateParams struct {
 	TLSCert string `json:"tlscert"`
 	TLSKey  string `json:"tlskey"`
