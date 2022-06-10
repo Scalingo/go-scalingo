@@ -77,7 +77,7 @@ func (c *Client) DomainsList(app string) ([]Domain, error) {
 	var domainRes DomainsRes
 	err := c.ScalingoAPI().SubresourceList("apps", app, "domains", nil, &domainRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errgo.Notef(err, "fail to list the domains")
 	}
 	return domainRes.Domains, nil
 }
@@ -86,7 +86,7 @@ func (c *Client) DomainsAdd(app string, d Domain) (Domain, error) {
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceAdd("apps", app, "domains", DomainRes{d}, &domainRes)
 	if err != nil {
-		return Domain{}, errgo.Mask(err)
+		return Domain{}, errgo.Notef(err, "fail to add a domain")
 	}
 	return domainRes.Domain, nil
 }
@@ -105,7 +105,7 @@ func (c *Client) DomainsShow(app, id string) (Domain, error) {
 
 	err := c.ScalingoAPI().SubresourceGet("apps", app, "domains", id, nil, &domainRes)
 	if err != nil {
-		return Domain{}, errgo.Mask(err)
+		return Domain{}, errgo.Notef(err, "fail to show the domain")
 	}
 
 	return domainRes.Domain, nil
@@ -115,7 +115,7 @@ func (c *Client) domainsUpdate(app, id string, domain Domain) (Domain, error) {
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceUpdate("apps", app, "domains", id, DomainRes{Domain: domain}, &domainRes)
 	if err != nil {
-		return Domain{}, errgo.Mask(err)
+		return Domain{}, errgo.Notef(err, "fail to update the domain")
 	}
 	return domainRes.Domain, nil
 }
@@ -123,7 +123,7 @@ func (c *Client) domainsUpdate(app, id string, domain Domain) (Domain, error) {
 func (c *Client) DomainSetCertificate(app, id, tlsCert, tlsKey string) (Domain, error) {
 	domain, err := c.domainsUpdate(app, id, Domain{TLSCert: tlsCert, TLSKey: tlsKey})
 	if err != nil {
-		return Domain{}, errgo.Notef(err, "fail to set the domain as canonical")
+		return Domain{}, errgo.Notef(err, "fail to set the domain certificate")
 	}
 	return domain, nil
 }
@@ -136,7 +136,7 @@ func (c *Client) DomainUnsetCertificate(app, id string) (Domain, error) {
 		}, &domainRes,
 	)
 	if err != nil {
-		return Domain{}, errgo.Mask(err)
+		return Domain{}, errgo.Notef(err, "fail to unset the domain certificate")
 	}
 	return domainRes.Domain, nil
 }
