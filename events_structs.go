@@ -128,6 +128,12 @@ const (
 	EventDeleteToken             EventTypeName = "delete_token"
 	EventTfaEnabled              EventTypeName = "tfa_enabled"
 	EventTfaDisabled             EventTypeName = "tfa_disabled"
+	EventLoginSuccess            EventTypeName = "login_success"
+	EventLoginFailure            EventTypeName = "login_failure"
+	EventLoginLock               EventTypeName = "login_lock"
+	EventLoginUnlockSuccess      EventTypeName = "login_unlock_success"
+	EventPasswordResetQuery      EventTypeName = "password_reset_query"
+	EventPasswordResetSuccess    EventTypeName = "password_reset_success"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -761,6 +767,71 @@ func (ev *EventTfaDisabledType) String() string {
 	return "Two factor authentication disabled"
 }
 
+// Security events
+type EventSecurityTypeData struct {
+	RemoteIP string `json:"remote_ip"`
+}
+
+type EventLoginSuccessType struct {
+	Event
+	TypeData EventLoginSuccessTypeData `json:"type_data"`
+}
+type EventLoginSuccessTypeData EventSecurityTypeData
+
+func (ev *EventLoginSuccessType) String() string {
+	return fmt.Sprintf("Successful login from %v", ev.TypeData.RemoteIP)
+}
+
+type EventLoginFailureType struct {
+	Event
+	TypeData EventLoginFailureTypeData `json:"type_data"`
+}
+type EventLoginFailureTypeData EventSecurityTypeData
+
+func (ev *EventLoginFailureType) String() string {
+	return fmt.Sprintf("Failed login attempt from %v", ev.TypeData.RemoteIP)
+}
+
+type EventLoginLockType struct {
+	Event
+	TypeData EventLoginLockTypeData `json:"type_data"`
+}
+type EventLoginLockTypeData EventSecurityTypeData
+
+func (ev *EventLoginLockType) String() string {
+	return fmt.Sprintf("Account is locked")
+}
+
+type EventLoginUnlockSuccessType struct {
+	Event
+	TypeData EventLoginUnlockSuccessTypeData `json:"type_data"`
+}
+type EventLoginUnlockSuccessTypeData EventSecurityTypeData
+
+func (ev *EventLoginUnlockSuccessType) String() string {
+	return fmt.Sprintf("Account unlocked from %v", ev.TypeData.RemoteIP)
+}
+
+type EventPasswordResetQueryType struct {
+	Event
+	TypeData EventPasswordResetQueryTypeData `json:"type_data"`
+}
+type EventPasswordResetQueryTypeData EventSecurityTypeData
+
+func (ev *EventPasswordResetQueryType) String() string {
+	return fmt.Sprintf("Password reset process initiated from %v", ev.TypeData.RemoteIP)
+}
+
+type EventPasswordResetSuccessType struct {
+	Event
+	TypeData EventPasswordResetSuccessTypeData `json:"type_data"`
+}
+type EventPasswordResetSuccessTypeData EventSecurityTypeData
+
+func (ev *EventPasswordResetSuccessType) String() string {
+	return fmt.Sprintf("Password changed from from %v", ev.TypeData.RemoteIP)
+}
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
@@ -897,6 +968,18 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventLinkGithubType{Event: ev}
 	case EventUnlinkGithub:
 		e = &EventUnlinkGithubType{Event: ev}
+	case EventLoginSuccess:
+		e = &EventLoginSuccessType{Event: ev}
+	case EventLoginFailure:
+		e = &EventLoginFailureType{Event: ev}
+	case EventLoginLock:
+		e = &EventLoginLockType{Event: ev}
+	case EventLoginUnlockSuccess:
+		e = &EventLoginUnlockSuccessType{Event: ev}
+	case EventPasswordResetQuery:
+		e = &EventPasswordResetQueryType{Event: ev}
+	case EventPasswordResetSuccess:
+		e = &EventPasswordResetSuccessType{Event: ev}
 	default:
 		return pev
 	}
