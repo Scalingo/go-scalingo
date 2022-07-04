@@ -2,6 +2,9 @@
 
 ## To Be Released
 
+* build(deps): bump github.com/stretchr/testify from 1.7.2 to 1.8.0
+* build(deps): bump github.com/golang-jwt/jwt/v4 from 4.4.1 to 4.4.2
+
 ## 4.16.0
 
 * refactor: replace use of the deprecated ioutil package [#238](https://github.com/Scalingo/go-scalingo/pull/238)
