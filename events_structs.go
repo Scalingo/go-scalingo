@@ -92,6 +92,8 @@ const (
 	EventDeleteAddon             EventTypeName = "delete_addon"
 	EventResumeAddon             EventTypeName = "resume_addon"
 	EventSuspendAddon            EventTypeName = "suspend_addon"
+	EventDatabaseAddFeature      EventTypeName = "database/add_feature"
+	EventDatabaseRemoveFeature   EventTypeName = "database/remove_feature"
 	EventNewCollaborator         EventTypeName = "new_collaborator"
 	EventAcceptCollaborator      EventTypeName = "accept_collaborator"
 	EventDeleteCollaborator      EventTypeName = "delete_collaborator"
@@ -358,6 +360,46 @@ func (ev *EventUpgradeDatabaseType) Who() string {
 	} else {
 		return ev.Event.Who()
 	}
+}
+
+type EventDatabaseAddFeatureType struct {
+	Event
+	TypeData EventDatabaseAddFeatureTypeData `json:"type_data"`
+}
+
+type EventDatabaseAddFeatureTypeData struct {
+	Feature           string `json:"feature"`
+	AddonProviderID   string `json:"addon_provider_id"`
+	AddonProviderName string `json:"addon_provider_name"`
+	AddonUUID         string `json:"addon_uuid"`
+	EventSecurityTypeData
+}
+
+func (ev *EventDatabaseAddFeatureType) String() string {
+	return fmt.Sprintf(
+		"Feature %s enabled for addon '%s' (%s) ",
+		ev.TypeData.Feature, ev.TypeData.AddonUUID, ev.TypeData.AddonProviderName,
+	)
+}
+
+type EventDatabaseRemoveFeatureType struct {
+	Event
+	TypeData EventDatabaseRemoveFeatureTypeData `json:"type_data"`
+}
+
+type EventDatabaseRemoveFeatureTypeData struct {
+	Feature           string `json:"feature"`
+	AddonProviderID   string `json:"addon_provider_id"`
+	AddonProviderName string `json:"addon_provider_name"`
+	AddonUUID         string `json:"addon_uuid"`
+	EventSecurityTypeData
+}
+
+func (ev *EventDatabaseRemoveFeatureType) String() string {
+	return fmt.Sprintf(
+		"Feature %s disabled for addon '%s' (%s) ",
+		ev.TypeData.Feature, ev.TypeData.AddonUUID, ev.TypeData.AddonProviderName,
+	)
 }
 
 type EventVariable struct {
