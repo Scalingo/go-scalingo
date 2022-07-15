@@ -64,62 +64,64 @@ type EventUser struct {
 type EventTypeName string
 
 const (
-	EventNewUser              EventTypeName = "new_user"
-	EventNewApp               EventTypeName = "new_app"
-	EventEditApp              EventTypeName = "edit_app"
-	EventDeleteApp            EventTypeName = "delete_app"
-	EventRenameApp            EventTypeName = "rename_app"
-	EventTransferApp          EventTypeName = "transfer_app"
-	EventRestart              EventTypeName = "restart"
-	EventScale                EventTypeName = "scale"
-	EventStopApp              EventTypeName = "stop_app"
-	EventCrash                EventTypeName = "crash"
-	EventRepeatedCrash        EventTypeName = "repeated_crash"
-	EventDeployment           EventTypeName = "deployment"
-	EventLinkSCM              EventTypeName = "link_scm"
-	EventUnlinkSCM            EventTypeName = "unlink_scm"
-	EventNewIntegration       EventTypeName = "new_integration"
-	EventDeleteIntegration    EventTypeName = "delete_integration"
-	EventAuthorizeGithub      EventTypeName = "authorize_github"
-	EventRevokeGithub         EventTypeName = "revoke_github"
-	EventRun                  EventTypeName = "run"
-	EventNewDomain            EventTypeName = "new_domain"
-	EventEditDomain           EventTypeName = "edit_domain"
-	EventDeleteDomain         EventTypeName = "delete_domain"
-	EventNewAddon             EventTypeName = "new_addon"
-	EventUpgradeAddon         EventTypeName = "upgrade_addon"
-	EventUpgradeDatabase      EventTypeName = "upgrade_database"
-	EventDeleteAddon          EventTypeName = "delete_addon"
-	EventResumeAddon          EventTypeName = "resume_addon"
-	EventSuspendAddon         EventTypeName = "suspend_addon"
-	EventNewCollaborator      EventTypeName = "new_collaborator"
-	EventAcceptCollaborator   EventTypeName = "accept_collaborator"
-	EventDeleteCollaborator   EventTypeName = "delete_collaborator"
-	EventNewVariable          EventTypeName = "new_variable"
-	EventEditVariable         EventTypeName = "edit_variable"
-	EventEditVariables        EventTypeName = "edit_variables"
-	EventDeleteVariable       EventTypeName = "delete_variable"
-	EventAddCredit            EventTypeName = "add_credit"
-	EventAddPaymentMethod     EventTypeName = "add_payment_method"
-	EventAddVoucher           EventTypeName = "add_voucher"
-	EventNewKey               EventTypeName = "new_key"
-	EventDeleteKey            EventTypeName = "delete_key"
-	EventPaymentAttempt       EventTypeName = "payment_attempt"
-	EventNewAlert             EventTypeName = "new_alert"
-	EventAlert                EventTypeName = "alert"
-	EventDeleteAlert          EventTypeName = "delete_alert"
-	EventNewAutoscaler        EventTypeName = "new_autoscaler"
-	EventEditAutoscaler       EventTypeName = "edit_autoscaler"
-	EventDeleteAutoscaler     EventTypeName = "delete_autoscaler"
-	EventAddonUpdated         EventTypeName = "addon_updated"
-	EventStartRegionMigration EventTypeName = "start_region_migration"
-	EventNewLogDrain          EventTypeName = "new_log_drain"
-	EventDeleteLogDrain       EventTypeName = "delete_log_drain"
-	EventNewAddonLogDrain     EventTypeName = "new_addon_log_drain"
-	EventDeleteAddonLogDrain  EventTypeName = "delete_addon_log_drain"
-	EventNewNotifier          EventTypeName = "new_notifier"
-	EventEditNotifier         EventTypeName = "edit_notifier"
-	EventDeleteNotifier       EventTypeName = "delete_notifier"
+	EventNewUser                 EventTypeName = "new_user"
+	EventNewApp                  EventTypeName = "new_app"
+	EventEditApp                 EventTypeName = "edit_app"
+	EventDeleteApp               EventTypeName = "delete_app"
+	EventRenameApp               EventTypeName = "rename_app"
+	EventTransferApp             EventTypeName = "transfer_app"
+	EventRestart                 EventTypeName = "restart"
+	EventScale                   EventTypeName = "scale"
+	EventStopApp                 EventTypeName = "stop_app"
+	EventCrash                   EventTypeName = "crash"
+	EventRepeatedCrash           EventTypeName = "repeated_crash"
+	EventDeployment              EventTypeName = "deployment"
+	EventLinkSCM                 EventTypeName = "link_scm"
+	EventUnlinkSCM               EventTypeName = "unlink_scm"
+	EventNewIntegration          EventTypeName = "new_integration"
+	EventDeleteIntegration       EventTypeName = "delete_integration"
+	EventAuthorizeGithub         EventTypeName = "authorize_github"
+	EventRevokeGithub            EventTypeName = "revoke_github"
+	EventRun                     EventTypeName = "run"
+	EventNewDomain               EventTypeName = "new_domain"
+	EventEditDomain              EventTypeName = "edit_domain"
+	EventDeleteDomain            EventTypeName = "delete_domain"
+	EventNewAddon                EventTypeName = "new_addon"
+	EventUpgradeAddon            EventTypeName = "upgrade_addon"
+	EventUpgradeDatabase         EventTypeName = "upgrade_database"
+	EventDeleteAddon             EventTypeName = "delete_addon"
+	EventResumeAddon             EventTypeName = "resume_addon"
+	EventSuspendAddon            EventTypeName = "suspend_addon"
+	EventNewCollaborator         EventTypeName = "new_collaborator"
+	EventAcceptCollaborator      EventTypeName = "accept_collaborator"
+	EventDeleteCollaborator      EventTypeName = "delete_collaborator"
+	EventNewVariable             EventTypeName = "new_variable"
+	EventEditVariable            EventTypeName = "edit_variable"
+	EventEditVariables           EventTypeName = "edit_variables"
+	EventDeleteVariable          EventTypeName = "delete_variable"
+	EventAddCredit               EventTypeName = "add_credit"
+	EventAddPaymentMethod        EventTypeName = "add_payment_method"
+	EventAddVoucher              EventTypeName = "add_voucher"
+	EventNewKey                  EventTypeName = "new_key"
+	EventDeleteKey               EventTypeName = "delete_key"
+	EventPaymentAttempt          EventTypeName = "payment_attempt"
+	EventNewAlert                EventTypeName = "new_alert"
+	EventAlert                   EventTypeName = "alert"
+	EventDeleteAlert             EventTypeName = "delete_alert"
+	EventNewAutoscaler           EventTypeName = "new_autoscaler"
+	EventEditAutoscaler          EventTypeName = "edit_autoscaler"
+	EventDeleteAutoscaler        EventTypeName = "delete_autoscaler"
+	EventAddonUpdated            EventTypeName = "addon_updated"
+	EventStartRegionMigration    EventTypeName = "start_region_migration"
+	EventNewLogDrain             EventTypeName = "new_log_drain"
+	EventDeleteLogDrain          EventTypeName = "delete_log_drain"
+	EventNewAddonLogDrain        EventTypeName = "new_addon_log_drain"
+	EventDeleteAddonLogDrain     EventTypeName = "delete_addon_log_drain"
+	EventNewNotifier             EventTypeName = "new_notifier"
+	EventEditNotifier            EventTypeName = "edit_notifier"
+	EventDeleteNotifier          EventTypeName = "delete_notifier"
+	EventEditHDSContact				   EventTypeName = "edit_hds_contact"
+	EventCreateDataAccessConsent EventTypeName = "create_data_access_consent"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -1062,10 +1064,40 @@ func (ev *EventDeleteNotifierType) String() string {
 	return fmt.Sprintf("Notifier '%s' deleted on %s app", d.NotifierName, ev.AppName)
 }
 
+// Edit hds_contact
+type EventEditHDSContactTypeData struct {
+
+}
+
+type EventEditHDSContactType struct {
+	Event
+	TypeData EventEditHDSContactTypeData `json:"type_data"`
+}
+
+func (ev *EventEditHDSContactType) String() string {
+
+}
+// Create data_access_consent
+type EventCreateDataAccessConsentTypeData struct {
+
+}
+
+type EventCreateDataAccessConsentType struct {
+	Event
+	TypeData EventCreateDataAccessConsentTypeData `json:"type_data"`
+}
+
+func (ev *EventCreateDataAccessConsentType) String() string {
+
+}
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
 	switch ev.Type {
+	case EventEditHDSContact:
+		e = &EventEditHDSContactType{Event: ev}
+	case EventCreateDataAccessConsent:
+		e = &EventCreateDataAccessConsentType{Event: ev}
 	case EventNewUser:
 		e = &EventNewUserType{Event: ev}
 	case EventNewApp:

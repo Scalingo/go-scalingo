@@ -1,5 +1,11 @@
 package scalingo
 
+func (e *EventEditHDSContactType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+func (e *EventCreateDataAccessConsentType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
 func (e *EventNewUserType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
