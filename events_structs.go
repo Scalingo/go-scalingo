@@ -1074,7 +1074,7 @@ type EventEditHDSContactTypeData struct {
 	AddressLine2   string `json:"address_line2"`
 	AddressCity    string `json:"address_city"`
 	AddressZip     string `json:"address_zip"`
-	AddressCountry string `json:"address_country`
+	AddressCountry string `json:"address_country"`
 	Notes          string `json:"notes"`
 }
 
@@ -1108,7 +1108,7 @@ func (ev *EventCreateDataAccessConsentType) String() string {
 	} else if d.Databases {
 		res += "to databases metadata and monitoring data, "
 	}
-	res += fmt.Sprintf("on %s app", ev.AppName)
+	res += fmt.Sprintf("created on %s app", ev.AppName)
 	return res
 }
 
