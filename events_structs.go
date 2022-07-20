@@ -120,7 +120,7 @@ const (
 	EventNewNotifier             EventTypeName = "new_notifier"
 	EventEditNotifier            EventTypeName = "edit_notifier"
 	EventDeleteNotifier          EventTypeName = "delete_notifier"
-	EventEditHDSContact				   EventTypeName = "edit_hds_contact"
+	EventEditHDSContact          EventTypeName = "edit_hds_contact"
 	EventCreateDataAccessConsent EventTypeName = "create_data_access_consent"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
@@ -1066,7 +1066,16 @@ func (ev *EventDeleteNotifierType) String() string {
 
 // Edit hds_contact
 type EventEditHDSContactTypeData struct {
-
+	Name           string `json:"name"`
+	Email          string `json:"email"`
+	PhoneNumber    string `json:"phone_number"`
+	Company        string `json:"company"`
+	AddressLine1   string `json:"address_line1"`
+	AddressLine2   string `json:"address_line2"`
+	AddressCity    string `json:"address_city"`
+	AddressZip     string `json:"address_zip"`
+	AddressCountry string `json:"address_country`
+	Notes          string `json:"notes"`
 }
 
 type EventEditHDSContactType struct {
@@ -1075,11 +1084,15 @@ type EventEditHDSContactType struct {
 }
 
 func (ev *EventEditHDSContactType) String() string {
-
+	d := ev.TypeData
+	return fmt.Sprintf("Contact health Professional '%s' edited on %s app", d.Name, ev.AppName)
 }
+
 // Create data_access_consent
 type EventCreateDataAccessConsentTypeData struct {
-
+	EndAt      time.Time `json:"end_at"`
+	Databases  bool      `json:"databases"`
+	Containers bool      `json:"containers"`
 }
 
 type EventCreateDataAccessConsentType struct {
@@ -1088,8 +1101,17 @@ type EventCreateDataAccessConsentType struct {
 }
 
 func (ev *EventCreateDataAccessConsentType) String() string {
-
+	d := ev.TypeData
+	res := "Additional access "
+	if d.Containers {
+		res += "to application runtime environment, "
+	} else if d.Databases {
+		res += "to databases metadata and monitoring data, "
+	}
+	res += fmt.Sprintf("on %s app", ev.AppName)
+	return res
 }
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
