@@ -1105,7 +1105,8 @@ func (ev *EventCreateDataAccessConsentType) String() string {
 	res := "Additional access "
 	if d.Containers {
 		res += "to application runtime environment, "
-	} else if d.Databases {
+	}
+	if d.Databases {
 		res += "to databases metadata and monitoring data, "
 	}
 	res += fmt.Sprintf("created on %s app", ev.AppName)
