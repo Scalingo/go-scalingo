@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(events): implement event for the update of an hds contact [#255](https://github.com/Scalingo/go-scalingo/pull/255)
+* feat(events): implement event for the creation of a data access consent [#255](https://github.com/Scalingo/go-scalingo/pull/255)
 * build(deps): bump github.com/stretchr/testify from 1.7.2 to 1.8.0
 * build(deps): bump github.com/golang-jwt/jwt/v4 from 4.4.1 to 4.4.2
 
