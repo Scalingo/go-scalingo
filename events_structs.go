@@ -1121,10 +1121,6 @@ func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
 	switch ev.Type {
-	case EventEditHDSContact:
-		e = &EventEditHDSContactType{Event: ev}
-	case EventCreateDataAccessConsent:
-		e = &EventCreateDataAccessConsentType{Event: ev}
 	case EventNewUser:
 		e = &EventNewUserType{Event: ev}
 	case EventNewApp:
@@ -1237,6 +1233,10 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventEditNotifierType{Event: ev}
 	case EventDeleteNotifier:
 		e = &EventDeleteNotifierType{Event: ev}
+	case EventEditHDSContact:
+		e = &EventEditHDSContactType{Event: ev}
+	case EventCreateDataAccessConsent:
+		e = &EventCreateDataAccessConsentType{Event: ev}
 	case EventNewToken:
 		e = &EventNewTokenType{Event: ev}
 	case EventRegenerateToken:
