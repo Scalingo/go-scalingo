@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(events): implement token related events [#257](https://github.com/Scalingo/go-scalingo/pull/256)
 * feat(events): implement event for the update of a key [#256](https://github.com/Scalingo/go-scalingo/pull/256)
 * feat(events): implement event for the update of an hds contact [#255](https://github.com/Scalingo/go-scalingo/pull/255)
 * feat(events): implement event for the creation of a data access consent [#255](https://github.com/Scalingo/go-scalingo/pull/255)
