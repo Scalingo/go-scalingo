@@ -126,6 +126,8 @@ const (
 	EventNewToken                EventTypeName = "new_token"
 	EventRegenerateToken         EventTypeName = "regenerate_token"
 	EventDeleteToken             EventTypeName = "delete_token"
+	EventTfaEnabled              EventTypeName = "tfa_enabled"
+	EventTfaDisabled             EventTypeName = "tfa_disabled"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -1117,6 +1119,33 @@ func (ev *EventCreateDataAccessConsentType) String() string {
 	return res
 }
 
+// Enable Tfa
+type EventTfaEnabledTypeData struct {
+	Provider string `json:"provider"`
+}
+
+type EventTfaEnabledType struct {
+	Event
+	TypeData EventTfaEnabledTypeData `json:"type_data"`
+}
+
+func (ev *EventTfaEnabledType) String() string {
+	return "Two factor authentication enabled"
+}
+
+// Disable Tfa
+type EventTfaDisabledTypeData struct {
+}
+
+type EventTfaDisabledType struct {
+	Event
+	TypeData EventTfaDisabledTypeData `json:"type_data"`
+}
+
+func (ev *EventTfaDisabledType) String() string {
+	return "Two factor authentication disabled"
+}
+
 func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
@@ -1243,6 +1272,10 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventRegenerateTokenType{Event: ev}
 	case EventDeleteToken:
 		e = &EventDeleteTokenType{Event: ev}
+	case EventTfaEnabled:
+		e = &EventTfaEnabledType{Event: ev}
+	case EventTfaDisabled:
+		e = &EventTfaDisabledType{Event: ev}
 	// Deprecated events. Replaced by equivalent with SCM in the name instead of
 	// Github
 	case EventLinkGithub:
