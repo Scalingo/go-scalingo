@@ -120,6 +120,11 @@ func (e *EventAddVoucherType) TypeDataPtr() interface{} {
 func (e *EventNewKeyType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+
+func (e *EventEditKeyType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventDeleteKeyType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }

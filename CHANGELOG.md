@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(events): implement event for the update of a key [#256](https://github.com/Scalingo/go-scalingo/pull/256)
 * feat(events): implement event for the update of an hds contact [#255](https://github.com/Scalingo/go-scalingo/pull/255)
 * feat(events): implement event for the creation of a data access consent [#255](https://github.com/Scalingo/go-scalingo/pull/255)
 * build(deps): bump github.com/stretchr/testify from 1.7.2 to 1.8.0

@@ -103,6 +103,7 @@ const (
 	EventAddPaymentMethod        EventTypeName = "add_payment_method"
 	EventAddVoucher              EventTypeName = "add_voucher"
 	EventNewKey                  EventTypeName = "new_key"
+	EventEditKey                 EventTypeName = "edit_key"
 	EventDeleteKey               EventTypeName = "delete_key"
 	EventPaymentAttempt          EventTypeName = "payment_attempt"
 	EventNewAlert                EventTypeName = "new_alert"
@@ -1197,6 +1198,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventAddVoucherType{Event: ev}
 	case EventNewKey:
 		e = &EventNewKeyType{Event: ev}
+	case EventEditKey:
+		e = &EventEditKeyType{Event: ev}
 	case EventDeleteKey:
 		e = &EventDeleteKeyType{Event: ev}
 	case EventPaymentAttempt:
