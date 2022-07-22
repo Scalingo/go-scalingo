@@ -86,6 +86,11 @@ func (ev *EventRevokeGithubType) String() string {
 	return fmt.Sprintf("GitHub authorization has been revoked")
 }
 
+type EventNewKeyTypeData struct {
+	Name        string `json:"name"`
+	Fingerprint string `json:"fingerprint"`
+}
+
 type EventNewKeyType struct {
 	Event
 	TypeData EventNewKeyTypeData `json:"type_data"`
@@ -93,11 +98,6 @@ type EventNewKeyType struct {
 
 func (ev *EventNewKeyType) String() string {
 	return fmt.Sprintf("name '%s' with fingerprint %s", ev.TypeData.Name, ev.TypeData.Fingerprint)
-}
-
-type EventNewKeyTypeData struct {
-	Name        string `json:"name"`
-	Fingerprint string `json:"fingerprint"`
 }
 
 type EventEditKeyTypeData struct {
@@ -111,8 +111,11 @@ type EventEditKeyType struct {
 }
 
 func (ev *EventEditKeyType) String() string {
-	d := ev.TypeData
-	return fmt.Sprintf("Key '%s' edited on %s app", d.Name, ev.AppName)
+	return fmt.Sprintf("name '%s' with fingerprint %s updated", ev.TypeData.Name, ev.TypeData.Fingerprint)
+}
+
+type EventDeleteKeyTypeData struct {
+	Name string `json:"name"`
 }
 
 type EventDeleteKeyType struct {
@@ -122,8 +125,4 @@ type EventDeleteKeyType struct {
 
 func (ev *EventDeleteKeyType) String() string {
 	return fmt.Sprintf("name '%s'", ev.TypeData.Name)
-}
-
-type EventDeleteKeyTypeData struct {
-	Name string `json:"name"`
 }
