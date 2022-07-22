@@ -190,3 +190,15 @@ func (e *EventLinkGithubType) TypeDataPtr() interface{} {
 func (e *EventUnlinkGithubType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+
+func (e *EventNewTokenType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventRegenerateTokenType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventDeleteTokenType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
