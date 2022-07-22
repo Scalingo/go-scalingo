@@ -1,7 +1,5 @@
 package scalingo
 
-import "fmt"
-
 type EventNewTokenTypeData struct {
 	TokenName string `json:"token_name"`
 	TokenId   string `json:"token_id"`
@@ -13,7 +11,7 @@ type EventNewTokenType struct {
 }
 
 func (ev *EventNewTokenType) String() string {
-	return fmt.Sprintf("New token created")
+	return "New token created"
 }
 
 type EventRegenerateTokenTypeData struct {
@@ -27,7 +25,7 @@ type EventRegenerateTokenType struct {
 }
 
 func (ev *EventRegenerateTokenType) String() string {
-	return fmt.Sprintf("Token regenerated")
+	return "Token regenerated"
 }
 
 type EventDeleteTokenTypeData struct {
@@ -41,5 +39,5 @@ type EventDeleteTokenType struct {
 }
 
 func (ev *EventDeleteTokenType) String() string {
-	return fmt.Sprintf("Token deleted")
+	return "Token deleted"
 }
