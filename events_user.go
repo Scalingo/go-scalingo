@@ -100,6 +100,21 @@ type EventNewKeyTypeData struct {
 	Fingerprint string `json:"fingerprint"`
 }
 
+type EventEditKeyTypeData struct {
+	Name        string `json:"name"`
+	Fingerprint string `json:"fingerprint"`
+}
+
+type EventEditKeyType struct {
+	Event
+	TypeData EventEditKeyTypeData `json:"type_data"`
+}
+
+func (ev *EventEditKeyType) String() string {
+	d := ev.TypeData
+	return fmt.Sprintf("Key '%s' edited on %s app", d.Name, ev.AppName)
+}
+
 type EventDeleteKeyType struct {
 	Event
 	TypeData EventDeleteKeyTypeData `json:"type_data"`
