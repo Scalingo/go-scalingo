@@ -123,6 +123,9 @@ const (
 	EventDeleteNotifier          EventTypeName = "delete_notifier"
 	EventEditHDSContact          EventTypeName = "edit_hds_contact"
 	EventCreateDataAccessConsent EventTypeName = "create_data_access_consent"
+	EventNewToken                EventTypeName = "new_token"
+	EventRegenerateToken         EventTypeName = "regenerate_token"
+	EventDeleteToken             EventTypeName = "delete_token"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
@@ -1118,10 +1121,6 @@ func (pev *Event) Specialize() DetailedEvent {
 	var e DetailedEvent
 	ev := *pev
 	switch ev.Type {
-	case EventEditHDSContact:
-		e = &EventEditHDSContactType{Event: ev}
-	case EventCreateDataAccessConsent:
-		e = &EventCreateDataAccessConsentType{Event: ev}
 	case EventNewUser:
 		e = &EventNewUserType{Event: ev}
 	case EventNewApp:
@@ -1234,6 +1233,16 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventEditNotifierType{Event: ev}
 	case EventDeleteNotifier:
 		e = &EventDeleteNotifierType{Event: ev}
+	case EventEditHDSContact:
+		e = &EventEditHDSContactType{Event: ev}
+	case EventCreateDataAccessConsent:
+		e = &EventCreateDataAccessConsentType{Event: ev}
+	case EventNewToken:
+		e = &EventNewTokenType{Event: ev}
+	case EventRegenerateToken:
+		e = &EventRegenerateTokenType{Event: ev}
+	case EventDeleteToken:
+		e = &EventDeleteTokenType{Event: ev}
 	// Deprecated events. Replaced by equivalent with SCM in the name instead of
 	// Github
 	case EventLinkGithub:
