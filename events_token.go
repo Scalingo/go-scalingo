@@ -4,7 +4,7 @@ import "fmt"
 
 type EventNewTokenTypeData struct {
 	TokenName string `json:"token_name"`
-	TokenId   string `json:"token_id"`
+	TokenID   string `json:"token_id"`
 }
 
 type EventNewTokenType struct {
@@ -18,7 +18,7 @@ func (ev *EventNewTokenType) String() string {
 
 type EventRegenerateTokenTypeData struct {
 	TokenName string `json:"token_name"`
-	TokenId   string `json:"token_id"`
+	TokenID   string `json:"token_id"`
 }
 
 type EventRegenerateTokenType struct {
@@ -32,7 +32,7 @@ func (ev *EventRegenerateTokenType) String() string {
 
 type EventDeleteTokenTypeData struct {
 	TokenName string `json:"token_name"`
-	TokenId   string `json:"token_id"`
+	TokenID   string `json:"token_id"`
 }
 
 type EventDeleteTokenType struct {
