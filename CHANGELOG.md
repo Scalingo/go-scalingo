@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* refactor(events): moved direct app related events to events_app.go [#260](https://github.com/Scalingo/go-scalingo/pull/260)
 * feat(events): implement two factor auth related events [#259](https://github.com/Scalingo/go-scalingo/pull/259)
 * feat(events): implement token related events [#257](https://github.com/Scalingo/go-scalingo/pull/257)
 * feat(events): implement event for the update of a key [#256](https://github.com/Scalingo/go-scalingo/pull/256)
