@@ -86,9 +86,9 @@ const (
 	EventNewDomain               EventTypeName = "new_domain"
 	EventEditDomain              EventTypeName = "edit_domain"
 	EventDeleteDomain            EventTypeName = "delete_domain"
+	EventUpgradeDatabase         EventTypeName = "upgrade_database"
 	EventNewAddon                EventTypeName = "new_addon"
 	EventUpgradeAddon            EventTypeName = "upgrade_addon"
-	EventUpgradeDatabase         EventTypeName = "upgrade_database"
 	EventDeleteAddon             EventTypeName = "delete_addon"
 	EventResumeAddon             EventTypeName = "resume_addon"
 	EventSuspendAddon            EventTypeName = "suspend_addon"
@@ -270,95 +270,6 @@ func (ev *EventDeleteDomainType) String() string {
 
 type EventDeleteDomainTypeData struct {
 	Hostname string `json:"hostname"`
-}
-
-type EventAddon struct {
-	AddonProviderName string `json:"addon_provider_name"`
-	PlanName          string `json:"plan_name"`
-	ResourceID        string `json:"resource_id"`
-}
-
-type EventNewAddonType struct {
-	Event
-	TypeData EventNewAddonTypeData `json:"type_data"`
-}
-
-func (ev *EventNewAddonType) String() string {
-	return fmt.Sprintf(
-		"'%s' (%s) has been added (plan '%s')",
-		ev.TypeData.ResourceID, ev.TypeData.AddonProviderName, ev.TypeData.PlanName,
-	)
-}
-
-type EventNewAddonTypeData struct {
-	EventAddon
-}
-
-type EventUpgradeAddonType struct {
-	Event
-	TypeData EventUpgradeAddonTypeData `json:"type_data"`
-}
-
-func (ev *EventUpgradeAddonType) String() string {
-	return fmt.Sprintf(
-		"'%s' (%s) plan has been changed from '%s' to '%s'",
-		ev.TypeData.ResourceID, ev.TypeData.AddonProviderName, ev.TypeData.OldPlanName, ev.TypeData.NewPlanName,
-	)
-}
-
-type EventUpgradeAddonTypeData struct {
-	EventAddon
-	OldPlanName string `json:"old_plan_name"`
-	NewPlanName string `json:"new_plan_name"`
-}
-
-type EventDeleteAddonType struct {
-	Event
-	TypeData EventDeleteAddonTypeData `json:"type_data"`
-}
-
-func (ev *EventDeleteAddonType) String() string {
-	return fmt.Sprintf(
-		"'%s' (%s) plan has been deleted",
-		ev.TypeData.ResourceID, ev.TypeData.AddonProviderName,
-	)
-}
-
-type EventResumeAddonType struct {
-	Event
-	TypeData EventResumeAddonTypeData `json:"type_data"`
-}
-
-func (ev *EventResumeAddonType) String() string {
-	return fmt.Sprintf(
-		"'%s' (%s) has been resumed",
-		ev.TypeData.ResourceID, ev.TypeData.AddonProviderName,
-	)
-}
-
-type EventResumeAddonTypeData struct {
-	EventAddon
-}
-
-type EventSuspendAddonType struct {
-	Event
-	TypeData EventSuspendAddonTypeData `json:"type_data"`
-}
-
-func (ev *EventSuspendAddonType) String() string {
-	return fmt.Sprintf(
-		"'%s' (%s) has been suspended (reason: %s)",
-		ev.TypeData.ResourceID, ev.TypeData.AddonProviderName, ev.TypeData.Reason,
-	)
-}
-
-type EventSuspendAddonTypeData struct {
-	EventAddon
-	Reason string `json:"reason"`
-}
-
-type EventDeleteAddonTypeData struct {
-	EventAddon
 }
 
 type EventCollaborator struct {
@@ -992,12 +903,12 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventEditDomainType{Event: ev}
 	case EventDeleteDomain:
 		e = &EventDeleteDomainType{Event: ev}
+	case EventUpgradeDatabase:
+		e = &EventUpgradeDatabaseType{Event: ev}
 	case EventNewAddon:
 		e = &EventNewAddonType{Event: ev}
 	case EventUpgradeAddon:
 		e = &EventUpgradeAddonType{Event: ev}
-	case EventUpgradeDatabase:
-		e = &EventUpgradeDatabaseType{Event: ev}
 	case EventDeleteAddon:
 		e = &EventDeleteAddonType{Event: ev}
 	case EventResumeAddon:
