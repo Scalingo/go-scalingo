@@ -605,32 +605,6 @@ func (ev *EventDeleteAutoscalerType) String() string {
 	return fmt.Sprintf("Alert deleted about %s on container %s", d.Metric, d.ContainerType)
 }
 
-type EventAddonUpdatedTypeData struct {
-	AddonID           string `json:"addon_id"`
-	AddonPlanName     string `json:"addon_plan_name"`
-	AddonResourceID   string `json:"addon_resource_id"`
-	AddonProviderID   string `json:"addon_provider_id"`
-	AddonProviderName string `json:"addon_provider_name"`
-
-	// Status has only two items when is updated, the old value and the new value, in this order
-	Status []AddonStatus `json:"status"`
-	// AttributesChanged contain names of changed attributes
-	AttributesChanged []string `json:"attributes_changed"`
-}
-
-type EventAddonUpdatedType struct {
-	Event
-	TypeData EventAddonUpdatedTypeData `json:"type_data"`
-}
-
-func (ev *EventAddonUpdatedType) String() string {
-	d := ev.TypeData
-	return fmt.Sprintf(
-		"Addon %s %s updated, status %v -> %v",
-		d.AddonProviderName, d.AddonResourceID, d.Status[0], d.Status[1],
-	)
-}
-
 type EventStartRegionMigrationTypeData struct {
 	MigrationID string `json:"migration_id"`
 	Destination string `json:"destination"`
