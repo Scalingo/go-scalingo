@@ -1130,7 +1130,7 @@ type EventTfaEnabledType struct {
 }
 
 func (ev *EventTfaEnabledType) String() string {
-	return "Two factor authentication enabled"
+	return fmt.Sprintf("Two factor authentication enabled by %s", ev.TypeData.Provider)
 }
 
 // Disable Tfa
