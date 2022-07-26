@@ -15,7 +15,7 @@ type EventNewAppType struct {
 }
 
 func (ev *EventNewAppType) String() string {
-	return fmt.Sprintf("the application has been created")
+	return "the application has been created"
 }
 
 type EventEditAppTypeData struct {
@@ -44,7 +44,7 @@ type EventDeleteAppType struct {
 }
 
 func (ev *EventDeleteAppType) String() string {
-	return fmt.Sprintf("the application has been deleted")
+	return "the application has been deleted"
 }
 
 type EventRenameAppTypeData struct {
@@ -95,7 +95,7 @@ func (ev *EventRestartType) String() string {
 	if len(ev.TypeData.Scope) != 0 {
 		return fmt.Sprintf("containers %v have been restarted", ev.TypeData.Scope)
 	}
-	return fmt.Sprintf("containers have been restarted")
+	return "containers have been restarted"
 }
 
 func (ev *EventRestartType) Who() string {
@@ -148,7 +148,7 @@ func (e *EventScaleTypeData) containersString(containers map[string]string) stri
 type EventCrashTypeData struct {
 	ContainerType string `json:"container_type"`
 	CrashLogs     string `json:"crash_logs"`
-	LogsUrl       string `json:"logs_url"`
+	LogsURL       string `json:"logs_url"`
 }
 
 type EventCrashType struct {
@@ -160,7 +160,7 @@ func (ev *EventCrashType) String() string {
 	msg := fmt.Sprintf("container '%v' has crashed", ev.TypeData.ContainerType)
 
 	if ev.TypeData.CrashLogs != "" {
-		msg += fmt.Sprintf(" (logs on %s)", ev.TypeData.LogsUrl)
+		msg += fmt.Sprintf(" (logs on %s)", ev.TypeData.LogsURL)
 	}
 
 	return msg
@@ -169,7 +169,7 @@ func (ev *EventCrashType) String() string {
 type EventRepeatedCrashTypeData struct {
 	ContainerType string `json:"container_type"`
 	CrashLogs     string `json:"crash_logs"`
-	LogsUrl       string `json:"logs_url"`
+	LogsURL       string `json:"logs_url"`
 }
 
 type EventRepeatedCrashType struct {
@@ -181,7 +181,7 @@ func (ev *EventRepeatedCrashType) String() string {
 	msg := fmt.Sprintf("container '%v' has crashed repeatedly", ev.TypeData.ContainerType)
 
 	if ev.TypeData.CrashLogs != "" {
-		msg += fmt.Sprintf(" (logs on %s)", ev.TypeData.LogsUrl)
+		msg += fmt.Sprintf(" (logs on %s)", ev.TypeData.LogsURL)
 	}
 
 	return msg
