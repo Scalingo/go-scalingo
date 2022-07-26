@@ -101,9 +101,8 @@ func (ev *EventRestartType) String() string {
 func (ev *EventRestartType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+	return ev.Event.Who()
 }
 
 type EventStopAppTypeData struct {
