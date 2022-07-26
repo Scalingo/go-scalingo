@@ -204,3 +204,11 @@ func (e *EventRegenerateTokenType) TypeDataPtr() interface{} {
 func (e *EventDeleteTokenType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
+
+func (e *EventTfaEnabledType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventTfaDisabledType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
