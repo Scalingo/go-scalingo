@@ -2,17 +2,19 @@ package scalingo
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	gomock "github.com/golang/mock/gomock"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestAppsClient_Update(t *testing.T) {
+	ctx := context.Background()
 	appName := "my-app"
 
 	runs := map[string]struct {
@@ -25,7 +27,7 @@ func TestAppsClient_Update(t *testing.T) {
 	}{
 		"it should enable the app router_logs attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsRouterLogs(appName, true)
+				_, err := c.AppsRouterLogs(ctx, appName, true)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -36,7 +38,7 @@ func TestAppsClient_Update(t *testing.T) {
 		},
 		"it should disable the app router_logs attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsRouterLogs(appName, false)
+				_, err := c.AppsRouterLogs(ctx, appName, false)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -48,7 +50,7 @@ func TestAppsClient_Update(t *testing.T) {
 
 		"it should enable the app force_https attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsForceHTTPS(appName, true)
+				_, err := c.AppsForceHTTPS(ctx, appName, true)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -59,7 +61,7 @@ func TestAppsClient_Update(t *testing.T) {
 		},
 		"it should disable the app force_https attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsForceHTTPS(appName, false)
+				_, err := c.AppsForceHTTPS(ctx, appName, false)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -71,7 +73,7 @@ func TestAppsClient_Update(t *testing.T) {
 
 		"it should enable the app sticky_session attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsStickySession(appName, true)
+				_, err := c.AppsStickySession(ctx, appName, true)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -82,7 +84,7 @@ func TestAppsClient_Update(t *testing.T) {
 		},
 		"it should disable the app sticky_session attribute": {
 			testedClientCall: func(c AppsService) error {
-				_, err := c.AppsStickySession(appName, false)
+				_, err := c.AppsStickySession(ctx, appName, false)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
@@ -116,7 +118,7 @@ func TestAppsClient_Update(t *testing.T) {
 			}))
 			defer ts.Close()
 
-			c, err := New(ClientConfig{
+			c, err := New(ctx, ClientConfig{
 				APIEndpoint: ts.URL,
 				APIToken:    "test",
 			})

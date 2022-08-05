@@ -1,6 +1,7 @@
 package http
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 )
 
 func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
+	ctx := context.Background()
 	apiToken := "tk-token-test"
 
 	ctrl := gomock.NewController(t)
@@ -25,10 +27,10 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 		"it should return a JWT queried to the TokenService": {
 			tokenTTL: time.Hour,
 			expect: func(t *testing.T, s *tokensservicemock.MockTokensService, token string) {
-				s.EXPECT().TokenExchange(apiToken).Return(token, nil)
+				s.EXPECT().TokenExchange(gomock.Any(), apiToken).Return(token, nil)
 			},
 			call: func(t *testing.T, gen *APITokenGenerator, token string) {
-				accessToken, err := gen.GetAccessToken()
+				accessToken, err := gen.GetAccessToken(ctx)
 				require.NoError(t, err)
 				require.Equal(t, token, accessToken)
 			},
@@ -36,14 +38,14 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 		"it should return twice the same JWT with one call to TokenService if stil valid": {
 			tokenTTL: time.Hour,
 			expect: func(t *testing.T, s *tokensservicemock.MockTokensService, token string) {
-				s.EXPECT().TokenExchange(apiToken).Return(token, nil)
+				s.EXPECT().TokenExchange(gomock.Any(), apiToken).Return(token, nil)
 			},
 			call: func(t *testing.T, gen *APITokenGenerator, token string) {
-				accessToken, err := gen.GetAccessToken()
+				accessToken, err := gen.GetAccessToken(ctx)
 				require.NoError(t, err)
 				require.Equal(t, token, accessToken)
 
-				accessToken, err = gen.GetAccessToken()
+				accessToken, err = gen.GetAccessToken(ctx)
 				require.NoError(t, err)
 				require.Equal(t, token, accessToken)
 			},
@@ -51,7 +53,7 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 		"it should requery a another JWT if the token is less than 5 minutes to expire": {
 			tokenTTL: 4 * time.Minute,
 			expect: func(t *testing.T, s *tokensservicemock.MockTokensService, token string) {
-				s.EXPECT().TokenExchange(apiToken).Return(token, nil)
+				s.EXPECT().TokenExchange(gomock.Any(), apiToken).Return(token, nil)
 
 				claims := &jwt.RegisteredClaims{
 					ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
@@ -60,14 +62,14 @@ func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
 				jwt, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)
 				require.NoError(t, err)
 
-				s.EXPECT().TokenExchange(apiToken).Return(jwt, nil)
+				s.EXPECT().TokenExchange(gomock.Any(), apiToken).Return(jwt, nil)
 			},
 			call: func(t *testing.T, gen *APITokenGenerator, token string) {
-				accessToken, err := gen.GetAccessToken()
+				accessToken, err := gen.GetAccessToken(ctx)
 				require.NoError(t, err)
 				require.Equal(t, token, accessToken)
 
-				accessToken, err = gen.GetAccessToken()
+				accessToken, err = gen.GetAccessToken(ctx)
 				require.NoError(t, err)
 				require.NotEmpty(t, accessToken)
 				require.NotEqual(t, token, accessToken)

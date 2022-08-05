@@ -5,61 +5,62 @@
 package scalingomock
 
 import (
+	context "context"
 	http "net/http"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockLogsService is a mock of LogsService interface
+// MockLogsService is a mock of LogsService interface.
 type MockLogsService struct {
 	ctrl     *gomock.Controller
 	recorder *MockLogsServiceMockRecorder
 }
 
-// MockLogsServiceMockRecorder is the mock recorder for MockLogsService
+// MockLogsServiceMockRecorder is the mock recorder for MockLogsService.
 type MockLogsServiceMockRecorder struct {
 	mock *MockLogsService
 }
 
-// NewMockLogsService creates a new mock instance
+// NewMockLogsService creates a new mock instance.
 func NewMockLogsService(ctrl *gomock.Controller) *MockLogsService {
 	mock := &MockLogsService{ctrl: ctrl}
 	mock.recorder = &MockLogsServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockLogsService) EXPECT() *MockLogsServiceMockRecorder {
 	return m.recorder
 }
 
-// Logs mocks base method
-func (m *MockLogsService) Logs(arg0 string, arg1 int, arg2 string) (*http.Response, error) {
+// Logs mocks base method.
+func (m *MockLogsService) Logs(arg0 context.Context, arg1 string, arg2 int, arg3 string) (*http.Response, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Logs", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "Logs", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Logs indicates an expected call of Logs
-func (mr *MockLogsServiceMockRecorder) Logs(arg0, arg1, arg2 interface{}) *gomock.Call {
+// Logs indicates an expected call of Logs.
+func (mr *MockLogsServiceMockRecorder) Logs(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Logs", reflect.TypeOf((*MockLogsService)(nil).Logs), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Logs", reflect.TypeOf((*MockLogsService)(nil).Logs), arg0, arg1, arg2, arg3)
 }
 
-// LogsURL mocks base method
-func (m *MockLogsService) LogsURL(arg0 string) (*http.Response, error) {
+// LogsURL mocks base method.
+func (m *MockLogsService) LogsURL(arg0 context.Context, arg1 string) (*http.Response, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LogsURL", arg0)
+	ret := m.ctrl.Call(m, "LogsURL", arg0, arg1)
 	ret0, _ := ret[0].(*http.Response)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// LogsURL indicates an expected call of LogsURL
-func (mr *MockLogsServiceMockRecorder) LogsURL(arg0 interface{}) *gomock.Call {
+// LogsURL indicates an expected call of LogsURL.
+func (mr *MockLogsServiceMockRecorder) LogsURL(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsURL", reflect.TypeOf((*MockLogsService)(nil).LogsURL), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogsURL", reflect.TypeOf((*MockLogsService)(nil).LogsURL), arg0, arg1)
 }

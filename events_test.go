@@ -1,6 +1,7 @@
 package scalingo
 
 import (
+	"context"
 	"encoding/json"
 	"testing"
 
@@ -36,21 +37,23 @@ var eventsListCases = map[string]struct {
 }
 
 func TestEventsList(t *testing.T) {
+	ctx := context.Background()
+
 	for msg, c := range eventsListCases {
 		t.Run(msg, func(t *testing.T) {
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
-			client, err := New(ClientConfig{})
+			client, err := New(ctx, ClientConfig{})
 			require.NoError(t, err)
 			apiMock := httpmock.NewMockClient(ctrl)
 			client.apiClient = apiMock
 
-			apiMock.EXPECT().SubresourceList("apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_, _, _ string, _ interface{}, res interface{}) {
+			apiMock.EXPECT().SubresourceList(gomock.Any(), "apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_ context.Context, _, _, _ string, _ interface{}, res interface{}) {
 				err := json.Unmarshal([]byte(c.Body), &res)
 				require.NoError(t, err)
 			}).Return(nil)
 
-			events, _, err := client.EventsList(c.App, c.PaginationOpts)
+			events, _, err := client.EventsList(ctx, c.App, c.PaginationOpts)
 			if len(events) != c.EventsCount {
 				t.Errorf("expected %d event, got %v", c.EventsCount, len(events))
 			}

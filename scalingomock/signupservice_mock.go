@@ -5,44 +5,45 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockSignUpService is a mock of SignUpService interface
+// MockSignUpService is a mock of SignUpService interface.
 type MockSignUpService struct {
 	ctrl     *gomock.Controller
 	recorder *MockSignUpServiceMockRecorder
 }
 
-// MockSignUpServiceMockRecorder is the mock recorder for MockSignUpService
+// MockSignUpServiceMockRecorder is the mock recorder for MockSignUpService.
 type MockSignUpServiceMockRecorder struct {
 	mock *MockSignUpService
 }
 
-// NewMockSignUpService creates a new mock instance
+// NewMockSignUpService creates a new mock instance.
 func NewMockSignUpService(ctrl *gomock.Controller) *MockSignUpService {
 	mock := &MockSignUpService{ctrl: ctrl}
 	mock.recorder = &MockSignUpServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockSignUpService) EXPECT() *MockSignUpServiceMockRecorder {
 	return m.recorder
 }
 
-// SignUp mocks base method
-func (m *MockSignUpService) SignUp(arg0, arg1 string) error {
+// SignUp mocks base method.
+func (m *MockSignUpService) SignUp(arg0 context.Context, arg1, arg2 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SignUp", arg0, arg1)
+	ret := m.ctrl.Call(m, "SignUp", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// SignUp indicates an expected call of SignUp
-func (mr *MockSignUpServiceMockRecorder) SignUp(arg0, arg1 interface{}) *gomock.Call {
+// SignUp indicates an expected call of SignUp.
+func (mr *MockSignUpServiceMockRecorder) SignUp(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockSignUpService)(nil).SignUp), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SignUp", reflect.TypeOf((*MockSignUpService)(nil).SignUp), arg0, arg1, arg2)
 }

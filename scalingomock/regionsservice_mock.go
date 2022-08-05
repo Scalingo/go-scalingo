@@ -5,46 +5,47 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockRegionsService is a mock of RegionsService interface
+// MockRegionsService is a mock of RegionsService interface.
 type MockRegionsService struct {
 	ctrl     *gomock.Controller
 	recorder *MockRegionsServiceMockRecorder
 }
 
-// MockRegionsServiceMockRecorder is the mock recorder for MockRegionsService
+// MockRegionsServiceMockRecorder is the mock recorder for MockRegionsService.
 type MockRegionsServiceMockRecorder struct {
 	mock *MockRegionsService
 }
 
-// NewMockRegionsService creates a new mock instance
+// NewMockRegionsService creates a new mock instance.
 func NewMockRegionsService(ctrl *gomock.Controller) *MockRegionsService {
 	mock := &MockRegionsService{ctrl: ctrl}
 	mock.recorder = &MockRegionsServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockRegionsService) EXPECT() *MockRegionsServiceMockRecorder {
 	return m.recorder
 }
 
-// RegionsList mocks base method
-func (m *MockRegionsService) RegionsList() ([]scalingo.Region, error) {
+// RegionsList mocks base method.
+func (m *MockRegionsService) RegionsList(arg0 context.Context) ([]scalingo.Region, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RegionsList")
+	ret := m.ctrl.Call(m, "RegionsList", arg0)
 	ret0, _ := ret[0].([]scalingo.Region)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// RegionsList indicates an expected call of RegionsList
-func (mr *MockRegionsServiceMockRecorder) RegionsList() *gomock.Call {
+// RegionsList indicates an expected call of RegionsList.
+func (mr *MockRegionsServiceMockRecorder) RegionsList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RegionsList", reflect.TypeOf((*MockRegionsService)(nil).RegionsList))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RegionsList", reflect.TypeOf((*MockRegionsService)(nil).RegionsList), arg0)
 }

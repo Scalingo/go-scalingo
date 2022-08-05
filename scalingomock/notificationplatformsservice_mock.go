@@ -5,61 +5,62 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockNotificationPlatformsService is a mock of NotificationPlatformsService interface
+// MockNotificationPlatformsService is a mock of NotificationPlatformsService interface.
 type MockNotificationPlatformsService struct {
 	ctrl     *gomock.Controller
 	recorder *MockNotificationPlatformsServiceMockRecorder
 }
 
-// MockNotificationPlatformsServiceMockRecorder is the mock recorder for MockNotificationPlatformsService
+// MockNotificationPlatformsServiceMockRecorder is the mock recorder for MockNotificationPlatformsService.
 type MockNotificationPlatformsServiceMockRecorder struct {
 	mock *MockNotificationPlatformsService
 }
 
-// NewMockNotificationPlatformsService creates a new mock instance
+// NewMockNotificationPlatformsService creates a new mock instance.
 func NewMockNotificationPlatformsService(ctrl *gomock.Controller) *MockNotificationPlatformsService {
 	mock := &MockNotificationPlatformsService{ctrl: ctrl}
 	mock.recorder = &MockNotificationPlatformsServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNotificationPlatformsService) EXPECT() *MockNotificationPlatformsServiceMockRecorder {
 	return m.recorder
 }
 
-// NotificationPlatformByName mocks base method
-func (m *MockNotificationPlatformsService) NotificationPlatformByName(arg0 string) ([]*scalingo.NotificationPlatform, error) {
+// NotificationPlatformByName mocks base method.
+func (m *MockNotificationPlatformsService) NotificationPlatformByName(arg0 context.Context, arg1 string) ([]*scalingo.NotificationPlatform, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NotificationPlatformByName", arg0)
+	ret := m.ctrl.Call(m, "NotificationPlatformByName", arg0, arg1)
 	ret0, _ := ret[0].([]*scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// NotificationPlatformByName indicates an expected call of NotificationPlatformByName
-func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformByName(arg0 interface{}) *gomock.Call {
+// NotificationPlatformByName indicates an expected call of NotificationPlatformByName.
+func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformByName(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformByName", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformByName), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformByName", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformByName), arg0, arg1)
 }
 
-// NotificationPlatformsList mocks base method
-func (m *MockNotificationPlatformsService) NotificationPlatformsList() ([]*scalingo.NotificationPlatform, error) {
+// NotificationPlatformsList mocks base method.
+func (m *MockNotificationPlatformsService) NotificationPlatformsList(arg0 context.Context) ([]*scalingo.NotificationPlatform, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NotificationPlatformsList")
+	ret := m.ctrl.Call(m, "NotificationPlatformsList", arg0)
 	ret0, _ := ret[0].([]*scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// NotificationPlatformsList indicates an expected call of NotificationPlatformsList
-func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformsList() *gomock.Call {
+// NotificationPlatformsList indicates an expected call of NotificationPlatformsList.
+func (mr *MockNotificationPlatformsServiceMockRecorder) NotificationPlatformsList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformsList", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformsList))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NotificationPlatformsList", reflect.TypeOf((*MockNotificationPlatformsService)(nil).NotificationPlatformsList), arg0)
 }

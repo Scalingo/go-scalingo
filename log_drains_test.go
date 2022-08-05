@@ -1,17 +1,19 @@
 package scalingo
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	gomock "github.com/golang/mock/gomock"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestLogDrainsClient(t *testing.T) {
+	ctx := context.Background()
 	appName := "my-app"
 	logDrainID := "my-id"
 	logDrainURL := "tcp+tls://localhost:8080"
@@ -29,7 +31,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "list",
 			testedClientCall: func(c LogDrainsService) error {
-				_, err := c.LogDrainsList(appName)
+				_, err := c.LogDrainsList(ctx, appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
@@ -45,7 +47,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "addon list",
 			testedClientCall: func(c LogDrainsService) error {
-				_, err := c.LogDrainsAddonList(appName, addonID)
+				_, err := c.LogDrainsAddonList(ctx, appName, addonID)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
@@ -61,7 +63,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "add",
 			testedClientCall: func(c LogDrainsService) error {
-				_, err := c.LogDrainAdd(appName, LogDrainAddParams{
+				_, err := c.LogDrainAdd(ctx, appName, LogDrainAddParams{
 					Type: "syslog",
 					Host: "localhost",
 					Port: "8080",
@@ -79,7 +81,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "addon add",
 			testedClientCall: func(c LogDrainsService) error {
-				_, err := c.LogDrainAddonAdd(appName, addonID, LogDrainAddParams{
+				_, err := c.LogDrainAddonAdd(ctx, appName, addonID, LogDrainAddParams{
 					Type: "syslog",
 					Host: "localhost",
 					Port: "8080",
@@ -97,7 +99,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "remove",
 			testedClientCall: func(c LogDrainsService) error {
-				err := c.LogDrainRemove(appName, logDrainURL)
+				err := c.LogDrainRemove(ctx, appName, logDrainURL)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
@@ -108,7 +110,7 @@ func TestLogDrainsClient(t *testing.T) {
 		{
 			action: "addon remove",
 			testedClientCall: func(c LogDrainsService) error {
-				err := c.LogDrainAddonRemove(appName, addonID, logDrainURL)
+				err := c.LogDrainAddonRemove(ctx, appName, addonID, logDrainURL)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
@@ -151,7 +153,7 @@ func TestLogDrainsClient(t *testing.T) {
 				ts := httptest.NewServer(http.HandlerFunc(handler))
 				defer ts.Close()
 
-				c, err := New(ClientConfig{
+				c, err := New(ctx, ClientConfig{
 					APIEndpoint: ts.URL,
 					APIToken:    "test",
 				})

@@ -5,75 +5,76 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockKeysService is a mock of KeysService interface
+// MockKeysService is a mock of KeysService interface.
 type MockKeysService struct {
 	ctrl     *gomock.Controller
 	recorder *MockKeysServiceMockRecorder
 }
 
-// MockKeysServiceMockRecorder is the mock recorder for MockKeysService
+// MockKeysServiceMockRecorder is the mock recorder for MockKeysService.
 type MockKeysServiceMockRecorder struct {
 	mock *MockKeysService
 }
 
-// NewMockKeysService creates a new mock instance
+// NewMockKeysService creates a new mock instance.
 func NewMockKeysService(ctrl *gomock.Controller) *MockKeysService {
 	mock := &MockKeysService{ctrl: ctrl}
 	mock.recorder = &MockKeysServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockKeysService) EXPECT() *MockKeysServiceMockRecorder {
 	return m.recorder
 }
 
-// KeysAdd mocks base method
-func (m *MockKeysService) KeysAdd(arg0, arg1 string) (*scalingo.Key, error) {
+// KeysAdd mocks base method.
+func (m *MockKeysService) KeysAdd(arg0 context.Context, arg1, arg2 string) (*scalingo.Key, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "KeysAdd", arg0, arg1)
+	ret := m.ctrl.Call(m, "KeysAdd", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*scalingo.Key)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// KeysAdd indicates an expected call of KeysAdd
-func (mr *MockKeysServiceMockRecorder) KeysAdd(arg0, arg1 interface{}) *gomock.Call {
+// KeysAdd indicates an expected call of KeysAdd.
+func (mr *MockKeysServiceMockRecorder) KeysAdd(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysAdd", reflect.TypeOf((*MockKeysService)(nil).KeysAdd), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysAdd", reflect.TypeOf((*MockKeysService)(nil).KeysAdd), arg0, arg1, arg2)
 }
 
-// KeysDelete mocks base method
-func (m *MockKeysService) KeysDelete(arg0 string) error {
+// KeysDelete mocks base method.
+func (m *MockKeysService) KeysDelete(arg0 context.Context, arg1 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "KeysDelete", arg0)
+	ret := m.ctrl.Call(m, "KeysDelete", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// KeysDelete indicates an expected call of KeysDelete
-func (mr *MockKeysServiceMockRecorder) KeysDelete(arg0 interface{}) *gomock.Call {
+// KeysDelete indicates an expected call of KeysDelete.
+func (mr *MockKeysServiceMockRecorder) KeysDelete(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysDelete", reflect.TypeOf((*MockKeysService)(nil).KeysDelete), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysDelete", reflect.TypeOf((*MockKeysService)(nil).KeysDelete), arg0, arg1)
 }
 
-// KeysList mocks base method
-func (m *MockKeysService) KeysList() ([]scalingo.Key, error) {
+// KeysList mocks base method.
+func (m *MockKeysService) KeysList(arg0 context.Context) ([]scalingo.Key, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "KeysList")
+	ret := m.ctrl.Call(m, "KeysList", arg0)
 	ret0, _ := ret[0].([]scalingo.Key)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// KeysList indicates an expected call of KeysList
-func (mr *MockKeysServiceMockRecorder) KeysList() *gomock.Call {
+// KeysList indicates an expected call of KeysList.
+func (mr *MockKeysServiceMockRecorder) KeysList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysList", reflect.TypeOf((*MockKeysService)(nil).KeysList))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysList", reflect.TypeOf((*MockKeysService)(nil).KeysList), arg0)
 }

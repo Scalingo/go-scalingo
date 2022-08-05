@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -13,6 +14,7 @@ import (
 )
 
 func TestDomainsClient_DomainCanonical(t *testing.T) {
+	ctx := context.Background()
 	appName := "my-app"
 	domainID := "domain-id"
 
@@ -27,7 +29,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 	}{
 		"it should set the domain as canonical": {
 			testedClientCall: func(c DomainsService) error {
-				_, err := c.DomainSetCanonical(appName, domainID)
+				_, err := c.DomainSetCanonical(ctx, appName, domainID)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
@@ -47,7 +49,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 				assert.NoError(t, err)
 			},
 			testedClientCall: func(c DomainsService) error {
-				_, err := c.DomainUnsetCanonical(appName)
+				_, err := c.DomainUnsetCanonical(ctx, appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
@@ -57,7 +59,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 		},
 		"it should unset the domain certificate": {
 			testedClientCall: func(c DomainsService) error {
-				_, err := c.DomainUnsetCertificate(appName, domainID)
+				_, err := c.DomainUnsetCertificate(ctx, appName, domainID)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
@@ -72,7 +74,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 				assert.NoError(t, err)
 			},
 			testedClientCall: func(c DomainsService) error {
-				_, err := c.DomainUnsetCanonical(appName)
+				_, err := c.DomainUnsetCanonical(ctx, appName)
 				return err
 			},
 			expectedError: "no canonical domain configured",
@@ -105,7 +107,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			}))
 			defer ts.Close()
 
-			scalingoClient, err := New(ClientConfig{
+			scalingoClient, err := New(ctx, ClientConfig{
 				APIEndpoint: ts.URL,
 				APIToken:    "test",
 			})

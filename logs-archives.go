@@ -1,6 +1,7 @@
 package scalingo
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"strconv"
@@ -11,8 +12,8 @@ import (
 )
 
 type LogsArchivesService interface {
-	LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error)
-	LogsArchives(app string, page int) (*LogsArchivesResponse, error)
+	LogsArchivesByCursor(ctx context.Context, app string, cursor string) (*LogsArchivesResponse, error)
+	LogsArchives(ctx context.Context, app string, page int) (*LogsArchivesResponse, error)
 }
 
 var _ LogsArchivesService = (*Client)(nil)
@@ -30,7 +31,7 @@ type LogsArchivesResponse struct {
 	Archives   []LogsArchiveItem `json:"archives"`
 }
 
-func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesResponse, error) {
+func (c *Client) LogsArchivesByCursor(ctx context.Context, app string, cursor string) (*LogsArchivesResponse, error) {
 	req := &http.APIRequest{
 		Endpoint: "/apps/" + app + "/logs_archives",
 		Params: map[string]string{
@@ -38,7 +39,7 @@ func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesR
 		},
 	}
 
-	res, err := c.ScalingoAPI().Do(req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
@@ -57,7 +58,7 @@ func (c *Client) LogsArchivesByCursor(app string, cursor string) (*LogsArchivesR
 	return &logsRes, nil
 }
 
-func (c *Client) LogsArchives(app string, page int) (*LogsArchivesResponse, error) {
+func (c *Client) LogsArchives(ctx context.Context, app string, page int) (*LogsArchivesResponse, error) {
 	if page < 1 {
 		return nil, errgo.New("Page must be greater than 0.")
 	}
@@ -69,7 +70,7 @@ func (c *Client) LogsArchives(app string, page int) (*LogsArchivesResponse, erro
 		},
 	}
 
-	res, err := c.ScalingoAPI().Do(req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}

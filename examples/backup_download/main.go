@@ -1,15 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 
-	scalingo "github.com/Scalingo/go-scalingo/v4"
+	"github.com/Scalingo/go-scalingo/v4"
 )
 
 func main() {
+	ctx := context.Background()
 
 	// ---- PARSE ARGS ----
 	if len(os.Args) != 5 {
@@ -29,7 +31,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	client, err := scalingo.New(scalingo.ClientConfig{
+	client, err := scalingo.New(ctx, scalingo.ClientConfig{
 		Region:   region,
 		APIToken: token,
 	})
@@ -39,7 +41,7 @@ func main() {
 	}
 
 	// ---- GET BACKUP DOWNLOAD URL ----
-	backupURL, err := client.BackupDownloadURL(appName, addonId, backupId)
+	backupURL, err := client.BackupDownloadURL(ctx, appName, addonId, backupId)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fail to get backup URL: %s\n", err.Error())
 		os.Exit(1)

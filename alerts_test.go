@@ -1,17 +1,19 @@
 package scalingo
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	gomock "github.com/golang/mock/gomock"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestAlertsClient(t *testing.T) {
+	ctx := context.Background()
 	appName := "my-app"
 	alertID := "my-id"
 
@@ -27,7 +29,7 @@ func TestAlertsClient(t *testing.T) {
 		{
 			action: "list",
 			testedClientCall: func(c AlertsService) error {
-				_, err := c.AlertsList(appName)
+				_, err := c.AlertsList(ctx, appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts",
@@ -37,7 +39,7 @@ func TestAlertsClient(t *testing.T) {
 		{
 			action: "add",
 			testedClientCall: func(c AlertsService) error {
-				_, err := c.AlertAdd(appName, AlertAddParams{})
+				_, err := c.AlertAdd(ctx, appName, AlertAddParams{})
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts",
@@ -48,7 +50,7 @@ func TestAlertsClient(t *testing.T) {
 		{
 			action: "show",
 			testedClientCall: func(c AlertsService) error {
-				_, err := c.AlertShow(appName, alertID)
+				_, err := c.AlertShow(ctx, appName, alertID)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
@@ -58,7 +60,7 @@ func TestAlertsClient(t *testing.T) {
 		{
 			action: "update",
 			testedClientCall: func(c AlertsService) error {
-				_, err := c.AlertUpdate(appName, alertID, AlertUpdateParams{})
+				_, err := c.AlertUpdate(ctx, appName, alertID, AlertUpdateParams{})
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
@@ -68,7 +70,7 @@ func TestAlertsClient(t *testing.T) {
 		{
 			action: "remove",
 			testedClientCall: func(c AlertsService) error {
-				return c.AlertRemove(appName, alertID)
+				return c.AlertRemove(ctx, appName, alertID)
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
 			expectedMethod:   "DELETE",
@@ -109,7 +111,7 @@ func TestAlertsClient(t *testing.T) {
 				ts := httptest.NewServer(http.HandlerFunc(handler))
 				defer ts.Close()
 
-				c, err := New(ClientConfig{
+				c, err := New(ctx, ClientConfig{
 					APIEndpoint: ts.URL,
 					APIToken:    "test",
 				})
