@@ -5,6 +5,7 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
@@ -35,53 +36,53 @@ func (m *MockSCMRepoLinkService) EXPECT() *MockSCMRepoLinkServiceMockRecorder {
 }
 
 // SCMRepoLinkCreate mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkCreate(arg0 string, arg1 scalingo.SCMRepoLinkCreateParams) (*scalingo.SCMRepoLink, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkCreate(arg0 context.Context, arg1 string, arg2 scalingo.SCMRepoLinkCreateParams) (*scalingo.SCMRepoLink, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkCreate", arg0, arg1)
+	ret := m.ctrl.Call(m, "SCMRepoLinkCreate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*scalingo.SCMRepoLink)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SCMRepoLinkCreate indicates an expected call of SCMRepoLinkCreate.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkCreate(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkCreate(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkCreate", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkCreate), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkCreate", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkCreate), arg0, arg1, arg2)
 }
 
 // SCMRepoLinkDelete mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkDelete(arg0 string) error {
+func (m *MockSCMRepoLinkService) SCMRepoLinkDelete(arg0 context.Context, arg1 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkDelete", arg0)
+	ret := m.ctrl.Call(m, "SCMRepoLinkDelete", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // SCMRepoLinkDelete indicates an expected call of SCMRepoLinkDelete.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkDelete(arg0 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkDelete(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkDelete", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkDelete), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkDelete", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkDelete), arg0, arg1)
 }
 
 // SCMRepoLinkDeployments mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkDeployments(arg0 string) ([]*scalingo.Deployment, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkDeployments(arg0 context.Context, arg1 string) ([]*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkDeployments", arg0)
+	ret := m.ctrl.Call(m, "SCMRepoLinkDeployments", arg0, arg1)
 	ret0, _ := ret[0].([]*scalingo.Deployment)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SCMRepoLinkDeployments indicates an expected call of SCMRepoLinkDeployments.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkDeployments(arg0 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkDeployments(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkDeployments", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkDeployments), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkDeployments", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkDeployments), arg0, arg1)
 }
 
 // SCMRepoLinkList mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkList(arg0 scalingo.PaginationOpts) ([]*scalingo.SCMRepoLink, scalingo.PaginationMeta, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkList(arg0 context.Context, arg1 scalingo.PaginationOpts) ([]*scalingo.SCMRepoLink, scalingo.PaginationMeta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkList", arg0)
+	ret := m.ctrl.Call(m, "SCMRepoLinkList", arg0, arg1)
 	ret0, _ := ret[0].([]*scalingo.SCMRepoLink)
 	ret1, _ := ret[1].(scalingo.PaginationMeta)
 	ret2, _ := ret[2].(error)
@@ -89,80 +90,80 @@ func (m *MockSCMRepoLinkService) SCMRepoLinkList(arg0 scalingo.PaginationOpts) (
 }
 
 // SCMRepoLinkList indicates an expected call of SCMRepoLinkList.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkList(arg0 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkList(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkList", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkList), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkList", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkList), arg0, arg1)
 }
 
 // SCMRepoLinkManualDeploy mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkManualDeploy(arg0, arg1 string) error {
+func (m *MockSCMRepoLinkService) SCMRepoLinkManualDeploy(arg0 context.Context, arg1, arg2 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkManualDeploy", arg0, arg1)
+	ret := m.ctrl.Call(m, "SCMRepoLinkManualDeploy", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // SCMRepoLinkManualDeploy indicates an expected call of SCMRepoLinkManualDeploy.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkManualDeploy(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkManualDeploy(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkManualDeploy", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkManualDeploy), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkManualDeploy", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkManualDeploy), arg0, arg1, arg2)
 }
 
 // SCMRepoLinkManualReviewApp mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkManualReviewApp(arg0, arg1 string) error {
+func (m *MockSCMRepoLinkService) SCMRepoLinkManualReviewApp(arg0 context.Context, arg1, arg2 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkManualReviewApp", arg0, arg1)
+	ret := m.ctrl.Call(m, "SCMRepoLinkManualReviewApp", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // SCMRepoLinkManualReviewApp indicates an expected call of SCMRepoLinkManualReviewApp.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkManualReviewApp(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkManualReviewApp(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkManualReviewApp", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkManualReviewApp), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkManualReviewApp", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkManualReviewApp), arg0, arg1, arg2)
 }
 
 // SCMRepoLinkReviewApps mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkReviewApps(arg0 string) ([]*scalingo.ReviewApp, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkReviewApps(arg0 context.Context, arg1 string) ([]*scalingo.ReviewApp, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkReviewApps", arg0)
+	ret := m.ctrl.Call(m, "SCMRepoLinkReviewApps", arg0, arg1)
 	ret0, _ := ret[0].([]*scalingo.ReviewApp)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SCMRepoLinkReviewApps indicates an expected call of SCMRepoLinkReviewApps.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkReviewApps(arg0 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkReviewApps(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkReviewApps", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkReviewApps), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkReviewApps", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkReviewApps), arg0, arg1)
 }
 
 // SCMRepoLinkShow mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkShow(arg0 string) (*scalingo.SCMRepoLink, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkShow(arg0 context.Context, arg1 string) (*scalingo.SCMRepoLink, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkShow", arg0)
+	ret := m.ctrl.Call(m, "SCMRepoLinkShow", arg0, arg1)
 	ret0, _ := ret[0].(*scalingo.SCMRepoLink)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SCMRepoLinkShow indicates an expected call of SCMRepoLinkShow.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkShow(arg0 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkShow(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkShow", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkShow), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkShow", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkShow), arg0, arg1)
 }
 
 // SCMRepoLinkUpdate mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkUpdate(arg0 string, arg1 scalingo.SCMRepoLinkUpdateParams) (*scalingo.SCMRepoLink, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkUpdate(arg0 context.Context, arg1 string, arg2 scalingo.SCMRepoLinkUpdateParams) (*scalingo.SCMRepoLink, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkUpdate", arg0, arg1)
+	ret := m.ctrl.Call(m, "SCMRepoLinkUpdate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(*scalingo.SCMRepoLink)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // SCMRepoLinkUpdate indicates an expected call of SCMRepoLinkUpdate.
-func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkUpdate(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkUpdate(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkUpdate", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkUpdate), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkUpdate", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkUpdate), arg0, arg1, arg2)
 }

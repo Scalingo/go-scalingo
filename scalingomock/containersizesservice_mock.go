@@ -5,6 +5,7 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
@@ -35,16 +36,16 @@ func (m *MockContainerSizesService) EXPECT() *MockContainerSizesServiceMockRecor
 }
 
 // ContainerSizesList mocks base method.
-func (m *MockContainerSizesService) ContainerSizesList() ([]scalingo.ContainerSize, error) {
+func (m *MockContainerSizesService) ContainerSizesList(arg0 context.Context) ([]scalingo.ContainerSize, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ContainerSizesList")
+	ret := m.ctrl.Call(m, "ContainerSizesList", arg0)
 	ret0, _ := ret[0].([]scalingo.ContainerSize)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ContainerSizesList indicates an expected call of ContainerSizesList.
-func (mr *MockContainerSizesServiceMockRecorder) ContainerSizesList() *gomock.Call {
+func (mr *MockContainerSizesServiceMockRecorder) ContainerSizesList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ContainerSizesList", reflect.TypeOf((*MockContainerSizesService)(nil).ContainerSizesList))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ContainerSizesList", reflect.TypeOf((*MockContainerSizesService)(nil).ContainerSizesList), arg0)
 }

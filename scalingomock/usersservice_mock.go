@@ -5,75 +5,76 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockUsersService is a mock of UsersService interface
+// MockUsersService is a mock of UsersService interface.
 type MockUsersService struct {
 	ctrl     *gomock.Controller
 	recorder *MockUsersServiceMockRecorder
 }
 
-// MockUsersServiceMockRecorder is the mock recorder for MockUsersService
+// MockUsersServiceMockRecorder is the mock recorder for MockUsersService.
 type MockUsersServiceMockRecorder struct {
 	mock *MockUsersService
 }
 
-// NewMockUsersService creates a new mock instance
+// NewMockUsersService creates a new mock instance.
 func NewMockUsersService(ctrl *gomock.Controller) *MockUsersService {
 	mock := &MockUsersService{ctrl: ctrl}
 	mock.recorder = &MockUsersServiceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockUsersService) EXPECT() *MockUsersServiceMockRecorder {
 	return m.recorder
 }
 
-// Self mocks base method
-func (m *MockUsersService) Self() (*scalingo.User, error) {
+// Self mocks base method.
+func (m *MockUsersService) Self(arg0 context.Context) (*scalingo.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Self")
+	ret := m.ctrl.Call(m, "Self", arg0)
 	ret0, _ := ret[0].(*scalingo.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// Self indicates an expected call of Self
-func (mr *MockUsersServiceMockRecorder) Self() *gomock.Call {
+// Self indicates an expected call of Self.
+func (mr *MockUsersServiceMockRecorder) Self(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockUsersService)(nil).Self))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockUsersService)(nil).Self), arg0)
 }
 
-// UpdateUser mocks base method
-func (m *MockUsersService) UpdateUser(arg0 scalingo.UpdateUserParams) (*scalingo.User, error) {
+// UpdateUser mocks base method.
+func (m *MockUsersService) UpdateUser(arg0 context.Context, arg1 scalingo.UpdateUserParams) (*scalingo.User, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateUser", arg0)
+	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
 	ret0, _ := ret[0].(*scalingo.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// UpdateUser indicates an expected call of UpdateUser
-func (mr *MockUsersServiceMockRecorder) UpdateUser(arg0 interface{}) *gomock.Call {
+// UpdateUser indicates an expected call of UpdateUser.
+func (mr *MockUsersServiceMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUsersService)(nil).UpdateUser), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockUsersService)(nil).UpdateUser), arg0, arg1)
 }
 
-// UserStopFreeTrial mocks base method
-func (m *MockUsersService) UserStopFreeTrial() error {
+// UserStopFreeTrial mocks base method.
+func (m *MockUsersService) UserStopFreeTrial(arg0 context.Context) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UserStopFreeTrial")
+	ret := m.ctrl.Call(m, "UserStopFreeTrial", arg0)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// UserStopFreeTrial indicates an expected call of UserStopFreeTrial
-func (mr *MockUsersServiceMockRecorder) UserStopFreeTrial() *gomock.Call {
+// UserStopFreeTrial indicates an expected call of UserStopFreeTrial.
+func (mr *MockUsersServiceMockRecorder) UserStopFreeTrial(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserStopFreeTrial", reflect.TypeOf((*MockUsersService)(nil).UserStopFreeTrial))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserStopFreeTrial", reflect.TypeOf((*MockUsersService)(nil).UserStopFreeTrial), arg0)
 }

@@ -1,6 +1,7 @@
 package scalingo
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -8,13 +9,15 @@ import (
 	"testing"
 	"time"
 
-	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestNewClient(t *testing.T) {
 	t.Run("static token generator should be used if present", func(t *testing.T) {
+		ctx := context.Background()
+
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			auth := r.Header.Get("Authorization")
 			require.NotEmpty(t, auth)
@@ -26,17 +29,18 @@ func TestNewClient(t *testing.T) {
 		}))
 		defer server.Close()
 
-		client, err := New(ClientConfig{
+		client, err := New(ctx, ClientConfig{
 			APIEndpoint:          server.URL,
 			StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
 		})
 		require.NoError(t, err)
 
-		_, err = client.AppsList()
+		_, err = client.AppsList(ctx)
 		require.NoError(t, err)
 	})
 
 	t.Run("it should exchange the API token for a JWT", func(t *testing.T) {
+		ctx := context.Background()
 		claims := &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
 		}
@@ -64,13 +68,13 @@ func TestNewClient(t *testing.T) {
 		}))
 		defer authserver.Close()
 
-		client, err := New(ClientConfig{
+		client, err := New(ctx, ClientConfig{
 			AuthEndpoint: authserver.URL,
 			APIToken:     "api-token",
 		})
 		require.NoError(t, err)
 
-		_, err = client.Self()
+		_, err = client.Self(ctx)
 		require.NoError(t, err)
 	})
 }

@@ -1,17 +1,19 @@
 package scalingo
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	gomock "github.com/golang/mock/gomock"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCronTasksClient_CronTasksGet(t *testing.T) {
+	ctx := context.Background()
 	appName := "my-app"
 
 	tests := []struct {
@@ -25,7 +27,7 @@ func TestCronTasksClient_CronTasksGet(t *testing.T) {
 		{
 			action: "get",
 			testedClientCall: func(c CronTasksService) error {
-				_, err := c.CronTasksGet(appName)
+				_, err := c.CronTasksGet(ctx, appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/cron_tasks",
@@ -68,7 +70,7 @@ func TestCronTasksClient_CronTasksGet(t *testing.T) {
 				ts := httptest.NewServer(http.HandlerFunc(handler))
 				defer ts.Close()
 
-				c, err := New(ClientConfig{
+				c, err := New(ctx, ClientConfig{
 					APIEndpoint: ts.URL,
 					APIToken:    "test",
 				})

@@ -5,6 +5,7 @@
 package scalingomock
 
 import (
+	context "context"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v4"
@@ -35,16 +36,16 @@ func (m *MockCronTasksService) EXPECT() *MockCronTasksServiceMockRecorder {
 }
 
 // CronTasksGet mocks base method.
-func (m *MockCronTasksService) CronTasksGet(arg0 string) (scalingo.CronTasks, error) {
+func (m *MockCronTasksService) CronTasksGet(arg0 context.Context, arg1 string) (scalingo.CronTasks, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CronTasksGet", arg0)
+	ret := m.ctrl.Call(m, "CronTasksGet", arg0, arg1)
 	ret0, _ := ret[0].(scalingo.CronTasks)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CronTasksGet indicates an expected call of CronTasksGet.
-func (mr *MockCronTasksServiceMockRecorder) CronTasksGet(arg0 interface{}) *gomock.Call {
+func (mr *MockCronTasksServiceMockRecorder) CronTasksGet(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CronTasksGet", reflect.TypeOf((*MockCronTasksService)(nil).CronTasksGet), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CronTasksGet", reflect.TypeOf((*MockCronTasksService)(nil).CronTasksGet), arg0, arg1)
 }

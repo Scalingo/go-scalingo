@@ -1,13 +1,16 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 
-	scalingo "github.com/Scalingo/go-scalingo/v4"
+	"github.com/Scalingo/go-scalingo/v4"
 )
 
 func main() {
+	ctx := context.Background()
+
 	if len(os.Args) != 3 {
 		fmt.Fprintf(os.Stderr, "Usage: ./app_show [REGION] [APP_NAME]\n")
 		os.Exit(1)
@@ -21,7 +24,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	client, err := scalingo.New(scalingo.ClientConfig{
+	client, err := scalingo.New(ctx, scalingo.ClientConfig{
 		Region:   region,
 		APIToken: token,
 	})
@@ -30,7 +33,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	app, err := client.AppsShow(appName)
+	app, err := client.AppsShow(ctx, appName)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fail to show app: %s\n", err.Error())
 		os.Exit(1)
