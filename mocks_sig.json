@@ -15,7 +15,6 @@
   "github.com/Scalingo/go-scalingo.EventsService": "29 cf 29 33 fb 33 ce 86 3b 49 db ae 25 2d 5d 22 d6 60 21 95",
   "github.com/Scalingo/go-scalingo.KeysService": "b9 5f 5d 8e 88 9d db 82 d6 69 e5 bd 94 6c 7e 08 14 69 23 48",
   "github.com/Scalingo/go-scalingo.LogDrainsService": "d4 05 d0 5e a7 7f b7 3e 58 19 07 8d 25 c5 af ca dc d3 6e d9",
-  "github.com/Scalingo/go-scalingo.LoginService": "f9 91 68 50 36 0a 09 aa 5d 18 7e 3d 1a bf fe 7e e1 45 79 fd",
   "github.com/Scalingo/go-scalingo.LogsArchivesService": "35 b6 c3 7b 41 1a 47 5c 3c df ab a6 d6 93 1e 6e b1 b1 f9 11",
   "github.com/Scalingo/go-scalingo.LogsService": "19 3c 84 31 5a a6 7b 8f af 8a 9a 89 d5 5f 9b b8 50 75 9e b7",
   "github.com/Scalingo/go-scalingo.NotificationPlatformsService": "9b a8 93 13 ed 36 09 92 be dc cb 95 17 02 93 28 18 53 ae 01",

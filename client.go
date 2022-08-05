@@ -26,7 +26,6 @@ type API interface {
 	VariablesService
 	EventsService
 	KeysService
-	LoginService
 	LogDrainsService
 	LogsArchivesService
 	LogsService
