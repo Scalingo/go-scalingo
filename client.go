@@ -68,6 +68,10 @@ type ClientConfig struct {
 	APIToken            string
 	Region              string
 	UserAgent           string
+
+	// StaticTokenGenerator is present for retrocompatibility with legacy tokens
+	// DEPRECATED, Use standard APIToken field for normal operations
+	StaticTokenGenerator *StaticTokenGenerator
 }
 
 func New(ctx context.Context, cfg ClientConfig) (*Client, error) {
@@ -112,6 +116,9 @@ func (c *Client) ScalingoAPI() http.Client {
 	}
 
 	var tokenGenerator http.TokenGenerator
+	if c.config.StaticTokenGenerator != nil {
+		tokenGenerator = c.config.StaticTokenGenerator
+	}
 	if len(c.config.APIToken) != 0 {
 		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}
@@ -155,6 +162,9 @@ func (c *Client) AuthAPI() http.Client {
 	}
 
 	var tokenGenerator http.TokenGenerator
+	if c.config.StaticTokenGenerator != nil {
+		tokenGenerator = c.config.StaticTokenGenerator
+	}
 	if len(c.config.APIToken) != 0 {
 		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}
