@@ -33,7 +33,7 @@ type APIRequest struct {
 
 type Statuses []int
 
-func (c *client) FillDefaultValues(ctx context.Context, req *APIRequest) error {
+func (c *client) fillDefaultValues(ctx context.Context, req *APIRequest) error {
 	if req.Method == "" {
 		req.Method = "GET"
 	}
@@ -69,7 +69,7 @@ func (statuses Statuses) Contains(status int) bool {
 
 // Execute an API request and return its response/error
 func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error) {
-	err := c.FillDefaultValues(ctx, req)
+	err := c.fillDefaultValues(ctx, req)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to fill client with default values")
 	}
