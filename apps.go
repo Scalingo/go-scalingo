@@ -13,11 +13,11 @@ import (
 type AppStatus string
 
 const (
-	AppStatusNew        = AppStatus("new")
-	AppStatusRunning    = AppStatus("running")
-	AppStatusStopped    = AppStatus("stopped")
-	AppStatusScaling    = AppStatus("scaling")
-	AppStatusRestarting = AppStatus("restarting")
+	AppStatusNew        AppStatus = "new"
+	AppStatusRunning    AppStatus = "running"
+	AppStatusStopped    AppStatus = "stopped"
+	AppStatusScaling    AppStatus = "scaling"
+	AppStatusRestarting AppStatus = "restarting"
 )
 
 type AppsService interface {
