@@ -17,7 +17,7 @@ type SCMRepoLinkService interface {
 	SCMRepoLinkDelete(ctx context.Context, app string) error
 
 	SCMRepoLinkManualDeploy(ctx context.Context, app, branch string) error
-	SCMRepoLinkManualReviewApp(ctx context.Context, app, pullRequestId string) error
+	SCMRepoLinkManualReviewApp(ctx context.Context, app, pullRequestID string) error
 	SCMRepoLinkDeployments(ctx context.Context, app string) ([]*Deployment, error)
 	SCMRepoLinkReviewApps(ctx context.Context, app string) ([]*ReviewApp, error)
 }
@@ -168,12 +168,12 @@ func (c *Client) SCMRepoLinkManualDeploy(ctx context.Context, app, branch string
 	return nil
 }
 
-func (c *Client) SCMRepoLinkManualReviewApp(ctx context.Context, app, pullRequestId string) error {
+func (c *Client) SCMRepoLinkManualReviewApp(ctx context.Context, app, pullRequestID string) error {
 	_, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scm_repo_link/manual_review_app",
 		Expected: http.Statuses{200},
-		Params:   map[string]string{"pull_request_id": pullRequestId},
+		Params:   map[string]string{"pull_request_id": pullRequestID},
 	})
 	if err != nil {
 		return errgo.Notef(err, "fail to trigger manual review app deployment")

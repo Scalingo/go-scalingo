@@ -19,7 +19,7 @@ type AddonsService interface {
 	AddonUpgrade(ctx context.Context, app, addonID string, params AddonUpgradeParams) (AddonRes, error)
 	AddonToken(ctx context.Context, app, addonID string) (string, error)
 	AddonLogsURL(ctx context.Context, app, addonID string) (string, error)
-	AddonLogsArchives(ctx context.Context, app, addonId string, page int) (*LogsArchivesResponse, error)
+	AddonLogsArchives(ctx context.Context, app, addonID string, page int) (*LogsArchivesResponse, error)
 }
 
 var _ AddonsService = (*Client)(nil)
@@ -169,6 +169,7 @@ func (c *Client) AddonLogsArchives(ctx context.Context, app, addonID string, pag
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to get log archives")
 	}
+	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {

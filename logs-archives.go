@@ -43,6 +43,7 @@ func (c *Client) LogsArchivesByCursor(ctx context.Context, app string, cursor st
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
+	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {

@@ -117,6 +117,8 @@ func (c *Client) GithubLinkManualDeploy(ctx context.Context, app, id, branch str
 			"branch": branch,
 		},
 	}
-	_, err := c.ScalingoAPI().Do(ctx, req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	defer res.Body.Close()
+
 	return err
 }
