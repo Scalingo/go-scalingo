@@ -50,9 +50,6 @@ func (c *Client) Self(ctx context.Context) (*User, error) {
 type UpdateUserParams struct {
 	Password string `json:"password,omitempty"`
 	Email    string `json:"email,omitempty"`
-
-	// DEPRECATED: you should use the UserStopFreeTrial method instead
-	StopFreeTrial bool `json:"stop_free_trial,omitempty"`
 }
 
 type UpdateUserResponse struct {
@@ -61,13 +58,6 @@ type UpdateUserResponse struct {
 
 func (c *Client) UpdateUser(ctx context.Context, params UpdateUserParams) (*User, error) {
 	var user *User
-
-	if params.StopFreeTrial {
-		err := c.UserStopFreeTrial(ctx)
-		if err != nil {
-			return nil, errgo.Notef(err, "fail to stop user free trial")
-		}
-	}
 
 	if params.Password != "" || params.Email != "" {
 		req := &http.APIRequest{

@@ -12,7 +12,6 @@ type DomainsService interface {
 	DomainsList(ctx context.Context, app string) ([]Domain, error)
 	DomainsAdd(ctx context.Context, app string, d Domain) (Domain, error)
 	DomainsRemove(ctx context.Context, app string, id string) error
-	DomainsUpdate(ctx context.Context, app, id, cert, key string) (Domain, error)
 	DomainSetCanonical(ctx context.Context, app, id string) (Domain, error)
 	DomainUnsetCanonical(ctx context.Context, app string) (Domain, error)
 	DomainSetCertificate(ctx context.Context, app, id, tlsCert, tlsKey string) (Domain, error)
@@ -96,11 +95,6 @@ func (c *Client) DomainsAdd(ctx context.Context, app string, d Domain) (Domain, 
 
 func (c *Client) DomainsRemove(ctx context.Context, app, id string) error {
 	return c.ScalingoAPI().SubresourceDelete(ctx, "apps", app, "domains", id)
-}
-
-// Deprecated: use DomainsSetCanonical, DomainUnsetCanonical, DomainSetCertificate or DomainUnsetCertificate
-func (c *Client) DomainsUpdate(ctx context.Context, app, id, tlsCert, tlsKey string) (Domain, error) {
-	return c.domainsUpdate(ctx, app, id, Domain{TLSCert: tlsCert, TLSKey: tlsKey})
 }
 
 func (c *Client) DomainsShow(ctx context.Context, app, id string) (Domain, error) {
