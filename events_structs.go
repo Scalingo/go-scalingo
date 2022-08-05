@@ -841,7 +841,7 @@ type EventLoginLockType struct {
 type EventLoginLockTypeData EventSecurityTypeData
 
 func (ev *EventLoginLockType) String() string {
-	return fmt.Sprintf("Account is locked")
+	return "Account is locked"
 }
 
 type EventLoginUnlockSuccessType struct {
