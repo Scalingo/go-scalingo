@@ -144,7 +144,7 @@ func (c *Client) SCMRepoLinkUpdate(ctx context.Context, app string, params SCMRe
 }
 
 func (c *Client) SCMRepoLinkDelete(ctx context.Context, app string) error {
-	_, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
+	res, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/apps/" + app + "/scm_repo_link",
 		Expected: http.Statuses{204},
@@ -152,11 +152,13 @@ func (c *Client) SCMRepoLinkDelete(ctx context.Context, app string) error {
 	if err != nil {
 		return errgo.Notef(err, "fail to delete this SCM repo link")
 	}
+	defer res.Body.Close()
+
 	return nil
 }
 
 func (c *Client) SCMRepoLinkManualDeploy(ctx context.Context, app, branch string) error {
-	_, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
+	res, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scm_repo_link/manual_deploy",
 		Expected: http.Statuses{200},
@@ -165,6 +167,8 @@ func (c *Client) SCMRepoLinkManualDeploy(ctx context.Context, app, branch string
 	if err != nil {
 		return errgo.Notef(err, "fail to trigger manual app deployment")
 	}
+	defer res.Body.Close()
+
 	return nil
 }
 

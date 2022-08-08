@@ -138,18 +138,3 @@ func (mr *MockDomainsServiceMockRecorder) DomainsRemove(arg0, arg1, arg2 interfa
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsRemove", reflect.TypeOf((*MockDomainsService)(nil).DomainsRemove), arg0, arg1, arg2)
 }
-
-// DomainsUpdate mocks base method.
-func (m *MockDomainsService) DomainsUpdate(arg0 context.Context, arg1, arg2, arg3, arg4 string) (scalingo.Domain, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DomainsUpdate", arg0, arg1, arg2, arg3, arg4)
-	ret0, _ := ret[0].(scalingo.Domain)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// DomainsUpdate indicates an expected call of DomainsUpdate.
-func (mr *MockDomainsServiceMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockDomainsService)(nil).DomainsUpdate), arg0, arg1, arg2, arg3, arg4)
-}

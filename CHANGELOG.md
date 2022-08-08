@@ -1,8 +1,10 @@
 # Changelog
 
 ## To Be Released
-* refactor(events): moved alert related events to events_addon.go [#264](https://github.com/Scalingo/go-scalingo/pull/264)
+
+* feat: remove deprecated methods [#263](https://github.com/Scalingo/go-scalingo/pull/263)
 * feat(http): add X-Request-ID if ID is in the context [#262](https://github.com/Scalingo/go-scalingo/pull/262)
+* refactor(events): moved alert related events to events_addon.go [#264](https://github.com/Scalingo/go-scalingo/pull/264)
 * refactor(events): moved addons related events to events_addon.go [#261](https://github.com/Scalingo/go-scalingo/pull/261)
 * refactor(events): moved direct app related events to events_app.go [#260](https://github.com/Scalingo/go-scalingo/pull/260)
 * feat(events): implement two factor auth related events [#259](https://github.com/Scalingo/go-scalingo/pull/259)

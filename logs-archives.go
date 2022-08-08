@@ -75,6 +75,7 @@ func (c *Client) LogsArchives(ctx context.Context, app string, page int) (*LogsA
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
+	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {

@@ -13,11 +13,11 @@ import (
 type AppStatus string
 
 const (
-	AppStatusNew        = AppStatus("new")
-	AppStatusRunning    = AppStatus("running")
-	AppStatusStopped    = AppStatus("stopped")
-	AppStatusScaling    = AppStatus("scaling")
-	AppStatusRestarting = AppStatus("restarting")
+	AppStatusNew        AppStatus = "new"
+	AppStatusRunning    AppStatus = "running"
+	AppStatusStopped    AppStatus = "stopped"
+	AppStatusScaling    AppStatus = "scaling"
+	AppStatusRestarting AppStatus = "restarting"
 )
 
 type AppsService interface {
@@ -31,8 +31,6 @@ type AppsService interface {
 	AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error)
 	AppsStats(ctx context.Context, app string) (*AppStatsRes, error)
 	AppsContainerTypes(ctx context.Context, app string) ([]ContainerType, error)
-	// Deprecated: Use AppsContainerTypes instead
-	AppsPs(ctx context.Context, app string) ([]ContainerType, error)
 	AppsContainersPs(ctx context.Context, app string) ([]Container, error)
 	AppsScale(ctx context.Context, app string, params *AppsScaleParams) (*http.Response, error)
 	AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error)
@@ -265,11 +263,6 @@ func (c *Client) AppsStats(ctx context.Context, app string) (*AppStatsRes, error
 		return nil, errgo.Mask(err)
 	}
 	return &stats, nil
-}
-
-// Deprecated: Use AppsContainerTypes instead
-func (c *Client) AppsPs(ctx context.Context, app string) ([]ContainerType, error) {
-	return c.AppsContainerTypes(ctx, app)
 }
 
 func (c *Client) AppsContainersPs(ctx context.Context, app string) ([]Container, error) {

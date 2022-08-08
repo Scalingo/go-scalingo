@@ -26,7 +26,6 @@ type API interface {
 	VariablesService
 	EventsService
 	KeysService
-	LoginService
 	LogDrainsService
 	LogsArchivesService
 	LogsService
@@ -70,8 +69,7 @@ type ClientConfig struct {
 	Region              string
 	UserAgent           string
 
-	// StaticTokenGenerator is present for retrocompatibility with legacy tokens
-	// DEPRECATED, Use standard APIToken field for normal operations
+	// StaticTokenGenerator is present for Scalingo internal use only
 	StaticTokenGenerator *StaticTokenGenerator
 }
 

@@ -118,7 +118,10 @@ func (c *Client) GithubLinkManualDeploy(ctx context.Context, app, id, branch str
 		},
 	}
 	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return err
+	}
 	defer res.Body.Close()
 
-	return err
+	return nil
 }
