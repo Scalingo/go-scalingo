@@ -10,12 +10,13 @@ import (
 )
 
 type Stack struct {
-	ID          string    `json:"id"`
-	CreatedAt   time.Time `json:"created_at"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	BaseImage   string    `json:"base_image"`
-	Default     bool      `json:"default"`
+	ID           string    `json:"id"`
+	CreatedAt    time.Time `json:"created_at"`
+	Name         string    `json:"name"`
+	Description  string    `json:"description"`
+	BaseImage    string    `json:"base_image"`
+	Default      bool      `json:"default"`
+	DeprecatedAt time.Time `json:"deprecated_at"`
 }
 
 type StacksService interface {
