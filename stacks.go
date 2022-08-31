@@ -19,6 +19,10 @@ type Stack struct {
 	DeprecatedAt time.Time
 }
 
+// This is to properly manage the deprecation date. It is retrieved from the API
+// as only the date part (YYYY-MM-DD). Go-lang cannot unmarshal it directly into
+// a time.Time, so it is considered a string and converted into a time.Time later
+// (cf. func jsonStackToStack)
 type jsonStack struct {
 	ID           string    `json:"id"`
 	CreatedAt    time.Time `json:"created_at"`
