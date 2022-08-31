@@ -70,5 +70,9 @@ func jsonStackToStack(s []jsonStack) []Stack {
 }
 
 func (s *Stack) IsDeprecated() bool {
-	return !s.DeprecatedAt.IsZero()
+	if s.DeprecatedAt.IsZero() {
+		return false
+	}
+
+	return time.Now().After(s.DeprecatedAt)
 }
