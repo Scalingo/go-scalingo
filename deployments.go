@@ -10,7 +10,7 @@ import (
 	"golang.org/x/net/websocket"
 	"gopkg.in/errgo.v1"
 
-	httpclient "github.com/Scalingo/go-scalingo/v4/http"
+	httpclient "github.com/Scalingo/go-scalingo/v5/http"
 )
 
 type DeploymentsService interface {

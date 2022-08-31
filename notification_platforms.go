@@ -6,8 +6,8 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v4/debug"
-	"github.com/Scalingo/go-scalingo/v4/http"
+	"github.com/Scalingo/go-scalingo/v5/debug"
+	"github.com/Scalingo/go-scalingo/v5/http"
 )
 
 type NotificationPlatformsService interface {

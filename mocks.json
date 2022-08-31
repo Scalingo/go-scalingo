@@ -1,6 +1,6 @@
 {
   "base_directory": "github.com/Scalingo/go-scalingo",
-  "base_package": "github.com/Scalingo/go-scalingo/v4",
+  "base_package": "github.com/Scalingo/go-scalingo/v5",
   "mocks": [
     {
       "interface": "Client",
