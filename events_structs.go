@@ -20,6 +20,10 @@ type Event struct {
 	TypeData    map[string]interface{} `json:"-"`
 }
 
+type EventSecurityTypeData struct {
+	RemoteIP string `json:"remote_ip"`
+}
+
 func (ev *Event) GetEvent() *Event {
 	return ev
 }
@@ -360,46 +364,6 @@ func (ev *EventUpgradeDatabaseType) Who() string {
 	} else {
 		return ev.Event.Who()
 	}
-}
-
-type EventDatabaseAddFeatureType struct {
-	Event
-	TypeData EventDatabaseAddFeatureTypeData `json:"type_data"`
-}
-
-type EventDatabaseAddFeatureTypeData struct {
-	Feature           string `json:"feature"`
-	AddonProviderID   string `json:"addon_provider_id"`
-	AddonProviderName string `json:"addon_provider_name"`
-	AddonUUID         string `json:"addon_uuid"`
-	EventSecurityTypeData
-}
-
-func (ev *EventDatabaseAddFeatureType) String() string {
-	return fmt.Sprintf(
-		"Feature %s enabled for addon '%s' (%s) ",
-		ev.TypeData.Feature, ev.TypeData.AddonUUID, ev.TypeData.AddonProviderName,
-	)
-}
-
-type EventDatabaseRemoveFeatureType struct {
-	Event
-	TypeData EventDatabaseRemoveFeatureTypeData `json:"type_data"`
-}
-
-type EventDatabaseRemoveFeatureTypeData struct {
-	Feature           string `json:"feature"`
-	AddonProviderID   string `json:"addon_provider_id"`
-	AddonProviderName string `json:"addon_provider_name"`
-	AddonUUID         string `json:"addon_uuid"`
-	EventSecurityTypeData
-}
-
-func (ev *EventDatabaseRemoveFeatureType) String() string {
-	return fmt.Sprintf(
-		"Feature %s disabled for addon '%s' (%s) ",
-		ev.TypeData.Feature, ev.TypeData.AddonUUID, ev.TypeData.AddonProviderName,
-	)
 }
 
 type EventVariable struct {
@@ -807,71 +771,6 @@ type EventTfaDisabledType struct {
 
 func (ev *EventTfaDisabledType) String() string {
 	return "Two factor authentication disabled"
-}
-
-// Security events
-type EventSecurityTypeData struct {
-	RemoteIP string `json:"remote_ip"`
-}
-
-type EventLoginSuccessType struct {
-	Event
-	TypeData EventLoginSuccessTypeData `json:"type_data"`
-}
-type EventLoginSuccessTypeData EventSecurityTypeData
-
-func (ev *EventLoginSuccessType) String() string {
-	return fmt.Sprintf("Successful login from %v", ev.TypeData.RemoteIP)
-}
-
-type EventLoginFailureType struct {
-	Event
-	TypeData EventLoginFailureTypeData `json:"type_data"`
-}
-type EventLoginFailureTypeData EventSecurityTypeData
-
-func (ev *EventLoginFailureType) String() string {
-	return fmt.Sprintf("Failed login attempt from %v", ev.TypeData.RemoteIP)
-}
-
-type EventLoginLockType struct {
-	Event
-	TypeData EventLoginLockTypeData `json:"type_data"`
-}
-type EventLoginLockTypeData EventSecurityTypeData
-
-func (ev *EventLoginLockType) String() string {
-	return "Account is locked"
-}
-
-type EventLoginUnlockSuccessType struct {
-	Event
-	TypeData EventLoginUnlockSuccessTypeData `json:"type_data"`
-}
-type EventLoginUnlockSuccessTypeData EventSecurityTypeData
-
-func (ev *EventLoginUnlockSuccessType) String() string {
-	return fmt.Sprintf("Account unlocked from %v", ev.TypeData.RemoteIP)
-}
-
-type EventPasswordResetQueryType struct {
-	Event
-	TypeData EventPasswordResetQueryTypeData `json:"type_data"`
-}
-type EventPasswordResetQueryTypeData EventSecurityTypeData
-
-func (ev *EventPasswordResetQueryType) String() string {
-	return fmt.Sprintf("Password reset process initiated from %v", ev.TypeData.RemoteIP)
-}
-
-type EventPasswordResetSuccessType struct {
-	Event
-	TypeData EventPasswordResetSuccessTypeData `json:"type_data"`
-}
-type EventPasswordResetSuccessTypeData EventSecurityTypeData
-
-func (ev *EventPasswordResetSuccessType) String() string {
-	return fmt.Sprintf("Password changed from from %v", ev.TypeData.RemoteIP)
 }
 
 func (pev *Event) Specialize() DetailedEvent {
