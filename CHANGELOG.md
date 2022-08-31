@@ -4,6 +4,19 @@
 
 ## 5.0.0
 
+BREAKING CHANGES:
+
+* Added a `context.Context` argument to the methods
+* Deprecated the following methods:
+  * `AppsPs`: replaced with `AppsContainerTypes`
+  * `Container.Size`: replaced with `ContainerSize`
+  * `DomainsUpdate`: replaced with `DomainsSetCanonical`, `DomainUnsetCanonical`, `DomainSetCertificate` or `DomainUnsetCertificate`
+  * `Login`: replaced with the OAuth flow
+  * `StopFreeTrial`: replaced with `UserStopFreeTrial` method
+  * Make `FillDefaultValues` private: it shouldn't have been used.
+
+Changelog:
+
 * feat: remove deprecated methods [#263](https://github.com/Scalingo/go-scalingo/pull/263)
 * feat(http): add X-Request-ID if ID is in the context [#262](https://github.com/Scalingo/go-scalingo/pull/262)
 * refactor(events): moved alert related events to events_addon.go [#264](https://github.com/Scalingo/go-scalingo/pull/264)
