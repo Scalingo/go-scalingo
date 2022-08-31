@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v4/http"
+	"github.com/Scalingo/go-scalingo/v5/http"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Scalingo/go-scalingo/v4"
+	"github.com/Scalingo/go-scalingo/v5"
 )
 
 func main() {

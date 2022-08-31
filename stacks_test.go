@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v4/http/httpmock"
+	"github.com/Scalingo/go-scalingo/v5/http/httpmock"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )

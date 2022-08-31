@@ -3,7 +3,7 @@ package scalingo
 import (
 	"fmt"
 
-	"github.com/Scalingo/go-scalingo/v4/billing"
+	"github.com/Scalingo/go-scalingo/v5/billing"
 )
 
 type EventAddCreditType struct {
