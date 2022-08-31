@@ -1,4 +1,4 @@
-module github.com/Scalingo/go-scalingo/v4
+module github.com/Scalingo/go-scalingo/v5
 
 go 1.17
 

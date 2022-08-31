@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 5.0.0
+
 * feat: remove deprecated methods [#263](https://github.com/Scalingo/go-scalingo/pull/263)
 * feat(http): add X-Request-ID if ID is in the context [#262](https://github.com/Scalingo/go-scalingo/pull/262)
 * refactor(events): moved alert related events to events_addon.go [#264](https://github.com/Scalingo/go-scalingo/pull/264)
