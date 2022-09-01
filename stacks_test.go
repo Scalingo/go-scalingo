@@ -27,18 +27,18 @@ var stacksListCases = map[string]struct {
 }{
 	"test StacksList with stacks with deprecated_at being null": {
 		json:          `{"stacks": [{"deprecated_at": null}]}`,
-		expectedStack: Stack{DeprecatedAt: time.Time{}},
+		expectedStack: Stack{DeprecatedAt: DeprecationDate{time.Time{}}},
 	},
 	"test StacksList with stacks with deprecated_at being set": {
 		json:          `{"stacks": [{"deprecated_at": "2022-08-31"}]}`,
-		expectedStack: Stack{DeprecatedAt: time.Date(2022, 8, 31, 0, 0, 0, 0, time.UTC)},
+		expectedStack: Stack{DeprecatedAt: DeprecationDate{time.Date(2022, 8, 31, 0, 0, 0, 0, time.UTC)}},
 	},
 }
 
 func TestStackIsDeprecated(t *testing.T) {
 	for message, test := range isDeprecatedCases {
 		t.Run(message, func(t *testing.T) {
-			stack := Stack{DeprecatedAt: test.date}
+			stack := Stack{DeprecatedAt: DeprecationDate{test.date}}
 			if stack.IsDeprecated() != test.deprecated {
 				t.Errorf("IsDeprecated expected to be %t, got %t", test.deprecated, stack.IsDeprecated())
 			}
