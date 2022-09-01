@@ -2,7 +2,9 @@
 
 ## To Be Released
 
-* feat(stacks): Add deprecation date to stacks [#265](https://github.com/Scalingo/go-scalingo/pull/265)
+* feat(stacks): Add deprecation date to stacks in `DeprecatedAt` attribute, and
+  a `IsDeprecated` method to tell if a stack is deprecated or not based on its
+  deprecation date[#265](https://github.com/Scalingo/go-scalingo/pull/265)
 
 ## 5.0.0
 
