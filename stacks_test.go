@@ -15,7 +15,7 @@ var isDeprecatedCases = map[string]struct {
 	date       time.Time
 	deprecated bool
 }{
-	"test isDeprecated is false when deprecation date is null|nil|zero": {time.Time{}, false},
+	"test isDeprecated is false when deprecation date is null":          {time.Time{}, false},
 	"test isDeprecated is true when deprecation date is today's date":   {time.Now(), true},
 	"test isDeprecated is true when deprecation date is in the past":    {time.Now().AddDate(0, 0, -1), true},
 	"test isDeprecated is false when deprecation date is in the future": {time.Now().AddDate(0, 0, 1), false},
