@@ -43,21 +43,23 @@ func (c *Client) StacksList(ctx context.Context) ([]Stack, error) {
 	return resmap["stacks"], nil
 }
 
-func (deprecationDate *DeprecationDate) UnmarshalJSON(b []byte) (err error) {
+// The regional API returns a date formatted as "2006-01-02"
+// Go standard library does not unmarshal that format
+func (deprecationDate *DeprecationDate) UnmarshalJSON(b []byte) error {
 	s := string(b)
 
 	if s == "null" {
-		return
+		// When there is no deprecation date for a stack, the json will look like: {"deprecated_at": null}
+		return nil
 	}
 
 	t, err := time.Parse(`"2006-01-02"`, s)
-
 	if err != nil {
 		return err
 	}
 
 	deprecationDate.Time = t
-	return
+	return nil
 }
 
 func (s *Stack) IsDeprecated() bool {
