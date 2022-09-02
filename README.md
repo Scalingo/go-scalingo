@@ -56,8 +56,12 @@ instance if your event type is named `my_event`:
     * Add support for this event type in the `Specialize` function
     * [optional] Implement `Who` function for `EventMyEventType`. E.g. if the
         event type can be created by an addon.
-* `events_boilerplate.go`: implement the `TypeDataPtr` function for the new
-    `EventMyEventType` structure.
+
+Once the Event hass been added run the following command to update boilerplate code
+
+```
+go generate
+```
 
 ### Client HTTP Errors
 
