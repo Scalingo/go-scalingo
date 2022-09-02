@@ -59,5 +59,5 @@ type EventPasswordResetSuccessType struct {
 type EventPasswordResetSuccessTypeData EventSecurityTypeData
 
 func (ev *EventPasswordResetSuccessType) String() string {
-	return fmt.Sprintf("Password changed from from %v", ev.TypeData.RemoteIP)
+	return fmt.Sprintf("Password changed from %v", ev.TypeData.RemoteIP)
 }
