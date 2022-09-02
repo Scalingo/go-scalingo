@@ -56,7 +56,7 @@ instance if your event type is named `my_event`:
     * [optional] Implement `Who` function for `EventMyEventType`. E.g. if the
         event type can be created by an addon.
 
-Once the Event hass been added run the following command to update boilerplate code
+Once the Event has been added run the following command to update boilerplate code
 
 ```
 go generate
