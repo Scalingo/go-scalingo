@@ -53,7 +53,6 @@ instance if your event type is named `my_event`:
     * Add `EventMyEventType` structure which embeds a field `TypeData` of the
         type `EventMyEventTypeData`.
     * Implement function `String` for `EventMyEventType`
-    * Add support for this event type in the `Specialize` function
     * [optional] Implement `Who` function for `EventMyEventType`. E.g. if the
         event type can be created by an addon.
 
