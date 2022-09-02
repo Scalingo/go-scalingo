@@ -20,7 +20,7 @@ type Stack struct {
 	Description  string          `json:"description"`
 	BaseImage    string          `json:"base_image"`
 	Default      bool            `json:"default"`
-	DeprecatedAt DeprecationDate `json:"deprecated_at"`
+	DeprecatedAt DeprecationDate `json:"deprecated_at,omitempty"`
 }
 
 type StacksService interface {
