@@ -17,7 +17,7 @@ type Invoice struct {
 	TotalPrice        int           `json:"total_price"`
 	TotalPriceWithVat int           `json:"total_price_with_vat"`
 	BillingMonth      time.Time     `json:"billing_month"`
-	PdfUrl            string        `json:"pdf_url"`
+	PdfURL            string        `json:"pdf_url"`
 	InvoiceNumber     string        `json:"invoice_number"`
 	State             string        `json:"state"`
 	VatRate           int           `json:"vat_rate"`
