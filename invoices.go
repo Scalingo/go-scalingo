@@ -17,7 +17,7 @@ var _ InvoicesService = (*Client)(nil)
 
 const LayoutISO = "2006-01-02"
 
-type date time.Time
+type invoiceDate time.Time
 
 type InvoiceItem struct {
 	ID    string `json:"id"`
@@ -36,7 +36,7 @@ type Invoice struct {
 	ID                string                `json:"id"`
 	TotalPrice        int                   `json:"total_price"`
 	TotalPriceWithVat int                   `json:"total_price_with_vat"`
-	BillingMonth      date                  `json:"billing_month"`
+	BillingMonth      invoiceDate           `json:"billing_month"`
 	PdfURL            string                `json:"pdf_url"`
 	InvoiceNumber     string                `json:"invoice_number"`
 	State             string                `json:"state"`
@@ -76,7 +76,7 @@ func (c *Client) InvoiceShow(ctx context.Context, id string) (*Invoice, error) {
 	return invoiceRes.Invoice, nil
 }
 
-func (c *date) UnmarshalJSON(b []byte) error {
+func (c *invoiceDate) UnmarshalJSON(b []byte) error {
 	value := strings.Trim(string(b), `"`) //get rid of "
 	if value == "" || value == "null" {
 		return nil
@@ -84,11 +84,11 @@ func (c *date) UnmarshalJSON(b []byte) error {
 	if t, err := time.Parse(LayoutISO, string(value)); err != nil {
 		return err
 	} else {
-		*c = date(t)
+		*c = invoiceDate(t)
 		return nil
 	}
 }
 
-func (c date) MarshalJSON() ([]byte, error) {
+func (c invoiceDate) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + time.Time(c).Format(LayoutISO) + `"`), nil
 }
