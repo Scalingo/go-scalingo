@@ -14,26 +14,30 @@ type InvoicesService interface {
 
 var _ InvoicesService = (*Client)(nil)
 
+type InvoiceItem struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+	Price string `json:"price"`
+}
+
+type InvoiceDetailedItem struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+	Price string `json:"price"`
+	App   string `json:"app"`
+}
+
 type Invoice struct {
-	ID                string    `json:"id"`
-	TotalPrice        int       `json:"total_price"`
-	TotalPriceWithVat int       `json:"total_price_with_vat"`
-	BillingMonth      time.Time `json:"billing_month"`
-	PdfURL            string    `json:"pdf_url"`
-	InvoiceNumber     string    `json:"invoice_number"`
-	State             string    `json:"state"`
-	VatRate           int       `json:"vat_rate"`
-	Items             []struct {
-		ID    string `json:"id"`
-		Label string `json:"label"`
-		Price string `json:"price"`
-	} `json:"items"`
-	DetailedItems []struct {
-		ID    string `json:"id"`
-		Label string `json:"label"`
-		Price string `json:"price"`
-		App   string `json:"app"`
-	} `json:"detailed_items"`
+	ID                string                `json:"id"`
+	TotalPrice        int                   `json:"total_price"`
+	TotalPriceWithVat int                   `json:"total_price_with_vat"`
+	BillingMonth      time.Time             `json:"billing_month"`
+	PdfURL            string                `json:"pdf_url"`
+	InvoiceNumber     string                `json:"invoice_number"`
+	State             string                `json:"state"`
+	VatRate           int                   `json:"vat_rate"`
+	Items             []InvoiceItem         `json:"items"`
+	DetailedItems     []InvoiceDetailedItem `json:"detailed_items"`
 }
 
 type Invoices []*Invoice
