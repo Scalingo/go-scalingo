@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"gopkg.in/errgo.v1"
@@ -14,16 +15,20 @@ type InvoicesService interface {
 
 var _ InvoicesService = (*Client)(nil)
 
+const LayoutISO = "2006-01-02"
+
+type date time.Time
+
 type InvoiceItem struct {
 	ID    string `json:"id"`
 	Label string `json:"label"`
-	Price string `json:"price"`
+	Price int    `json:"price"`
 }
 
 type InvoiceDetailedItem struct {
 	ID    string `json:"id"`
 	Label string `json:"label"`
-	Price string `json:"price"`
+	Price int    `json:"price"`
 	App   string `json:"app"`
 }
 
@@ -31,7 +36,7 @@ type Invoice struct {
 	ID                string                `json:"id"`
 	TotalPrice        int                   `json:"total_price"`
 	TotalPriceWithVat int                   `json:"total_price_with_vat"`
-	BillingMonth      time.Time             `json:"billing_month"`
+	BillingMonth      date                  `json:"billing_month"`
 	PdfURL            string                `json:"pdf_url"`
 	InvoiceNumber     string                `json:"invoice_number"`
 	State             string                `json:"state"`
@@ -69,4 +74,21 @@ func (c *Client) InvoiceShow(ctx context.Context, id string) (*Invoice, error) {
 		return nil, errgo.Mask(err)
 	}
 	return invoiceRes.Invoice, nil
+}
+
+func (c *date) UnmarshalJSON(b []byte) error {
+	value := strings.Trim(string(b), `"`) //get rid of "
+	if value == "" || value == "null" {
+		return nil
+	}
+	if t, err := time.Parse(LayoutISO, string(value)); err != nil {
+		return err
+	} else {
+		*c = date(t)
+		return nil
+	}
+}
+
+func (c date) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + time.Time(c).Format(LayoutISO) + `"`), nil
 }
