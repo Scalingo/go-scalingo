@@ -15,9 +15,9 @@ type InvoicesService interface {
 
 var _ InvoicesService = (*Client)(nil)
 
-const LayoutISO = "2006-01-02"
+const BillingMonthDateFormat = "2006-01-02"
 
-type invoiceDate time.Time
+type billingMonthDate time.Time
 
 type InvoiceItem struct {
 	ID    string `json:"id"`
@@ -36,7 +36,7 @@ type Invoice struct {
 	ID                string                `json:"id"`
 	TotalPrice        int                   `json:"total_price"`
 	TotalPriceWithVat int                   `json:"total_price_with_vat"`
-	BillingMonth      invoiceDate           `json:"billing_month"`
+	BillingMonth      billingMonthDate      `json:"billing_month"`
 	PdfURL            string                `json:"pdf_url"`
 	InvoiceNumber     string                `json:"invoice_number"`
 	State             string                `json:"state"`
@@ -76,20 +76,20 @@ func (c *Client) InvoiceShow(ctx context.Context, id string) (*Invoice, error) {
 	return invoiceRes.Invoice, nil
 }
 
-func (i *invoiceDate) UnmarshalJSON(b []byte) error {
+func (i *billingMonthDate) UnmarshalJSON(b []byte) error {
 	value := strings.Trim(string(b), `"`)
 	if value == "" || value == "null" {
 		return nil
 	}
 	var t time.Time
 	var err error
-	if t, err = time.Parse(LayoutISO, value); err != nil {
+	if t, err = time.Parse(BillingMonthDateFormat, value); err != nil {
 		return err
 	}
-	*i = invoiceDate(t)
+	*i = billingMonthDate(t)
 	return nil
 }
 
-func (i invoiceDate) MarshalJSON() ([]byte, error) {
-	return []byte(`"` + time.Time(i).Format(LayoutISO) + `"`), nil
+func (i billingMonthDate) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + time.Time(i).Format(BillingMonthDateFormat) + `"`), nil
 }
