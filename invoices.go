@@ -76,19 +76,20 @@ func (c *Client) InvoiceShow(ctx context.Context, id string) (*Invoice, error) {
 	return invoiceRes.Invoice, nil
 }
 
-func (c *invoiceDate) UnmarshalJSON(b []byte) error {
-	value := strings.Trim(string(b), `"`) //get rid of "
+func (i *invoiceDate) UnmarshalJSON(b []byte) error {
+	value := strings.Trim(string(b), `"`)
 	if value == "" || value == "null" {
 		return nil
 	}
-	if t, err := time.Parse(LayoutISO, string(value)); err != nil {
+	var t time.Time
+	var err error
+	if t, err = time.Parse(LayoutISO, value); err != nil {
 		return err
-	} else {
-		*c = invoiceDate(t)
-		return nil
 	}
+	*i = invoiceDate(t)
+	return nil
 }
 
-func (c invoiceDate) MarshalJSON() ([]byte, error) {
-	return []byte(`"` + time.Time(c).Format(LayoutISO) + `"`), nil
+func (i invoiceDate) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + time.Time(i).Format(LayoutISO) + `"`), nil
 }
