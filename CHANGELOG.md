@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(alerts): add missing fields for alerts endpoint [#??](??)
 * feat(invoices): add invoices endpoint [#269](https://github.com/Scalingo/go-scalingo/pull/269)
 * feat(scm integrations): add missing fields for scm integrations endpoint [#270](https://github.com/Scalingo/go-scalingo/pull/271)
   The structure `SCMIntegration` embraces the API return.
