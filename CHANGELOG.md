@@ -4,7 +4,7 @@
 
 * feat(invoices): add invoices endpoint [#269](https://github.com/Scalingo/go-scalingo/pull/269)
 * feat(scm integrations): add missing fields for scm integrations endpoint [#270](https://github.com/Scalingo/go-scalingo/pull/271)
-  The structure `SCMIntegration` embrace the API return.
+  The structure `SCMIntegration` embraces the API return.
   `Owner` structure has been shared.
 * fix(addon provider): add missing fields for addon providers endpoint [#272](https://github.com/Scalingo/go-scalingo/pull/272)
   The structure `Plan` and `AddonProvider` embrace the API return.
