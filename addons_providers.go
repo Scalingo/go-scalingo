@@ -48,16 +48,16 @@ type Category struct {
 }
 
 type AddonProvider struct {
-	ID               string    `json:"id"`
-	LogoURL          string    `json:"logo_url"`
-	Name             string    `json:"name"`
-	ShortDescription string    `json:"short_description"`
-	Description      string    `json:"description"`
-	Category         *Category `json:"category"`
-	ProviderName     string    `json:"provider_name"`
-	ProviderURL      string    `json:"provider_url"`
-	HDSAvailable     bool      `json:"hds_available"`
-	Plans            []*Plan   `json:"plans"`
+	ID               string   `json:"id"`
+	LogoURL          string   `json:"logo_url"`
+	Name             string   `json:"name"`
+	ShortDescription string   `json:"short_description"`
+	Description      string   `json:"description"`
+	Category         Category `json:"category"`
+	ProviderName     string   `json:"provider_name"`
+	ProviderURL      string   `json:"provider_url"`
+	HDSAvailable     bool     `json:"hds_available"`
+	Plans            []Plan   `json:"plans"`
 }
 
 type ListParams struct {
