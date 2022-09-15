@@ -16,17 +16,16 @@ type AddonProvidersService interface {
 var _ AddonProvidersService = (*Client)(nil)
 
 type Plan struct {
-	ID                        string  `json:"id"`
-	DisplayName               string  `json:"display_name"`
-	Price                     float64 `json:"price"`
-	Name                      string  `json:"name"`
-	Description               string  `json:"description"`
-	Position                  int     `json:"position"`
-	OnDemand                  bool    `json:"on_demand"`
-	Disabled                  bool    `json:"disabled"`
-	DisabledAlternativePlanID bool    `json:"disabled_alternative_plan_id"`
-	SKU                       string  `json:"sku"`
-	HDSAvailable              bool    `json:"hds_available"`
+	ID                        string `json:"id"`
+	DisplayName               string `json:"display_name"`
+	Name                      string `json:"name"`
+	Description               string `json:"description"`
+	Position                  int    `json:"position"`
+	OnDemand                  bool   `json:"on_demand"`
+	Disabled                  bool   `json:"disabled"`
+	DisabledAlternativePlanID bool   `json:"disabled_alternative_plan_id"`
+	SKU                       string `json:"sku"`
+	HDSAvailable              bool   `json:"hds_available"`
 }
 
 type PlansParams struct {
