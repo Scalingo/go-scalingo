@@ -39,7 +39,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("ID: %s\n", app.Id)
+	fmt.Printf("ID: %s\n", app.ID)
 	fmt.Printf("Owner: %s\n", app.Owner.Username)
 	fmt.Printf("Status: %s\n", app.Status)
 }
