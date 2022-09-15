@@ -9,7 +9,7 @@ import (
 )
 
 type InvoicesService interface {
-	ListInvoices(context.Context, PaginationOpts) (Invoices, PaginationMeta, error)
+	InvoicesList(context.Context, PaginationOpts) (Invoices, PaginationMeta, error)
 	InvoiceShow(context.Context, string) (*Invoice, error)
 }
 
@@ -58,7 +58,7 @@ type InvoiceRes struct {
 	Invoice *Invoice `json:"invoice"`
 }
 
-func (c *Client) ListInvoices(ctx context.Context, opts PaginationOpts) (Invoices, PaginationMeta, error) {
+func (c *Client) InvoicesList(ctx context.Context, opts PaginationOpts) (Invoices, PaginationMeta, error) {
 	var invoicesRes InvoicesRes
 	err := c.ScalingoAPI().ResourceList(ctx, "account/invoices", opts.ToMap(), &invoicesRes)
 	if err != nil {
@@ -76,20 +76,15 @@ func (c *Client) InvoiceShow(ctx context.Context, id string) (*Invoice, error) {
 	return invoiceRes.Invoice, nil
 }
 
-func (i *billingMonthDate) UnmarshalJSON(b []byte) error {
-	value := strings.Trim(string(b), `"`)
+func (b *billingMonthDate) UnmarshalJSON(data []byte) error {
+	value := strings.Trim(string(data), `"`)
 	if value == "" || value == "null" {
 		return nil
 	}
-	var t time.Time
-	var err error
-	if t, err = time.Parse(BillingMonthDateFormat, value); err != nil {
+	t, err := time.Parse(BillingMonthDateFormat, value)
+	if err != nil {
 		return err
 	}
-	*i = billingMonthDate(t)
+	*b = billingMonthDate(t)
 	return nil
-}
-
-func (i billingMonthDate) MarshalJSON() ([]byte, error) {
-	return []byte(`"` + time.Time(i).Format(BillingMonthDateFormat) + `"`), nil
 }
