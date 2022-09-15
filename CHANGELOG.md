@@ -4,7 +4,7 @@
 
 * fix(addon provider): add missing fields for addon providers endpoint [#272](https://github.com/Scalingo/go-scalingo/pull/272)
   The structure `Plan` and `AddonProvider` embrace the API return.
-  `Pricing` and `Category` structures have been added.
+  `Category` structure have been added.
 
 ## 5.1.0
 
