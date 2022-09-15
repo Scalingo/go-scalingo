@@ -40,24 +40,18 @@ type SCMIntegrationsService interface {
 
 var _ SCMIntegrationsService = (*Client)(nil)
 
-type SCMIntegrationOwner struct {
-	ID       string `json:"id"`
-	Email    string `json:"email"`
-	Username string `json:"username"`
-}
-
 type SCMIntegration struct {
-	ID          string              `json:"id"`
-	SCMType     SCMType             `json:"scm_type"`
-	URL         string              `json:"url,omitempty"`
-	AccessToken string              `json:"access_token"`
-	UID         string              `json:"uid"`
-	Username    string              `json:"username"`
-	Email       string              `json:"email"`
-	AvatarURL   string              `json:"avatar_url"`
-	ProfileURL  string              `json:"profile_url"`
-	CreatedAt   time.Time           `json:"created_at"`
-	Owner       SCMIntegrationOwner `json:"owner"`
+	ID          string    `json:"id"`
+	SCMType     SCMType   `json:"scm_type"`
+	URL         string    `json:"url,omitempty"`
+	AccessToken string    `json:"access_token"`
+	UID         string    `json:"uid"`
+	Username    string    `json:"username"`
+	Email       string    `json:"email"`
+	AvatarURL   string    `json:"avatar_url"`
+	ProfileURL  string    `json:"profile_url"`
+	CreatedAt   time.Time `json:"created_at"`
+	Owner       Owner     `json:"owner"`
 }
 
 type SCMIntegrationParams struct {
