@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+* fix(addon provider): add missing fields for addon providers endpoint [#272] (https://github.com/Scalingo/go-scalingo/pull/272)
+  The Structure Plan and Addon Provider has changed.
+  Pricing and Category structures have been had.
+
 ## 5.1.0
 
 * feat(stacks): Add deprecation date to stacks in `DeprecatedAt` attribute, and
