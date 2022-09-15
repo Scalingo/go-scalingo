@@ -30,6 +30,7 @@ type Alert struct {
 	CreatedAt             time.Time              `json:"created_at"`
 	UpdatedAt             time.Time              `json:"updated_at"`
 	Metadata              map[string]interface{} `json:"metadata"`
+	Notifiers             []string               `json:"notifiers"`
 }
 
 type AlertsRes struct {
