@@ -51,7 +51,7 @@ type SCMIntegration struct {
 	SCMType     SCMType             `json:"scm_type"`
 	URL         string              `json:"url,omitempty"`
 	AccessToken string              `json:"access_token"`
-	Uid         string              `json:"uid"`
+	UID         string              `json:"uid"`
 	Username    string              `json:"username"`
 	Email       string              `json:"email"`
 	AvatarURL   string              `json:"avatar_url"`
