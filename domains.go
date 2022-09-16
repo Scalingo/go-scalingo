@@ -108,7 +108,7 @@ func (c *Client) DomainsShow(ctx context.Context, app, id string) (Domain, error
 	return domainRes.Domain, nil
 }
 
-func (c *Client) domainsUpdate(ctx context.Context, app, id string, domain Domain) (Domain, error) {
+func (c *Client) DomainsUpdate(ctx context.Context, app, id string, domain Domain) (Domain, error) {
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceUpdate(ctx, "apps", app, "domains", id, DomainRes{Domain: domain}, &domainRes)
 	if err != nil {
