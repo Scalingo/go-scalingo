@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* fix(sc_repo_link): add missing field `URL` in the structure `SCMRepoLink` [#281](https://github.com/Scalingo/go-scalingo/pull/282)
+* fix(scm_repo_link): add missing field `URL` in the structure `SCMRepoLink` [#281](https://github.com/Scalingo/go-scalingo/pull/282)
 
 ## 5.2.0
 
