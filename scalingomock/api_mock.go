@@ -705,6 +705,51 @@ func (mr *MockAPIMockRecorder) DBAPI(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DBAPI", reflect.TypeOf((*MockAPI)(nil).DBAPI), arg0, arg1)
 }
 
+// DatabaseDisableFeature mocks base method.
+func (m *MockAPI) DatabaseDisableFeature(arg0 context.Context, arg1, arg2, arg3 string) (scalingo.DatabaseDisableFeatureResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseDisableFeature", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.DatabaseDisableFeatureResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabaseDisableFeature indicates an expected call of DatabaseDisableFeature.
+func (mr *MockAPIMockRecorder) DatabaseDisableFeature(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseDisableFeature", reflect.TypeOf((*MockAPI)(nil).DatabaseDisableFeature), arg0, arg1, arg2, arg3)
+}
+
+// DatabaseEnableFeature mocks base method.
+func (m *MockAPI) DatabaseEnableFeature(arg0 context.Context, arg1, arg2, arg3 string) (scalingo.DatabaseEnableFeatureResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseEnableFeature", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.DatabaseEnableFeatureResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabaseEnableFeature indicates an expected call of DatabaseEnableFeature.
+func (mr *MockAPIMockRecorder) DatabaseEnableFeature(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseEnableFeature", reflect.TypeOf((*MockAPI)(nil).DatabaseEnableFeature), arg0, arg1, arg2, arg3)
+}
+
+// DatabaseShow mocks base method.
+func (m *MockAPI) DatabaseShow(arg0 context.Context, arg1, arg2 string) (scalingo.Database, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseShow", arg0, arg1, arg2)
+	ret0, _ := ret[0].(scalingo.Database)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabaseShow indicates an expected call of DatabaseShow.
+func (mr *MockAPIMockRecorder) DatabaseShow(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseShow", reflect.TypeOf((*MockAPI)(nil).DatabaseShow), arg0, arg1, arg2)
+}
+
 // Deployment mocks base method.
 func (m *MockAPI) Deployment(arg0 context.Context, arg1, arg2 string) (*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
@@ -959,6 +1004,37 @@ func (m *MockAPI) GetAccessToken(arg0 context.Context) (string, error) {
 func (mr *MockAPIMockRecorder) GetAccessToken(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccessToken", reflect.TypeOf((*MockAPI)(nil).GetAccessToken), arg0)
+}
+
+// InvoiceShow mocks base method.
+func (m *MockAPI) InvoiceShow(arg0 context.Context, arg1 string) (*scalingo.Invoice, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "InvoiceShow", arg0, arg1)
+	ret0, _ := ret[0].(*scalingo.Invoice)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// InvoiceShow indicates an expected call of InvoiceShow.
+func (mr *MockAPIMockRecorder) InvoiceShow(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InvoiceShow", reflect.TypeOf((*MockAPI)(nil).InvoiceShow), arg0, arg1)
+}
+
+// InvoicesList mocks base method.
+func (m *MockAPI) InvoicesList(arg0 context.Context, arg1 scalingo.PaginationOpts) (scalingo.Invoices, scalingo.PaginationMeta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "InvoicesList", arg0, arg1)
+	ret0, _ := ret[0].(scalingo.Invoices)
+	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// InvoicesList indicates an expected call of InvoicesList.
+func (mr *MockAPIMockRecorder) InvoicesList(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InvoicesList", reflect.TypeOf((*MockAPI)(nil).InvoicesList), arg0, arg1)
 }
 
 // KeysAdd mocks base method.

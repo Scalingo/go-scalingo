@@ -10,6 +10,12 @@ import (
 	httpclient "github.com/Scalingo/go-scalingo/v5/http"
 )
 
+type DatabasesService interface {
+	DatabaseShow(ctx context.Context, app, addonID string) (Database, error)
+	DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error)
+	DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error)
+}
+
 type DatabaseStatus string
 
 const (
