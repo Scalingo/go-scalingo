@@ -2,9 +2,12 @@ package scalingo
 
 import (
 	"context"
+	"net/http"
 	"time"
 
 	"gopkg.in/errgo.v1"
+
+	httpclient "github.com/Scalingo/go-scalingo/v5/http"
 )
 
 type DatabaseStatus string
@@ -104,4 +107,68 @@ func (c *Client) PeriodicBackupsConfig(ctx context.Context, app, addonID string,
 		return Database{}, errgo.Notef(err, "fail to update periodic backups settings")
 	}
 	return dbRes.Database, nil
+}
+
+type DatabaseFeature struct {
+	Name string `json:"name"`
+}
+
+type DatabaseEnableFeatureParams struct {
+	Feature DatabaseFeature `json:"feature"`
+}
+
+type DatabaseFeatureStatus string
+
+const (
+	DatabaseFeatureStatusEnabled DatabaseFeatureStatus = "ENABLED"
+	DatabaseFeatureStatusPending DatabaseFeatureStatus = "PENDING"
+	DatabaseFeatureStatusFailed  DatabaseFeatureStatus = "FAILED"
+)
+
+type DatabaseEnableFeatureResponse struct {
+	Name    string                `json:"name"`
+	Status  DatabaseFeatureStatus `json:"status"`
+	Message string                `json:"message"`
+}
+
+func (c *Client) DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error) {
+	payload := DatabaseEnableFeatureParams{
+		Feature: DatabaseFeature{
+			Name: feature,
+		},
+	}
+
+	res := DatabaseEnableFeatureResponse{}
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   "POST",
+		Endpoint: "/databases/" + addonID + "/features",
+		Expected: httpclient.Statuses{http.StatusOK},
+		Params:   payload,
+	}, &res)
+
+	if err != nil {
+		return res, errgo.Notef(err, "fail to enable database feature %v", feature)
+	}
+
+	return res, nil
+}
+
+type DatabaseDisableFeatureResponse struct {
+	Message string `json:"message"`
+}
+
+func (c *Client) DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error) {
+	res := DatabaseDisableFeatureResponse{}
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   "POST",
+		Endpoint: "/databases/" + addonID + "/features",
+		Expected: httpclient.Statuses{http.StatusOK},
+		Params:   map[string]string{"feature": feature},
+	}, &res)
+
+	if err != nil {
+		return res, errgo.Notef(err, "fail to enable database feature %v", feature)
+	}
+
+	return res, nil
 }
