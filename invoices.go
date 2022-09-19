@@ -88,3 +88,7 @@ func (b *billingMonthDate) UnmarshalJSON(data []byte) error {
 	*b = billingMonthDate(t)
 	return nil
 }
+
+func (c billingMonthDate) MarshalJSON() ([]byte, error) {
+	return []byte(`"` + time.Time(c).Format(BillingMonthDateFormat) + `"`), nil
+}
