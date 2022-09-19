@@ -167,7 +167,7 @@ type DatabaseDisableFeatureResponse struct {
 func (c *Client) DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error) {
 	res := DatabaseDisableFeatureResponse{}
 	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
-		Method:   "POST",
+		Method:   "DELETE",
 		Endpoint: "/databases/" + addonID + "/features",
 		Expected: httpclient.Statuses{http.StatusOK},
 		Params:   map[string]string{"feature": feature},
