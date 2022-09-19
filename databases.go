@@ -174,7 +174,7 @@ func (c *Client) DatabaseDisableFeature(ctx context.Context, app, addonID, featu
 	}, &res)
 
 	if err != nil {
-		return res, errgo.Notef(err, "fail to enable database feature %v", feature)
+		return res, errgo.Notef(err, "fail to disable database feature %v", feature)
 	}
 
 	return res, nil
