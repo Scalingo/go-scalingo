@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(databases): Add mock of DatabasesService, unifomize naming [#286](https://github.com/Scalingo/go-scalingo/pull/286)
 * feat(databases): Add ability to add/remove features [#285](https://github.com/Scalingo/go-scalingo/pull/285)
 
 ## 5.2.2
