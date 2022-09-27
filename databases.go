@@ -10,28 +10,45 @@ import (
 	httpclient "github.com/Scalingo/go-scalingo/v5/http"
 )
 
+// DatabasesService is the interface gathering all the methods related to
+// database addon configuration updates
 type DatabasesService interface {
 	DatabaseShow(ctx context.Context, app, addonID string) (Database, error)
 	DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error)
 	DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error)
+	DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params DatabaseUpdatePeriodicBackupsConfigParams) (Database, error)
 }
 
+// DatabaseStatus is a string representing the status of a database deployment
 type DatabaseStatus string
 
 const (
-	DatabaseStatusCreating  DatabaseStatus = "creating"
-	DatabaseStatusRunning   DatabaseStatus = "running"
+	// DatabaseStatusCreating is set when the database is being started before
+	// it's operational
+	DatabaseStatusCreating DatabaseStatus = "creating"
+	// DatabaseStatusRunning is the standard status of a database when everything
+	// is operational
+	DatabaseStatusRunning DatabaseStatus = "running"
+	// DatabaseStatusMigrating is set when a component of the database is being
+	// migrated by Scalingo infrastructure
 	DatabaseStatusMigrating DatabaseStatus = "migrating"
-	DatabaseStatusUpdating  DatabaseStatus = "updating"
+	// DatabaseStatusUpdating is set the plan of the database is being changed
+	DatabaseStatusUpdating DatabaseStatus = "updating"
+	// DatabaseStatusUpgrading is set when a database version upgrade is being
+	// applied on the database
 	DatabaseStatusUpgrading DatabaseStatus = "upgrading"
-	DatabaseStatusStopped   DatabaseStatus = "stopped"
+	// DatabaseStatusStopped is set when the database has been stopped (suspended
+	// after free trial or when an account has been suspended)
+	DatabaseStatusStopped DatabaseStatus = "stopped"
 )
 
+// DatabaseFeature represents the state of application of a database feature
 type DatabaseFeature struct {
 	Name   string                `json:"name"`
 	Status DatabaseFeatureStatus `json:"status"`
 }
 
+// Database contains the metadata and configuration of a database deployment
 type Database struct {
 	ID                         string            `json:"id"`
 	CreatedAt                  time.Time         `json:"created_at"`
@@ -55,18 +72,33 @@ type Database struct {
 	PeriodicBackupsScheduledAt []int             `json:"periodic_backups_scheduled_at"` // Hours of the day of the periodic backups (UTC)
 }
 
+// InstanceStatus is a type of string representing the status of an Instance
 type InstanceStatus string
 
 const (
-	InstanceStatusBooting    InstanceStatus = "booting"
-	InstanceStatusRunning    InstanceStatus = "running"
+	// InstanceStatusBooting is set when an instance is starting for the first
+	// time
+	InstanceStatusBooting InstanceStatus = "booting"
+	// InstanceStatusRunning is the default status when the instance is working
+	// normally
+	InstanceStatusRunning InstanceStatus = "running"
+	// InstanceStatusRestarting is set when an instance is restarting (during a
+	// plan change, at the end of an upgrade or a migration)
 	InstanceStatusRestarting InstanceStatus = "restarting"
-	InstanceStatusMigrating  InstanceStatus = "migrating"
-	InstanceStatusUpgrading  InstanceStatus = "upgrading"
-	InstanceStatusStopped    InstanceStatus = "stopped"
-	InstanceStatusRemoving   InstanceStatus = "removing"
+	// InstanceStatusMigrating is set when an instance is being migrated by the
+	// Scalingo infrastructure
+	InstanceStatusMigrating InstanceStatus = "migrating"
+	// InstanceStatusUpgrading is set when an instance version is being changed,
+	// part of a Database upgrade
+	InstanceStatusUpgrading InstanceStatus = "upgrading"
+	// InstanceStatusStopped is set when an instance has been stopped
+	InstanceStatusStopped InstanceStatus = "stopped"
+	// InstanceStatusRemoving is set during the deletion of an Instance (business
+	// to starter downgrade or database deletion)
+	InstanceStatusRemoving InstanceStatus = "removing"
 )
 
+// InstanceType is a type of string representing the type of the Instance inside a Database
 type InstanceType string
 
 const (
@@ -81,6 +113,8 @@ const (
 	InstanceTypeHAProxy InstanceType = "haproxy"
 )
 
+// Instance contains the metadata of an Instance which is one component of a
+// Database deployment.
 type Instance struct {
 	ID        string         `json:"id"`
 	Hostname  string         `json:"hostname"`
@@ -91,10 +125,12 @@ type Instance struct {
 	PrivateIP string         `json:"private_ip"`
 }
 
+// DatabaseRes is the returned response from DatabaseShow
 type DatabaseRes struct {
 	Database Database `json:"database"`
 }
 
+// DatabaseShow returns the Database info of the given app/addonID
 func (c *Client) DatabaseShow(ctx context.Context, app, addonID string) (Database, error) {
 	var res DatabaseRes
 	err := c.DBAPI(app, addonID).ResourceGet(ctx, "databases", addonID, nil, &res)
@@ -104,14 +140,18 @@ func (c *Client) DatabaseShow(ctx context.Context, app, addonID string) (Databas
 	return res.Database, nil
 }
 
-type PeriodicBackupsConfigParams struct {
+// DatabaseUpdatePeriodicBackupsConfigParams contains the parameters which can
+// be tweaked to update how periodic backups are triggered.
+type DatabaseUpdatePeriodicBackupsConfigParams struct {
 	ScheduledAt *int  `json:"periodic_backups_scheduled_at,omitempty"`
 	Enabled     *bool `json:"periodic_backups_enabled,omitempty"`
 }
 
-func (c *Client) PeriodicBackupsConfig(ctx context.Context, app, addonID string, params PeriodicBackupsConfigParams) (Database, error) {
+// DatabaseUpdatePeriodicBackupsConfig updates the configuration of periodic
+// backups for a given database addon
+func (c *Client) DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params DatabaseUpdatePeriodicBackupsConfigParams) (Database, error) {
 	var dbRes DatabaseRes
-	err := c.DBAPI(app, addonID).ResourceUpdate(ctx, "databases", addonID, map[string]PeriodicBackupsConfigParams{
+	err := c.DBAPI(app, addonID).ResourceUpdate(ctx, "databases", addonID, map[string]DatabaseUpdatePeriodicBackupsConfigParams{
 		"database": params,
 	}, &dbRes)
 	if err != nil {
@@ -120,24 +160,32 @@ func (c *Client) PeriodicBackupsConfig(ctx context.Context, app, addonID string,
 	return dbRes.Database, nil
 }
 
+// DatabaseEnableFeatureParams contains the feature which has to be enabled
 type DatabaseEnableFeatureParams struct {
 	Feature DatabaseFeature `json:"feature"`
 }
 
+// DatabaseFeatureStatus is a type of string representing the advancement of
+// the application of a database feature
 type DatabaseFeatureStatus string
 
 const (
+	// DatabaseFeatureStatusActivated is set when the feature has been enabled with success
 	DatabaseFeatureStatusActivated DatabaseFeatureStatus = "ACTIVATED"
-	DatabaseFeatureStatusPending   DatabaseFeatureStatus = "PENDING"
-	DatabaseFeatureStatusFailed    DatabaseFeatureStatus = "FAILED"
+	// DatabaseFeatureStatusPending is set when the feature is being enabled
+	DatabaseFeatureStatusPending DatabaseFeatureStatus = "PENDING"
+	// DatabaseFeatureStatusFailed is set when the feature failed to get enabeld
+	DatabaseFeatureStatusFailed DatabaseFeatureStatus = "FAILED"
 )
 
+// DatabaseEnableFeatureResponse is the response structure from DatabaseEnableFeature
 type DatabaseEnableFeatureResponse struct {
 	Name    string                `json:"name"`
 	Status  DatabaseFeatureStatus `json:"status"`
 	Message string                `json:"message"`
 }
 
+// DatabaseEnableFeature enable a feature on a given database addon.
 func (c *Client) DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error) {
 	payload := DatabaseEnableFeatureParams{
 		Feature: DatabaseFeature{
@@ -160,10 +208,12 @@ func (c *Client) DatabaseEnableFeature(ctx context.Context, app, addonID, featur
 	return res, nil
 }
 
+// DatabaseDisableFeatureResponse is the response body of DatabaseDisableFeature
 type DatabaseDisableFeatureResponse struct {
 	Message string `json:"message"`
 }
 
+// DatabaseDisableFeature disables a feature on a given database addon
 func (c *Client) DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error) {
 	res := DatabaseDisableFeatureResponse{}
 	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
