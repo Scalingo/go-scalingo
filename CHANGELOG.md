@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(databases): Add ability to add/remove features [#285](https://github.com/Scalingo/go-scalingo/pull/285)
+
 ## 5.2.1
 
 * fix(notifiers): add missing fields in `Notifier` [#278](https://github.com/Scalingo/go-scalingo/pull/278)
