@@ -8,7 +8,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Scalingo/go-scalingo/v5/http/httpmock"
+	"github.com/Scalingo/go-scalingo/v6/http/httpmock"
 )
 
 var eventsListCases = map[string]struct {

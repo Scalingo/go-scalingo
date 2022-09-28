@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	httpclient "github.com/Scalingo/go-scalingo/v5/http"
+	httpclient "github.com/Scalingo/go-scalingo/v6/http"
 )
 
 type ContainersService interface {

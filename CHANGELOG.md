@@ -2,6 +2,23 @@
 
 ## To Be Released
 
+## 6.0.0
+
+BREAKING CHANGES:
+
+Linting:
+* `App.GitUrl` → `App.GitURL`
+* `ContainerStat.CpuUsage` → `ContainerStat.CPUUsage`
+* `LogsArchiveItem.Url` → `LogsArchiveItem.URL`
+* `PullRequest.Url` → `PullRequest.URL`
+* `PullRequest.HtmlUrl` → `PullRequest.HTMLURL`
+
+Making things more homogeneous:
+* `PeriodicBackupsConfig` → `DatabaseUpdatePeriodicBackupsConfig`
+* `PeriodicBackupsConfigParams` → `DatabaseUpdatePeriodicBackupsConfigParams`
+
+Changelog:
+
 * feat(data_access_consent): Add DataAccessConsent field on `app` [#287](https://github.com/Scalingo/go-scalingo/pull/287)
 * refactor(linting): Fix linter offense on App, ContainerStat, LogsArchiveItem and PullRequest public structs [#288](https://github.com/Scalingo/go-scalingo/pull/288)
 * feat(databases): Add mock of DatabasesService, unifomize naming [#286](https://github.com/Scalingo/go-scalingo/pull/286)
