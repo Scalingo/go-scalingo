@@ -10,6 +10,7 @@
   "github.com/Scalingo/go-scalingo.ContainerSizesService": "e2 db 25 a1 01 52 dc e9 6f 7b f4 59 68 95 86 b9 5e 39 8a 61",
   "github.com/Scalingo/go-scalingo.ContainersService": "ef 14 ae 81 c9 b4 6a 13 48 e8 bf 44 7d b5 b2 a6 4d e5 02 11",
   "github.com/Scalingo/go-scalingo.CronTasksService": "9b d9 a3 ca 9f 9a f7 73 cb b1 aa 80 df 90 21 ff 14 92 b4 4d",
+  "github.com/Scalingo/go-scalingo.DatabasesService": "bf 4d 92 13 a5 11 a5 f6 ad 14 f3 72 81 19 5a 48 65 1e b1 90",
   "github.com/Scalingo/go-scalingo.DeploymentsService": "aa b5 25 87 ff f0 d2 9f 3a 32 42 2d d6 02 33 5f 63 14 2b 9a",
   "github.com/Scalingo/go-scalingo.DomainsService": "2f 49 a8 58 f3 ae 8c 4d 4d 6b 1f 47 fc dc db b3 d0 84 ba de",
   "github.com/Scalingo/go-scalingo.EventsService": "29 cf 29 33 fb 33 ce 86 3b 49 db ae 25 2d 5d 22 d6 60 21 95",
