@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(data_access_consent): Add DataAccessConsent field on `app` [#287](https://github.com/Scalingo/go-scalingo/pull/287)
 * refactor(linting): Fix linter offense on App, ContainerStat, LogsArchiveItem and PullRequest public structs [#288](https://github.com/Scalingo/go-scalingo/pull/288)
 * feat(databases): Add mock of DatabasesService, unifomize naming [#286](https://github.com/Scalingo/go-scalingo/pull/286)
 * feat(databases): Add ability to add/remove features [#285](https://github.com/Scalingo/go-scalingo/pull/285)
