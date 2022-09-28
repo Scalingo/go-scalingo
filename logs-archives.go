@@ -19,7 +19,7 @@ type LogsArchivesService interface {
 var _ LogsArchivesService = (*Client)(nil)
 
 type LogsArchiveItem struct {
-	Url  string `json:"url"`
+	URL  string `json:"url"`
 	From string `json:"from"`
 	To   string `json:"to"`
 	Size int64  `json:"size"`
