@@ -8,8 +8,8 @@ type PullRequest struct {
 	Number     int       `json:"number"`
 	BranchName string    `json:"branch_name"`
 	Title      string    `json:"title"`
-	Url        string    `json:"url"`
-	HtmlUrl    string    `json:"html_url"`
+	URL        string    `json:"url"`
+	HTMLURL    string    `json:"html_url"`
 	Ref        string    `json:"ref"`
 	BaseRef    string    `json:"base_ref"`
 	CreatedAt  time.Time `json:"created_at"`

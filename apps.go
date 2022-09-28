@@ -50,7 +50,7 @@ type ContainerType struct {
 
 type ContainerStat struct {
 	ID                 string `json:"id"`
-	CpuUsage           int    `json:"cpu_usage"`
+	CPUUsage           int    `json:"cpu_usage"`
 	MemoryUsage        int64  `json:"memory_usage"`
 	SwapUsage          int64  `json:"swap_usage"`
 	MemoryLimit        int64  `json:"memory_limit"`
@@ -98,7 +98,7 @@ type App struct {
 	Name           string                 `json:"name"`
 	Region         string                 `json:"region"`
 	Owner          Owner                  `json:"owner"`
-	GitUrl         string                 `json:"git_url"`
+	GitURL         string                 `json:"git_url"`
 	URL            string                 `json:"url"`
 	BaseURL        string                 `json:"base_url"`
 	Status         AppStatus              `json:"status"`
