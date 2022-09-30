@@ -206,7 +206,7 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 		},
 	})
 	if err != nil {
-		return nil, errgo.Notef(err, "fail write JSON, there must be an authentication issue")
+		return nil, errgo.Notef(err, "fail to write JSON, there must be an authentication issue")
 	}
 
 	return conn, nil
