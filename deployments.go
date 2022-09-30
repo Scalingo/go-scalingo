@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"time"
 
-	"golang.org/x/net/websocket"
+	"github.com/gorilla/websocket"
 	"gopkg.in/errgo.v1"
 
 	httpclient "github.com/Scalingo/go-scalingo/v6/http"
@@ -190,7 +190,16 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to generate token")
 	}
-	authString, err := json.Marshal(&AuthStruct{
+
+	header := make(http.Header)
+	header.Add("Origin", "http://scalingo-cli.local/1")
+	conn, resp, err := websocket.DefaultDialer.DialContext(ctx, deployURL, header)
+	if err != nil {
+		return nil, errgo.Mask(err, errgo.Any)
+	}
+	defer resp.Body.Close()
+
+	err = conn.WriteJSON(&AuthStruct{
 		Type: "auth",
 		Data: AuthenticationData{
 			Token: token,
@@ -200,16 +209,6 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 		return nil, errgo.Mask(err, errgo.Any)
 	}
 
-	conn, err := websocket.Dial(deployURL, "", "http://scalingo-cli.local/1")
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
-
-	_, err = conn.Write(authString)
-
-	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
-	}
 	return conn, nil
 }
 
