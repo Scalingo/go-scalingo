@@ -10,8 +10,6 @@ require (
 	gopkg.in/errgo.v1 v1.0.1
 )
 
-require github.com/Scalingo/go-scalingo/v5 v5.2.2
-
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gorilla/websocket v1.5.0
