@@ -11,7 +11,7 @@ import (
 
 	scalingo "github.com/Scalingo/go-scalingo/v6"
 	gomock "github.com/golang/mock/gomock"
-	websocket "golang.org/x/net/websocket"
+	websocket "github.com/gorilla/websocket"
 )
 
 // MockDeploymentsService is a mock of DeploymentsService interface.
