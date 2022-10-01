@@ -190,7 +190,8 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to generate token")
 	}
-	authString, err := json.Marshal(&AuthStruct{
+	// json.Marshal argument is safe, no errcheck (lint)
+	authString, _ := json.Marshal(&AuthStruct{
 		Type: "auth",
 		Data: AuthenticationData{
 			Token: token,
