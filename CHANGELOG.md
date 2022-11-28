@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(events): Add Detached field for EventRun [#292](https://github.com/Scalingo/go-scalingo/pull/292)
+
 ## 6.0.1
 
 * chore(deps): bump github.com/stretchr/testify from 1.8.0 to 1.8.1
