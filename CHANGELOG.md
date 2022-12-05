@@ -3,6 +3,7 @@
 ## To Be Released
 
 * feat(events): Add Detached field for EventRun [#292](https://github.com/Scalingo/go-scalingo/pull/292)
+* chore(deps): bump github.com/golang-jwt/jwt/v4 from 4.4.2 to 4.4.3
 
 ## 6.0.1
 
