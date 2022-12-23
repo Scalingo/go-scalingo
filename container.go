@@ -43,3 +43,18 @@ func (c *Client) ContainersStop(ctx context.Context, appName, containerID string
 
 	return nil
 }
+
+func (c *Client) ContainersSendSignal(ctx context.Context, app string, signal string, container string) error {
+	req := &httpclient.APIRequest{
+		Method:   "POST",
+		Endpoint: "/apps/" + app + "/containers/" + container + "/kill",
+		Params:   map[string]interface{}{"signal": signal},
+		Expected: httpclient.Statuses{204},
+	}
+	err := c.ScalingoAPI().DoRequest(ctx, req, nil)
+	if err != nil {
+		return errgo.Notef(err, "fail to execute the POST request to send signal to a container")
+	}
+
+	return nil
+}
