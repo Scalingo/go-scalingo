@@ -44,10 +44,10 @@ func (c *Client) ContainersStop(ctx context.Context, appName, containerID string
 	return nil
 }
 
-func (c *Client) ContainersSendSignal(ctx context.Context, app string, signal string, containerName string) error {
+func (c *Client) ContainersSendSignal(ctx context.Context, app string, signal string, containerID string) error {
 	req := &httpclient.APIRequest{
 		Method:   "POST",
-		Endpoint: "/apps/" + app + "/containers/" + containerName + "/kill",
+		Endpoint: "/apps/" + app + "/containers/" + containerID + "/kill",
 		Params:   map[string]interface{}{"signal": signal},
 		Expected: httpclient.Statuses{204},
 	}
