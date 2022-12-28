@@ -4,6 +4,7 @@
 
 * feat(events): Add Detached field for EventRun [#292](https://github.com/Scalingo/go-scalingo/pull/292)
 * chore(deps): bump github.com/golang-jwt/jwt/v4 from 4.4.2 to 4.4.3
+* feat(send-signal): new function `ContainersSendSignal` to request the send-signal api's endpoint [#295](https://github.com/Scalingo/go-scalingo/pull/295)
 
 ## 6.0.1
 
