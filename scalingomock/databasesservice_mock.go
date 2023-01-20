@@ -94,3 +94,17 @@ func (mr *MockDatabasesServiceMockRecorder) DatabaseUpdatePeriodicBackupsConfig(
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseUpdatePeriodicBackupsConfig", reflect.TypeOf((*MockDatabasesService)(nil).DatabaseUpdatePeriodicBackupsConfig), arg0, arg1, arg2, arg3)
 }
+
+// DatabaseUpgrade mocks base method.
+func (m *MockDatabasesService) DatabaseUpgrade(arg0 context.Context, arg1, arg2 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseUpgrade", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DatabaseUpgrade indicates an expected call of DatabaseUpgrade.
+func (mr *MockDatabasesServiceMockRecorder) DatabaseUpgrade(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseUpgrade", reflect.TypeOf((*MockDatabasesService)(nil).DatabaseUpgrade), arg0, arg1, arg2)
+}

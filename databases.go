@@ -17,6 +17,7 @@ type DatabasesService interface {
 	DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error)
 	DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error)
 	DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params DatabaseUpdatePeriodicBackupsConfigParams) (Database, error)
+	DatabaseUpgrade(ctx context.Context, app, addonID string) error
 }
 
 // DatabaseStatus is a string representing the status of a database deployment
@@ -228,4 +229,17 @@ func (c *Client) DatabaseDisableFeature(ctx context.Context, app, addonID, featu
 	}
 
 	return res, nil
+}
+
+// DatabaseUpgrade queries the database version upgrade
+func (c *Client) DatabaseUpgrade(ctx context.Context, app, addonID string) error {
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   "POST",
+		Endpoint: "/databases/" + addonID + "/upgrade",
+		Expected: httpclient.Statuses{http.StatusOK},
+	}, nil)
+	if err != nil {
+		return errgo.Notef(err, "fail to query the database upgrade")
+	}
+	return nil
 }
