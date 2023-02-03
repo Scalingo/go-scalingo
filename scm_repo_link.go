@@ -32,6 +32,7 @@ type SCMRepoLinkCreateParams struct {
 	HoursBeforeDeleteOnClose *uint   `json:"hours_before_delete_on_close,omitempty"`
 	DestroyStaleEnabled      *bool   `json:"delete_stale_enabled,omitempty"`
 	HoursBeforeDeleteStale   *uint   `json:"hours_before_delete_stale,omitempty"`
+	ForksAllowed             *bool   `json:"forks_allowed,omitempty"`
 }
 
 type SCMRepoLinkUpdateParams struct {
@@ -42,6 +43,7 @@ type SCMRepoLinkUpdateParams struct {
 	HoursBeforeDeleteOnClose *uint   `json:"hours_before_delete_on_close,omitempty"`
 	DestroyStaleEnabled      *bool   `json:"delete_stale_enabled,omitempty"`
 	HoursBeforeDeleteStale   *uint   `json:"hours_before_delete_stale,omitempty"`
+	ForksAllowed             *bool   `json:"forks_allowed,omitempty"`
 }
 
 type SCMRepoLink struct {
@@ -63,6 +65,7 @@ type SCMRepoLink struct {
 	HoursBeforeDeleteOnClose uint              `json:"hours_before_delete_on_close"`
 	HoursBeforeDeleteStale   uint              `json:"hours_before_delete_stale"`
 	LastAutoDeployAt         time.Time         `json:"last_auto_deploy_at"`
+	ForksAllowed             bool              `json:"forks_allowed"`
 }
 
 type SCMRepoLinkLinker struct {
