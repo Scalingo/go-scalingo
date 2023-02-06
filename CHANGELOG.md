@@ -1,6 +1,7 @@
 # Changelog
 
 ## To Be Released
+* feat(status code): handle too many requests exception
 
 ## 6.1.0
 
