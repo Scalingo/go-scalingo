@@ -779,8 +779,8 @@ func (ev *EventTfaDisabledType) String() string {
 
 // Stack changed
 type EventStackChangedTypeData struct {
-	PreviousStackId   string `json:"previous_stack_id"`
-	CurrentStackId    string `json:"current_stack_id"`
+	PreviousStackID   string `json:"previous_stack_id"`
+	CurrentStackID    string `json:"current_stack_id"`
 	PreviousStackName string `json:"previous_stack_name"`
 	CurrentStackName  string `json:"current_stack_name"`
 }
