@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+BREAKING CHANGE:
+
+* Remove the GithubLinkService in favor of SCMRepoLinkService
+
 ## 6.2.0
 
 * feat(status code): handle too many requests exception
