@@ -2,6 +2,14 @@
 
 ## To Be Released
 
+BREAKING CHANGE:
+
+* Remove the GithubLinkService in favor of SCMRepoLinkService
+
+## 6.2.0
+
+* feat(status code): handle too many requests exception
+
 ## 6.1.0
 
 * feat(events): Add Detached field for EventRun [#292](https://github.com/Scalingo/go-scalingo/pull/292)
