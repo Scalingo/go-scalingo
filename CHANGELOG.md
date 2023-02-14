@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(stack): Stack changed event
+
 BREAKING CHANGE:
 
 * Remove the GithubLinkService in favor of SCMRepoLinkService
