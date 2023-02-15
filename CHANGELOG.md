@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(deployments): add support for Deployment `image_size`
 * feat(events): Stack changed event
 
 BREAKING CHANGE:
