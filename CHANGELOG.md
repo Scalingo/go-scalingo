@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(stack): Stack changed event
+* feat(events): Stack changed event
 
 BREAKING CHANGE:
 
