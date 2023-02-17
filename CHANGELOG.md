@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(apps): add support for `hds_resource`
 * feat(deployments): add support for Deployment `image_size`
 * feat(events): Stack changed event
 
