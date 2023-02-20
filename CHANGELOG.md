@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(stacks): add support for Deployment `stack_base_image`
+
 ## 6.3.0
 
 * feat(apps): add support for `hds_resource`
