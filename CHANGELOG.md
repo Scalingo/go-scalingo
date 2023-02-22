@@ -3,6 +3,7 @@
 ## To Be Released
 
 * feat(stacks): add support for Deployment `stack_base_image`
+* feat(backup): add `StartedAt` and `Method` fields
 
 ## 6.3.0
 
