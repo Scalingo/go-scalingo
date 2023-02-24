@@ -1,0 +1,31 @@
+name: Continuous Integration for Scalingo Go SDK
+
+on: [push]
+
+jobs:
+  linter:
+    name: Linters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: "go.mod"
+          check-latest: true
+          cache: true
+      - uses: golangci/golangci-lint-action@v3
+        with:
+          only-new-issues: false
+
+  tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: "go.mod"
+          check-latest: true
+          cache: true
+      - name: Execute the tests
+        run: go test -race ./...
