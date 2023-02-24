@@ -1,0 +1,17 @@
+name: Unit Tests for Scalingo Go SDK
+
+on: [push]
+
+jobs:
+  tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version-file: "go.mod"
+          check-latest: true
+          cache: true
+      - name: Execute the tests
+        run: go test -race ./...
