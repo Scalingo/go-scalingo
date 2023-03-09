@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v6/http"
+	httppkg "github.com/Scalingo/go-scalingo/v6/http"
 )
 
 type RunsService interface {
@@ -22,16 +22,18 @@ type RunOpts struct {
 	Env        map[string]string
 	Size       string
 	Detached   bool
+	Async      bool
 	HasUploads bool
 }
 
 type RunRes struct {
-	Container *Container `json:"container"`
-	AttachURL string     `json:"attach_url"`
+	Container    *Container `json:"container"`
+	AttachURL    string     `json:"attach_url"`
+	OperationURL string     `json:"operation_url"`
 }
 
 func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
-	req := &http.APIRequest{
+	req := &httppkg.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + opts.App + "/run",
 		Params: map[string]interface{}{
@@ -39,6 +41,7 @@ func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
 			"env":         opts.Env,
 			"size":        opts.Size,
 			"detached":    opts.Detached,
+			"async":       opts.Async,
 			"has_uploads": opts.HasUploads,
 		},
 	}
@@ -53,6 +56,8 @@ func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
+
+	runRes.OperationURL = res.Header.Get("Location")
 
 	return &runRes, nil
 }
