@@ -29,7 +29,7 @@ type RunOpts struct {
 type RunRes struct {
 	Container    *Container `json:"container"`
 	AttachURL    string     `json:"attach_url"`
-	OperationURL string     `json:"operation_url"`
+	OperationURL string     `json:"-"`
 }
 
 func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
