@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	httppkg "github.com/Scalingo/go-scalingo/v6/http"
+	"github.com/Scalingo/go-scalingo/v6/http"
 )
 
 type RunsService interface {
@@ -33,7 +33,7 @@ type RunRes struct {
 }
 
 func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
-	req := &httppkg.APIRequest{
+	req := &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + opts.App + "/run",
 		Params: map[string]interface{}{
