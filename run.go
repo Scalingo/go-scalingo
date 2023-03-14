@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	"github.com/Scalingo/go-scalingo/v6/http"
 )
@@ -47,14 +47,14 @@ func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
 	}
 	res, err := c.ScalingoAPI().Do(ctx, req)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Notef(ctx, err, "request endpoint %v", req.Endpoint)
 	}
 	defer res.Body.Close()
 
 	var runRes RunRes
 	err = json.NewDecoder(res.Body).Decode(&runRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Notef(ctx, err, "decode response body")
 	}
 
 	runRes.OperationURL = res.Header.Get("Location")
