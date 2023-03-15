@@ -37,8 +37,8 @@ type OperationResponse struct {
 }
 
 type OperationStartOneOffData struct {
-	AttachURL   string            `json:"attach_url"`
-	ContainerID map[string]string `json:"container_id"`
+	AttachURL   string `json:"attach_url"`
+	ContainerID string `json:"container_id"`
 }
 
 type Operation struct {
