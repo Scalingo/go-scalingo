@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(one-off): allow attached one-off to be run asynchronously
 * feat(stacks): add support for Deployment `stack_base_image`
 * feat(backup): add `StartedAt` and `Method` fields
 
