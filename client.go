@@ -128,7 +128,7 @@ func (c *Client) ScalingoAPI() http.Client {
 		prefix = c.config.APIPrefix
 	}
 
-	return http.NewClient(http.ScalingoAPI, http.ClientConfig{
+	client := http.NewClient(http.ScalingoAPI, http.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
@@ -136,6 +136,10 @@ func (c *Client) ScalingoAPI() http.Client {
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.APIEndpoint,
 	})
+
+	c.apiClient = client
+
+	return client
 }
 
 func (c *Client) DBAPI(app, addon string) http.Client {
@@ -174,7 +178,7 @@ func (c *Client) AuthAPI() http.Client {
 	if c.config.AuthPrefix != "" {
 		prefix = c.config.AuthPrefix
 	}
-	return http.NewClient(http.AuthAPI, http.ClientConfig{
+	client := http.NewClient(http.AuthAPI, http.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
@@ -182,4 +186,8 @@ func (c *Client) AuthAPI() http.Client {
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.AuthEndpoint,
 	})
+
+	c.authClient = client
+
+	return client
 }
