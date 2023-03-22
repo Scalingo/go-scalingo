@@ -6,10 +6,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v6/http/httpmock"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/Scalingo/go-scalingo/v6/http/httpmock"
 )
 
 func TestStackIsDeprecated(t *testing.T) {
