@@ -59,17 +59,18 @@ type Client struct {
 }
 
 type ClientConfig struct {
-	Timeout             time.Duration
-	TLSConfig           *tls.Config
-	APIEndpoint         string
-	APIPrefix           string
-	AuthEndpoint        string
-	AuthPrefix          string
-	DatabaseAPIEndpoint string
-	DatabaseAPIPrefix   string
-	APIToken            string
-	Region              string
-	UserAgent           string
+	Timeout                time.Duration
+	TLSConfig              *tls.Config
+	APIEndpoint            string
+	APIPrefix              string
+	AuthEndpoint           string
+	AuthPrefix             string
+	DatabaseAPIEndpoint    string
+	DatabaseAPIPrefix      string
+	APIToken               string
+	Region                 string
+	UserAgent              string
+	DisableHTTPClientCache bool
 
 	// StaticTokenGenerator is present for Scalingo internal use only
 	StaticTokenGenerator *StaticTokenGenerator
@@ -137,7 +138,9 @@ func (c *Client) ScalingoAPI() http.Client {
 		Endpoint:       c.config.APIEndpoint,
 	})
 
-	c.apiClient = client
+	if !c.config.DisableHTTPClientCache {
+		c.apiClient = client
+	}
 
 	return client
 }
@@ -187,7 +190,9 @@ func (c *Client) AuthAPI() http.Client {
 		Endpoint:       c.config.AuthEndpoint,
 	})
 
-	c.authClient = client
+	if !c.config.DisableHTTPClientCache {
+		c.authClient = client
+	}
 
 	return client
 }
