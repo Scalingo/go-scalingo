@@ -2,7 +2,7 @@ package scalingo
 
 import (
 	"context"
-	"strconv"
+	"fmt"
 	"time"
 
 	"gopkg.in/errgo.v1"
