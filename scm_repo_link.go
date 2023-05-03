@@ -185,7 +185,7 @@ func (c *Client) SCMRepoLinkPullRequest(ctx context.Context, app string, number 
 	var res SCMRepoLinkPullRequestResponse
 	err := c.ScalingoAPI().DoRequest(ctx, &http.APIRequest{
 		Method:   "GET",
-		Endpoint: "/apps/" + app + "/scm_repo_link/pulls/" + strconv.Itoa(number),
+		Endpoint: fmt.Sprintf("/apps/%s/scm_repo_link/pulls/%d", app, number),
 		Expected: http.Statuses{200},
 	}, &res)
 	if err != nil {
