@@ -159,15 +159,15 @@ func (ev *EventNewUserType) String() string {
 }
 
 type EventCreateReviewAppTypeData struct {
-	AppID             string `json:"app_id"`
-	ReviewAppName     string `json:"review_app_name"`
-	ReviewAppURL      string `json:"review_app_url"`
-	SourceRepoName    string `json:"source_repo_name"`
-	SourceRepoURL     string `json:"source_repo_url"`
-	PullRequestName   string `json:"pr_name"`
-	PullRequestNumber int    `json:"pr_number"`
-	PullRequestURL    string `json:"pr_url"`
-	ComesFromFork     bool   `json:"pr_comes_from_a_fork"`
+	AppID                    string `json:"app_id"`
+	ReviewAppName            string `json:"review_app_name"`
+	ReviewAppURL             string `json:"review_app_url"`
+	SourceRepoName           string `json:"source_repo_name"`
+	SourceRepoURL            string `json:"source_repo_url"`
+	PullRequestName          string `json:"pr_name"`
+	PullRequestNumber        int    `json:"pr_number"`
+	PullRequestURL           string `json:"pr_url"`
+	PullRequestComesFromFork bool   `json:"pr_comes_from_a_fork"`
 }
 
 type EventCreateReviewAppType struct {
@@ -176,18 +176,18 @@ type EventCreateReviewAppType struct {
 }
 
 func (ev *EventCreateReviewAppType) String() string {
-	return fmt.Sprintf("the review app %s has been created from the pull request %s#%d", ev.TypeData.ReviewAppName, ev.TypeData.PullRequestName, ev.TypeData.PullRequestNumber)
+	return fmt.Sprintf("the review app %s has been created from the pull request %s #%d", ev.TypeData.ReviewAppName, ev.TypeData.PullRequestName, ev.TypeData.PullRequestNumber)
 }
 
 type EventDestroyReviewAppTypeData struct {
-	AppID             string `json:"app_id"`
-	ReviewAppName     string `json:"review_app_name"`
-	SourceRepoName    string `json:"source_repo_name"`
-	SourceRepoURL     string `json:"source_repo_url"`
-	PullRequestName   string `json:"pr_name"`
-	PullRequestNumber int    `json:"pr_number"`
-	PullRequestURL    string `json:"pr_url"`
-	ComesFromFork     bool   `json:"pr_comes_from_a_fork"`
+	AppID                    string `json:"app_id"`
+	ReviewAppName            string `json:"review_app_name"`
+	SourceRepoName           string `json:"source_repo_name"`
+	SourceRepoURL            string `json:"source_repo_url"`
+	PullRequestName          string `json:"pr_name"`
+	PullRequestNumber        int    `json:"pr_number"`
+	PullRequestURL           string `json:"pr_url"`
+	PullRequestComesFromFork bool   `json:"pr_comes_from_a_fork"`
 }
 
 type EventDestroyReviewAppType struct {
