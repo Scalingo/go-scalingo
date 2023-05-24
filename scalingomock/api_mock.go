@@ -765,6 +765,20 @@ func (mr *MockAPIMockRecorder) DatabaseUpdatePeriodicBackupsConfig(arg0, arg1, a
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseUpdatePeriodicBackupsConfig", reflect.TypeOf((*MockAPI)(nil).DatabaseUpdatePeriodicBackupsConfig), arg0, arg1, arg2, arg3)
 }
 
+// DatabaseUpgrade mocks base method.
+func (m *MockAPI) DatabaseUpgrade(arg0 context.Context, arg1, arg2 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseUpgrade", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DatabaseUpgrade indicates an expected call of DatabaseUpgrade.
+func (mr *MockAPIMockRecorder) DatabaseUpgrade(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseUpgrade", reflect.TypeOf((*MockAPI)(nil).DatabaseUpgrade), arg0, arg1, arg2)
+}
+
 // Deployment mocks base method.
 func (m *MockAPI) Deployment(arg0 context.Context, arg1, arg2 string) (*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
