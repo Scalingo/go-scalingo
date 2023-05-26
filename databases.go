@@ -70,6 +70,7 @@ type Database struct {
 	Cluster                    bool              `json:"cluster"`
 	PeriodicBackupsEnabled     bool              `json:"periodic_backups_enabled"`
 	PeriodicBackupsScheduledAt []int             `json:"periodic_backups_scheduled_at"` // Hours of the day of the periodic backups (UTC)
+	MaintenanceWindow          MaintenanceWindow `json:"maintenance_window"`
 }
 
 // InstanceStatus is a type of string representing the status of an Instance
