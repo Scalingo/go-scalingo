@@ -246,7 +246,7 @@ func (c *Client) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addon
 	}, &dbRes)
 
 	if err != nil {
-		return Database{}, errgo.Notef(err, "fail to update maintenance window")
+		return Database{}, errgo.Notef(err, "update database '%v' maintenance window", addonID)
 	}
 	return dbRes.Database, nil
 }
