@@ -40,7 +40,7 @@ type MaintenanceListRes struct {
 	Meta        PaginationMeta `json:"meta"`
 }
 
-func (c *Client) ListDatabaseMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (MaintenanceListRes, error) {
+func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (MaintenanceListRes, error) {
 	var maintenanceRes MaintenanceListRes
 	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", opts.ToMap(), &maintenanceRes)
 	if err != nil {
