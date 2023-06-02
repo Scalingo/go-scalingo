@@ -34,17 +34,17 @@ const (
 	MaintenanceTypeFailing MaintenanceType = "failing"
 )
 
-// MaintenanceListRes is the returned response from ListDatabaseMaintenance
-type MaintenanceListRes struct {
+// ListMaintenanceRes is the returned response from DatabaseListMaintenance
+type ListMaintenanceRes struct {
 	Maintenance []Maintenance  `json:"maintenance"`
 	Meta        PaginationMeta `json:"meta"`
 }
 
-func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (MaintenanceListRes, error) {
-	var maintenanceRes MaintenanceListRes
+func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (ListMaintenanceRes, error) {
+	var maintenanceRes ListMaintenanceRes
 	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", opts.ToMap(), &maintenanceRes)
 	if err != nil {
-		return MaintenanceListRes{}, errgo.Notef(err, "list database '%v' maintenance", addonID)
+		return ListMaintenanceRes{}, errgo.Notef(err, "list database '%v' maintenance", addonID)
 	}
 	return maintenanceRes, nil
 }
