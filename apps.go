@@ -92,6 +92,27 @@ type AppsRestartParams struct {
 type AppLinks struct {
 	DeploymentsStream string `json:"deployments_stream"`
 }
+type OrgType string
+
+const (
+	OrgTypeNonProfit      OrgType = "non-profit"
+	OrgTypeCompany        OrgType = "company"
+	OrgTypeAdministration OrgType = "administration"
+)
+
+type HDSPointOfContact struct {
+	OrgType        OrgType `json:"org_type"`
+	Name           string  `json:"name"`
+	Email          string  `json:"email"`
+	PhoneNumber    string  `json:"phone_number"`
+	Company        string  `json:"company"` // this is more like "raison sociale" than company
+	AddressLine1   string  `json:"address_line1"`
+	AddressLine2   string  `json:"address_line2"`
+	AddressCity    string  `json:"address_city"`
+	AddressZip     string  `json:"address_zip"`
+	AddressCountry string  `json:"address_country"`
+	Notes          string  `json:"notes"` // In case user wants to add additional data
+}
 
 type App struct {
 	ID                string                 `json:"id"`
@@ -115,6 +136,7 @@ type App struct {
 	Flags             map[string]bool        `json:"flags"`
 	Limits            map[string]interface{} `json:"limits"`
 	HDSResource       bool                   `json:"hds_resource"`
+	HDSPointOfContact HDSPointOfContact      `json:"hds_point_of_contact"`
 }
 
 func (app App) String() string {
