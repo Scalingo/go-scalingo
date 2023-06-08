@@ -76,9 +76,10 @@ type AppsContainerTypesRes struct {
 }
 
 type AppsCreateOpts struct {
-	Name      string `json:"name"`
-	ParentApp string `json:"parent_id,omitempty"`
-	StackID   string `json:"stack_id,omitempty"`
+	Name        string `json:"name"`
+	ParentApp   string `json:"parent_id,omitempty"`
+	StackID     string `json:"stack_id,omitempty"`
+	HDSResource bool   `json:"hds_resource"`
 }
 
 type AppResponse struct {

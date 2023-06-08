@@ -1,7 +1,9 @@
 # Changelog
 
+
 ## To Be Released
 
+* feat(apps): add support for HDS app creation
 * feat(maintenance): add maintenance windows
 * feat(maintenance): add maintenance listing
 * feat(maintenance): add maintenance show
