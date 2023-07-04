@@ -18,7 +18,7 @@ type DatabasesService interface {
 	DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error)
 	DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params DatabaseUpdatePeriodicBackupsConfigParams) (Database, error)
 	DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addonID string, params MaintenanceWindowParams) (Database, error)
-	DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (ListMaintenanceRes, error)
+	DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (ListMaintenanceResponse, error)
 }
 
 // DatabaseStatus is a string representing the status of a database deployment

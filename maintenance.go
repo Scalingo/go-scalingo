@@ -59,17 +59,17 @@ func (c *Client) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addon
 	return dbRes.Database, nil
 }
 
-// ListMaintenanceRes is the returned response from DatabaseListMaintenance
-type ListMaintenanceRes struct {
+// ListMaintenanceResponse is the returned response from DatabaseListMaintenance
+type ListMaintenanceResponse struct {
 	Maintenance []Maintenance  `json:"maintenance"`
 	Meta        PaginationMeta `json:"meta"`
 }
 
-func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (ListMaintenanceRes, error) {
-	var maintenanceRes ListMaintenanceRes
+func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) (ListMaintenanceResponse, error) {
+	var maintenanceRes ListMaintenanceResponse
 	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", opts.ToMap(), &maintenanceRes)
 	if err != nil {
-		return ListMaintenanceRes{}, errgo.Notef(err, "list database '%v' maintenance", addonID)
+		return ListMaintenanceResponse{}, errgo.Notef(err, "list database '%v' maintenance", addonID)
 	}
 	return maintenanceRes, nil
 }
