@@ -19,6 +19,7 @@ type MaintenanceWindowParams struct {
 }
 
 type Maintenance struct {
+	ID         string            `json:"id"`
 	DatabaseID string            `json:"database_id"`
 	Status     MaintenanceStatus `json:"status"`
 	Type       MaintenanceType   `json:"type"`
