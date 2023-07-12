@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* style(readme): update api version
+
 ## 6.7.0
 
 * feat(maintenance): add maintenance windows
