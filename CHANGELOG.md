@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 6.7.0
+
 * feat(maintenance): add maintenance windows
 * feat(maintenance): add maintenance listing
 * feat(maintenance): add maintenance show
