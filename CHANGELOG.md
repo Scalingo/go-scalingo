@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 6.7.2
+
 * fix(maintenance): change listing pagination meta to standard pagination meta
 
 ## 6.7.1
