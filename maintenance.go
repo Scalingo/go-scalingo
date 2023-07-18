@@ -68,7 +68,7 @@ type ListMaintenanceRes struct {
 }
 
 func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, opts PaginationOpts) ([]*Maintenance, PaginationMeta, error) {
-	var maintenanceRes ListMaintenanceRes
+	var maintenanceRes ListMaintenanceResponse
 	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", opts.ToMap(), &maintenanceRes)
 	if err != nil {
 		return nil, PaginationMeta{}, errors.Notef(ctx, err, "list database '%v' maintenance", addonID)
