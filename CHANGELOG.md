@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* fix(maintenance): change listing pagination meta to standard pagination meta
+
 ## 6.7.1
 
 * style(readme): update api version
