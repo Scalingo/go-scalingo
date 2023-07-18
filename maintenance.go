@@ -60,7 +60,7 @@ func (c *Client) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addon
 	return dbRes.Database, nil
 }
 
-type ListMaintenanceRes struct {
+type ListMaintenanceResponse struct {
 	Maintenance []*Maintenance `json:"maintenance"`
 	Meta        struct {
 		PaginationMeta PaginationMeta `json:"pagination"`
