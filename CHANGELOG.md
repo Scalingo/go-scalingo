@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(events): add maintenance events"
+
 ## 6.7.2
 
 * fix(maintenance): change listing pagination meta to standard pagination meta
