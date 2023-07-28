@@ -2,6 +2,7 @@ package scalingo
 
 // Do not edit, generated with 'go generate'
 
+
 func (e *EventNewUserType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
@@ -303,6 +304,18 @@ func (e *EventCreateReviewAppType) TypeDataPtr() interface{} {
 }
 
 func (e *EventDestroyReviewAppType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventDatabaseMaintenancePlannedType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventDatabaseMaintenanceStartedType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
+func (e *EventDatabaseMaintenanceCompletedType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
