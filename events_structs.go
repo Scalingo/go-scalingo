@@ -142,9 +142,9 @@ const (
 	EventStackChanged                 EventTypeName = "stack_changed"
 	EventCreateReviewApp              EventTypeName = "create_review_app"
 	EventDestroyReviewApp             EventTypeName = "destroy_review_app"
-	EventDatabaseMaintenancePlanned   EventTypeName = "database_maintenance_planned"
-	EventDatabaseMaintenanceStarted   EventTypeName = "database_maintenance_started"
-	EventDatabaseMaintenanceCompleted EventTypeName = "database_maintenance_completed"
+	EventDatabaseMaintenancePlanned   EventTypeName = "plan_database_maintenance"
+	EventDatabaseMaintenanceStarted   EventTypeName = "start_database_maintenance"
+	EventDatabaseMaintenanceCompleted EventTypeName = "complete_database_maintenance"
 
 	// EventLinkGithub and EventUnlinkGithub events are kept for
 	// retro-compatibility. They are replaced by SCM events.
