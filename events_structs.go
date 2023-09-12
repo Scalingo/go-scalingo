@@ -871,7 +871,7 @@ type EventDatabaseMaintenancePlannedType struct {
 }
 
 func (ev *EventDatabaseMaintenancePlannedType) String() string {
-	return fmt.Sprintf("Maintenance %s", ev.TypeData.MaintenanceID)
+	return fmt.Sprintf("A maintenance has been scheduled on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
 }
 
 func (ev *EventDatabaseMaintenancePlannedType) Who() string {
@@ -893,7 +893,7 @@ type EventDatabaseMaintenanceStartedType struct {
 }
 
 func (ev *EventDatabaseMaintenanceStartedType) String() string {
-	return fmt.Sprintf("Maintenance %s", ev.TypeData.MaintenanceID)
+	return fmt.Sprintf("A maintenance has started on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
 }
 
 func (ev *EventDatabaseMaintenanceStartedType) Who() string {
@@ -915,7 +915,7 @@ type EventDatabaseMaintenanceCompletedType struct {
 }
 
 func (ev *EventDatabaseMaintenanceCompletedType) String() string {
-	return fmt.Sprintf("Maintenance %s", ev.TypeData.MaintenanceID)
+	return fmt.Sprintf("A maintenance has been completed on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
 }
 
 func (ev *EventDatabaseMaintenanceCompletedType) Who() string {
