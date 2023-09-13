@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(events): add maintenance events"
+* feat(events): add maintenance events
 
 ## 6.7.2
 
