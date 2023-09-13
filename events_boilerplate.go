@@ -307,15 +307,15 @@ func (e *EventDestroyReviewAppType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
-func (e *EventDatabaseMaintenancePlannedType) TypeDataPtr() interface{} {
+func (e *EventPlanDatabaseMaintenanceType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
-func (e *EventDatabaseMaintenanceStartedType) TypeDataPtr() interface{} {
+func (e *EventStartDatabaseMaintenanceType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
-func (e *EventDatabaseMaintenanceCompletedType) TypeDataPtr() interface{} {
+func (e *EventCompleteDatabaseMaintenanceType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
