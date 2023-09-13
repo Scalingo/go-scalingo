@@ -860,67 +860,67 @@ func (ev *EventStackChangedType) String() string {
 }
 
 // Database maintenance planned
-type EventDatabaseMaintenancePlannedTypeData struct {
+type EventPlanDatabaseMaintenancedTypeData struct {
 	AddonName     string `json:"addon_name"`
 	MaintenanceID string `json:"maintenance_id"`
 }
 
-type EventDatabaseMaintenancePlannedType struct {
+type EventPlanDatabaseMaintenanceType struct {
 	Event
-	TypeData EventDatabaseMaintenancePlannedTypeData `json:"type_data"`
+	TypeData EventPlanDatabaseMaintenancedTypeData `json:"type_data"`
 }
 
-func (ev *EventDatabaseMaintenancePlannedType) String() string {
-	return fmt.Sprintf("A maintenance has been scheduled on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
+func (ev *EventPlanDatabaseMaintenanceType) String() string {
+	return fmt.Sprintf("A maintenance (ID: %s) has been scheduled on the %s database.", ev.TypeData.MaintenanceID, ev.TypeData.AddonName)
 }
 
-func (ev *EventDatabaseMaintenancePlannedType) Who() string {
+func (ev *EventPlanDatabaseMaintenanceType) Who() string {
 	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
+		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
 	}
 	return ev.Event.Who()
 }
 
 // Database maintenance started
-type EventDatabaseMaintenanceStartedTypeData struct {
+type EventStartDatabaseMaintenanceTypeData struct {
 	AddonName     string `json:"addon_name"`
 	MaintenanceID string `json:"maintenance_id"`
 }
 
-type EventDatabaseMaintenanceStartedType struct {
+type EventStartDatabaseMaintenanceType struct {
 	Event
-	TypeData EventDatabaseMaintenanceStartedTypeData `json:"type_data"`
+	TypeData EventStartDatabaseMaintenanceTypeData `json:"type_data"`
 }
 
-func (ev *EventDatabaseMaintenanceStartedType) String() string {
-	return fmt.Sprintf("A maintenance has started on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
+func (ev *EventStartDatabaseMaintenanceType) String() string {
+	return fmt.Sprintf("A maintenance (ID: %s) has started on the %s database.", ev.TypeData.MaintenanceID, ev.TypeData.AddonName)
 }
 
-func (ev *EventDatabaseMaintenanceStartedType) Who() string {
+func (ev *EventStartDatabaseMaintenanceType) Who() string {
 	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
+		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
 	}
 	return ev.Event.Who()
 }
 
 // Database maintenance completed
-type EventDatabaseMaintenanceCompletedTypeData struct {
+type EventCompleteDatabaseMaintenanceTypeData struct {
 	AddonName     string `json:"addon_name"`
 	MaintenanceID string `json:"maintenance_id"`
 }
 
-type EventDatabaseMaintenanceCompletedType struct {
+type EventCompleteDatabaseMaintenanceType struct {
 	Event
-	TypeData EventDatabaseMaintenanceCompletedTypeData `json:"type_data"`
+	TypeData EventCompleteDatabaseMaintenanceTypeData `json:"type_data"`
 }
 
-func (ev *EventDatabaseMaintenanceCompletedType) String() string {
-	return fmt.Sprintf("A maintenance has been completed on the %s addon (Maintenance ID: %s).", ev.TypeData.AddonName, ev.TypeData.MaintenanceID)
+func (ev *EventCompleteDatabaseMaintenanceType) String() string {
+	return fmt.Sprintf("A maintenance (ID: %s) has been completed on the %s database.", ev.TypeData.MaintenanceID, ev.TypeData.AddonName)
 }
 
-func (ev *EventDatabaseMaintenanceCompletedType) Who() string {
+func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
+		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
 	}
 	return ev.Event.Who()
 }
