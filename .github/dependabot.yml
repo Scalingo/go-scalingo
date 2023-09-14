@@ -8,6 +8,11 @@ updates:
       - dependency-type: "all"
     reviewers:
       - "EtienneM"
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
