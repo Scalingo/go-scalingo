@@ -861,8 +861,11 @@ func (ev *EventStackChangedType) String() string {
 
 // Database maintenance planned
 type EventPlanDatabaseMaintenancedTypeData struct {
-	AddonName     string `json:"addon_name"`
-	MaintenanceID string `json:"maintenance_id"`
+	AddonName                string    `json:"addon_name"`
+	MaintenanceID            string    `json:"maintenance_id"`
+	MaintenanceWindowInHours int       `json:"maintenance_window_in_hours"`
+	MaintenanceType          string    `json:"maintenance_type"`
+	NextMaintenanceWindow    time.Time `json:"next_maintenance_window"`
 }
 
 type EventPlanDatabaseMaintenanceType struct {
@@ -883,8 +886,11 @@ func (ev *EventPlanDatabaseMaintenanceType) Who() string {
 
 // Database maintenance started
 type EventStartDatabaseMaintenanceTypeData struct {
-	AddonName     string `json:"addon_name"`
-	MaintenanceID string `json:"maintenance_id"`
+	AddonName                string    `json:"addon_name"`
+	MaintenanceID            string    `json:"maintenance_id"`
+	MaintenanceWindowInHours int       `json:"maintenance_window_in_hours"`
+	MaintenanceType          string    `json:"maintenance_type"`
+	NextMaintenanceWindow    time.Time `json:"next_maintenance_window"`
 }
 
 type EventStartDatabaseMaintenanceType struct {
@@ -905,8 +911,11 @@ func (ev *EventStartDatabaseMaintenanceType) Who() string {
 
 // Database maintenance completed
 type EventCompleteDatabaseMaintenanceTypeData struct {
-	AddonName     string `json:"addon_name"`
-	MaintenanceID string `json:"maintenance_id"`
+	AddonName                string    `json:"addon_name"`
+	MaintenanceID            string    `json:"maintenance_id"`
+	MaintenanceWindowInHours int       `json:"maintenance_window_in_hours"`
+	MaintenanceType          string    `json:"maintenance_type"`
+	NextMaintenanceWindow    time.Time `json:"next_maintenance_window"`
 }
 
 type EventCompleteDatabaseMaintenanceType struct {
