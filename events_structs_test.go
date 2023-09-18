@@ -48,6 +48,22 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventEditAppType",
 		DetailedEventString: "application settings have been updated, Force HTTPS has been disabled",
 	},
+	"test app run event for a command run by an opeator": {
+		Event: &Event{
+			Type:        EventRun,
+			RawTypeData: json.RawMessage([]byte(`{"command": ""}`)),
+		},
+		DetailedEventName:   "*scalingo.EventRunType",
+		DetailedEventString: "one-off container for maintenance/support purposes",
+	},
+	"test app run event for a command run by a collaborator": {
+		Event: &Event{
+			Type:        EventRun,
+			RawTypeData: json.RawMessage([]byte(`{"command": "bash"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventRunType",
+		DetailedEventString: "one-off container with command 'bash'",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {

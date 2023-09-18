@@ -289,7 +289,17 @@ func (ev *EventRunType) String() string {
 	if ev.TypeData.Detached {
 		detached = "detached "
 	}
-	return fmt.Sprintf("%sone-off container with command '%s'", ev.TypeData.Command, detached)
+
+	if ev.isEventRunFromOperator() {
+		// The command executed is not available to end user if it's executed by a Scalingo operator
+		return fmt.Sprintf("%sone-off container for maintenance/support purposes", detached)
+	}
+
+	return fmt.Sprintf("%sone-off container with command '%s'", detached, ev.TypeData.Command)
+}
+
+func (ev *EventRunType) isEventRunFromOperator() bool {
+	return ev.TypeData.Command == ""
 }
 
 type EventRunTypeData struct {
