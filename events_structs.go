@@ -339,7 +339,7 @@ func (ev *EventEditDomainType) String() string {
 	res := fmt.Sprintf("'%s' modified", t.Hostname)
 	if !t.SSL && t.OldSSL {
 		res += ", TLS certificate has been removed"
-	} else if !t.SSL && t.OldSSL {
+	} else if t.SSL && !t.OldSSL {
 		res += ", TLS certificate has been added"
 	} else if t.SSL && t.OldSSL {
 		res += ", TLS certificate has been changed"
