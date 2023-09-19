@@ -85,7 +85,7 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 			return nil, errgo.Notef(err, "fail to marshal params")
 		}
 		body = bytes.NewReader(buffer)
-	case "GET", "DELETE":
+	case http.MethodGet, http.MethodDelete:
 		values, err := req.BuildQueryFromParams()
 		if err != nil {
 			return nil, errgo.Notef(err, "fail to build the query params")
