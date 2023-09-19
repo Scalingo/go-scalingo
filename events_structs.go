@@ -878,9 +878,6 @@ func (ev *EventPlanDatabaseMaintenanceType) String() string {
 }
 
 func (ev *EventPlanDatabaseMaintenanceType) Who() string {
-	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
-	}
 	return ev.Event.Who()
 }
 
@@ -903,9 +900,6 @@ func (ev *EventStartDatabaseMaintenanceType) String() string {
 }
 
 func (ev *EventStartDatabaseMaintenanceType) Who() string {
-	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
-	}
 	return ev.Event.Who()
 }
 
@@ -928,8 +922,5 @@ func (ev *EventCompleteDatabaseMaintenanceType) String() string {
 }
 
 func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
-	if ev.TypeData.AddonName != "" {
-		return fmt.Sprintf("Database %s", ev.TypeData.AddonName)
-	}
 	return ev.Event.Who()
 }
