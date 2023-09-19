@@ -42,6 +42,9 @@ func (ev *Event) When() string {
 }
 
 func (ev *Event) Who() string {
+	if ev.User.Email == "deploy@scalingo.com" {
+		return "Scalingo Operator"
+	}
 	return fmt.Sprintf("%s (%s)", ev.User.Username, ev.User.Email)
 }
 
