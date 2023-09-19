@@ -22,7 +22,7 @@ var eventsSpecializeCases = map[string]struct {
 			RawTypeData: json.RawMessage([]byte(`{"scope": ["web"]}`)),
 		},
 		DetailedEventName:   "*scalingo.EventRestartType",
-		DetailedEventString: "containers [web] have been restarted",
+		DetailedEventString: "containers [web] began to restart",
 	},
 	"test edit app event without with null force_https": {
 		Event: &Event{
