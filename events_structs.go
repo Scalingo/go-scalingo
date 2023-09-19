@@ -49,7 +49,8 @@ func (ev *Event) Who() string {
 }
 
 func (ev *Event) PrintableType() string {
-	return cases.Title(language.English).String(strings.Replace(string(ev.Type), "_", " ", -1))
+	typeName := strings.ReplaceAll(string(ev.Type), "_", " ")
+	return cases.Title(language.English).String(typeName)
 }
 
 type DetailedEvent interface {
