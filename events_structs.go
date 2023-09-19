@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type Event struct {
@@ -43,7 +46,7 @@ func (ev *Event) Who() string {
 }
 
 func (ev *Event) PrintableType() string {
-	return strings.Title(strings.Replace(string(ev.Type), "_", " ", -1))
+	return cases.Title(language.English).String(strings.Replace(string(ev.Type), "_", " ", -1))
 }
 
 type DetailedEvent interface {
