@@ -96,13 +96,14 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 				assert.Equal(t, test.expectedMethod, r.Method)
 				assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 				buf := new(bytes.Buffer)
-				buf.ReadFrom(r.Body)
+				_, err := buf.ReadFrom(r.Body)
+				require.NoError(t, err)
 				assert.Contains(t, buf.String(), test.expectedParams)
 
 				if test.responseStatus != 0 {
 					w.WriteHeader(test.responseStatus)
 				}
-				err := json.NewEncoder(w).Encode(DomainRes{})
+				err = json.NewEncoder(w).Encode(DomainRes{})
 				assert.NoError(t, err)
 			}))
 			defer ts.Close()

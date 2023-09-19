@@ -25,7 +25,8 @@ func TestNewClient(t *testing.T) {
 			require.Len(t, split, 2)
 			assert.Equal(t, "static-token", split[1])
 			w.WriteHeader(200)
-			w.Write([]byte(`{"apps": []}`))
+			_, err := w.Write([]byte(`{"apps": []}`))
+			require.NoError(t, err)
 		}))
 		defer server.Close()
 
@@ -54,7 +55,8 @@ func TestNewClient(t *testing.T) {
 				require.True(t, ok)
 				assert.Equal(t, "api-token", password)
 				w.WriteHeader(200)
-				w.Write([]byte(fmt.Sprintf(`{"token": "%v"}`, jwt)))
+				_, err := w.Write([]byte(fmt.Sprintf(`{"token": "%v"}`, jwt)))
+				require.NoError(t, err)
 			}
 			if strings.Contains(r.URL.Path, "self") {
 				auth := r.Header.Get("Authorization")
@@ -63,7 +65,8 @@ func TestNewClient(t *testing.T) {
 				require.Len(t, split, 2)
 				assert.Equal(t, jwt, split[1])
 				w.WriteHeader(200)
-				w.Write([]byte(`{"user": {}}`))
+				_, err := w.Write([]byte(`{"user": {}}`))
+				require.NoError(t, err)
 			}
 		}))
 		defer authserver.Close()

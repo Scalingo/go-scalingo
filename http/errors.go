@@ -120,7 +120,10 @@ func NewRequestFailedError(res *http.Response, req *APIRequest) error {
 		return &RequestFailedError{Code: res.StatusCode, APIError: badRequestError, Req: req}
 	case 401:
 		var apiErr APIError
-		parseJSON(res, &apiErr)
+		err := parseJSON(res, &apiErr)
+		if err != nil {
+			return err
+		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: errgo.New("unauthorized - you are not authorized to do this operation"), Req: req, Message: apiErr.Error}
 	case 402:
 		var paymentRequiredErr PaymentRequiredError

@@ -139,7 +139,8 @@ func TestLogDrainsClient(t *testing.T) {
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 					if run.invalidResponse {
 						w.WriteHeader(500)
-						w.Write([]byte("INVALID"))
+						_, err := w.Write([]byte("INVALID"))
+						require.NoError(t, err)
 					} else {
 						if test.responseStatus != 0 {
 							w.WriteHeader(test.responseStatus)
