@@ -121,7 +121,7 @@ func (c *Client) ScalingoAPI() http.Client {
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
-	if len(c.config.APIToken) != 0 {
+	if c.config.APIToken != "" {
 		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 	prefix := "/v1"
@@ -173,7 +173,7 @@ func (c *Client) AuthAPI() http.Client {
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
-	if len(c.config.APIToken) != 0 {
+	if c.config.APIToken != "" {
 		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 
