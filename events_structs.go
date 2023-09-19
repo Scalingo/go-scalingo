@@ -443,9 +443,9 @@ func (ev *EventUpgradeDatabaseType) String() string {
 func (ev *EventUpgradeDatabaseType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventVariable struct {
@@ -465,9 +465,9 @@ func (ev *EventNewVariableType) String() string {
 func (ev *EventNewVariableType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventNewVariableTypeData struct {
@@ -522,9 +522,9 @@ func (ev *EventEditVariablesType) String() string {
 func (ev *EventEditVariableType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventEditVariablesTypeData struct {
