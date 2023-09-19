@@ -14,7 +14,7 @@ import (
 
 func TestCronTasksClient_CronTasksGet(t *testing.T) {
 	ctx := context.Background()
-	appName := "my-app"
+	const appName = "my-app"
 
 	tests := []struct {
 		action           string

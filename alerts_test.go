@@ -14,7 +14,7 @@ import (
 
 func TestAlertsClient(t *testing.T) {
 	ctx := context.Background()
-	appName := "my-app"
+	const appName = "my-app"
 	alertID := "my-id"
 
 	tests := []struct {

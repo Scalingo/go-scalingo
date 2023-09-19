@@ -15,7 +15,7 @@ import (
 
 func TestAppsClient_Update(t *testing.T) {
 	ctx := context.Background()
-	appName := "my-app"
+	const appName = "my-app"
 
 	runs := map[string]struct {
 		testedClientCall func(c AppsService) error
