@@ -42,9 +42,6 @@ func (ev *Event) When() string {
 }
 
 func (ev *Event) Who() string {
-	if ev.User.Email == "deploy@scalingo.com" {
-		return "Scalingo Operator"
-	}
 	return fmt.Sprintf("%s (%s)", ev.User.Username, ev.User.Email)
 }
 
@@ -303,6 +300,14 @@ func (ev *EventRunType) String() string {
 	}
 
 	return fmt.Sprintf("%sone-off container with command '%s'", detached, ev.TypeData.Command)
+}
+
+func (ev *EventRunType) Who() string {
+	if ev.User.Email == "deploy@scalingo.com" {
+		return "Scalingo Operator"
+	}
+
+	return ev.Event.Who()
 }
 
 func (ev *EventRunType) isEventRunFromOperator() bool {

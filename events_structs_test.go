@@ -48,7 +48,7 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventEditAppType",
 		DetailedEventString: "application settings have been updated, Force HTTPS has been disabled",
 	},
-	"test app run event for a command run by an opeator": {
+	"test app run event for a command run by an operator": {
 		Event: &Event{
 			Type:        EventRun,
 			RawTypeData: json.RawMessage([]byte(`{"command": ""}`)),
