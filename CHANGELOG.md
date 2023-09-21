@@ -3,7 +3,8 @@
 ## To Be Released
 
 * refactor(tokens): deprecate `ErrOTPRequired` and `IsOTPRequired`
-* fix(wording): disambiguate event name when restarting containers
+* fix(events): disambiguate event name when restarting containers
+* fix(events): app run event wording
 
 ## 6.7.2
 

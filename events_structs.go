@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type Event struct {
@@ -43,7 +46,8 @@ func (ev *Event) Who() string {
 }
 
 func (ev *Event) PrintableType() string {
-	return strings.Title(strings.Replace(string(ev.Type), "_", " ", -1))
+	typeName := strings.ReplaceAll(string(ev.Type), "_", " ")
+	return cases.Title(language.English).String(typeName)
 }
 
 type DetailedEvent interface {
@@ -289,7 +293,25 @@ func (ev *EventRunType) String() string {
 	if ev.TypeData.Detached {
 		detached = "detached "
 	}
-	return fmt.Sprintf("%sone-off container with command '%s'", ev.TypeData.Command, detached)
+
+	if ev.isEventRunFromOperator() {
+		// The command executed is not available to end user if it's executed by a Scalingo operator
+		return fmt.Sprintf("%sone-off container for maintenance/support purposes", detached)
+	}
+
+	return fmt.Sprintf("%sone-off container with command '%s'", detached, ev.TypeData.Command)
+}
+
+func (ev *EventRunType) Who() string {
+	if ev.User.Email == "deploy@scalingo.com" {
+		return "Scalingo Operator"
+	}
+
+	return ev.Event.Who()
+}
+
+func (ev *EventRunType) isEventRunFromOperator() bool {
+	return ev.TypeData.Command == ""
 }
 
 type EventRunTypeData struct {
@@ -322,7 +344,7 @@ func (ev *EventEditDomainType) String() string {
 	res := fmt.Sprintf("'%s' modified", t.Hostname)
 	if !t.SSL && t.OldSSL {
 		res += ", TLS certificate has been removed"
-	} else if !t.SSL && t.OldSSL {
+	} else if t.SSL && !t.OldSSL {
 		res += ", TLS certificate has been added"
 	} else if t.SSL && t.OldSSL {
 		res += ", TLS certificate has been changed"
@@ -426,9 +448,9 @@ func (ev *EventUpgradeDatabaseType) String() string {
 func (ev *EventUpgradeDatabaseType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventVariable struct {
@@ -448,9 +470,9 @@ func (ev *EventNewVariableType) String() string {
 func (ev *EventNewVariableType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventNewVariableTypeData struct {
@@ -505,9 +527,9 @@ func (ev *EventEditVariablesType) String() string {
 func (ev *EventEditVariableType) Who() string {
 	if ev.TypeData.AddonName != "" {
 		return fmt.Sprintf("Addon %s", ev.TypeData.AddonName)
-	} else {
-		return ev.Event.Who()
 	}
+
+	return ev.Event.Who()
 }
 
 type EventEditVariablesTypeData struct {

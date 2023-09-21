@@ -14,7 +14,6 @@ import (
 )
 
 func TestStackIsDeprecated(t *testing.T) {
-
 	isDeprecatedCases := map[string]struct {
 		date       time.Time
 		deprecated bool
