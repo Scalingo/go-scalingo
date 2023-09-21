@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(events): add maintenance events
 * refactor(tokens): deprecate `ErrOTPRequired` and `IsOTPRequired`
 * fix(events): disambiguate event name when restarting containers
 * fix(events): app run event wording
