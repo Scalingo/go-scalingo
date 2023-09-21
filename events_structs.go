@@ -860,7 +860,7 @@ func (ev *EventStackChangedType) String() string {
 }
 
 // Database maintenance planned
-type EventPlanDatabaseMaintenancedTypeData struct {
+type EventPlanDatabaseMaintenanceTypeData struct {
 	AddonName                string    `json:"addon_name"`
 	MaintenanceID            string    `json:"maintenance_id"`
 	MaintenanceWindowInHours int       `json:"maintenance_window_in_hours"`
@@ -870,7 +870,7 @@ type EventPlanDatabaseMaintenancedTypeData struct {
 
 type EventPlanDatabaseMaintenanceType struct {
 	Event
-	TypeData EventPlanDatabaseMaintenancedTypeData `json:"type_data"`
+	TypeData EventPlanDatabaseMaintenanceTypeData `json:"type_data"`
 }
 
 func (ev *EventPlanDatabaseMaintenanceType) String() string {
