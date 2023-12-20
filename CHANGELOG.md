@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+fix(events): link_scm data types
+
 ## 6.7.4
 
 * feat(database): add user management
