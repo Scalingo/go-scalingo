@@ -2,7 +2,9 @@
 
 ## To Be Released
 
-fix(events): link_scm data types
+## 6.7.5
+
+fix(events): `link_scm` data types
 
 ## 6.7.4
 
