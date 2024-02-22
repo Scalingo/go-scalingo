@@ -2,13 +2,15 @@
 
 ## To Be Released
 
+* feat(databases): add databases user update
+
 ## 6.7.6
 
-fix(errors): `IsOTPRequired` detects 'OTP Required' API errors
+* fix(errors): `IsOTPRequired` detects 'OTP Required' API errors
 
 ## 6.7.5
 
-fix(events): `link_scm` data types
+* fix(events): `link_scm` data types
 
 ## 6.7.4
 
