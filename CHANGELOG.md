@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 6.7.7
+
 * feat(databases): add databases user update
 
 ## 6.7.6
