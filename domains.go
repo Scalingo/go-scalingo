@@ -51,7 +51,7 @@ type Domain struct {
 	Name    string `json:"name"`
 	TLSCert string `json:"tlscert,omitempty"`
 	TLSKey  string `json:"tlskey,omitempty"`
-	// LetsEncrypteEnabled is true (default) if automatic certificate generation
+	// LetsEncryptEnabled is true (default) if automatic certificate generation
 	// is enabled
 	LetsEncryptEnabled bool      `json:"letsencrypt_enabled"`
 	SSL                bool      `json:"ssl"`
