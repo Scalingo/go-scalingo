@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestDomainsClient_DomainCanonical(t *testing.T) {
+func TestDomainsClient_Domain_Updates(t *testing.T) {
 	ctx := context.Background()
 	appName := "my-app"
 	domainID := "domain-id"
@@ -27,6 +27,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 		mockDomainsList  func(t *testing.T, w http.ResponseWriter, r *http.Request)
 		expectedError    string
 	}{
+		// Canonical status update
 		"it should set the domain as canonical": {
 			testedClientCall: func(c DomainsService) error {
 				_, err := c.DomainSetCanonical(ctx, appName, domainID)
@@ -38,7 +39,7 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			responseStatus:   200,
 		},
 		"it should unset the domain as canonical": {
-			mockDomainsList: func(t *testing.T, w http.ResponseWriter, r *http.Request) {
+			mockDomainsList: func(t *testing.T, w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(200)
 				err := json.NewEncoder(w).Encode(DomainsRes{Domains: []Domain{
 					{
@@ -57,6 +58,29 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			expectedParams:   `"canonical":false`,
 			responseStatus:   200,
 		},
+		"it should return an error if there is no canonical domain": {
+			mockDomainsList: func(t *testing.T, w http.ResponseWriter, _ *http.Request) {
+				w.WriteHeader(200)
+				err := json.NewEncoder(w).Encode(DomainsRes{Domains: []Domain{}})
+				assert.NoError(t, err)
+			},
+			testedClientCall: func(c DomainsService) error {
+				_, err := c.DomainUnsetCanonical(ctx, appName)
+				return err
+			},
+			expectedError: "no canonical domain configured",
+		},
+		// Domain certificate update
+		"it should set the domain certificate": {
+			testedClientCall: func(c DomainsService) error {
+				_, err := c.DomainSetCertificate(ctx, appName, domainID, "cert", "key")
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
+			expectedMethod:   "PATCH",
+			expectedParams:   `"tlscert":"cert","tlskey":"key"`,
+			responseStatus:   200,
+		},
 		"it should unset the domain certificate": {
 			testedClientCall: func(c DomainsService) error {
 				_, err := c.DomainUnsetCertificate(ctx, appName, domainID)
@@ -67,17 +91,29 @@ func TestDomainsClient_DomainCanonical(t *testing.T) {
 			expectedParams:   `"tlscert":"","tlskey":""`,
 			responseStatus:   200,
 		},
-		"it should return an error if there is no canonical domain": {
-			mockDomainsList: func(t *testing.T, w http.ResponseWriter, r *http.Request) {
-				w.WriteHeader(200)
-				err := json.NewEncoder(w).Encode(DomainsRes{Domains: []Domain{}})
-				assert.NoError(t, err)
-			},
+		// Letsencrypt certificate generation
+		"it should update letsencrypt_enabled to false": {
 			testedClientCall: func(c DomainsService) error {
-				_, err := c.DomainUnsetCanonical(ctx, appName)
+				f := false
+				_, err := c.DomainsUpdate(ctx, appName, domainID, DomainsUpdateParams{
+					LetsEncryptEnabled: &f,
+				})
 				return err
 			},
-			expectedError: "no canonical domain configured",
+			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
+			expectedMethod:   "PATCH",
+			expectedParams:   `"letsencrypt_enabled":false`,
+			responseStatus:   200,
+		},
+		"it should not update anything if no params": {
+			testedClientCall: func(c DomainsService) error {
+				_, err := c.DomainsUpdate(ctx, appName, domainID, DomainsUpdateParams{})
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
+			expectedMethod:   "PATCH",
+			expectedParams:   `{"domain":{}}`,
+			responseStatus:   200,
 		},
 	}
 
