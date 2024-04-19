@@ -1,6 +1,6 @@
 [ ![Codeship Status for Scalingo/go-scalingo](https://app.codeship.com/projects/cf518dc0-0034-0136-d6b3-5a0245e77f67/status?branch=master)](https://app.codeship.com/projects/279805)
 
-# Go client for Scalingo API v6.7.7
+# Go client for Scalingo API v7.0.0
 
 This repository is the Go client for the [Scalingo APIs](https://developers.scalingo.com/).
 
@@ -10,7 +10,7 @@ This repository is the Go client for the [Scalingo APIs](https://developers.scal
 package main
 
 import (
-	"github.com/Scalingo/go-scalingo/v6"
+	"github.com/Scalingo/go-scalingo/v7"
 )
 
 func getClient() (*scalingo.Client, error) {

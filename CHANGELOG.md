@@ -2,6 +2,11 @@
 
 ## To Be Released
 
+## 7.0.0
+
+* feat(domains): Add `letsencrypt_enabled` parameter
+* BREAKING: api(domains): Change signature of `DomainsAdd`, add method `DomainsUpdate`
+
 ## 6.7.7
 
 * feat(databases): add databases user update

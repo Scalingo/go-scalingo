@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	httpclient "github.com/Scalingo/go-scalingo/v6/http"
+	httpclient "github.com/Scalingo/go-scalingo/v7/http"
 )
 
 type LogDrainsService interface {

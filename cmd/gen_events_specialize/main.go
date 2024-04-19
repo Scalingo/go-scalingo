@@ -42,7 +42,7 @@ func genSpecialize(types []string) {
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/go-scalingo/v6/debug"
+	"github.com/Scalingo/go-scalingo/v7/debug"
 )
 
 func (pev *Event) Specialize() DetailedEvent {
