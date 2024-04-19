@@ -5,7 +5,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v6/http"
+	"github.com/Scalingo/go-scalingo/v7/http"
 )
 
 type AddonProvidersService interface {
