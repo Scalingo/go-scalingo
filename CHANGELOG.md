@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(apps):  add the private_network_ids field to the model
+* feat(apps):  add the `private_network_ids` field to the model
 
 ## 7.0.0
 
