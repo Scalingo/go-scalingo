@@ -320,13 +320,13 @@ func (c *Client) DatabaseDeleteUser(ctx context.Context, app, addonID, userName 
 	return c.DBAPI(app, addonID).SubresourceDelete(ctx, "databases", addonID, "users", userName)
 }
 
-// DatabaseUserPasswordReset resets the password for a user for given database addon
-func (c *Client) DatabaseUserPasswordReset(ctx context.Context, app, addonID, username string) (DatabaseUser, error) {
+// DatabaseUserResetPassword resets the password for a user for given database addon
+func (c *Client) DatabaseUserResetPassword(ctx context.Context, app, addonID, username string) (DatabaseUser, error) {
 	res := DatabaseUserResponse{}
 	req := &httpclient.APIRequest{
 		Method:   "PATCH",
 		Endpoint: "/databases/" + addonID + "/users/" + username + "/reset_password",
-		Expected: httpclient.Statuses{200},
+		Expected: httpclient.Statuses{http.StatusOK},
 	}
 	err := c.DBAPI(app, addonID).DoRequest(ctx, req, &res)
 	if err != nil {
