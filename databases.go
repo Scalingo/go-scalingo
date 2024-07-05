@@ -324,7 +324,7 @@ func (c *Client) DatabaseDeleteUser(ctx context.Context, app, addonID, userName 
 func (c *Client) DatabaseUserResetPassword(ctx context.Context, app, addonID, username string) (DatabaseUser, error) {
 	res := DatabaseUserResponse{}
 	req := &httpclient.APIRequest{
-		Method:   "PATCH",
+		Method:   "POST",
 		Endpoint: "/databases/" + addonID + "/users/" + username + "/reset_password",
 		Expected: httpclient.Statuses{http.StatusOK},
 	}
