@@ -4,6 +4,10 @@
 
 ## 7.0.2
 
+* fix(one-off): remove async field from the run command ([PR#390](https://github.com/Scalingo/go-scalingo/pull/390))
+
+## 7.0.1
+
 * feat(apps):  add the `private_network_ids` field to the model
 * feat(database/users): add the `DatabaseUserResetPassword` method
 
