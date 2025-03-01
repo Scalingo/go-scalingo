@@ -8,7 +8,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/text v0.21.0
+	golang.org/x/text v0.22.0
 	gopkg.in/errgo.v1 v1.0.1
 )
 
