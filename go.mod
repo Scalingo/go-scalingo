@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/Scalingo/go-utils/errors/v2 v2.4.0
-	github.com/golang-jwt/jwt/v4 v4.5.1
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/stretchr/testify v1.10.0
