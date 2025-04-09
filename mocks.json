@@ -129,11 +129,6 @@
     {
       "src_package": ".",
       "dst_package": "scalingomock",
-      "interface": "RegionMigrationsService"
-    },
-    {
-      "src_package": ".",
-      "dst_package": "scalingomock",
       "interface": "RunsService"
     },
     {

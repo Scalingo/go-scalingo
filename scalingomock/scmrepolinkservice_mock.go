@@ -96,11 +96,12 @@ func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkList(arg0, arg1 interfa
 }
 
 // SCMRepoLinkManualDeploy mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkManualDeploy(arg0 context.Context, arg1, arg2 string) error {
+func (m *MockSCMRepoLinkService) SCMRepoLinkManualDeploy(arg0 context.Context, arg1, arg2 string) (*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SCMRepoLinkManualDeploy", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*scalingo.Deployment)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // SCMRepoLinkManualDeploy indicates an expected call of SCMRepoLinkManualDeploy.
@@ -121,6 +122,21 @@ func (m *MockSCMRepoLinkService) SCMRepoLinkManualReviewApp(arg0 context.Context
 func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkManualReviewApp(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkManualReviewApp", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkManualReviewApp), arg0, arg1, arg2)
+}
+
+// SCMRepoLinkPullRequest mocks base method.
+func (m *MockSCMRepoLinkService) SCMRepoLinkPullRequest(arg0 context.Context, arg1 string, arg2 int) (*scalingo.RepoLinkPullRequest, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SCMRepoLinkPullRequest", arg0, arg1, arg2)
+	ret0, _ := ret[0].(*scalingo.RepoLinkPullRequest)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SCMRepoLinkPullRequest indicates an expected call of SCMRepoLinkPullRequest.
+func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkPullRequest(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SCMRepoLinkPullRequest", reflect.TypeOf((*MockSCMRepoLinkService)(nil).SCMRepoLinkPullRequest), arg0, arg1, arg2)
 }
 
 // SCMRepoLinkReviewApps mocks base method.

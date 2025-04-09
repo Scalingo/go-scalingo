@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(region_migrations): remove the endpoints
+
 ## 7.0.2
 
 * fix(one-off): remove async field from the run command ([PR#390](https://github.com/Scalingo/go-scalingo/pull/390))
