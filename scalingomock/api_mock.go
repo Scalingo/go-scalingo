@@ -661,21 +661,6 @@ func (mr *MockAPIMockRecorder) ContainersStop(arg0, arg1, arg2 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ContainersStop", reflect.TypeOf((*MockAPI)(nil).ContainersStop), arg0, arg1, arg2)
 }
 
-// CreateRegionMigration mocks base method.
-func (m *MockAPI) CreateRegionMigration(arg0 context.Context, arg1 string, arg2 scalingo.RegionMigrationParams) (scalingo.RegionMigration, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateRegionMigration", arg0, arg1, arg2)
-	ret0, _ := ret[0].(scalingo.RegionMigration)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateRegionMigration indicates an expected call of CreateRegionMigration.
-func (mr *MockAPIMockRecorder) CreateRegionMigration(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateRegionMigration", reflect.TypeOf((*MockAPI)(nil).CreateRegionMigration), arg0, arg1, arg2)
-}
-
 // CronTasksGet mocks base method.
 func (m *MockAPI) CronTasksGet(arg0 context.Context, arg1 string) (scalingo.CronTasks, error) {
 	m.ctrl.T.Helper()
@@ -735,6 +720,22 @@ func (mr *MockAPIMockRecorder) DatabaseEnableFeature(arg0, arg1, arg2, arg3 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseEnableFeature", reflect.TypeOf((*MockAPI)(nil).DatabaseEnableFeature), arg0, arg1, arg2, arg3)
 }
 
+// DatabaseListMaintenance mocks base method.
+func (m *MockAPI) DatabaseListMaintenance(arg0 context.Context, arg1, arg2 string, arg3 scalingo.PaginationOpts) ([]*scalingo.Maintenance, scalingo.PaginationMeta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseListMaintenance", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].([]*scalingo.Maintenance)
+	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// DatabaseListMaintenance indicates an expected call of DatabaseListMaintenance.
+func (mr *MockAPIMockRecorder) DatabaseListMaintenance(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseListMaintenance", reflect.TypeOf((*MockAPI)(nil).DatabaseListMaintenance), arg0, arg1, arg2, arg3)
+}
+
 // DatabaseShow mocks base method.
 func (m *MockAPI) DatabaseShow(arg0 context.Context, arg1, arg2 string) (scalingo.Database, error) {
 	m.ctrl.T.Helper()
@@ -748,6 +749,36 @@ func (m *MockAPI) DatabaseShow(arg0 context.Context, arg1, arg2 string) (scaling
 func (mr *MockAPIMockRecorder) DatabaseShow(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseShow", reflect.TypeOf((*MockAPI)(nil).DatabaseShow), arg0, arg1, arg2)
+}
+
+// DatabaseShowMaintenance mocks base method.
+func (m *MockAPI) DatabaseShowMaintenance(arg0 context.Context, arg1, arg2, arg3 string) (scalingo.Maintenance, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseShowMaintenance", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.Maintenance)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabaseShowMaintenance indicates an expected call of DatabaseShowMaintenance.
+func (mr *MockAPIMockRecorder) DatabaseShowMaintenance(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseShowMaintenance", reflect.TypeOf((*MockAPI)(nil).DatabaseShowMaintenance), arg0, arg1, arg2, arg3)
+}
+
+// DatabaseUpdateMaintenanceWindow mocks base method.
+func (m *MockAPI) DatabaseUpdateMaintenanceWindow(arg0 context.Context, arg1, arg2 string, arg3 scalingo.MaintenanceWindowParams) (scalingo.Database, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabaseUpdateMaintenanceWindow", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.Database)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabaseUpdateMaintenanceWindow indicates an expected call of DatabaseUpdateMaintenanceWindow.
+func (mr *MockAPIMockRecorder) DatabaseUpdateMaintenanceWindow(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseUpdateMaintenanceWindow", reflect.TypeOf((*MockAPI)(nil).DatabaseUpdateMaintenanceWindow), arg0, arg1, arg2, arg3)
 }
 
 // DatabaseUpdatePeriodicBackupsConfig mocks base method.
@@ -917,7 +948,7 @@ func (mr *MockAPIMockRecorder) DomainUnsetCertificate(arg0, arg1, arg2 interface
 }
 
 // DomainsAdd mocks base method.
-func (m *MockAPI) DomainsAdd(arg0 context.Context, arg1 string, arg2 scalingo.Domain) (scalingo.Domain, error) {
+func (m *MockAPI) DomainsAdd(arg0 context.Context, arg1 string, arg2 scalingo.DomainsAddParams) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsAdd", arg0, arg1, arg2)
 	ret0, _ := ret[0].(scalingo.Domain)
@@ -958,6 +989,21 @@ func (m *MockAPI) DomainsRemove(arg0 context.Context, arg1, arg2 string) error {
 func (mr *MockAPIMockRecorder) DomainsRemove(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsRemove", reflect.TypeOf((*MockAPI)(nil).DomainsRemove), arg0, arg1, arg2)
+}
+
+// DomainsUpdate mocks base method.
+func (m *MockAPI) DomainsUpdate(arg0 context.Context, arg1, arg2 string, arg3 scalingo.DomainsUpdateParams) (scalingo.Domain, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DomainsUpdate", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.Domain)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DomainsUpdate indicates an expected call of DomainsUpdate.
+func (mr *MockAPIMockRecorder) DomainsUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DomainsUpdate", reflect.TypeOf((*MockAPI)(nil).DomainsUpdate), arg0, arg1, arg2, arg3)
 }
 
 // EventCategoriesList mocks base method.
@@ -1094,21 +1140,6 @@ func (m *MockAPI) KeysList(arg0 context.Context) ([]scalingo.Key, error) {
 func (mr *MockAPIMockRecorder) KeysList(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeysList", reflect.TypeOf((*MockAPI)(nil).KeysList), arg0)
-}
-
-// ListRegionMigrations mocks base method.
-func (m *MockAPI) ListRegionMigrations(arg0 context.Context, arg1 string) ([]scalingo.RegionMigration, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListRegionMigrations", arg0, arg1)
-	ret0, _ := ret[0].([]scalingo.RegionMigration)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ListRegionMigrations indicates an expected call of ListRegionMigrations.
-func (mr *MockAPIMockRecorder) ListRegionMigrations(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListRegionMigrations", reflect.TypeOf((*MockAPI)(nil).ListRegionMigrations), arg0, arg1)
 }
 
 // LogDrainAdd mocks base method.
@@ -1408,20 +1439,6 @@ func (mr *MockAPIMockRecorder) Run(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Run", reflect.TypeOf((*MockAPI)(nil).Run), arg0, arg1)
 }
 
-// RunRegionMigrationStep mocks base method.
-func (m *MockAPI) RunRegionMigrationStep(arg0 context.Context, arg1, arg2 string, arg3 scalingo.RegionMigrationStep) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RunRegionMigrationStep", arg0, arg1, arg2, arg3)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// RunRegionMigrationStep indicates an expected call of RunRegionMigrationStep.
-func (mr *MockAPIMockRecorder) RunRegionMigrationStep(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RunRegionMigrationStep", reflect.TypeOf((*MockAPI)(nil).RunRegionMigrationStep), arg0, arg1, arg2, arg3)
-}
-
 // ScalingoAPI mocks base method.
 func (m *MockAPI) ScalingoAPI() http.Client {
 	m.ctrl.T.Helper()
@@ -1449,21 +1466,6 @@ func (m *MockAPI) Self(arg0 context.Context) (*scalingo.User, error) {
 func (mr *MockAPIMockRecorder) Self(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Self", reflect.TypeOf((*MockAPI)(nil).Self), arg0)
-}
-
-// ShowRegionMigration mocks base method.
-func (m *MockAPI) ShowRegionMigration(arg0 context.Context, arg1, arg2 string) (scalingo.RegionMigration, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ShowRegionMigration", arg0, arg1, arg2)
-	ret0, _ := ret[0].(scalingo.RegionMigration)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ShowRegionMigration indicates an expected call of ShowRegionMigration.
-func (mr *MockAPIMockRecorder) ShowRegionMigration(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ShowRegionMigration", reflect.TypeOf((*MockAPI)(nil).ShowRegionMigration), arg0, arg1, arg2)
 }
 
 // SignUp mocks base method.
