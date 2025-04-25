@@ -3,6 +3,7 @@
 ## To Be Released
 
 * feat(region_migrations): remove the endpoints
+* feat(collaborators): add support for limited collaborators
 
 ## 7.0.2
 
