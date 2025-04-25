@@ -8,7 +8,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	scalingo "github.com/Scalingo/go-scalingo/v7"
+	v7 "github.com/Scalingo/go-scalingo/v7"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -36,18 +36,18 @@ func (m *MockCollaboratorsService) EXPECT() *MockCollaboratorsServiceMockRecorde
 }
 
 // CollaboratorAdd mocks base method.
-func (m *MockCollaboratorsService) CollaboratorAdd(arg0 context.Context, arg1, arg2 string) (scalingo.Collaborator, error) {
+func (m *MockCollaboratorsService) CollaboratorAdd(arg0 context.Context, arg1, arg2 string, arg3 bool) (v7.Collaborator, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1, arg2)
-	ret0, _ := ret[0].(scalingo.Collaborator)
+	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(v7.Collaborator)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CollaboratorAdd indicates an expected call of CollaboratorAdd.
-func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorAdd(arg0, arg1, arg2 interface{}) *gomock.Call {
+func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorAdd(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorAdd", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorAdd), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorAdd", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorAdd), arg0, arg1, arg2, arg3)
 }
 
 // CollaboratorRemove mocks base method.
@@ -65,10 +65,10 @@ func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorRemove(arg0, arg1, a
 }
 
 // CollaboratorsList mocks base method.
-func (m *MockCollaboratorsService) CollaboratorsList(arg0 context.Context, arg1 string) ([]scalingo.Collaborator, error) {
+func (m *MockCollaboratorsService) CollaboratorsList(arg0 context.Context, arg1 string) ([]v7.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorsList", arg0, arg1)
-	ret0, _ := ret[0].([]scalingo.Collaborator)
+	ret0, _ := ret[0].([]v7.Collaborator)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
