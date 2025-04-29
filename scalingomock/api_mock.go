@@ -589,7 +589,7 @@ func (mr *MockAPIMockRecorder) BackupShow(arg0, arg1, arg2, arg3 interface{}) *g
 }
 
 // CollaboratorAdd mocks base method.
-func (m *MockAPI) CollaboratorAdd(arg0 context.Context, arg1, arg2 string) (scalingo.Collaborator, error) {
+func (m *MockAPI) CollaboratorAdd(arg0 context.Context, arg1 string, arg2 scalingo.CollaboratorAddParams) (scalingo.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1, arg2)
 	ret0, _ := ret[0].(scalingo.Collaborator)

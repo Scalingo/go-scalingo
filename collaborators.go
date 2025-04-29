@@ -16,19 +16,20 @@ const (
 
 type CollaboratorsService interface {
 	CollaboratorsList(ctx context.Context, app string) ([]Collaborator, error)
-	CollaboratorAdd(ctx context.Context, app string, email string) (Collaborator, error)
+	CollaboratorAdd(ctx context.Context, app string, params CollaboratorAddParams) (Collaborator, error)
 	CollaboratorRemove(ctx context.Context, app string, id string) error
 }
 
 var _ CollaboratorsService = (*Client)(nil)
 
 type Collaborator struct {
-	ID       string             `json:"id"`
-	AppID    string             `json:"app_id"`
-	Username string             `json:"username"`
-	Email    string             `json:"email"`
-	Status   CollaboratorStatus `json:"status"`
-	UserID   string             `json:"user_id"`
+	ID        string             `json:"id"`
+	AppID     string             `json:"app_id"`
+	Username  string             `json:"username"`
+	Email     string             `json:"email"`
+	Status    CollaboratorStatus `json:"status"`
+	UserID    string             `json:"user_id"`
+	IsLimited bool               `json:"is_limited"`
 }
 
 type CollaboratorsRes struct {
@@ -37,6 +38,15 @@ type CollaboratorsRes struct {
 
 type CollaboratorRes struct {
 	Collaborator Collaborator `json:"collaborator"`
+}
+
+type CollaboratorAddParams struct {
+	Email     string `json:"email"`
+	IsLimited bool   `json:"is_limited"`
+}
+
+type CollaboratorAddParamsPayload struct {
+	Collaborator CollaboratorAddParams `json:"collaborator"`
 }
 
 func (c *Client) CollaboratorsList(ctx context.Context, app string) ([]Collaborator, error) {
@@ -48,11 +58,9 @@ func (c *Client) CollaboratorsList(ctx context.Context, app string) ([]Collabora
 	return collaboratorsRes.Collaborators, nil
 }
 
-func (c *Client) CollaboratorAdd(ctx context.Context, app string, email string) (Collaborator, error) {
+func (c *Client) CollaboratorAdd(ctx context.Context, app string, params CollaboratorAddParams) (Collaborator, error) {
 	var collaboratorRes CollaboratorRes
-	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "collaborators", CollaboratorRes{
-		Collaborator: Collaborator{Email: email},
-	}, &collaboratorRes)
+	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "collaborators", CollaboratorAddParamsPayload{params}, &collaboratorRes)
 	if err != nil {
 		return Collaborator{}, errgo.Mask(err)
 	}
