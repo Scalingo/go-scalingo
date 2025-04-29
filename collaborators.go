@@ -45,6 +45,10 @@ type CollaboratorAddParams struct {
 	IsLimited bool   `json:"is_limited"`
 }
 
+type CollaboratorAddParamsPayload struct {
+	Collaborator CollaboratorAddParams `json:"collaborator"`
+}
+
 func (c *Client) CollaboratorsList(ctx context.Context, app string) ([]Collaborator, error) {
 	var collaboratorsRes CollaboratorsRes
 	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "collaborators", nil, &collaboratorsRes)
@@ -56,9 +60,7 @@ func (c *Client) CollaboratorsList(ctx context.Context, app string) ([]Collabora
 
 func (c *Client) CollaboratorAdd(ctx context.Context, app string, params CollaboratorAddParams) (Collaborator, error) {
 	var collaboratorRes CollaboratorRes
-	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "collaborators", CollaboratorRes{
-		Collaborator: Collaborator{Email: params.Email, IsLimited: params.IsLimited},
-	}, &collaboratorRes)
+	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "collaborators", CollaboratorAddParamsPayload{params}, &collaboratorRes)
 	if err != nil {
 		return Collaborator{}, errgo.Mask(err)
 	}
