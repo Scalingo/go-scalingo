@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v7/http"
+	"github.com/Scalingo/go-scalingo/v8/http"
 )
 
 type VariablesService interface {
