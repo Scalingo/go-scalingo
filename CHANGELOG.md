@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.0.0
+
 * feat(region_migrations): remove the endpoints
 * BREAKING: feat(collaborators): add support for limited collaborators, changing the signature of `CollaboratorAdd`
 

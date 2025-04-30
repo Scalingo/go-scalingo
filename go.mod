@@ -1,4 +1,4 @@
-module github.com/Scalingo/go-scalingo/v7
+module github.com/Scalingo/go-scalingo/v8
 
 go 1.20
 

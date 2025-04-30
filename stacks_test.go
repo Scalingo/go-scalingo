@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Scalingo/go-scalingo/v7/http/httpmock"
+	"github.com/Scalingo/go-scalingo/v8/http/httpmock"
 )
 
 func TestStackIsDeprecated(t *testing.T) {
