@@ -104,8 +104,8 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 	}
 
 	debug.Printf("[API] %v %v\n", req.HTTPRequest.Method, req.HTTPRequest.URL)
-	debug.Printf(pkgio.Indent(fmt.Sprintf("User Agent: %v", req.HTTPRequest.UserAgent()), 6))
-	debug.Printf(pkgio.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
+	debug.Printf("%s", pkgio.Indent(fmt.Sprintf("User Agent: %v", req.HTTPRequest.UserAgent()), 6))
+	debug.Printf("%s", pkgio.Indent(fmt.Sprintf("Headers: %v", req.HTTPRequest.Header), 6))
 	debug.Printf(pkgio.Indent("Params: %v", 6), req.Params)
 
 	if req.Token != "" {
