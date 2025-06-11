@@ -1,6 +1,6 @@
 module github.com/Scalingo/go-scalingo/v8
 
-go 1.24.3
+go 1.24
 
 require (
 	github.com/Scalingo/go-utils/errors/v2 v2.5.0
