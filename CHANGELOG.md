@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-## 8.0.1
+## 8.1.0
 
 * feat(collaborators): add collaborator role change event
 
