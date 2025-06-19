@@ -80,6 +80,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventAcceptCollaboratorType{Event: ev}
 	case EventDeleteCollaborator:
 		e = &EventDeleteCollaboratorType{Event: ev}
+	case EventChangeCollaboratorRole:
+		e = &EventChangeCollaboratorRoleType{Event: ev}
 	case EventNewVariable:
 		e = &EventNewVariableType{Event: ev}
 	case EventEditVariable:

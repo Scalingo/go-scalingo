@@ -64,6 +64,28 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventRunType",
 		DetailedEventString: "one-off container with command 'bash'",
 	},
+	"test collaborator role change to limited collaborator": {
+		Event: &Event{
+			User: EventUser{
+				Username: "user1",
+			},
+			Type:        EventChangeCollaboratorRole,
+			RawTypeData: json.RawMessage([]byte(`{"collaborator": {"username": "user1","email":"user1@scalingo.com","is_limited":true}}`)),
+		},
+		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
+		DetailedEventString: "'user1' (user1@scalingo.com) is now a Limited collaborator",
+	},
+	"test collaborator role change to collaborator": {
+		Event: &Event{
+			User: EventUser{
+				Username: "user1",
+			},
+			Type:        EventChangeCollaboratorRole,
+			RawTypeData: json.RawMessage([]byte(`{"collaborator": {"username": "user1","email":"user1@scalingo.com","is_limited":false}}`)),
+		},
+		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
+		DetailedEventString: "'user1' (user1@scalingo.com) is now a Collaborator",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {

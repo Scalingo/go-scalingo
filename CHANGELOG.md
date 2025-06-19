@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+## 8.1.0
+
+* feat(collaborators): add collaborator role change event
+
 ## 8.0.0
 
 * feat(region_migrations): remove the endpoints

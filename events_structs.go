@@ -104,6 +104,7 @@ const (
 	EventNewCollaborator             EventTypeName = "new_collaborator"
 	EventAcceptCollaborator          EventTypeName = "accept_collaborator"
 	EventDeleteCollaborator          EventTypeName = "delete_collaborator"
+	EventChangeCollaboratorRole      EventTypeName = "change_collaborator_role"
 	EventNewVariable                 EventTypeName = "new_variable"
 	EventEditVariable                EventTypeName = "edit_variable"
 	EventEditVariables               EventTypeName = "edit_variables"
@@ -376,7 +377,8 @@ type EventDeleteDomainTypeData struct {
 
 type EventCollaborator struct {
 	EventUser
-	Inviter EventUser `json:"inviter"`
+	Inviter   EventUser `json:"inviter"`
+	IsLimited bool      `json:"is_limited"`
 }
 
 type EventNewCollaboratorType struct {
@@ -428,6 +430,24 @@ func (ev *EventDeleteCollaboratorType) String() string {
 
 type EventDeleteCollaboratorTypeData struct {
 	Collaborator EventCollaborator `json:"collaborator"`
+}
+
+type EventChangeCollaboratorRoleType struct {
+	Event
+	TypeData EventChangeCollaboratorRoleTypeData `json:"type_data"`
+}
+
+type EventChangeCollaboratorRoleTypeData struct {
+	Collaborator EventCollaborator `json:"collaborator"`
+}
+
+func (ev *EventChangeCollaboratorRoleType) String() string {
+	role := "Collaborator"
+	if ev.TypeData.Collaborator.IsLimited {
+		role = "Limited collaborator"
+	}
+
+	return fmt.Sprintf("'%s' (%s) is now a %s", ev.TypeData.Collaborator.Username, ev.TypeData.Collaborator.Email, role)
 }
 
 type EventUpgradeDatabaseType struct {

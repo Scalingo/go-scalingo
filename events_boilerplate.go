@@ -139,6 +139,10 @@ func (e *EventDeleteCollaboratorType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
+func (e *EventChangeCollaboratorRoleType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventNewVariableType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
