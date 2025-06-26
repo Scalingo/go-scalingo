@@ -90,7 +90,7 @@ var eventsSpecializeCases = map[string]struct {
 		Event: &Event{
 			User:        EventUser{},
 			Type:        EventChangeCollaboratorRole,
-			RawTypeData: json.RawMessage([]byte(`{"collaborator": {"email":"user1@scalingo.com","username":"n/a","is_limited":false}}`)),
+			RawTypeData: json.RawMessage([]byte(`{"collaborator": {"email":"user1@scalingo.com","is_limited":false}}`)),
 		},
 		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
 		DetailedEventString: "user1@scalingo.com is now a Collaborator",

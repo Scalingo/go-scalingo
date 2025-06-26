@@ -447,7 +447,7 @@ func (ev *EventChangeCollaboratorRoleType) String() string {
 		role = "Limited collaborator"
 	}
 
-	if ev.TypeData.Collaborator.Username == "n/a" {
+	if ev.TypeData.Collaborator.Username == "" {
 		return fmt.Sprintf("%s is now a %s", ev.TypeData.Collaborator.Email, role)
 	}
 
