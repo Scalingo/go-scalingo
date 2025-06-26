@@ -86,6 +86,15 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
 		DetailedEventString: "'user1' (user1@scalingo.com) is now a Collaborator",
 	},
+	"test collaborator role change on pending collaborator": {
+		Event: &Event{
+			User:        EventUser{},
+			Type:        EventChangeCollaboratorRole,
+			RawTypeData: json.RawMessage([]byte(`{"collaborator": {"email":"user1@scalingo.com","is_limited":false}}`)),
+		},
+		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
+		DetailedEventString: "user1@scalingo.com is now a Collaborator",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
