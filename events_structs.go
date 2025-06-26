@@ -448,7 +448,7 @@ func (ev *EventChangeCollaboratorRoleType) String() string {
 	}
 
 	if ev.TypeData.Collaborator.Username == "" {
-		return fmt.Sprintf("'%s' is now a %s", ev.TypeData.Collaborator.Email, role)
+		return fmt.Sprintf("%s is now a %s", ev.TypeData.Collaborator.Email, role)
 	}
 
 	return fmt.Sprintf("'%s' (%s) is now a %s", ev.TypeData.Collaborator.Username, ev.TypeData.Collaborator.Email, role)
