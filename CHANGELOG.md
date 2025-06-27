@@ -5,6 +5,8 @@
 ## 8.1.0
 
 * feat(collaborators): add collaborator role change event
+* fix: use constant format strings in debug.Printf calls
+* chore(deps): update to Go 1.24
 
 ## 8.0.0
 
