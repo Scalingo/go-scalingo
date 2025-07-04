@@ -987,5 +987,5 @@ type EventNewProjectType struct {
 }
 
 func (ev *EventNewProjectType) String() string {
-	return fmt.Sprintf("The project '%s' has been created by '%s'", ev.ProjectName, ev.User.Email)
+	return fmt.Sprintf("The project '%s' has been created", ev.ProjectName)
 }
