@@ -19,6 +19,8 @@ type Event struct {
 	AppName     string                 `json:"app_name"`
 	RawTypeData json.RawMessage        `json:"type_data"`
 	TypeData    map[string]interface{} `json:"-"`
+	ProjectID   string                 `json:"project_id"`
+	ProjectName string                 `json:"project_name"`
 }
 
 type EventSecurityTypeData struct {
@@ -155,6 +157,9 @@ const (
 	// retro-compatibility. They are replaced by SCM events.
 	EventLinkGithub   EventTypeName = "link_github"
 	EventUnlinkGithub EventTypeName = "unlink_github"
+
+	// Project scoped events
+	EventNewProject EventTypeName = "new_project"
 )
 
 type EventNewUserType struct {
@@ -969,4 +974,19 @@ func (ev *EventCompleteDatabaseMaintenanceType) String() string {
 
 func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
+}
+
+// New project created
+type EventNewProjectTypeData struct {
+	Default bool `json:"default"`
+}
+
+type EventNewProjectType struct {
+	Event
+	TypeData EventNewProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventNewProjectType) String() string {
+	fmt.Println("HELLO")
+	return fmt.Sprintf("The project '%s' has been created by '%s'", ev.ProjectName, ev.User.Email)
 }
