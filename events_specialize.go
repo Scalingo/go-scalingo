@@ -178,6 +178,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventUnlinkGithubType{Event: ev}
 	case EventDeleteProject:
 		e = &EventDeleteProjectType{Event: ev}
+	case EventNewProject:
+		e = &EventNewProjectType{Event: ev}
 	default:
 		return pev
 	}

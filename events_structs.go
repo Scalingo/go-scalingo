@@ -19,6 +19,8 @@ type Event struct {
 	AppName     string                 `json:"app_name"`
 	RawTypeData json.RawMessage        `json:"type_data"`
 	TypeData    map[string]interface{} `json:"-"`
+	ProjectID   string                 `json:"project_id"`
+	ProjectName string                 `json:"project_name"`
 }
 
 type EventSecurityTypeData struct {
@@ -158,6 +160,8 @@ const (
 
 	// Project scoped events
 	EventDeleteProject EventTypeName = "delete_project"
+	EventNewProject EventTypeName = "new_project"
+
 )
 
 type EventNewUserType struct {
@@ -974,6 +978,7 @@ func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
 }
 
+
 // Project deleted
 type EventDeleteProjectTypeData struct {
 }
@@ -985,4 +990,18 @@ type EventDeleteProjectType struct {
 
 func (ev *EventDeleteProjectType) String() string {
 	return fmt.Sprintf("The project '%s' has been deleted", ev.ProjectName)
+}
+
+// New project created
+type EventNewProjectTypeData struct {
+	Default bool `json:"default"`
+}
+
+type EventNewProjectType struct {
+	Event
+	TypeData EventNewProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventNewProjectType) String() string {
+	return fmt.Sprintf("The project '%s' has been created", ev.ProjectName)
 }

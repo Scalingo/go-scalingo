@@ -332,5 +332,9 @@ func (e *EventUnlinkGithubType) TypeDataPtr() interface{} {
 }
 
 func (e *EventDeleteProjectType) TypeDataPtr() interface{} {
+  	return &e.TypeData
+}
+
+func (e *EventNewProjectType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }

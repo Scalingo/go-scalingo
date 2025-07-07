@@ -2,7 +2,8 @@
 
 ## To Be Released
 
-feat(projects): add delete project event
+* feat(projects): add delete project event
+* feat(projects): add new project created event
 
 ## 8.1.0
 
