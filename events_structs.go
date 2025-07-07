@@ -155,6 +155,9 @@ const (
 	// retro-compatibility. They are replaced by SCM events.
 	EventLinkGithub   EventTypeName = "link_github"
 	EventUnlinkGithub EventTypeName = "unlink_github"
+
+	// Project scoped events
+	EventDeleteProject EventTypeName = "delete_project"
 )
 
 type EventNewUserType struct {
@@ -969,4 +972,17 @@ func (ev *EventCompleteDatabaseMaintenanceType) String() string {
 
 func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
+}
+
+// Project deleted
+type EventDeleteProjectTypeData struct {
+}
+
+type EventDeleteProjectType struct {
+	Event
+	TypeData EventDeleteProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventDeleteProjectType) String() string {
+	return fmt.Sprintf("The project '%s' has been deleted", ev.ProjectName)
 }

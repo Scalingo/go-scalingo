@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+feat(projects): add delete project event
+
 ## 8.1.0
 
 * feat(collaborators): add collaborator role change event
