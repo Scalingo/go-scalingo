@@ -160,8 +160,7 @@ const (
 
 	// Project scoped events
 	EventDeleteProject EventTypeName = "delete_project"
-	EventNewProject EventTypeName = "new_project"
-
+	EventNewProject    EventTypeName = "new_project"
 )
 
 type EventNewUserType struct {
