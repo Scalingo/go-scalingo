@@ -161,6 +161,7 @@ const (
 	// Project scoped events
 	EventDeleteProject EventTypeName = "delete_project"
 	EventNewProject    EventTypeName = "new_project"
+	EventEditProject   EventTypeName = "edit_project"
 )
 
 type EventNewUserType struct {
@@ -977,7 +978,6 @@ func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
 }
 
-
 // Project deleted
 type EventDeleteProjectTypeData struct {
 }
@@ -1003,4 +1003,38 @@ type EventNewProjectType struct {
 
 func (ev *EventNewProjectType) String() string {
 	return fmt.Sprintf("The project '%s' has been created", ev.ProjectName)
+}
+
+// Project edited
+type EditProjectValue struct {
+	Name     string `json:"name"`
+	Value    string `json:"value"`
+	OldValue string `json:"old_value"`
+}
+
+type EditProjectValues []EditProjectValue
+
+func (epvs EditProjectValues) Names() string {
+	names := []string{}
+	for _, e := range epvs {
+		names = append(names, e.Name)
+	}
+	return strings.Join(names, ", ")
+}
+
+type EventEditProjectTypeData struct {
+	UpdatedValues EditProjectValues `json:"updated_values"`
+}
+
+type EventEditProjectType struct {
+	Event
+	TypeData EventEditProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventEditProjectType) String() string {
+	res := "project changes:"
+	if len(ev.TypeData.UpdatedValues) > 0 {
+		res += fmt.Sprintf(" %s modified", ev.TypeData.UpdatedValues.Names())
+	}
+	return res
 }

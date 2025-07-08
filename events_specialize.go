@@ -180,6 +180,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventDeleteProjectType{Event: ev}
 	case EventNewProject:
 		e = &EventNewProjectType{Event: ev}
+	case EventEditProject:
+		e = &EventEditProjectType{Event: ev}
 	default:
 		return pev
 	}
