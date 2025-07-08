@@ -159,7 +159,8 @@ const (
 	EventUnlinkGithub EventTypeName = "unlink_github"
 
 	// Project scoped events
-	EventNewProject EventTypeName = "new_project"
+	EventDeleteProject EventTypeName = "delete_project"
+	EventNewProject    EventTypeName = "new_project"
 )
 
 type EventNewUserType struct {
@@ -974,6 +975,20 @@ func (ev *EventCompleteDatabaseMaintenanceType) String() string {
 
 func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
+}
+
+
+// Project deleted
+type EventDeleteProjectTypeData struct {
+}
+
+type EventDeleteProjectType struct {
+	Event
+	TypeData EventDeleteProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventDeleteProjectType) String() string {
+	return fmt.Sprintf("The project '%s' has been deleted", ev.ProjectName)
 }
 
 // New project created
