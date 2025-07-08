@@ -3,7 +3,7 @@
 ## To Be Released
 
 * feat(projects): add new project created event
-* feat(projects): add move app to another project event
+* feat(projects): add update app project event
 
 ## 8.1.0
 
