@@ -22,8 +22,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventDeleteAppType{Event: ev}
 	case EventRenameApp:
 		e = &EventRenameAppType{Event: ev}
-	case EventMoveApp:
-		e = &EventMoveAppType{Event: ev}
+	case EventUpdateAppProject:
+		e = &EventUpdateAppProjectType{Event: ev}
 	case EventTransferApp:
 		e = &EventTransferAppType{Event: ev}
 	case EventRestart:

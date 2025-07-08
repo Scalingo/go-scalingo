@@ -77,7 +77,7 @@ const (
 	EventEditApp                     EventTypeName = "edit_app"
 	EventDeleteApp                   EventTypeName = "delete_app"
 	EventRenameApp                   EventTypeName = "rename_app"
-	EventMoveApp                     EventTypeName = "move_app"
+	EventUpdateAppProject            EventTypeName = "update_app_project"
 	EventTransferApp                 EventTypeName = "transfer_app"
 	EventRestart                     EventTypeName = "restart"
 	EventScale                       EventTypeName = "scale"

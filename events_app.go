@@ -64,17 +64,17 @@ func (ev *EventRenameAppType) String() string {
 	)
 }
 
-type EventMoveAppTypeData struct {
+type EventUpdateAppProjectTypeData struct {
 	OldProjectName string `json:"old_project_name"`
 	NewProjectName string `json:"new_project_name"`
 }
 
-type EventMoveAppType struct {
+type EventUpdateAppProjectType struct {
 	Event
-	TypeData EventMoveAppTypeData `json:"type_data"`
+	TypeData EventUpdateAppProjectTypeData `json:"type_data"`
 }
 
-func (ev *EventMoveAppType) String() string {
+func (ev *EventUpdateAppProjectType) String() string {
 	return fmt.Sprintf(
 		"the application has been moved from project '%s' to '%s'",
 		ev.TypeData.OldProjectName, ev.TypeData.NewProjectName,
