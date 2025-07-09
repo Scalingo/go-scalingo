@@ -1016,8 +1016,8 @@ type EditProjectValues []EditProjectValue
 
 func (e EditProjectValues) Names() string {
 	names := []string{}
-	for _, e := range epvs {
-		names = append(names, e.Name)
+	for _, v := range e {
+		names = append(names, v.Name)
 	}
 	return strings.Join(names, ", ")
 }
