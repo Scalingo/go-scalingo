@@ -1014,7 +1014,7 @@ type EditProjectValue struct {
 
 type EditProjectValues []EditProjectValue
 
-func (epvs EditProjectValues) Names() string {
+func (e EditProjectValues) Names() string {
 	names := []string{}
 	for _, e := range epvs {
 		names = append(names, e.Name)
