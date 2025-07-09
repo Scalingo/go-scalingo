@@ -1030,5 +1030,5 @@ func (ev *EventEditProjectType) String() string {
 		changes = append(changes, fmt.Sprintf("%s modified from '%v' to '%v'", v.Name, v.OldValue, v.Value))
 	}
 
-	return fmt.Sprintf("project settings have been changed: %s", strings.Join(changes, ", "))
+	return fmt.Sprintf("project settings have been updated: %s", strings.Join(changes, ", "))
 }
