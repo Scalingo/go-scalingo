@@ -102,7 +102,7 @@ var eventsSpecializeCases = map[string]struct {
 			RawTypeData: json.RawMessage([]byte(`{"updated_values": [{"name":"name","value":"new-project-name","old_value":"initial-name"},{"name":"default","value":"true","old_value":"false"}]}`)),
 		},
 		DetailedEventName:   "*scalingo.EventEditProjectType",
-		DetailedEventString: "project changes: name, default modified",
+		DetailedEventString: "project changes: name, default",
 	},
 }
 
