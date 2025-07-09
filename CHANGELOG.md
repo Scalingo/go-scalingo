@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* feat(projects): add edit project event
 * feat(projects): add delete project event
 * feat(projects): add new project created event
 
