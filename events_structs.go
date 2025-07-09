@@ -1014,14 +1014,6 @@ type EditProjectValue struct {
 
 type EditProjectValues []EditProjectValue
 
-func (e EditProjectValues) Names() string {
-	names := []string{}
-	for _, v := range e {
-		names = append(names, v.Name)
-	}
-	return strings.Join(names, ", ")
-}
-
 type EventEditProjectTypeData struct {
 	UpdatedValues EditProjectValues `json:"updated_values"`
 }
@@ -1032,9 +1024,11 @@ type EventEditProjectType struct {
 }
 
 func (ev *EventEditProjectType) String() string {
-	res := "project settings have been updated:"
-	if len(ev.TypeData.UpdatedValues) > 0 {
-		res += fmt.Sprintf(" %s", ev.TypeData.UpdatedValues.Names())
+	changes := []string{}
+
+	for _, v := range ev.TypeData.UpdatedValues {
+		changes = append(changes, fmt.Sprintf("%s modified from '%v' to '%v'", v.Name, v.OldValue, v.Value))
 	}
-	return res
+
+	return fmt.Sprintf("project settings have been changed: %s", strings.Join(changes, ", "))
 }
