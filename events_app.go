@@ -67,6 +67,8 @@ func (ev *EventRenameAppType) String() string {
 type EventUpdateAppProjectTypeData struct {
 	OldProjectName string `json:"old_project_name"`
 	NewProjectName string `json:"new_project_name"`
+	OldProjectID   string `json:"old_project_id"`
+	NewProjectID   string `json:"new_project_id"`
 }
 
 type EventUpdateAppProjectType struct {
@@ -76,8 +78,8 @@ type EventUpdateAppProjectType struct {
 
 func (ev *EventUpdateAppProjectType) String() string {
 	return fmt.Sprintf(
-		"the application has been moved from project '%s' to '%s'",
-		ev.TypeData.OldProjectName, ev.TypeData.NewProjectName,
+		"the application has been moved from project '%s' (%s) to '%s' (%s)",
+		ev.TypeData.OldProjectName, ev.TypeData.OldProjectID, ev.TypeData.NewProjectName, ev.TypeData.NewProjectID,
 	)
 }
 
