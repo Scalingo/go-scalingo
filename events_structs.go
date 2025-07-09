@@ -1032,7 +1032,7 @@ type EventEditProjectType struct {
 }
 
 func (ev *EventEditProjectType) String() string {
-	res := "project changes:"
+	res := "project settings have been updated:"
 	if len(ev.TypeData.UpdatedValues) > 0 {
 		res += fmt.Sprintf(" %s", ev.TypeData.UpdatedValues.Names())
 	}
