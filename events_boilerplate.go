@@ -23,6 +23,10 @@ func (e *EventRenameAppType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }
 
+func (e *EventUpdateAppProjectType) TypeDataPtr() interface{} {
+	return &e.TypeData
+}
+
 func (e *EventTransferAppType) TypeDataPtr() interface{} {
 	return &e.TypeData
 }

@@ -95,6 +95,17 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventChangeCollaboratorRoleType",
 		DetailedEventString: "user1@scalingo.com is now a Collaborator",
 	},
+	"test update app project event": {
+		Event: &Event{
+			User: EventUser{
+				Username: "user1",
+			},
+			Type:        EventUpdateAppProject,
+			RawTypeData: json.RawMessage([]byte(`{"old_project_name": "old-project", "new_project_name": "new-project", "old_project_id": "proj-123", "new_project_id": "proj-456"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventUpdateAppProjectType",
+		DetailedEventString: "the application has been moved from project 'old-project' (proj-123) to 'new-project' (proj-456)",
+	},
 	"test edit project values": {
 		Event: &Event{
 			User:        EventUser{},
