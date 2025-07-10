@@ -1,5 +1,7 @@
 # Changelog
 
+## To Be Released
+
 ## 8.2.0
 
 * feat(projects): add edit project event
