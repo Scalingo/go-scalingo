@@ -106,7 +106,15 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventUpdateAppProjectType",
 		DetailedEventString: "the application has been moved from project 'old-project' (proj-123) to 'new-project' (proj-456)",
 	},
-
+	"test edit project values": {
+		Event: &Event{
+			User:        EventUser{},
+			Type:        EventEditProject,
+			RawTypeData: json.RawMessage([]byte(`{"updated_values": [{"name":"name","value":"new-project-name","old_value":"initial-name"},{"name":"default","value":"true","old_value":"false"}]}`)),
+		},
+		DetailedEventName:   "*scalingo.EventEditProjectType",
+		DetailedEventString: "project settings have been updated: name modified from 'initial-name' to 'new-project-name', default modified from 'false' to 'true'",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {

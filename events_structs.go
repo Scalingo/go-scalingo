@@ -160,7 +160,9 @@ const (
 	EventUnlinkGithub EventTypeName = "unlink_github"
 
 	// Project scoped events
-	EventNewProject EventTypeName = "new_project"
+	EventDeleteProject EventTypeName = "delete_project"
+	EventNewProject    EventTypeName = "new_project"
+	EventEditProject   EventTypeName = "edit_project"
 )
 
 type EventNewUserType struct {
@@ -977,6 +979,19 @@ func (ev *EventCompleteDatabaseMaintenanceType) Who() string {
 	return ev.Event.Who()
 }
 
+// Project deleted
+type EventDeleteProjectTypeData struct {
+}
+
+type EventDeleteProjectType struct {
+	Event
+	TypeData EventDeleteProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventDeleteProjectType) String() string {
+	return fmt.Sprintf("The project '%s' has been deleted", ev.ProjectName)
+}
+
 // New project created
 type EventNewProjectTypeData struct {
 	Default bool `json:"default"`
@@ -989,4 +1004,32 @@ type EventNewProjectType struct {
 
 func (ev *EventNewProjectType) String() string {
 	return fmt.Sprintf("The project '%s' has been created", ev.ProjectName)
+}
+
+// Project edited
+type EditProjectValue struct {
+	Name     string `json:"name"`
+	Value    string `json:"value"`
+	OldValue string `json:"old_value"`
+}
+
+type EditProjectValues []EditProjectValue
+
+type EventEditProjectTypeData struct {
+	UpdatedValues EditProjectValues `json:"updated_values"`
+}
+
+type EventEditProjectType struct {
+	Event
+	TypeData EventEditProjectTypeData `json:"type_data"`
+}
+
+func (ev *EventEditProjectType) String() string {
+	changes := []string{}
+
+	for _, v := range ev.TypeData.UpdatedValues {
+		changes = append(changes, fmt.Sprintf("%s modified from '%v' to '%v'", v.Name, v.OldValue, v.Value))
+	}
+
+	return fmt.Sprintf("project settings have been updated: %s", strings.Join(changes, ", "))
 }
