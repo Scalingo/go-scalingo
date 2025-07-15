@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(collaborators): add update collaborator method
+
 ## 8.2.0
 
 * feat(projects): add edit project event
