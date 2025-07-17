@@ -36,7 +36,7 @@ func (m *MockCollaboratorsService) EXPECT() *MockCollaboratorsServiceMockRecorde
 }
 
 // CollaboratorAdd mocks base method.
-func (m *MockCollaboratorsService) CollaboratorAdd(arg0 context.Context, arg1, arg2 string) (scalingo.Collaborator, error) {
+func (m *MockCollaboratorsService) CollaboratorAdd(arg0 context.Context, arg1 string, arg2 scalingo.CollaboratorAddParams) (scalingo.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorAdd", arg0, arg1, arg2)
 	ret0, _ := ret[0].(scalingo.Collaborator)
@@ -62,6 +62,21 @@ func (m *MockCollaboratorsService) CollaboratorRemove(arg0 context.Context, arg1
 func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorRemove(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorRemove", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorRemove), arg0, arg1, arg2)
+}
+
+// CollaboratorUpdate mocks base method.
+func (m *MockCollaboratorsService) CollaboratorUpdate(arg0 context.Context, arg1, arg2 string, arg3 scalingo.CollaboratorUpdateParams) (scalingo.Collaborator, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CollaboratorUpdate", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(scalingo.Collaborator)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CollaboratorUpdate indicates an expected call of CollaboratorUpdate.
+func (mr *MockCollaboratorsServiceMockRecorder) CollaboratorUpdate(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CollaboratorUpdate", reflect.TypeOf((*MockCollaboratorsService)(nil).CollaboratorUpdate), arg0, arg1, arg2, arg3)
 }
 
 // CollaboratorsList mocks base method.
