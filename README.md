@@ -71,6 +71,8 @@ documentation](https://developers.scalingo.com/index#errors).
 
 ### Release a New Version
 
+#### Create the new release
+
 Bump new version number in:
 
 - `CHANGELOG.md`
@@ -99,3 +101,8 @@ gh release create v${version}
 
 The title of the release should be the version number and the text of the
 release is the same as the changelog.
+
+#### Document the new release on the documentation
+
+When a new version is released, it must be documented on the general [changelog](https://doc.scalingo.com/changelog).
+In order to do that, a new file must be created in this [folder](https://github.com/Scalingo/documentation/tree/master/src/changelog/sdk/_posts).
