@@ -122,7 +122,7 @@ var eventsSpecializeCases = map[string]struct {
 			RawTypeData: json.RawMessage([]byte(`{"project_id": "proj-123"}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDeleteProjectType",
-		DetailedEventString: "the project proj-123 has been deleted",
+		DetailedEventString: "The project proj-123 has been deleted",
 	},
 }
 
