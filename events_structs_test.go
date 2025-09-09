@@ -115,6 +115,16 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventEditProjectType",
 		DetailedEventString: "project settings have been updated: name modified from 'initial-name' to 'new-project-name', default modified from 'false' to 'true'",
 	},
+	"test delete project": {
+		Event: &Event{
+			User:        EventUser{},
+			Type:        EventDeleteProject,
+			ProjectName: "proj-123",
+			RawTypeData: json.RawMessage([]byte(`{"project_id": "p-123456"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDeleteProjectType",
+		DetailedEventString: "The project 'proj-123' has been deleted",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
