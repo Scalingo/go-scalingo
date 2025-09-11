@@ -82,7 +82,7 @@ Bump new version number in:
 Commit, tag and create a new release:
 
 ```sh
-version="8.4.0"
+version="8.4.1"
 
 git switch --create release/${version}
 git add CHANGELOG.md README.md version.go
