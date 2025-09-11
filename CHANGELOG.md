@@ -1,6 +1,9 @@
 # Changelog
 
 ## To Be Released
+
+## 8.4.1
+
 * feat(projects): add project_id to delete project event
 
 ## 8.4.0
