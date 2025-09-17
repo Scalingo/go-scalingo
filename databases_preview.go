@@ -16,9 +16,9 @@ type PreviewAPI interface {
 }
 
 type DatabasesPreviewService interface {
-	DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DedicatedDatabase, error)
-	DatabasesList(ctx context.Context) ([]DedicatedDatabase, error)
-	DatabaseShow(ctx context.Context, appID string) (DedicatedDatabaseShowResponse, error)
+	DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DatabaseNG, error)
+	DatabasesList(ctx context.Context) ([]DatabaseNG, error)
+	DatabaseShow(ctx context.Context, appID string) (DatabaseNG, error)
 	DatabaseDestroy(ctx context.Context, appID string) error
 }
 
@@ -31,15 +31,11 @@ type DatabaseCreateParams struct {
 	ProjectID       string `json:"project_id,omitempty"`
 }
 
-type DedicatedDatabase struct {
-	App   App   `json:"app"`
-	Addon Addon `json:"addon"`
-}
-
-type DedicatedDatabaseShowResponse struct {
-	App      App      `json:"app"`
-	Addon    Addon    `json:"addon"`
-	Database Database `json:"database"`
+// DatabaseNG stands for Database Next Generation.
+type DatabaseNG struct {
+	App      App       `json:"app"`
+	Addon    Addon     `json:"addon"`
+	Database *Database `json:"database,omitempty"`
 }
 
 type PreviewClient struct {
@@ -52,73 +48,75 @@ func NewPreviewClient(parent *Client) PreviewClient {
 	}
 }
 
-func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DedicatedDatabase, error) {
-	var res DedicatedDatabase
+func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DatabaseNG, error) {
+	var res DatabaseNG
+
 	err := c.parent.ScalingoAPI().ResourceAdd(ctx, databasesResource, params, &res)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "create dedicated database")
+		return res, errors.Wrap(ctx, err, "create database")
 	}
 	return res, nil
 }
 
-func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DedicatedDatabase, error) {
-	var res []DedicatedDatabase
+func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
+	var res []DatabaseNG
 
 	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &res)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "list dedicated databases")
+		return res, errors.Wrap(ctx, err, "list databases")
 	}
 	return res, nil
 }
 
-// DatabaseShow currently uses appID as the dedicated database identifier.
-func (c *PreviewClient) DatabaseShow(ctx context.Context, appID string) (DedicatedDatabaseShowResponse, error) {
-	var res DedicatedDatabaseShowResponse
+// DatabaseShow currently uses appID as the database identifier.
+func (c *PreviewClient) DatabaseShow(ctx context.Context, appID string) (DatabaseNG, error) {
+	var res DatabaseNG
 
-	dedicatedDatabase, err := c.searchDatabase(ctx, appID)
+	databaseNG, err := c.searchDatabase(ctx, appID)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "search dedicated database")
+		return res, errors.Wrap(ctx, err, "search database")
 	}
 
-	database, err := c.parent.DatabaseShow(ctx, dedicatedDatabase.App.ID, dedicatedDatabase.Addon.ID)
+	database, err := c.parent.DatabaseShow(ctx, databaseNG.App.ID, databaseNG.Addon.ID)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "show dedicated database")
+		return res, errors.Wrap(ctx, err, "show database")
 	}
 
-	res.App = dedicatedDatabase.App
-	res.Addon = dedicatedDatabase.Addon
-	res.Database = database
+	res.App = databaseNG.App
+	res.Addon = databaseNG.Addon
+	res.Database = &database
 
 	return res, nil
 }
 
-// DatabaseDestroy currently uses appID as the dedicated database identifier.
+// DatabaseDestroy currently uses appID as the database identifier.
 func (c *PreviewClient) DatabaseDestroy(ctx context.Context, appID string) error {
-	dedicatedDatabase, err := c.searchDatabase(ctx, appID)
+	database, err := c.searchDatabase(ctx, appID)
 	if err != nil {
-		return errors.Wrap(ctx, err, "search dedicated database")
+		return errors.Wrap(ctx, err, "search database")
 	}
 
-	appName := dedicatedDatabase.App.Name
+	appName := database.App.Name
+
 	err = c.parent.AppsDestroy(ctx, appName, appName)
 	if err != nil {
-		return errors.Wrap(ctx, err, "destroy dedicated database app")
+		return errors.Wrap(ctx, err, "destroy database app")
 	}
 	return nil
 }
 
 // searchDatabase performs a linear search through DatabasesList method result.
-func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (DedicatedDatabase, error) {
-	var res DedicatedDatabase
+func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (DatabaseNG, error) {
+	var res DatabaseNG
 
 	databases, err := c.DatabasesList(ctx)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "search dedicated database")
+		return res, errors.Wrap(ctx, err, "list databases")
 	}
 
-	for _, dedicatedDatabase := range databases {
-		if dedicatedDatabase.App.ID == appID {
-			return dedicatedDatabase, nil
+	for _, databaseNG := range databases {
+		if databaseNG.App.ID == appID {
+			return databaseNG, nil
 		}
 	}
 	return res, ErrDatabaseNotFound
