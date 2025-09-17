@@ -195,3 +195,8 @@ func (c *Client) AuthAPI() http.Client {
 
 	return client
 }
+
+// Dedicated databases APIs are actually available in preview only.
+func (c *Client) Preview() PreviewClient {
+	return NewPreviewClient(c)
+}
