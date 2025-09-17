@@ -2,7 +2,8 @@
 
 ## To Be Released
 
-* feat(dbng): add types and methods to handle databases next generation, available in preview
+- feat(client): create a new client for preview features
+- feat(databases): extend the preview client with types and methods to handle databases next generation
 
 ## 8.4.1
 
