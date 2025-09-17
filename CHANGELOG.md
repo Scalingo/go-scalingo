@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(dbng): add types and methods to handle databases next generation
+
 ## 8.4.1
 
 * feat(projects): add project_id to delete project event
