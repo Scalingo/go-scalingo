@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(dbng): add types and methods to handle databases next generation
+* feat(dbng): add types and methods to handle databases next generation, available in preview
 
 ## 8.4.1
 
