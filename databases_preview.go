@@ -24,13 +24,6 @@ type DatabasesPreviewService interface {
 
 var _ DatabasesPreviewService = (*PreviewClient)(nil)
 
-type DatabaseCreateParams struct {
-	AddonProviderID string `json:"addon_provider_id"`
-	PlanID          string `json:"plan_id"`
-	DatabaseName    string `json:"database_name"`
-	ProjectID       string `json:"project_id,omitempty"`
-}
-
 // DatabaseNG stands for Database Next Generation.
 type DatabaseNG struct {
 	App      App       `json:"app"`
@@ -46,6 +39,13 @@ func NewPreviewClient(parent *Client) *PreviewClient {
 	return &PreviewClient{
 		parent: parent,
 	}
+}
+
+type DatabaseCreateParams struct {
+	AddonProviderID string `json:"addon_provider_id"`
+	PlanID          string `json:"plan_id"`
+	DatabaseName    string `json:"database_name"`
+	ProjectID       string `json:"project_id,omitempty"`
 }
 
 func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DatabaseNG, error) {
