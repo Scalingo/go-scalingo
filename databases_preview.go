@@ -42,8 +42,8 @@ type PreviewClient struct {
 	parent *Client
 }
 
-func NewPreviewClient(parent *Client) PreviewClient {
-	return PreviewClient{
+func NewPreviewClient(parent *Client) *PreviewClient {
+	return &PreviewClient{
 		parent: parent,
 	}
 }

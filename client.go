@@ -197,6 +197,6 @@ func (c *Client) AuthAPI() http.Client {
 }
 
 // Preview returns the databases next generation APIs client, available as preview feature.
-func (c *Client) Preview() PreviewClient {
+func (c *Client) Preview() *PreviewClient {
 	return NewPreviewClient(c)
 }
