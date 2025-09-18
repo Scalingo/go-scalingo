@@ -44,7 +44,7 @@ func NewPreviewClient(parent *Client) *PreviewClient {
 type DatabaseCreateParams struct {
 	AddonProviderID string `json:"addon_provider_id"`
 	PlanID          string `json:"plan_id"`
-	DatabaseName    string `json:"database_name"`
+	Name            string `json:"name"`
 	ProjectID       string `json:"project_id,omitempty"`
 }
 
