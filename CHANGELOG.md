@@ -2,10 +2,12 @@
 
 ## To Be Released
 
+* feat(applications): create a new method to set the project
+
 ## 8.5.0
 
-- feat(client): create a new client for preview features
-- feat(databases): extend the preview client with types and methods to handle databases next generation
+* feat(client): create a new client for preview features
+* feat(databases): extend the preview client with types and methods to handle databases next generation
 
 ## 8.4.1
 
