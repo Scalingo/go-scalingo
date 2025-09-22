@@ -46,7 +46,7 @@ func (c *Client) PrivateNetworksDomainsList(ctx context.Context, app string, pag
 	params.Set("per-page", perPage)
 	req := &httpclient.APIRequest{
 		Method:   http.MethodGet,
-		Endpoint: "/apps/" + app + "/private-network-domain-names?" + params.Encode(),
+		Endpoint: "/apps/" + app + "/private_network_domain_names?" + params.Encode(),
 	}
 	var domainRes PrivateNetworkDomainsRes
 	err = c.ScalingoAPI().DoRequest(ctx, req, &domainRes)
