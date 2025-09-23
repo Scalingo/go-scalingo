@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.7.0
+
 * feat(applications): create a new method to set the project
 
 ## 8.6.0
