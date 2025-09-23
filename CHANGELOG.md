@@ -4,6 +4,10 @@
 
 * feat(applications): create a new method to set the project
 
+## 8.6.0
+
+* feat(private-networks): add private_networks service and method to list application private network domain names
+
 ## 8.5.0
 
 * feat(client): create a new client for preview features
