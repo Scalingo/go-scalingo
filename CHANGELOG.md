@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+## 8.6.0
+
+* feat(private-networks): add private_networks service and method to list application private network domain names
+
 ## 8.5.0
 
 - feat(client): create a new client for preview features
@@ -10,7 +14,6 @@
 ## 8.4.1
 
 * feat(projects): add project_id to delete project event
-* feat(private-networks): add private_networks service and method to list application private network domain names
 
 ## 8.4.0
 
