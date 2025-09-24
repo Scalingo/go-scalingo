@@ -88,7 +88,7 @@ git switch --create release/${version}
 git add CHANGELOG.md README.md version.go
 git commit -m "Bump v${version}"
 git push --set-upstream origin release/${version}
-gh pr create --reviewer=EtienneM --title "$(git log -1 --pretty=%B)"
+gh pr create --reviewer=scalingo/team-ist --title "$(git log -1 --pretty=%B)"
 ```
 
 Once the pull request merged, you can tag the new release.
