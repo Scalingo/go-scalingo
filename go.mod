@@ -4,12 +4,12 @@ go 1.24.0
 
 require (
 	github.com/Scalingo/go-utils/errors/v2 v2.5.1
-	github.com/Scalingo/go-utils/pagination v1.1.1
+	github.com/Scalingo/go-utils/pagination v1.1.2
 	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/websocket v1.5.3
 	github.com/stretchr/testify v1.11.1
-	golang.org/x/text v0.29.0
+	golang.org/x/text v0.30.0
 	gopkg.in/errgo.v1 v1.0.1
 )
 
