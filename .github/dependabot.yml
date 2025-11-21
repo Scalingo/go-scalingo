@@ -2,10 +2,10 @@ version: 2
 updates:
   - package-ecosystem: "gomod"
     directory: "/"
-    schedule:
-      interval: "monthly"
     allow:
       - dependency-type: "all"
+    schedule:
+      interval: "monthly"
     groups:
       dependencies:
         patterns:
