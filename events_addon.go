@@ -198,7 +198,6 @@ type EventDatabaseBackupSucceededTypeData struct {
 	BackupStatus string       `json:"backup_status"`
 	StartedAt    time.Time    `json:"started_at"`
 	EndedAt      time.Time    `json:"ended_at"`
-	IsRetriable  bool         `json:"is_retriable"`
 	EventSecurityTypeData
 }
 
@@ -216,17 +215,17 @@ func (ev *EventDatabaseBackupFailedType) Who() string {
 }
 
 func (ev *EventDatabaseBackupFailedType) String() string {
-	methodStr := "B"
+	methodStr := ""
 
 	switch ev.TypeData.BackupMethod {
 	case BackupMethodPeriodic:
-		methodStr = "Periodic b"
+		methodStr = "Periodic"
 	case BackupMethodManual:
-		methodStr = "Manual b"
+		methodStr = "Manual"
 	}
 
 	return fmt.Sprintf(
-		"%sackup %s for addon '%s' (%s) failed",
+		"%s backup %s for addon '%s' (%s) failed",
 		methodStr,
 		ev.TypeData.BackupID, ev.TypeData.AddonName, ev.TypeData.ResourceID,
 	)
@@ -241,6 +240,5 @@ type EventDatabaseBackupFailedTypeData struct {
 	BackupStatus string       `json:"backup_status"`
 	StartedAt    time.Time    `json:"started_at"`
 	EndedAt      time.Time    `json:"ended_at"`
-	IsRetriable  bool         `json:"is_retriable"`
 	EventSecurityTypeData
 }

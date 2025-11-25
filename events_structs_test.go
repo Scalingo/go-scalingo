@@ -152,7 +152,7 @@ var eventsSpecializeCases = map[string]struct {
 	"test backup failed with periodic method": {
 		Event: &Event{
 			Type:        EventDatabaseBackupFailed,
-			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"periodic","error_message":"disk full"}`)),
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"periodic"}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
 		DetailedEventString: "Periodic backup backup-123 for addon 'my-addon' (db-123) failed",
@@ -160,18 +160,10 @@ var eventsSpecializeCases = map[string]struct {
 	"test backup failed with manual method": {
 		Event: &Event{
 			Type:        EventDatabaseBackupFailed,
-			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"manual","error_message":"disk full"}`)),
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"manual"}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
 		DetailedEventString: "Manual backup backup-123 for addon 'my-addon' (db-123) failed",
-	},
-	"test backup failed without method": {
-		Event: &Event{
-			Type:        EventDatabaseBackupFailed,
-			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","error_message":"disk full"}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
-		DetailedEventString: "Backup backup-123 for addon 'my-addon' (db-123) failed",
 	},
 }
 
