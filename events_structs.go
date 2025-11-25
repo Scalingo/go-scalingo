@@ -69,6 +69,8 @@ type EventUser struct {
 	ID       string `json:"id"`
 }
 
+const ScalingoDeployUserEmail = "deploy@scalingo.com"
+
 type EventTypeName string
 
 const (
@@ -317,7 +319,7 @@ func (ev *EventRunType) String() string {
 }
 
 func (ev *EventRunType) Who() string {
-	if ev.User.Email == "deploy@scalingo.com" {
+	if ev.User.Email == ScalingoDeployUserEmail {
 		return "Scalingo Operator"
 	}
 

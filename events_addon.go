@@ -166,7 +166,7 @@ type EventDatabaseBackupSucceededType struct {
 }
 
 func (ev *EventDatabaseBackupSucceededType) Who() string {
-	if ev.User.Email == "deploy@scalingo.com" {
+	if ev.User.Email == ScalingoDeployUserEmail {
 		return "Scalingo Automated Backup Service"
 	}
 
@@ -207,7 +207,7 @@ type EventDatabaseBackupFailedType struct {
 }
 
 func (ev *EventDatabaseBackupFailedType) Who() string {
-	if ev.User.Email == "deploy@scalingo.com" {
+	if ev.User.Email == ScalingoDeployUserEmail {
 		return "Scalingo Automated Backup Service"
 	}
 
