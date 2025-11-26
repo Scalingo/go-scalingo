@@ -125,6 +125,46 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDeleteProjectType",
 		DetailedEventString: "The project 'proj-123' has been deleted",
 	},
+	"test backup succeeded with automated method": {
+		Event: &Event{
+			Type:        EventDatabaseBackupSucceeded,
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"automated"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseBackupSucceededType",
+		DetailedEventString: "Backup backup-123 for addon 'my-addon' (db-123) succeeded",
+	},
+	"test backup succeeded with manual method": {
+		Event: &Event{
+			Type:        EventDatabaseBackupSucceeded,
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"manual"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseBackupSucceededType",
+		DetailedEventString: "Manual backup backup-123 for addon 'my-addon' (db-123) succeeded",
+	},
+	"test backup succeeded without method": {
+		Event: &Event{
+			Type:        EventDatabaseBackupSucceeded,
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseBackupSucceededType",
+		DetailedEventString: "Backup backup-123 for addon 'my-addon' (db-123) succeeded",
+	},
+	"test backup failed with periodic method": {
+		Event: &Event{
+			Type:        EventDatabaseBackupFailed,
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"periodic"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
+		DetailedEventString: "Periodic backup backup-123 for addon 'my-addon' (db-123) failed",
+	},
+	"test backup failed with manual method": {
+		Event: &Event{
+			Type:        EventDatabaseBackupFailed,
+			RawTypeData: json.RawMessage([]byte(`{"addon_uuid":"addon-123","addon_name":"my-addon","resource_id":"db-123","backup_id":"backup-123","backup_method":"manual"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
+		DetailedEventString: "Manual backup backup-123 for addon 'my-addon' (db-123) failed",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
