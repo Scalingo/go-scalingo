@@ -118,7 +118,7 @@ func (c *Client) ProjectDelete(ctx context.Context, projectID string) error {
 
 func (c *Client) ProjectPrivateNetworkGet(ctx context.Context, projectID string) (ProjectPrivateNetwork, error) {
 	var privateNetwork ProjectPrivateNetwork
-	err := c.ScalingoAPI().SubresourceGet(ctx, projectResource, projectID, "private_network", "", nil, &privateNetwork)
+	err := c.ScalingoAPI().SubresourceList(ctx, projectResource, projectID, "private_network", nil, &privateNetwork)
 	if err != nil {
 		return ProjectPrivateNetwork{}, errors.Wrap(ctx, err, "get project private network")
 	}
