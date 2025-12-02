@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.7.2
+
 * feat(projects): get project private network information
 
 ## 8.7.1
