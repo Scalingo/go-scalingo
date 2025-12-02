@@ -76,8 +76,8 @@ func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error)
 		return res, errors.Wrap(ctx, err, "list databases")
 	}
 
-	for _, response := range listResp {
-		databaseNG, err := c.populateApiResponseWithAppAndAddon(ctx, response)
+	for _, apiResponse := range listResp {
+		databaseNG, err := c.populateApiResponseWithAppAndAddon(ctx, apiResponse)
 		if err != nil {
 			return res, errors.Wrap(ctx, err, "populate databaseNG")
 		}
@@ -132,21 +132,21 @@ func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (Datab
 }
 
 // populateApiResponseWithAppAndAddon populates a DatabaseNG without using the App and Addon from the databases endpoints.
-func (c *PreviewClient) populateApiResponseWithAppAndAddon(ctx context.Context, response databaseApiResponse) (DatabaseNG, error) {
-	var res DatabaseNG = response.Database
+func (c *PreviewClient) populateApiResponseWithAppAndAddon(ctx context.Context, apiResponse databaseApiResponse) (DatabaseNG, error) {
+	var res DatabaseNG = apiResponse.Database
 
-	addons, err := c.parent.AddonsList(ctx, response.Database.ID)
+	addons, err := c.parent.AddonsList(ctx, apiResponse.Database.ID)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "list addons")
 	}
 
-	appPtr, err := c.parent.AppsShow(ctx, response.Database.Name)
+	appPtr, err := c.parent.AppsShow(ctx, apiResponse.Database.Name)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "show app")
 	}
 	res.App = *appPtr
 
-	database, err := c.parent.DatabaseShow(ctx, response.Database.ID, addons[0].ID)
+	database, err := c.parent.DatabaseShow(ctx, apiResponse.Database.ID, addons[0].ID)
 	if err != nil {
 		fmt.Printf("Addons probably deleted for app: %+v\n", res.Name)
 	}
