@@ -133,7 +133,7 @@ func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (Datab
 
 // populateApiResponseWithAppAndAddon populates a DatabaseNG without using the App and Addon from the databases endpoints.
 func (c *PreviewClient) populateApiResponseWithAppAndAddon(ctx context.Context, apiResponse databaseApiResponse) (DatabaseNG, error) {
-	var res DatabaseNG = apiResponse.Database
+	var res = apiResponse.Database
 
 	addons, err := c.parent.AddonsList(ctx, apiResponse.Database.ID)
 	if err != nil {
