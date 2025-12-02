@@ -27,23 +27,17 @@ var _ DatabasesPreviewService = (*PreviewClient)(nil)
 
 // DatabaseNG stands for Database Next Generation.
 type DatabaseNG struct {
-	DatabaseInfo
-	Database *Database `json:"database,omitempty"`
-	App      App       `json:"app"`
+	ID         string    `json:"id"`
+	Name       string    `json:"name"`
+	ProjectID  string    `json:"project_id"`
+	Technology string    `json:"technology"`
+	Plan       string    `json:"plan"`
+	Database   *Database `json:"database,omitempty"`
+	App        App       `json:"app"`
 }
 
-type databaseNgResponse struct {
-	// App      App          `json:"app"` 	// Those fields will be removed
-	// Addon    Addon        `json:"addon"` // Those fields will be removed
-	Database DatabaseInfo `json:"database"`
-}
-
-type DatabaseInfo struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	ProjectID  string `json:"project_id"`
-	Technology string `json:"technology"`
-	Plan       string `json:"plan"`
+type databaseApiResponse struct {
+	Database DatabaseNG `json:"database"`
 }
 
 type PreviewClient struct {
@@ -75,7 +69,7 @@ func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreat
 
 func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
 	var res []DatabaseNG
-	var listResp []databaseNgResponse
+	var listResp []databaseApiResponse
 
 	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &listResp)
 	if err != nil {
@@ -83,7 +77,7 @@ func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error)
 	}
 
 	for _, response := range listResp {
-		databaseNG, err := c.formatDatabaseNG(ctx, response)
+		databaseNG, err := c.populateApiResponseWithAppAndAddon(ctx, response)
 		if err != nil {
 			return res, errors.Wrap(ctx, err, "populate databaseNG")
 		}
@@ -137,11 +131,9 @@ func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (Datab
 	return res, ErrDatabaseNotFound
 }
 
-// formatDatabaseNG populates a DatabaseNG without using the App and Addon from the databases endpoints.
-func (c *PreviewClient) formatDatabaseNG(ctx context.Context, response databaseNgResponse) (DatabaseNG, error) {
-	var res DatabaseNG
-
-	res.DatabaseInfo = response.Database
+// populateApiResponseWithAppAndAddon populates a DatabaseNG without using the App and Addon from the databases endpoints.
+func (c *PreviewClient) populateApiResponseWithAppAndAddon(ctx context.Context, response databaseApiResponse) (DatabaseNG, error) {
+	var res DatabaseNG = response.Database
 
 	addons, err := c.parent.AddonsList(ctx, response.Database.ID)
 	if err != nil {
