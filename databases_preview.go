@@ -33,8 +33,8 @@ type DatabaseNG struct {
 }
 
 type databaseNgResponse struct {
-	// App      App          `json:"app"` 	// Thoses fields will be removed
-	// Addon    Addon        `json:"addon"` // Thoses fields will be removed
+	// App      App          `json:"app"` 	// Those fields will be removed
+	// Addon    Addon        `json:"addon"` // Those fields will be removed
 	Database DatabaseInfo `json:"database"`
 }
 
