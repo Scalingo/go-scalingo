@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(databases): update databases preview service to use database object from API
+
 ## 8.8.0
 
 * feat(projects): get project private network information
