@@ -3,8 +3,8 @@ package scalingo
 import (
 	"context"
 	stderrors "errors"
-	"fmt"
 
+	"github.com/Scalingo/go-scalingo/v8/debug"
 	"github.com/Scalingo/go-utils/errors/v2"
 )
 
@@ -36,7 +36,7 @@ type DatabaseNG struct {
 	App        App       `json:"app"`
 }
 
-type databaseApiResponse struct {
+type databaseAPIResponse struct {
 	Database DatabaseNG `json:"database"`
 }
 
@@ -68,21 +68,22 @@ func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreat
 }
 
 func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
-	var res []DatabaseNG
-	var listResp []databaseApiResponse
+	var listRes []databaseAPIResponse
 
-	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &listResp)
+	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &listRes)
 	if err != nil {
-		return res, errors.Wrap(ctx, err, "list databases")
+		return nil, errors.Wrap(ctx, err, "list databases")
 	}
 
-	for _, apiResponse := range listResp {
-		databaseNG, err := c.populateApiResponseWithAppAndAddon(ctx, apiResponse)
+	res := make([]DatabaseNG, len(listRes))
+
+	for i, apiResponse := range listRes {
+		databaseNG, err := c.populateAPIResponse(ctx, apiResponse)
 		if err != nil {
-			return res, errors.Wrap(ctx, err, "populate databaseNG")
+			return nil, errors.Wrap(ctx, err, "populate databaseNG")
 		}
 
-		res = append(res, databaseNG)
+		res[i] = databaseNG
 	}
 
 	return res, nil
@@ -131,24 +132,34 @@ func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (Datab
 	return res, ErrDatabaseNotFound
 }
 
-// populateApiResponseWithAppAndAddon populates a DatabaseNG without using the App and Addon from the databases endpoints.
-func (c *PreviewClient) populateApiResponseWithAppAndAddon(ctx context.Context, apiResponse databaseApiResponse) (DatabaseNG, error) {
-	var res = apiResponse.Database
+// populateAPIResponse populates a DatabaseNG without using the App and Addon from the databases endpoints.
+func (c *PreviewClient) populateAPIResponse(ctx context.Context, apiResponse databaseAPIResponse) (DatabaseNG, error) {
+	var res DatabaseNG
+
+	res.ID = apiResponse.Database.ID
+	res.Name = apiResponse.Database.Name
+	res.ProjectID = apiResponse.Database.ProjectID
+	res.Technology = apiResponse.Database.Technology
+	res.Plan = apiResponse.Database.Plan
 
 	addons, err := c.parent.AddonsList(ctx, apiResponse.Database.ID)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "list addons")
 	}
 
-	appPtr, err := c.parent.AppsShow(ctx, apiResponse.Database.Name)
+	if len(addons) == 0 {
+		return res, errors.New(ctx, "no addons found for database")
+	}
+
+	app, err := c.parent.AppsShow(ctx, apiResponse.Database.Name)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "show app")
 	}
-	res.App = *appPtr
+	res.App = *app
 
 	database, err := c.parent.DatabaseShow(ctx, apiResponse.Database.ID, addons[0].ID)
 	if err != nil {
-		fmt.Printf("Addons probably deleted for app: %+v\n", res.Name)
+		debug.Printf("Addons probably deleted for app: %+v\n", res.Name)
 	}
 	res.Database = &database
 
