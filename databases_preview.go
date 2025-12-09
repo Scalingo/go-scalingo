@@ -27,13 +27,13 @@ var _ DatabasesPreviewService = (*PreviewClient)(nil)
 
 // DatabaseNG stands for Database Next Generation.
 type DatabaseNG struct {
-	ID         string    `json:"id"`
-	Name       string    `json:"name"`
-	ProjectID  string    `json:"project_id"`
-	Technology string    `json:"technology"`
-	Plan       string    `json:"plan"`
-	Database   *Database `json:"database,omitempty"`
-	App        App       `json:"app"`
+	ID         string   `json:"id"`
+	Name       string   `json:"name"`
+	ProjectID  string   `json:"project_id"`
+	Technology string   `json:"technology"`
+	Plan       string   `json:"plan"`
+	Database   Database `json:"database"`
+	App        App      `json:"app"`
 }
 
 type databaseListItem struct {
@@ -157,11 +157,10 @@ func (c *PreviewClient) populateAPIResponse(ctx context.Context, apiResponse dat
 	}
 	databaseNG.App = *app
 
-	database, err := c.parent.DatabaseShow(ctx, apiResponse.Database.ID, addons[0].ID)
+	databaseNG.Database, err = c.parent.DatabaseShow(ctx, apiResponse.Database.ID, addons[0].ID)
 	if err != nil {
 		debug.Printf("Addon has been removed from app: %+v\n", databaseNG.Name)
 	}
-	databaseNG.Database = &database
 
 	return databaseNG, nil
 }
