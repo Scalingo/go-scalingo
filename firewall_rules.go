@@ -12,9 +12,9 @@ const firewallRulesResource = "firewall_rules"
 var ErrFirewallRuleNotFound = stderrors.New("firewall rule not found")
 
 type FirewallRulesService interface {
-	FirewallRulesCreate(ctx context.Context, databaseID string, params FirewallRuleCreateParams) (FirewallRule, error)
-	FirewallRulesList(ctx context.Context, databaseID string) ([]FirewallRule, error)
-	FirewallRulesDestroy(ctx context.Context, databaseID string, firewallRuleID string) error
+	FirewallRulesCreate(ctx context.Context, database Database, params FirewallRuleCreateParams) (FirewallRule, error)
+	FirewallRulesList(ctx context.Context, database Database) ([]FirewallRule, error)
+	FirewallRulesDestroy(ctx context.Context, database Database, firewallRuleID string) error
 	FirewallRulesGetManagedRanges(ctx context.Context) ([]string, error)
 }
 
@@ -36,20 +36,20 @@ type FirewallRule struct {
 
 var _ FirewallRulesService = (*PreviewClient)(nil)
 
-func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, databaseID string, params FirewallRuleCreateParams) (FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, database Database, params FirewallRuleCreateParams) (FirewallRule, error) {
 	var res FirewallRule
 
-	err := c.parent.ScalingoAPI().SubresourceAdd(ctx, databasesResource, databaseID, firewallRulesResource, params, &res)
+	err := c.parent.DBAPI(database.app_id, database.ID).SubresourceAdd(ctx, databasesResource, database.ID, firewallRulesResource, params, &res)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "create firewall rule")
 	}
 	return res, nil
 }
 
-func (c *PreviewClient) FirewallRulesList(ctx context.Context, databaseID string) ([]FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesList(ctx context.Context, database Database) ([]FirewallRule, error) {
 	var res []FirewallRule
 
-	err := c.parent.ScalingoAPI().SubresourceList(ctx, databasesResource, databaseID, firewallRulesResource, nil, &res)
+	err := c.parent.DBAPI(app, addonID).SubresourceList(ctx, databasesResource, databaseID, firewallRulesResource, nil, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list firewall rules")
 	}
@@ -57,8 +57,8 @@ func (c *PreviewClient) FirewallRulesList(ctx context.Context, databaseID string
 	return res, nil
 }
 
-func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, databaseID string, firewallRuleID string) error {
-	err := c.parent.ScalingoAPI().SubresourceDelete(ctx, databasesResource, databaseID, firewallRulesResource, firewallRuleID)
+func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, database Database, firewallRuleID string) error {
+	err := c.parent.DBAPI(app, addonID).SubresourceDelete(ctx, databasesResource, databaseID, firewallRulesResource, firewallRuleID)
 	if err != nil {
 		return errors.Wrap(ctx, err, "destroy firewall rule")
 	}
@@ -68,7 +68,7 @@ func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, databaseID str
 func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context) ([]string, error) {
 	var res []string
 
-	err := c.parent.ScalingoAPI().SubresourceList(ctx, databasesResource, "", "managed_ranges", nil, &res)
+	err := c.parent.DBAPI(app, addonID).SubresourceList(ctx, databasesResource, "", "managed_ranges", nil, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get managed ranges")
 	}
