@@ -130,5 +130,6 @@ func (c *PreviewClient) getAddonID(ctx context.Context, database DatabaseNG) (st
 		return "", errors.Wrap(ctx, err, "list addons")
 	}
 
+	// There is only one addon per app for databases next gen
 	return res[0].ID, nil
 }

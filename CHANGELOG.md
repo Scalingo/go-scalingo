@@ -3,6 +3,7 @@
 ## To Be Released
 
 * feat(databases): update databases preview service to use database object from API
+* feat(databases): add firewall rules management for databases next generation
 
 ## 8.8.0
 
