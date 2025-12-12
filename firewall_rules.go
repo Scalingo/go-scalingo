@@ -2,15 +2,12 @@ package scalingo
 
 import (
 	"context"
-	stderrors "errors"
 
 	httpclient "github.com/Scalingo/go-scalingo/v8/http"
 	"github.com/Scalingo/go-utils/errors/v2"
 )
 
 const firewallRulesResource = "firewall_rules"
-
-var ErrFirewallRuleNotFound = stderrors.New("firewall rule not found")
 
 type FirewallRuleType string
 
