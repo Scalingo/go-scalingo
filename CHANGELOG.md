@@ -4,6 +4,7 @@
 
 * feat(databases): update databases preview service to use database object from API
 * feat(databases): add firewall rules management for databases next generation
+* feat(addons): add support of `trial_available` attribute
 
 ## 8.8.0
 
