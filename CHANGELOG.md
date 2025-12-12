@@ -1,6 +1,6 @@
 # Changelog
 
-## To Be Released
+## 8.9.0
 
 * feat(databases): update databases preview service to use database object from API
 * feat(addons): add support of `to_be_discontinued` attribute
