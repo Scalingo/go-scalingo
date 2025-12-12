@@ -1,6 +1,6 @@
 # Changelog
 
-## To Be Released
+## 8.9.0
 
 * feat(databases): update databases preview service to use database object from API
 * feat(databases): add firewall rules management for databases next generation
