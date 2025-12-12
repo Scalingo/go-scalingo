@@ -20,10 +20,10 @@ const (
 )
 
 type FirewallRulesService interface {
-	FirewallRulesCreate(ctx context.Context, database DatabaseNG, params FirewallRuleCreateParams) (FirewallRule, error)
-	FirewallRulesList(ctx context.Context, database DatabaseNG) ([]FirewallRule, error)
-	FirewallRulesDestroy(ctx context.Context, database DatabaseNG, firewallRuleID string) error
-	FirewallRulesGetManagedRanges(ctx context.Context, database DatabaseNG) ([]FirewallManagedRange, error)
+	FirewallRulesCreate(ctx context.Context, AppID string, AddonID string, params FirewallRuleCreateParams) (FirewallRule, error)
+	FirewallRulesList(ctx context.Context, AppID string, AddonID string) ([]FirewallRule, error)
+	FirewallRulesDestroy(ctx context.Context, AppID string, AddonID string, firewallRuleID string) error
+	FirewallRulesGetManagedRanges(ctx context.Context, AppID string, AddonID string) ([]FirewallManagedRange, error)
 }
 
 type FirewallManagedRange struct {
@@ -57,30 +57,20 @@ type FirewallRulesResponse struct {
 
 var _ FirewallRulesService = (*PreviewClient)(nil)
 
-func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, database DatabaseNG, params FirewallRuleCreateParams) (FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, AppID string, AddonID string, params FirewallRuleCreateParams) (FirewallRule, error) {
 	var res FirewallRule
 
-	addonID, err := c.getAddonID(ctx, database)
-	if err != nil {
-		return res, errors.Wrap(ctx, err, "get addon ID")
-	}
-
-	err = c.parent.DBAPI(database.App.ID, addonID).SubresourceAdd(ctx, "databases", addonID, firewallRulesResource, params, &res)
+	err := c.parent.DBAPI(AppID, AddonID).SubresourceAdd(ctx, "databases", AddonID, firewallRulesResource, params, &res)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "create firewall rule")
 	}
 	return res, nil
 }
 
-func (c *PreviewClient) FirewallRulesList(ctx context.Context, database DatabaseNG) ([]FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesList(ctx context.Context, AppID string, AddonID string) ([]FirewallRule, error) {
 	var res FirewallRulesResponse
 
-	addonID, err := c.getAddonID(ctx, database)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "get addon ID")
-	}
-
-	err = c.parent.DBAPI(database.App.ID, addonID).SubresourceList(ctx, "databases", addonID, firewallRulesResource, nil, &res)
+	err := c.parent.DBAPI(AppID, AddonID).SubresourceList(ctx, "databases", AddonID, firewallRulesResource, nil, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list firewall rules")
 	}
@@ -88,48 +78,26 @@ func (c *PreviewClient) FirewallRulesList(ctx context.Context, database Database
 	return res.FirewallRules, nil
 }
 
-func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, database DatabaseNG, firewallRuleID string) error {
-	addonID, err := c.getAddonID(ctx, database)
-	if err != nil {
-		return errors.Wrap(ctx, err, "get addon ID")
-	}
-
-	err = c.parent.DBAPI(database.App.ID, addonID).SubresourceDelete(ctx, "databases", addonID, firewallRulesResource, firewallRuleID)
+func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, AppID string, AddonID string, firewallRuleID string) error {
+	err := c.parent.DBAPI(AppID, AddonID).SubresourceDelete(ctx, "databases", AddonID, firewallRulesResource, firewallRuleID)
 	if err != nil {
 		return errors.Wrap(ctx, err, "destroy firewall rule")
 	}
 	return nil
 }
 
-func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, database DatabaseNG) ([]FirewallManagedRange, error) {
+func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, AppID string, AddonID string) ([]FirewallManagedRange, error) {
 	var res FirewallManagedRangesResponse
-
-	addonID, err := c.getAddonID(ctx, database)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "get addon ID")
-	}
 
 	req := &httpclient.APIRequest{
 		Method:   "GET",
 		Endpoint: "/firewall/managed_ranges",
 	}
 
-	err = c.parent.DBAPI(database.App.ID, addonID).DoRequest(ctx, req, &res)
+	err := c.parent.DBAPI(AppID, AddonID).DoRequest(ctx, req, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get managed ranges")
 	}
 
 	return res.ManagedRanges, nil
-}
-
-func (c *PreviewClient) getAddonID(ctx context.Context, database DatabaseNG) (string, error) {
-	var res []*Addon
-
-	res, err := c.parent.AddonsList(ctx, database.ID)
-	if err != nil {
-		return "", errors.Wrap(ctx, err, "list addons")
-	}
-
-	// There is only one addon per app for databases next gen
-	return res[0].ID, nil
 }
