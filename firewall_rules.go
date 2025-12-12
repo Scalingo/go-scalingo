@@ -20,10 +20,10 @@ const (
 )
 
 type FirewallRulesService interface {
-	FirewallRulesCreate(ctx context.Context, AppID string, AddonID string, params FirewallRuleCreateParams) (FirewallRule, error)
-	FirewallRulesList(ctx context.Context, AppID string, AddonID string) ([]FirewallRule, error)
-	FirewallRulesDestroy(ctx context.Context, AppID string, AddonID string, firewallRuleID string) error
-	FirewallRulesGetManagedRanges(ctx context.Context, AppID string, AddonID string) ([]FirewallManagedRange, error)
+	FirewallRulesCreate(ctx context.Context, appID string, addonID string, params FirewallRuleCreateParams) (FirewallRule, error)
+	FirewallRulesList(ctx context.Context, appID string, addonID string) ([]FirewallRule, error)
+	FirewallRulesDestroy(ctx context.Context, appID string, addonID string, firewallRuleID string) error
+	FirewallRulesGetManagedRanges(ctx context.Context, appID string, addonID string) ([]FirewallManagedRange, error)
 }
 
 type FirewallManagedRange struct {
@@ -57,20 +57,20 @@ type FirewallRulesResponse struct {
 
 var _ FirewallRulesService = (*PreviewClient)(nil)
 
-func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, AppID string, AddonID string, params FirewallRuleCreateParams) (FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesCreate(ctx context.Context, appID string, addonID string, params FirewallRuleCreateParams) (FirewallRule, error) {
 	var res FirewallRule
 
-	err := c.parent.DBAPI(AppID, AddonID).SubresourceAdd(ctx, "databases", AddonID, firewallRulesResource, params, &res)
+	err := c.parent.DBAPI(appID, addonID).SubresourceAdd(ctx, "databases", addonID, firewallRulesResource, params, &res)
 	if err != nil {
 		return res, errors.Wrap(ctx, err, "create firewall rule")
 	}
 	return res, nil
 }
 
-func (c *PreviewClient) FirewallRulesList(ctx context.Context, AppID string, AddonID string) ([]FirewallRule, error) {
+func (c *PreviewClient) FirewallRulesList(ctx context.Context, appID string, addonID string) ([]FirewallRule, error) {
 	var res FirewallRulesResponse
 
-	err := c.parent.DBAPI(AppID, AddonID).SubresourceList(ctx, "databases", AddonID, firewallRulesResource, nil, &res)
+	err := c.parent.DBAPI(appID, addonID).SubresourceList(ctx, "databases", addonID, firewallRulesResource, nil, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list firewall rules")
 	}
@@ -78,15 +78,15 @@ func (c *PreviewClient) FirewallRulesList(ctx context.Context, AppID string, Add
 	return res.FirewallRules, nil
 }
 
-func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, AppID string, AddonID string, firewallRuleID string) error {
-	err := c.parent.DBAPI(AppID, AddonID).SubresourceDelete(ctx, "databases", AddonID, firewallRulesResource, firewallRuleID)
+func (c *PreviewClient) FirewallRulesDestroy(ctx context.Context, appID string, addonID string, firewallRuleID string) error {
+	err := c.parent.DBAPI(appID, addonID).SubresourceDelete(ctx, "databases", addonID, firewallRulesResource, firewallRuleID)
 	if err != nil {
 		return errors.Wrap(ctx, err, "destroy firewall rule")
 	}
 	return nil
 }
 
-func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, AppID string, AddonID string) ([]FirewallManagedRange, error) {
+func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, appID string, addonID string) ([]FirewallManagedRange, error) {
 	var res FirewallManagedRangesResponse
 
 	req := &httpclient.APIRequest{
@@ -94,7 +94,7 @@ func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, AppID
 		Endpoint: "/firewall/managed_ranges",
 	}
 
-	err := c.parent.DBAPI(AppID, AddonID).DoRequest(ctx, req, &res)
+	err := c.parent.DBAPI(appID, addonID).DoRequest(ctx, req, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get managed ranges")
 	}
