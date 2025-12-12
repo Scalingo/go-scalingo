@@ -26,6 +26,7 @@ type Plan struct {
 	DisabledAlternativePlanID bool   `json:"disabled_alternative_plan_id"`
 	SKU                       string `json:"sku"`
 	HDSAvailable              bool   `json:"hds_available"`
+	TrialAvailable            bool   `json:"trial_available"`
 }
 
 type PlansParams struct {
