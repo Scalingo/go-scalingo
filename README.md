@@ -1,4 +1,4 @@
-# Go client for Scalingo API v8.9.0
+# Go client for Scalingo API v8.9.1
 
 This repository is the Go client for the [Scalingo APIs](https://developers.scalingo.com/).
 
