@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* fix(database next generation): fix database object returned by create method [451](https://github.com/Scalingo/go-scalingo/pull/451)
+
 ## 8.9.0
 
 * feat(databases): update databases preview service to use database object from API
