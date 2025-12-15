@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.9.1
+
 * fix(database next generation): fix database object returned by create method [451](https://github.com/Scalingo/go-scalingo/pull/451)
 
 ## 8.9.0
