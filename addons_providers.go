@@ -23,7 +23,7 @@ type Plan struct {
 	Position                  int    `json:"position"`
 	OnDemand                  bool   `json:"on_demand"`
 	Disabled                  bool   `json:"disabled"`
-	DisabledAlternativePlanID bool   `json:"disabled_alternative_plan_id"`
+	DisabledAlternativePlanID string `json:"disabled_alternative_plan_id"`
 	SKU                       string `json:"sku"`
 	HDSAvailable              bool   `json:"hds_available"`
 	ToBeDiscontinued          bool   `json:"to_be_discontinued"`
