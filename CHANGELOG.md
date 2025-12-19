@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.9.2
+
 * fix(addons-providers): change DisabledAlternativePlanID type to string
 
 ## 8.9.1
