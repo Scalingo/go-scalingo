@@ -98,7 +98,3 @@ func (c *Client) AddonProviderPlansList(ctx context.Context, addon string) ([]*P
 	}
 	return params.Plans, nil
 }
-
-func (c *Client) IsAuthenticatedClient() bool {
-	return c.ScalingoAPI().IsAuthenticatedClient()
-}
