@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(plans): add isAuthenticatedClient method as NoAuth APIRequest param
+
 ## 8.7.1
 
 * feat(events) add database backup events
