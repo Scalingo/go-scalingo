@@ -60,7 +60,7 @@ type ListParams struct {
 
 func (c *Client) AddonProvidersList(ctx context.Context) ([]*AddonProvider, error) {
 	req := &http.APIRequest{
-		NoAuth:   !c.IsAuthenticatedClient(),
+		NoAuth:   !c.isAuthenticatedClient(),
 		Endpoint: "/addon_providers",
 	}
 	var params ListParams
@@ -89,7 +89,7 @@ func (c *Client) AddonProviderPlansList(ctx context.Context, addon string) ([]*P
 
 	var params PlansParams
 	req := &http.APIRequest{
-		NoAuth:   !c.IsAuthenticatedClient(),
+		NoAuth:   !c.isAuthenticatedClient(),
 		Endpoint: "/addon_providers/" + addon + "/plans",
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &params)

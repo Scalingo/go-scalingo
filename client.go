@@ -202,6 +202,6 @@ func (c *Client) Preview() *PreviewClient {
 	return NewPreviewClient(c)
 }
 
-func (c *Client) IsAuthenticatedClient() bool {
+func (c *Client) isAuthenticatedClient() bool {
 	return c.ScalingoAPI().IsAuthenticatedClient()
 }
