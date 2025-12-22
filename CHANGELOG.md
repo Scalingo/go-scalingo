@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(plans): add the use of token authentication when the client is already authenticated
+
 ## 8.9.2
 
 * fix(addons-providers): change DisabledAlternativePlanID type to string
