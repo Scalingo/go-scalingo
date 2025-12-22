@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(plans): add isAuthenticatedClient method as NoAuth APIRequest param
+* feat(plans): add the use of token authentication when the client is already authenticated
 
 ## 8.9.2
 
