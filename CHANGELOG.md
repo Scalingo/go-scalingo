@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 8.10.0
+
 * feat(plans): add the use of token authentication when the client is already authenticated
 
 ## 8.9.2
