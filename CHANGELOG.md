@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* BREAKING: feat(addon-provider-plans): allow to show all plans for a given addon provider, including non-available ones
+
 ## 8.10.1
 
 * fix(firewall): use response wrapper for FirewallRulesCreate
