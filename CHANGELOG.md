@@ -4,7 +4,7 @@
 
 ## 9.0.1
 
-* fix(release): Fix v9.0
+* fix(release): Fix v9.0.0
 
 ## 9.0.0
 
