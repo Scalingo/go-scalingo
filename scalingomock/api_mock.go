@@ -11,6 +11,7 @@ import (
 
 	scalingo "github.com/Scalingo/go-scalingo/v8"
 	http "github.com/Scalingo/go-scalingo/v8/http"
+	pagination "github.com/Scalingo/go-utils/pagination"
 	gomock "github.com/golang/mock/gomock"
 	websocket "github.com/gorilla/websocket"
 )
@@ -83,18 +84,18 @@ func (mr *MockAPIMockRecorder) AddonLogsURL(arg0, arg1, arg2 interface{}) *gomoc
 }
 
 // AddonProviderPlansList mocks base method.
-func (m *MockAPI) AddonProviderPlansList(arg0 context.Context, arg1 string) ([]*scalingo.Plan, error) {
+func (m *MockAPI) AddonProviderPlansList(arg0 context.Context, arg1 string, arg2 scalingo.AddonProviderPlansListOpts) ([]*scalingo.Plan, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0, arg1)
+	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0, arg1, arg2)
 	ret0, _ := ret[0].([]*scalingo.Plan)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // AddonProviderPlansList indicates an expected call of AddonProviderPlansList.
-func (mr *MockAPIMockRecorder) AddonProviderPlansList(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockAPIMockRecorder) AddonProviderPlansList(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAPI)(nil).AddonProviderPlansList), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAPI)(nil).AddonProviderPlansList), arg0, arg1, arg2)
 }
 
 // AddonProvidersList mocks base method.
@@ -1422,6 +1423,21 @@ func (m *MockAPI) OperationsShow(arg0 context.Context, arg1, arg2 string) (*scal
 func (mr *MockAPIMockRecorder) OperationsShow(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OperationsShow", reflect.TypeOf((*MockAPI)(nil).OperationsShow), arg0, arg1, arg2)
+}
+
+// PrivateNetworksDomainsList mocks base method.
+func (m *MockAPI) PrivateNetworksDomainsList(arg0 context.Context, arg1 string, arg2, arg3 uint) (pagination.Paginated[[]string], error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "PrivateNetworksDomainsList", arg0, arg1, arg2, arg3)
+	ret0, _ := ret[0].(pagination.Paginated[[]string])
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// PrivateNetworksDomainsList indicates an expected call of PrivateNetworksDomainsList.
+func (mr *MockAPIMockRecorder) PrivateNetworksDomainsList(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PrivateNetworksDomainsList", reflect.TypeOf((*MockAPI)(nil).PrivateNetworksDomainsList), arg0, arg1, arg2, arg3)
 }
 
 // RegionsList mocks base method.

@@ -36,18 +36,18 @@ func (m *MockAddonProvidersService) EXPECT() *MockAddonProvidersServiceMockRecor
 }
 
 // AddonProviderPlansList mocks base method.
-func (m *MockAddonProvidersService) AddonProviderPlansList(arg0 context.Context, arg1 string) ([]*scalingo.Plan, error) {
+func (m *MockAddonProvidersService) AddonProviderPlansList(arg0 context.Context, arg1 string, arg2 scalingo.AddonProviderPlansListOpts) ([]*scalingo.Plan, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0, arg1)
+	ret := m.ctrl.Call(m, "AddonProviderPlansList", arg0, arg1, arg2)
 	ret0, _ := ret[0].([]*scalingo.Plan)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // AddonProviderPlansList indicates an expected call of AddonProviderPlansList.
-func (mr *MockAddonProvidersServiceMockRecorder) AddonProviderPlansList(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockAddonProvidersServiceMockRecorder) AddonProviderPlansList(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAddonProvidersService)(nil).AddonProviderPlansList), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddonProviderPlansList", reflect.TypeOf((*MockAddonProvidersService)(nil).AddonProviderPlansList), arg0, arg1, arg2)
 }
 
 // AddonProvidersList mocks base method.

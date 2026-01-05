@@ -2,6 +2,8 @@ package scalingo
 
 import (
 	"context"
+	"net/url"
+	"strconv"
 
 	"gopkg.in/errgo.v1"
 
@@ -10,7 +12,7 @@ import (
 
 type AddonProvidersService interface {
 	AddonProvidersList(context.Context) ([]*AddonProvider, error)
-	AddonProviderPlansList(ctx context.Context, addon string) ([]*Plan, error)
+	AddonProviderPlansList(ctx context.Context, addon string, opts AddonProviderPlansListOpts) ([]*Plan, error)
 }
 
 var _ AddonProvidersService = (*Client)(nil)
@@ -30,8 +32,12 @@ type Plan struct {
 	TrialAvailable            bool   `json:"trial_available"`
 }
 
-type PlansParams struct {
+type AddonProviderPlansListResponse struct {
 	Plans []*Plan `json:"plans"`
+}
+
+type AddonProviderPlansListOpts struct {
+	ShowAll bool
 }
 
 type Category struct {
@@ -54,7 +60,7 @@ type AddonProvider struct {
 	Plans            []Plan   `json:"plans"`
 }
 
-type ListParams struct {
+type AddonProvidersListResponse struct {
 	AddonProviders []*AddonProvider `json:"addon_providers"`
 }
 
@@ -63,13 +69,13 @@ func (c *Client) AddonProvidersList(ctx context.Context) ([]*AddonProvider, erro
 		NoAuth:   !c.isAuthenticatedClient(),
 		Endpoint: "/addon_providers",
 	}
-	var params ListParams
-	err := c.ScalingoAPI().DoRequest(ctx, req, &params)
+	var response AddonProvidersListResponse
+	err := c.ScalingoAPI().DoRequest(ctx, req, &response)
 	if err != nil {
 		return nil, errgo.Mask(err)
 	}
 
-	return params.AddonProviders, nil
+	return response.AddonProviders, nil
 }
 
 var addonProviderTypo = map[string]string{
@@ -81,20 +87,23 @@ var addonProviderTypo = map[string]string{
 	"scalingo-psql":     "scalingo-postgresql",
 }
 
-func (c *Client) AddonProviderPlansList(ctx context.Context, addon string) ([]*Plan, error) {
+func (c *Client) AddonProviderPlansList(ctx context.Context, addon string, opts AddonProviderPlansListOpts) ([]*Plan, error) {
 	correctAddon, ok := addonProviderTypo[addon]
 	if ok {
 		addon = correctAddon
 	}
 
-	var params PlansParams
+	params := url.Values{}
+	params.Set("show_all", strconv.FormatBool(opts.ShowAll))
+
+	var response AddonProviderPlansListResponse
 	req := &http.APIRequest{
 		NoAuth:   !c.isAuthenticatedClient(),
-		Endpoint: "/addon_providers/" + addon + "/plans",
+		Endpoint: "/addon_providers/" + addon + "/plans?" + params.Encode(),
 	}
-	err := c.ScalingoAPI().DoRequest(ctx, req, &params)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &response)
 	if err != nil {
 		return nil, errgo.Notef(err, "fail to get plans")
 	}
-	return params.Plans, nil
+	return response.Plans, nil
 }
