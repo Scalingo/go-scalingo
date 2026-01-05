@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/Scalingo/go-scalingo/v8/http"
+	"github.com/Scalingo/go-scalingo/v9/http"
 	errors "github.com/Scalingo/go-utils/errors/v2"
 )
 

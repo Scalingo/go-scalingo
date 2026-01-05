@@ -1,4 +1,4 @@
-module github.com/Scalingo/go-scalingo/v8
+module github.com/Scalingo/go-scalingo/v9
 
 go 1.24.0
 

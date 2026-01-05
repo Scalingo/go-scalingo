@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strconv"
 
-	httpclient "github.com/Scalingo/go-scalingo/v8/http"
+	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 	"github.com/Scalingo/go-utils/errors/v2"
 	"github.com/Scalingo/go-utils/pagination"
 )

@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	httpclient "github.com/Scalingo/go-scalingo/v8/http"
+	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 	"github.com/Scalingo/go-utils/errors/v2"
 )
 
