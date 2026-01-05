@@ -13,8 +13,8 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v8/debug"
-	pkgio "github.com/Scalingo/go-scalingo/v8/io"
+	"github.com/Scalingo/go-scalingo/v9/debug"
+	pkgio "github.com/Scalingo/go-scalingo/v9/io"
 )
 
 type APIRequest struct {

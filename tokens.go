@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v8/http"
+	"github.com/Scalingo/go-scalingo/v9/http"
 )
 
 type TokensService interface {

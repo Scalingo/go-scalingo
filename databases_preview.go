@@ -4,7 +4,7 @@ import (
 	"context"
 	stderrors "errors"
 
-	"github.com/Scalingo/go-scalingo/v8/debug"
+	"github.com/Scalingo/go-scalingo/v9/debug"
 	"github.com/Scalingo/go-utils/errors/v2"
 )
 

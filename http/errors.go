@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v8/debug"
+	"github.com/Scalingo/go-scalingo/v9/debug"
 	errorspkg "github.com/Scalingo/go-utils/errors/v2"
 )
 
