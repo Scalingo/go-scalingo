@@ -9,12 +9,11 @@ import (
 	http0 "net/http"
 	reflect "reflect"
 
-	gomock "github.com/golang/mock/gomock"
-	websocket "github.com/gorilla/websocket"
-
 	scalingo "github.com/Scalingo/go-scalingo/v9"
 	http "github.com/Scalingo/go-scalingo/v9/http"
 	pagination "github.com/Scalingo/go-utils/pagination"
+	gomock "github.com/golang/mock/gomock"
+	websocket "github.com/gorilla/websocket"
 )
 
 // MockAPI is a mock of API interface.

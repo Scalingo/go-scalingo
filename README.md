@@ -8,7 +8,7 @@ This repository is the Go client for the [Scalingo APIs](https://developers.scal
 package main
 
 import (
-	"github.com/Scalingo/go-scalingo/v8"
+	"github.com/Scalingo/go-scalingo/v9"
 )
 
 func getClient() (*scalingo.Client, error) {
@@ -76,7 +76,7 @@ Bump new version number in:
 - `CHANGELOG.md`
 - `README.md`
 - `version.go`
-- `go.mod` and all imports in case of a new major version
+- `go.mod`, `mocks.json` and all imports in case of a new major version
 
 Commit, tag and create a new release:
 
