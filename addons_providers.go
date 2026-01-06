@@ -99,7 +99,8 @@ func (c *Client) AddonProviderPlansList(ctx context.Context, addon string, opts 
 	var response AddonProviderPlansListResponse
 	req := &http.APIRequest{
 		NoAuth:   !c.isAuthenticatedClient(),
-		Endpoint: "/addon_providers/" + addon + "/plans?" + params.Encode(),
+		Endpoint: "/addon_providers/" + addon + "/plans",
+		Params:   params,
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &response)
 	if err != nil {
