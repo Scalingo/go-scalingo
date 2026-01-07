@@ -1,7 +1,6 @@
 package scalingo
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -13,7 +12,7 @@ import (
 )
 
 func TestAddonProvidersClient(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	tests := []struct {
 		action           string
@@ -81,7 +80,7 @@ func TestAddonProvidersClient(t *testing.T) {
 					if run.invalidResponse {
 						w.WriteHeader(500)
 						_, err := w.Write([]byte("INVALID"))
-						require.NoError(t, err)
+						assert.NoError(t, err)
 					} else {
 						if test.responseStatus != 0 {
 							w.WriteHeader(test.responseStatus)
