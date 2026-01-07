@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"net/url"
 	"strconv"
 
 	"gopkg.in/errgo.v1"
@@ -93,13 +92,15 @@ func (c *Client) AddonProviderPlansList(ctx context.Context, addon string, opts 
 		addon = correctAddon
 	}
 
-	params := url.Values{}
-	params.Set("show_all", strconv.FormatBool(opts.ShowAll))
+	params := map[string]string{
+		"show_all": strconv.FormatBool(opts.ShowAll),
+	}
 
 	var response AddonProviderPlansListResponse
 	req := &http.APIRequest{
 		NoAuth:   !c.isAuthenticatedClient(),
-		Endpoint: "/addon_providers/" + addon + "/plans?" + params.Encode(),
+		Endpoint: "/addon_providers/" + addon + "/plans",
+		Params:   params,
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &response)
 	if err != nil {
