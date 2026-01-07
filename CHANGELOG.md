@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 9.0.2
+
 * fix(plans_list): Handle query params as such
 
 ## 9.0.1
