@@ -36,10 +36,6 @@ type DatabaseNG struct {
 	App        App      `json:"app"`
 }
 
-type databaseListItem struct {
-	Database DatabaseNG `json:"database"`
-}
-
 type PreviewClient struct {
 	parent *Client
 }
@@ -61,6 +57,10 @@ type DatabaseCreateResponse struct {
 	Database DatabaseNG `json:"database"`
 }
 
+type DatabasesListResponse struct {
+	Databases []DatabaseNG `json:"databases"`
+}
+
 func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DatabaseNG, error) {
 	var res DatabaseCreateResponse
 
@@ -72,16 +72,16 @@ func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreat
 }
 
 func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
-	var listRes []databaseListItem
+	var listRes DatabasesListResponse
 
 	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &listRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list databases")
 	}
 
-	databasesNG := make([]DatabaseNG, len(listRes))
+	databasesNG := make([]DatabaseNG, len(listRes.Databases))
 
-	for i, apiResponse := range listRes {
+	for i, apiResponse := range listRes.Databases {
 		dbNG, err := c.populateAPIResponse(ctx, apiResponse)
 		if err != nil {
 			return nil, errors.Wrap(ctx, err, "populate database NG")
@@ -137,16 +137,16 @@ func (c *PreviewClient) searchDatabase(ctx context.Context, appID string) (Datab
 }
 
 // populateAPIResponse populates a DatabaseNG without using the App and Addon from the databases endpoints.
-func (c *PreviewClient) populateAPIResponse(ctx context.Context, apiResponse databaseListItem) (DatabaseNG, error) {
+func (c *PreviewClient) populateAPIResponse(ctx context.Context, apiResponse DatabaseNG) (DatabaseNG, error) {
 	databaseNG := DatabaseNG{
-		ID:         apiResponse.Database.ID,
-		Name:       apiResponse.Database.Name,
-		ProjectID:  apiResponse.Database.ProjectID,
-		Technology: apiResponse.Database.Technology,
-		Plan:       apiResponse.Database.Plan,
+		ID:         apiResponse.ID,
+		Name:       apiResponse.Name,
+		ProjectID:  apiResponse.ProjectID,
+		Technology: apiResponse.Technology,
+		Plan:       apiResponse.Plan,
 	}
 
-	addons, err := c.parent.AddonsList(ctx, apiResponse.Database.ID)
+	addons, err := c.parent.AddonsList(ctx, apiResponse.Name)
 	if err != nil {
 		return databaseNG, errors.Wrap(ctx, err, "list addons")
 	}
@@ -155,13 +155,13 @@ func (c *PreviewClient) populateAPIResponse(ctx context.Context, apiResponse dat
 		return databaseNG, errors.New(ctx, "no addons found for database")
 	}
 
-	app, err := c.parent.AppsShow(ctx, apiResponse.Database.Name)
+	app, err := c.parent.AppsShow(ctx, apiResponse.Name)
 	if err != nil {
 		return databaseNG, errors.Wrap(ctx, err, "show app")
 	}
 	databaseNG.App = *app
 
-	databaseNG.Database, err = c.parent.DatabaseShow(ctx, apiResponse.Database.ID, addons[0].ID)
+	databaseNG.Database, err = c.parent.DatabaseShow(ctx, apiResponse.Name, addons[0].ID)
 	if err != nil {
 		debug.Printf("Addon has been removed from app: %+v\n", databaseNG.Name)
 	}
