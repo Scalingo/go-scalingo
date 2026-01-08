@@ -2,6 +2,10 @@
 
 ## To Be Released
 
+## 9.0.3
+
+* fix(databases): parse databases list response with proper JSON structure
+
 ## 9.0.2
 
 * fix(plans_list): Handle query params as such
