@@ -1108,8 +1108,9 @@ func (ev *EventAcceptProjectTransferInvitationErrorType) String() string {
 
 // Project transfer invitation canceled
 type EventCancelProjectTransferInvitationTypeData struct {
-	InvitationID   string `json:"invitation_id"`
-	RecipientEmail string `json:"recipient_email"`
+	InvitationID      string `json:"invitation_id"`
+	RecipientEmail    string `json:"recipient_email"`
+	RecipientUsername string `json:"recipient_username"`
 }
 
 type EventCancelProjectTransferInvitationType struct {
@@ -1121,13 +1122,17 @@ func (ev *EventCancelProjectTransferInvitationType) String() string {
 	if ev.TypeData.RecipientEmail != "" {
 		return fmt.Sprintf("The transfer invitation for project '%s' sent to %s has been canceled", ev.ProjectName, ev.TypeData.RecipientEmail)
 	}
+	if ev.TypeData.RecipientUsername != "" {
+		return fmt.Sprintf("The transfer invitation for project '%s' sent to %s has been canceled", ev.ProjectName, ev.TypeData.RecipientUsername)
+	}
 	return fmt.Sprintf("The transfer invitation for project '%s' has been canceled", ev.ProjectName)
 }
 
 // Project transfer invitation declined
 type EventDeclineProjectTransferInvitationTypeData struct {
-	InvitationID   string `json:"invitation_id"`
-	RecipientEmail string `json:"recipient_email"`
+	InvitationID      string `json:"invitation_id"`
+	RecipientEmail    string `json:"recipient_email"`
+	RecipientUsername string `json:"recipient_username"`
 }
 
 type EventDeclineProjectTransferInvitationType struct {
@@ -1138,6 +1143,9 @@ type EventDeclineProjectTransferInvitationType struct {
 func (ev *EventDeclineProjectTransferInvitationType) String() string {
 	if ev.TypeData.RecipientEmail != "" {
 		return fmt.Sprintf("The transfer invitation for project '%s' sent to %s has been declined", ev.ProjectName, ev.TypeData.RecipientEmail)
+	}
+	if ev.TypeData.RecipientUsername != "" {
+		return fmt.Sprintf("The transfer invitation for project '%s' sent to %s has been declined", ev.ProjectName, ev.TypeData.RecipientUsername)
 	}
 	return fmt.Sprintf("The transfer invitation for project '%s' has been declined", ev.ProjectName)
 }
