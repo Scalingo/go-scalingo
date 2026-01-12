@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+feat(projects): add transfer invitations events
+
 ## 9.0.3
 
 * fix(databases): parse databases list response with proper JSON structure
