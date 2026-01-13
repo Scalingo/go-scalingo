@@ -39,7 +39,8 @@ type (
 	}
 
 	UnprocessableEntity struct {
-		Errors map[string][]string `json:"errors"`
+		Errors     map[string][]string `json:"errors"`
+		ErrMessage string              `json:"error"`
 	}
 
 	TooManyRequestsError struct {
@@ -105,7 +106,10 @@ func (err UnprocessableEntity) Error() string {
 	for attr, attrErrs := range err.Errors {
 		errArray = append(errArray, fmt.Sprintf("* %s → %s", attr, strings.Join(attrErrs, ", ")))
 	}
-	return strings.Join(errArray, "\n")
+	if len(errArray) > 0 {
+		return strings.Join(errArray, "\n")
+	}
+	return err.ErrMessage
 }
 
 func (err TooManyRequestsError) Error() string {

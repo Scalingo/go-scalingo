@@ -40,6 +40,26 @@ func Test_IsOTPRequired(t *testing.T) {
 	}
 }
 
+func TestUnprocessableEntityError(t *testing.T) {
+	t.Run("returns formatted errors list", func(t *testing.T) {
+		err := UnprocessableEntity{
+			Errors: map[string][]string{
+				"plan": {"cannot be downgraded", "not allowed"},
+			},
+		}
+
+		require.Equal(t, "* plan → cannot be downgraded, not allowed", err.Error())
+	})
+
+	t.Run("returns error message when no errors list is present", func(t *testing.T) {
+		err := UnprocessableEntity{
+			ErrMessage: "Dedicated database addons plan cannot be downgraded",
+		}
+
+		require.Equal(t, "Dedicated database addons plan cannot be downgraded", err.Error())
+	})
+}
+
 func requestFailedError(message string) error {
 	return &RequestFailedError{Message: message}
 }
