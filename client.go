@@ -3,11 +3,12 @@ package scalingo
 import (
 	"context"
 	"crypto/tls"
+	"net/http"
 	"time"
 
 	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-scalingo/v9/http"
+	httpClient "github.com/Scalingo/go-scalingo/v9/http"
 )
 
 type API interface {
@@ -42,20 +43,20 @@ type API interface {
 	TokensService
 	UsersService
 	VariablesService
-	http.TokenGenerator
+	httpClient.TokenGenerator
 
-	ScalingoAPI() http.Client
-	AuthAPI() http.Client
-	DBAPI(app, addon string) http.Client
+	ScalingoAPI() httpClient.Client
+	AuthAPI() httpClient.Client
+	DBAPI(app, addon string) httpClient.Client
 }
 
 var _ API = (*Client)(nil)
 
 type Client struct {
 	config     ClientConfig
-	apiClient  http.Client
-	dbClient   http.Client
-	authClient http.Client
+	apiClient  httpClient.Client
+	dbClient   httpClient.Client
+	authClient httpClient.Client
 }
 
 type ClientConfig struct {
@@ -71,6 +72,7 @@ type ClientConfig struct {
 	Region                 string
 	UserAgent              string
 	DisableHTTPClientCache bool
+	ExtraHeaders           http.Header
 
 	// StaticTokenGenerator is present for Scalingo internal use only
 	StaticTokenGenerator *StaticTokenGenerator
@@ -112,30 +114,31 @@ func New(ctx context.Context, cfg ClientConfig) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) ScalingoAPI() http.Client {
+func (c *Client) ScalingoAPI() httpClient.Client {
 	if c.apiClient != nil {
 		return c.apiClient
 	}
 
-	var tokenGenerator http.TokenGenerator
+	var tokenGenerator httpClient.TokenGenerator
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
 	if c.config.APIToken != "" {
-		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
+		tokenGenerator = httpClient.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 	prefix := "/v1"
 	if c.config.APIPrefix != "" {
 		prefix = c.config.APIPrefix
 	}
 
-	client := http.NewClient(http.ClientConfig{
+	client := httpClient.NewClient(httpClient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      http.APIConfig{Prefix: prefix},
+		APIConfig:      httpClient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.APIEndpoint,
+		ExtraHeaders:   c.config.ExtraHeaders,
 	})
 
 	if !c.config.DisableHTTPClientCache {
@@ -145,7 +148,7 @@ func (c *Client) ScalingoAPI() http.Client {
 	return client
 }
 
-func (c *Client) DBAPI(app, addon string) http.Client {
+func (c *Client) DBAPI(app, addon string) httpClient.Client {
 	if c.dbClient != nil {
 		return c.dbClient
 	}
@@ -154,40 +157,42 @@ func (c *Client) DBAPI(app, addon string) http.Client {
 	if c.config.DatabaseAPIPrefix != "" {
 		prefix = c.config.DatabaseAPIPrefix
 	}
-	return http.NewClient(http.ClientConfig{
+	return httpClient.NewClient(httpClient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      http.APIConfig{Prefix: prefix},
-		TokenGenerator: http.NewAddonTokenGenerator(app, addon, c),
+		APIConfig:      httpClient.APIConfig{Prefix: prefix},
+		TokenGenerator: httpClient.NewAddonTokenGenerator(app, addon, c),
 		Endpoint:       c.config.DatabaseAPIEndpoint,
+		ExtraHeaders:   c.config.ExtraHeaders,
 	})
 }
 
-func (c *Client) AuthAPI() http.Client {
+func (c *Client) AuthAPI() httpClient.Client {
 	if c.authClient != nil {
 		return c.authClient
 	}
 
-	var tokenGenerator http.TokenGenerator
+	var tokenGenerator httpClient.TokenGenerator
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
 	if c.config.APIToken != "" {
-		tokenGenerator = http.NewAPITokenGenerator(c, c.config.APIToken)
+		tokenGenerator = httpClient.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 
 	prefix := "/v1"
 	if c.config.AuthPrefix != "" {
 		prefix = c.config.AuthPrefix
 	}
-	client := http.NewClient(http.ClientConfig{
+	client := httpClient.NewClient(httpClient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      http.APIConfig{Prefix: prefix},
+		APIConfig:      httpClient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.AuthEndpoint,
+		ExtraHeaders:   c.config.ExtraHeaders,
 	})
 
 	if !c.config.DisableHTTPClientCache {

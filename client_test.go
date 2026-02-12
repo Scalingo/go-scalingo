@@ -68,12 +68,14 @@ func TestNewClient(t *testing.T) {
 				_, err := w.Write([]byte(`{"user": {}}`))
 				require.NoError(t, err)
 			}
+			assert.Equal(t, r.Header.Get("foo"), "bar")
 		}))
 		defer authserver.Close()
 
 		client, err := New(ctx, ClientConfig{
 			AuthEndpoint: authserver.URL,
 			APIToken:     "api-token",
+			ExtraHeaders: http.Header{"foo": {"bar"}},
 		})
 		require.NoError(t, err)
 
