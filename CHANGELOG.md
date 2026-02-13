@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(http-client): add extra headers
+* feat(http-client): add extra headers targeting specific APIs
 
 ## 9.1.0
 
