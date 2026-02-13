@@ -68,18 +68,55 @@ func TestNewClient(t *testing.T) {
 				_, err := w.Write([]byte(`{"user": {}}`))
 				require.NoError(t, err)
 			}
-			assert.Equal(t, "baz", r.Header.Get("Foo"))
 		}))
 		defer authserver.Close()
 
 		client, err := New(ctx, ClientConfig{
 			AuthEndpoint: authserver.URL,
 			APIToken:     "api-token",
+		})
+		require.NoError(t, err)
+
+		_, err = client.Self(ctx)
+		require.NoError(t, err)
+	})
+
+	t.Run("it should forward headers to targeted APIs", func(t *testing.T) {
+		ctx := context.Background()
+
+		apiServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			assert.Equal(t, "bar", r.Header.Get("Foo"))
+			assert.Equal(t, "baz", r.Header.Get("Bar"))
+
+			w.WriteHeader(200)
+			_, err := w.Write([]byte(`{"apps": []}`))
+			require.NoError(t, err)
+		}))
+		defer apiServer.Close()
+
+		authServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			assert.Equal(t, "baz", r.Header.Get("Foo"))
+			assert.Equal(t, "", r.Header.Get("Bar"))
+
+			if strings.Contains(r.URL.Path, "self") {
+				w.WriteHeader(200)
+				_, err := w.Write([]byte(`{"user": {}}`))
+				require.NoError(t, err)
+			}
+		}))
+		defer authServer.Close()
+
+		client, err := New(ctx, ClientConfig{
+			APIEndpoint:  apiServer.URL,
+			AuthEndpoint: authServer.URL,
 			ExtraHeaders: map[string]http.Header{
-				"api":  {"Foo": {"bar"}},
+				"api":  {"Foo": {"bar"}, "Bar": {"baz"}},
 				"auth": {"Foo": {"baz"}},
 			},
 		})
+		require.NoError(t, err)
+
+		_, err = client.AppsList(ctx)
 		require.NoError(t, err)
 
 		_, err = client.Self(ctx)
