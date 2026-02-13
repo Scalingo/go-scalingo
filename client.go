@@ -8,7 +8,7 @@ import (
 
 	"gopkg.in/errgo.v1"
 
-	httpClient "github.com/Scalingo/go-scalingo/v9/http"
+	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 )
 
 type API interface {
@@ -43,20 +43,20 @@ type API interface {
 	TokensService
 	UsersService
 	VariablesService
-	httpClient.TokenGenerator
+	httpclient.TokenGenerator
 
-	ScalingoAPI() httpClient.Client
-	AuthAPI() httpClient.Client
-	DBAPI(app, addon string) httpClient.Client
+	ScalingoAPI() httpclient.Client
+	AuthAPI() httpclient.Client
+	DBAPI(app, addon string) httpclient.Client
 }
 
 var _ API = (*Client)(nil)
 
 type Client struct {
 	config     ClientConfig
-	apiClient  httpClient.Client
-	dbClient   httpClient.Client
-	authClient httpClient.Client
+	apiClient  httpclient.Client
+	dbClient   httpclient.Client
+	authClient httpclient.Client
 }
 
 type ClientConfig struct {
@@ -114,28 +114,28 @@ func New(ctx context.Context, cfg ClientConfig) (*Client, error) {
 	}, nil
 }
 
-func (c *Client) ScalingoAPI() httpClient.Client {
+func (c *Client) ScalingoAPI() httpclient.Client {
 	if c.apiClient != nil {
 		return c.apiClient
 	}
 
-	var tokenGenerator httpClient.TokenGenerator
+	var tokenGenerator httpclient.TokenGenerator
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
 	if c.config.APIToken != "" {
-		tokenGenerator = httpClient.NewAPITokenGenerator(c, c.config.APIToken)
+		tokenGenerator = httpclient.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 	prefix := "/v1"
 	if c.config.APIPrefix != "" {
 		prefix = c.config.APIPrefix
 	}
 
-	client := httpClient.NewClient(httpClient.ClientConfig{
+	client := httpclient.NewClient(httpclient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      httpClient.APIConfig{Prefix: prefix},
+		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.APIEndpoint,
 		ExtraHeaders:   c.config.ExtraHeaders,
@@ -148,7 +148,7 @@ func (c *Client) ScalingoAPI() httpClient.Client {
 	return client
 }
 
-func (c *Client) DBAPI(app, addon string) httpClient.Client {
+func (c *Client) DBAPI(app, addon string) httpclient.Client {
 	if c.dbClient != nil {
 		return c.dbClient
 	}
@@ -157,39 +157,39 @@ func (c *Client) DBAPI(app, addon string) httpClient.Client {
 	if c.config.DatabaseAPIPrefix != "" {
 		prefix = c.config.DatabaseAPIPrefix
 	}
-	return httpClient.NewClient(httpClient.ClientConfig{
+	return httpclient.NewClient(httpclient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      httpClient.APIConfig{Prefix: prefix},
-		TokenGenerator: httpClient.NewAddonTokenGenerator(app, addon, c),
+		APIConfig:      httpclient.APIConfig{Prefix: prefix},
+		TokenGenerator: httpclient.NewAddonTokenGenerator(app, addon, c),
 		Endpoint:       c.config.DatabaseAPIEndpoint,
 		ExtraHeaders:   c.config.ExtraHeaders,
 	})
 }
 
-func (c *Client) AuthAPI() httpClient.Client {
+func (c *Client) AuthAPI() httpclient.Client {
 	if c.authClient != nil {
 		return c.authClient
 	}
 
-	var tokenGenerator httpClient.TokenGenerator
+	var tokenGenerator httpclient.TokenGenerator
 	if c.config.StaticTokenGenerator != nil {
 		tokenGenerator = c.config.StaticTokenGenerator
 	}
 	if c.config.APIToken != "" {
-		tokenGenerator = httpClient.NewAPITokenGenerator(c, c.config.APIToken)
+		tokenGenerator = httpclient.NewAPITokenGenerator(c, c.config.APIToken)
 	}
 
 	prefix := "/v1"
 	if c.config.AuthPrefix != "" {
 		prefix = c.config.AuthPrefix
 	}
-	client := httpClient.NewClient(httpClient.ClientConfig{
+	client := httpclient.NewClient(httpclient.ClientConfig{
 		UserAgent:      c.config.UserAgent,
 		Timeout:        c.config.Timeout,
 		TLSConfig:      c.config.TLSConfig,
-		APIConfig:      httpClient.APIConfig{Prefix: prefix},
+		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.AuthEndpoint,
 		ExtraHeaders:   c.config.ExtraHeaders,
