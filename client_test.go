@@ -1,7 +1,6 @@
 package scalingo
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -16,7 +15,7 @@ import (
 
 func TestNewClient(t *testing.T) {
 	t.Run("static token generator should be used if present", func(t *testing.T) {
-		ctx := context.Background()
+		ctx := t.Context()
 
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			auth := r.Header.Get("Authorization")
@@ -26,7 +25,7 @@ func TestNewClient(t *testing.T) {
 			assert.Equal(t, "static-token", split[1])
 			w.WriteHeader(200)
 			_, err := w.Write([]byte(`{"apps": []}`))
-			require.NoError(t, err)
+			assert.NoError(t, err)
 		}))
 		defer server.Close()
 
@@ -41,7 +40,7 @@ func TestNewClient(t *testing.T) {
 	})
 
 	t.Run("it should exchange the API token for a JWT", func(t *testing.T) {
-		ctx := context.Background()
+		ctx := t.Context()
 		claims := &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
 		}
@@ -56,7 +55,7 @@ func TestNewClient(t *testing.T) {
 				assert.Equal(t, "api-token", password)
 				w.WriteHeader(200)
 				_, err := w.Write([]byte(fmt.Sprintf(`{"token": "%v"}`, jwt)))
-				require.NoError(t, err)
+				assert.NoError(t, err)
 			}
 			if strings.Contains(r.URL.Path, "self") {
 				auth := r.Header.Get("Authorization")
@@ -66,7 +65,7 @@ func TestNewClient(t *testing.T) {
 				assert.Equal(t, jwt, split[1])
 				w.WriteHeader(200)
 				_, err := w.Write([]byte(`{"user": {}}`))
-				require.NoError(t, err)
+				assert.NoError(t, err)
 			}
 		}))
 		defer authserver.Close()
@@ -82,7 +81,7 @@ func TestNewClient(t *testing.T) {
 	})
 
 	t.Run("it should forward headers to targeted APIs", func(t *testing.T) {
-		ctx := context.Background()
+		ctx := t.Context()
 
 		apiServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			assert.Equal(t, "bar", r.Header.Get("Foo"))
@@ -90,18 +89,18 @@ func TestNewClient(t *testing.T) {
 
 			w.WriteHeader(200)
 			_, err := w.Write([]byte(`{"apps": []}`))
-			require.NoError(t, err)
+			assert.NoError(t, err)
 		}))
 		defer apiServer.Close()
 
 		authServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			assert.Equal(t, "baz", r.Header.Get("Foo"))
-			assert.Equal(t, "", r.Header.Get("Bar"))
+			assert.Empty(t, r.Header.Get("Bar"))
 
 			if strings.Contains(r.URL.Path, "self") {
 				w.WriteHeader(200)
 				_, err := w.Write([]byte(`{"user": {}}`))
-				require.NoError(t, err)
+				assert.NoError(t, err)
 			}
 		}))
 		defer authServer.Close()
