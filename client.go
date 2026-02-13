@@ -72,7 +72,7 @@ type ClientConfig struct {
 	Region                 string
 	UserAgent              string
 	DisableHTTPClientCache bool
-	ExtraHeaders           http.Header
+	ExtraHeaders           map[string]http.Header
 
 	// StaticTokenGenerator is present for Scalingo internal use only
 	StaticTokenGenerator *StaticTokenGenerator
@@ -138,7 +138,7 @@ func (c *Client) ScalingoAPI() httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.APIEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders,
+		ExtraHeaders:   c.config.ExtraHeaders["api"],
 	})
 
 	if !c.config.DisableHTTPClientCache {
@@ -164,7 +164,7 @@ func (c *Client) DBAPI(app, addon string) httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: httpclient.NewAddonTokenGenerator(app, addon, c),
 		Endpoint:       c.config.DatabaseAPIEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders,
+		ExtraHeaders:   c.config.ExtraHeaders["db"],
 	})
 }
 
@@ -192,7 +192,7 @@ func (c *Client) AuthAPI() httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.AuthEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders,
+		ExtraHeaders:   c.config.ExtraHeaders["auth"],
 	})
 
 	if !c.config.DisableHTTPClientCache {
