@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 9.2.0
+
 * feat(http-client): add extra headers
 
 ## 9.1.0
