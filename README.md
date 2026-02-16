@@ -105,3 +105,5 @@ release is the same as the changelog.
 
 When a new version is released, it must be documented on the general [changelog](https://doc.scalingo.com/changelog).
 In order to do that, a new file must be created in this [folder](https://github.com/Scalingo/documentation/tree/master/src/changelog/sdk/_posts).
+
+In case of a new major version, one must update the link to [pkg.go.dev](https://pkg.go.dev) on the public documentation page: [`src/_posts/tools/2000-01-01-software-development-kit.md`](https://github.com/Scalingo/documentation/blob/master/src/_posts/tools/2000-01-01-software-development-kit.md)
