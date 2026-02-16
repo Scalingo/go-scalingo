@@ -109,8 +109,8 @@ func TestNewClient(t *testing.T) {
 			APIEndpoint:  apiServer.URL,
 			AuthEndpoint: authServer.URL,
 			ExtraHeaders: ExtraHeaders{
-				ScalingoAPI: http.Header{"Foo": {"bar"}, "Bar": {"baz"}},
-				AuthAPI:     http.Header{"Foo": {"baz"}},
+				API:  http.Header{"Foo": {"bar"}, "Bar": {"baz"}},
+				Auth: http.Header{"Foo": {"baz"}},
 			},
 		})
 		require.NoError(t, err)

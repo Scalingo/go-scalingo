@@ -79,9 +79,9 @@ type ClientConfig struct {
 }
 
 type ExtraHeaders struct {
-	ScalingoAPI http.Header
-	DBAPI       http.Header
-	AuthAPI     http.Header
+	API         http.Header
+	DatabaseAPI http.Header
+	Auth        http.Header
 }
 
 func New(ctx context.Context, cfg ClientConfig) (*Client, error) {
@@ -144,7 +144,7 @@ func (c *Client) ScalingoAPI() httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.APIEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders.ScalingoAPI,
+		ExtraHeaders:   c.config.ExtraHeaders.API,
 	})
 
 	if !c.config.DisableHTTPClientCache {
@@ -170,7 +170,7 @@ func (c *Client) DBAPI(app, addon string) httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: httpclient.NewAddonTokenGenerator(app, addon, c),
 		Endpoint:       c.config.DatabaseAPIEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders.DBAPI,
+		ExtraHeaders:   c.config.ExtraHeaders.DatabaseAPI,
 	})
 }
 
@@ -198,7 +198,7 @@ func (c *Client) AuthAPI() httpclient.Client {
 		APIConfig:      httpclient.APIConfig{Prefix: prefix},
 		TokenGenerator: tokenGenerator,
 		Endpoint:       c.config.AuthEndpoint,
-		ExtraHeaders:   c.config.ExtraHeaders.AuthAPI,
+		ExtraHeaders:   c.config.ExtraHeaders.Auth,
 	})
 
 	if !c.config.DisableHTTPClientCache {
