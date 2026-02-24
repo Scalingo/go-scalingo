@@ -8,8 +8,6 @@ import (
 	"github.com/Scalingo/go-utils/errors/v2"
 )
 
-const databasesResource = "databases"
-
 var ErrDatabaseNotFound = stderrors.New("database not found")
 
 type PreviewAPI interface {
