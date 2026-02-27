@@ -10,17 +10,25 @@ import (
 )
 
 type LogsService interface {
-	LogsURL(ctx context.Context, app string) (*http.Response, error)
+	LogsURL(ctx context.Context, app string) (*LogsURLRes, error)
 	Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error)
 }
 
 var _ LogsService = (*Client)(nil)
 
-func (c *Client) LogsURL(ctx context.Context, app string) (*http.Response, error) {
-	req := &httpclient.APIRequest{
-		Endpoint: "/apps/" + app + "/logs",
+type LogsURLRes struct {
+	LogsURL string `json:"logs_url"`
+	App     *App   `json:"app,omitempty"`
+}
+
+func (c *Client) LogsURL(ctx context.Context, app string) (*LogsURLRes, error) {
+	var logsURLRes LogsURLRes
+	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "logs", nil, &logsURLRes)
+	if err != nil {
+		return nil, errors.Wrap(ctx, err, "get app logs URL")
 	}
-	return c.ScalingoAPI().Do(ctx, req)
+
+	return &logsURLRes, nil
 }
 
 func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error) {
