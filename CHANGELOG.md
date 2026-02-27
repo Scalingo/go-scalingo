@@ -3,6 +3,7 @@
 ## To Be Released
 
 * chore(databases): refactor constants
+* build(deps): update `github.com/golang-jwt/jwt` from v4 to v5
 
 ## 9.2.0
 
