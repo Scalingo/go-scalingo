@@ -36,14 +36,14 @@ func main() {
 		APIToken: token,
 	})
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to create scalingo client: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "create scalingo client: %s\n", err.Error())
 		os.Exit(1)
 	}
 
 	// ---- GET BACKUP DOWNLOAD URL ----
 	backupURL, err := client.BackupDownloadURL(ctx, appName, addonId, backupId)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to get backup URL: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "get backup URL: %s\n", err.Error())
 		os.Exit(1)
 	}
 
@@ -52,7 +52,7 @@ func main() {
 	// Create output file
 	file, err := os.Create("backup.tar.gz")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to open backup file: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "open backup file: %s\n", err.Error())
 		os.Exit(1)
 	}
 	defer file.Close()
@@ -60,7 +60,7 @@ func main() {
 	// Start HTTP request
 	resp, err := http.Get(backupURL)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to start backup download: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "start backup download: %s\n", err.Error())
 	}
 	defer resp.Body.Close()
 
@@ -69,7 +69,7 @@ func main() {
 	// Copy request body to output file
 	_, err = io.Copy(file, resp.Body)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to download backup: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "download backup: %s\n", err.Error())
 	}
 
 	fmt.Println("Backup saved to ./archive.tar.gz")

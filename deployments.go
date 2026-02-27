@@ -143,7 +143,7 @@ func (c *Client) DeploymentList(ctx context.Context, app string) ([]*Deployment,
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &deployments)
 	if err != nil {
-		return []*Deployment{}, errors.Wrap(ctx, err, "fail to list the deployments")
+		return []*Deployment{}, errors.Wrap(ctx, err, "list the deployments")
 	}
 
 	return deployments.Deployments, nil
@@ -153,7 +153,7 @@ func (c *Client) DeploymentListWithPagination(ctx context.Context, app string, o
 	var deployments DeploymentList
 	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "deployments", opts.ToMap(), &deployments)
 	if err != nil {
-		return []*Deployment{}, PaginationMeta{}, errors.Wrap(ctx, err, "fail to list the deployments with pagination")
+		return []*Deployment{}, PaginationMeta{}, errors.Wrap(ctx, err, "list the deployments with pagination")
 	}
 
 	return deployments.Deployments, deployments.Meta.PaginationMeta, nil
@@ -190,14 +190,14 @@ func (c *Client) DeploymentLogs(ctx context.Context, deployURL string) (*http.Re
 func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*websocket.Conn, error) {
 	token, err := c.ScalingoAPI().TokenGenerator().GetAccessToken(ctx)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to generate token")
+		return nil, errors.Wrap(ctx, err, "generate token")
 	}
 
 	header := http.Header{}
 	header.Add("Origin", "http://scalingo-cli.local/1")
 	conn, resp, err := websocket.DefaultDialer.DialContext(ctx, deployURL, header)
 	if err != nil {
-		return nil, errors.Wrapf(ctx, err, "fail to dial on url %s", deployURL)
+		return nil, errors.Wrapf(ctx, err, "dial on url %s", deployURL)
 	}
 	defer resp.Body.Close()
 
@@ -208,7 +208,7 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 		},
 	})
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to write JSON, there must be an authentication issue")
+		return nil, errors.Wrap(ctx, err, "write JSON, there must be an authentication issue")
 	}
 
 	return conn, nil

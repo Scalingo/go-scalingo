@@ -103,7 +103,7 @@ func (c *Client) AddonProviderPlansList(ctx context.Context, addon string, opts 
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &response)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to get plans")
+		return nil, errors.Wrap(ctx, err, "get plans")
 	}
 	return response.Plans, nil
 }

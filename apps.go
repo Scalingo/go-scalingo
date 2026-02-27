@@ -235,7 +235,7 @@ func (c *Client) AppsSetStack(ctx context.Context, app string, stackID string) (
 	var appRes AppResponse
 	err := c.ScalingoAPI().DoRequest(ctx, req, &appRes)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to request Scalingo API")
+		return nil, errors.Wrap(ctx, err, "request Scalingo API")
 	}
 
 	return appRes.App, nil
@@ -286,7 +286,7 @@ func (c *Client) AppsContainersPs(ctx context.Context, app string) ([]Container,
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &containersRes)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to execute the GET request to list containers")
+		return nil, errors.Wrap(ctx, err, "execute the GET request to list containers")
 	}
 
 	return containersRes.Containers, nil
@@ -299,7 +299,7 @@ func (c *Client) AppsContainerTypes(ctx context.Context, app string) ([]Containe
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &containerTypesRes)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to execute the GET request to list container types")
+		return nil, errors.Wrap(ctx, err, "execute the GET request to list container types")
 	}
 
 	return containerTypesRes.Containers, nil

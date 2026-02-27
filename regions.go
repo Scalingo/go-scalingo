@@ -42,7 +42,7 @@ func (c *Client) RegionsList(ctx context.Context) ([]Region, error) {
 		Endpoint: "/regions",
 	}, &res)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to call GET /regions")
+		return nil, errors.Wrap(ctx, err, "call GET /regions")
 	}
 	return res.Regions, nil
 }
@@ -54,7 +54,7 @@ func (c *Client) getRegion(ctx context.Context, regionName string) (Region, erro
 	if _, ok := regionCache[regionName]; !ok {
 		regions, err := c.RegionsList(ctx)
 		if err != nil {
-			return Region{}, errors.Wrap(ctx, err, "fail to list regions")
+			return Region{}, errors.Wrap(ctx, err, "list regions")
 		}
 
 		for _, region := range regions {

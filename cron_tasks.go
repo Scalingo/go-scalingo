@@ -28,7 +28,7 @@ func (c *Client) CronTasksGet(ctx context.Context, app string) (CronTasks, error
 	resp := CronTasks{}
 	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "cron_tasks", nil, &resp)
 	if err != nil {
-		return CronTasks{}, errors.Wrap(ctx, err, "fail to get cron tasks")
+		return CronTasks{}, errors.Wrap(ctx, err, "get cron tasks")
 	}
 	return resp, nil
 }

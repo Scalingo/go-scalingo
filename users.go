@@ -71,14 +71,14 @@ func (c *Client) UpdateUser(ctx context.Context, params UpdateUserParams) (*User
 	}
 	res, err := c.AuthAPI().Do(ctx, req)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to execute the query to update the user")
+		return nil, errors.Wrap(ctx, err, "execute the query to update the user")
 	}
 	defer res.Body.Close()
 
 	var u UpdateUserResponse
 	err = json.NewDecoder(res.Body).Decode(&u)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to decode response of the query to update the user")
+		return nil, errors.Wrap(ctx, err, "decode response of the query to update the user")
 	}
 
 	return u.User, nil
@@ -94,7 +94,7 @@ func (c *Client) UserStopFreeTrial(ctx context.Context) error {
 
 	res, err := c.AuthAPI().Do(ctx, req)
 	if err != nil {
-		return errors.Wrap(ctx, err, "fail to execute the query to stop user free trial")
+		return errors.Wrap(ctx, err, "execute the query to stop user free trial")
 	}
 	defer res.Body.Close()
 

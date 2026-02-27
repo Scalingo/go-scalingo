@@ -109,7 +109,7 @@ func New(ctx context.Context, cfg ClientConfig) (*Client, error) {
 	if err == ErrRegionNotFound {
 		return nil, err
 	} else if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to get region informations")
+		return nil, errors.Wrap(ctx, err, "get region informations")
 	}
 
 	cfg.APIEndpoint = region.API

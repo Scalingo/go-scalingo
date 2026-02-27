@@ -68,7 +68,7 @@ func (c *Client) TokensList(ctx context.Context) (Tokens, error) {
 
 	err := c.AuthAPI().ResourceList(ctx, "tokens", nil, &tokensRes)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to get tokens")
+		return nil, errors.Wrap(ctx, err, "get tokens")
 	}
 
 	return tokensRes.Tokens, nil
@@ -84,7 +84,7 @@ func (c *Client) TokenExchange(ctx context.Context, token string) (string, error
 
 	res, err := c.AuthAPI().Do(ctx, req)
 	if err != nil {
-		return "", errors.Wrap(ctx, err, "fail to make request POST /v1/tokens/exchange")
+		return "", errors.Wrap(ctx, err, "make request POST /v1/tokens/exchange")
 	}
 	defer res.Body.Close()
 
@@ -135,7 +135,7 @@ func (c *Client) TokenCreate(ctx context.Context, params TokenCreateParams) (Tok
 	}
 	err := c.AuthAPI().ResourceAdd(ctx, "tokens", payload, &tokenRes)
 	if err != nil {
-		return Token{}, errors.Wrap(ctx, err, "fail to create token")
+		return Token{}, errors.Wrap(ctx, err, "create token")
 	}
 
 	return tokenRes.Token, nil
@@ -145,7 +145,7 @@ func (c *Client) TokenShow(ctx context.Context, id int) (Token, error) {
 	var tokenRes TokenRes
 	err := c.AuthAPI().ResourceGet(ctx, "tokens", strconv.Itoa(id), nil, &tokenRes)
 	if err != nil {
-		return Token{}, errors.Wrap(ctx, err, "fail to get token")
+		return Token{}, errors.Wrap(ctx, err, "get token")
 	}
 
 	return tokenRes.Token, nil

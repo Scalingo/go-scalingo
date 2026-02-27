@@ -38,7 +38,7 @@ func (c *Client) ContainerSizesList(ctx context.Context) ([]ContainerSize, error
 	resmap := map[string][]ContainerSize{}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &resmap)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to request Scalingo API to list the container sizes")
+		return nil, errors.Wrap(ctx, err, "request Scalingo API to list the container sizes")
 	}
 	return resmap["container_sizes"], nil
 }

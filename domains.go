@@ -85,7 +85,7 @@ func (c *Client) DomainsList(ctx context.Context, app string) ([]Domain, error) 
 	var domainRes DomainsRes
 	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "domains", nil, &domainRes)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to list the domains")
+		return nil, errors.Wrap(ctx, err, "list the domains")
 	}
 	return domainRes.Domains, nil
 }
@@ -102,7 +102,7 @@ func (c *Client) DomainsAdd(ctx context.Context, app string, params DomainsAddPa
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "domains", map[string]DomainsAddParams{"domain": params}, &domainRes)
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to add a domain")
+		return Domain{}, errors.Wrap(ctx, err, "add a domain")
 	}
 	return domainRes.Domain, nil
 }
@@ -116,7 +116,7 @@ func (c *Client) DomainsShow(ctx context.Context, app, id string) (Domain, error
 
 	err := c.ScalingoAPI().SubresourceGet(ctx, "apps", app, "domains", id, nil, &domainRes)
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to show the domain")
+		return Domain{}, errors.Wrap(ctx, err, "show the domain")
 	}
 
 	return domainRes.Domain, nil
@@ -133,7 +133,7 @@ func (c *Client) DomainsUpdate(ctx context.Context, app, id string, params Domai
 	var domainRes DomainRes
 	err := c.ScalingoAPI().SubresourceUpdate(ctx, "apps", app, "domains", id, map[string]DomainsUpdateParams{"domain": params}, &domainRes)
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to update the domain")
+		return Domain{}, errors.Wrap(ctx, err, "update the domain")
 	}
 	return domainRes.Domain, nil
 }
@@ -141,7 +141,7 @@ func (c *Client) DomainsUpdate(ctx context.Context, app, id string, params Domai
 func (c *Client) DomainSetCertificate(ctx context.Context, app, id, tlsCert, tlsKey string) (Domain, error) {
 	domain, err := c.DomainsUpdate(ctx, app, id, DomainsUpdateParams{TLSCert: &tlsCert, TLSKey: &tlsKey})
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to set the domain certificate")
+		return Domain{}, errors.Wrap(ctx, err, "set the domain certificate")
 	}
 	return domain, nil
 }
@@ -150,7 +150,7 @@ func (c *Client) DomainUnsetCertificate(ctx context.Context, app, id string) (Do
 	empty := ""
 	domain, err := c.DomainsUpdate(ctx, app, id, DomainsUpdateParams{TLSCert: &empty, TLSKey: &empty})
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to unset the domain certificate")
+		return Domain{}, errors.Wrap(ctx, err, "unset the domain certificate")
 	}
 	return domain, nil
 }
@@ -159,7 +159,7 @@ func (c *Client) DomainSetCanonical(ctx context.Context, app, id string) (Domain
 	value := true
 	domain, err := c.DomainsUpdate(ctx, app, id, DomainsUpdateParams{Canonical: &value})
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to set the domain as canonical")
+		return Domain{}, errors.Wrap(ctx, err, "set the domain as canonical")
 	}
 	return domain, nil
 }
@@ -167,7 +167,7 @@ func (c *Client) DomainSetCanonical(ctx context.Context, app, id string) (Domain
 func (c *Client) DomainUnsetCanonical(ctx context.Context, app string) (Domain, error) {
 	domains, err := c.DomainsList(ctx, app)
 	if err != nil {
-		return Domain{}, errors.Wrap(ctx, err, "fail to list the domains to unset the canonical one")
+		return Domain{}, errors.Wrap(ctx, err, "list the domains to unset the canonical one")
 	}
 
 	for _, domain := range domains {
@@ -175,7 +175,7 @@ func (c *Client) DomainUnsetCanonical(ctx context.Context, app string) (Domain, 
 			value := false
 			domain, err := c.DomainsUpdate(ctx, app, domain.ID, DomainsUpdateParams{Canonical: &value})
 			if err != nil {
-				return Domain{}, errors.Wrap(ctx, err, "fail to unset the domain as canonical")
+				return Domain{}, errors.Wrap(ctx, err, "unset the domain as canonical")
 			}
 			return domain, nil
 		}

@@ -81,20 +81,20 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 	case http.MethodPatch, http.MethodPost, http.MethodPut, "WITH_BODY":
 		buffer, err := json.Marshal(req.Params)
 		if err != nil {
-			return nil, errors.Wrap(ctx, err, "fail to marshal params")
+			return nil, errors.Wrap(ctx, err, "marshal params")
 		}
 		body = bytes.NewReader(buffer)
 	case http.MethodGet, http.MethodDelete:
 		values, err := req.BuildQueryFromParams(ctx)
 		if err != nil {
-			return nil, errors.Wrap(ctx, err, "fail to build the query params")
+			return nil, errors.Wrap(ctx, err, "build the query params")
 		}
 		endpoint = fmt.Sprintf("%s?%s", endpoint, values.Encode())
 	}
 
 	req.HTTPRequest, err = http.NewRequest(req.Method, endpoint, body)
 	if err != nil {
-		return nil, errors.Wrapf(ctx, err, "fail to initialize the '%s' query", req.Method)
+		return nil, errors.Wrapf(ctx, err, "initialize the '%s' query", req.Method)
 	}
 	req.HTTPRequest.Header.Add("User-Agent", c.userAgent)
 	requestID, ok := ctx.Value("request_id").(string)
@@ -126,7 +126,7 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 	now := time.Now()
 	res, err := c.doRequest(req.HTTPRequest)
 	if err != nil {
-		return nil, fmt.Errorf("Fail to query %s: %v", req.HTTPRequest.Host, err)
+		return nil, fmt.Errorf("query %s: %v", req.HTTPRequest.Host, err)
 	}
 	debug.Printf(pkgio.Indent("Request ID: %v", 6), res.Header.Get("X-Request-Id"))
 	debug.Printf(pkgio.Indent("Duration: %v", 6), time.Since(now))
@@ -151,7 +151,7 @@ func parseJSON(ctx context.Context, res *http.Response, data any) error {
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		reqErr := fmt.Sprintf("%v %v", res.Request.Method, res.Request.URL)
-		return errors.Errorf(ctx, "fail to read body of request %v: %v", reqErr, err)
+		return errors.Errorf(ctx, "read body of request %v: %v", reqErr, err)
 	}
 
 	debug.Println(string(body))
@@ -159,7 +159,7 @@ func parseJSON(ctx context.Context, res *http.Response, data any) error {
 	err = json.Unmarshal(body, data)
 	if err != nil {
 		reqErr := fmt.Sprintf("%v %v", res.Request.Method, res.Request.URL)
-		return errors.Errorf(ctx, "fail to parse JSON of request %v: %v", reqErr, err)
+		return errors.Errorf(ctx, "parse JSON of request %v: %v", reqErr, err)
 	}
 
 	return nil

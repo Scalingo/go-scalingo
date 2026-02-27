@@ -37,7 +37,7 @@ func (c *Client) StacksList(ctx context.Context) ([]Stack, error) {
 	resmap := map[string][]Stack{}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &resmap)
 	if err != nil {
-		return nil, errors.Wrap(ctx, err, "fail to request Scalingo API")
+		return nil, errors.Wrap(ctx, err, "request Scalingo API")
 	}
 
 	return resmap["stacks"], nil
