@@ -29,13 +29,13 @@ func main() {
 		APIToken: token,
 	})
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to create scalingo client: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "create scalingo client: %s\n", err.Error())
 		os.Exit(1)
 	}
 
 	app, err := client.AppsShow(ctx, appName)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fail to show app: %s\n", err.Error())
+		fmt.Fprintf(os.Stderr, "show app: %s\n", err.Error())
 		os.Exit(1)
 	}
 

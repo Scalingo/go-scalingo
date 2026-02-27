@@ -5,9 +5,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"gopkg.in/errgo.v1"
 
-	"github.com/Scalingo/go-utils/errors/v2"
+	"github.com/Scalingo/go-utils/errors/v3"
 )
 
 type TokensService interface {
@@ -39,7 +38,7 @@ func (t *APITokenGenerator) GetAccessToken(ctx context.Context) (string, error) 
 	if t.currentJWTexp.IsZero() || time.Until(t.currentJWTexp) < 5*time.Minute {
 		jwtToken, err := t.TokensService.TokenExchange(ctx, t.APIToken)
 		if err != nil {
-			return "", errgo.Notef(err, "get access token")
+			return "", errors.Wrap(ctx, err, "get access token")
 		}
 
 		token, _, err := jwt.NewParser().ParseUnverified(jwtToken, &apiJWTClaims{})
@@ -48,13 +47,13 @@ func (t *APITokenGenerator) GetAccessToken(ctx context.Context) (string, error) 
 		}
 
 		if token.Valid {
-			return "", errgo.Notef(err, "JWT token is not valid")
+			return "", errors.New(ctx, "JWT token is not valid")
 		}
 
 		if claims, ok := token.Claims.(*apiJWTClaims); ok {
 			t.currentJWTexp = claims.ExpiresAt.Time
 		} else {
-			return "", errgo.Notef(err, "invalid exp date for jwt token: %v", token.Claims)
+			return "", errors.Errorf(ctx, "invalid exp date for jwt token: %v", token.Claims)
 		}
 
 		t.currentJWT = jwtToken
