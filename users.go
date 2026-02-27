@@ -4,9 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/Scalingo/go-utils/errors/v3"
-
 	"github.com/Scalingo/go-scalingo/v9/http"
+	"github.com/Scalingo/go-utils/errors/v3"
 )
 
 type UsersService interface {
