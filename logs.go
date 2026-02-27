@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 )
@@ -27,7 +27,7 @@ func (c *Client) LogsURL(ctx context.Context, app string) (*http.Response, error
 func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error) {
 	u, err := url.Parse(logsURL)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Wrap(ctx, err, "parse logs URL")
 	}
 	req := &httpclient.APIRequest{
 		NoAuth:   true,

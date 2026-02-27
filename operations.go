@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 )
@@ -62,7 +62,7 @@ func (c *Client) OperationsShowFromURL(ctx context.Context, url string) (*Operat
 		Method: "GET", URL: url,
 	}, &opRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Wrap(ctx, err, "show operation from URL")
 	}
 	return &opRes.Op, nil
 }
@@ -71,7 +71,7 @@ func (c *Client) OperationsShow(ctx context.Context, app, opID string) (*Operati
 	var opRes OperationResponse
 	err := c.ScalingoAPI().SubresourceGet(ctx, "apps", app, "operations", opID, nil, &opRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Wrap(ctx, err, "show operation")
 	}
 	return &opRes.Op, nil
 }

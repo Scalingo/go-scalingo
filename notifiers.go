@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	"github.com/Scalingo/go-scalingo/v9/debug"
 )
@@ -71,7 +71,7 @@ func (c *Client) NotifiersList(ctx context.Context, app string) (Notifiers, erro
 	var notifiersRes notifiersRequestRes
 	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "notifiers", nil, &notifiersRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Wrap(ctx, err, "list notifiers")
 	}
 	var notifiers Notifiers
 	for _, not := range notifiersRes.Notifiers {
@@ -88,7 +88,7 @@ func (c *Client) NotifierProvision(ctx context.Context, app string, params Notif
 	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "notifiers", notifierRequestParams, &notifierRes)
 
 	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
+		return nil, errors.Wrap(ctx, err, "provision notifier")
 	}
 	return &notifierRes.Notifier, nil
 }
@@ -97,7 +97,7 @@ func (c *Client) NotifierByID(ctx context.Context, app, ID string) (*Notifier, e
 	var notifierRes notifierRequestRes
 	err := c.ScalingoAPI().SubresourceGet(ctx, "apps", app, "notifiers", ID, nil, &notifierRes)
 	if err != nil {
-		return nil, errgo.Mask(err)
+		return nil, errors.Wrap(ctx, err, "show notifier")
 	}
 
 	return &notifierRes.Notifier, nil
@@ -112,7 +112,7 @@ func (c *Client) NotifierUpdate(ctx context.Context, app, ID string, params Noti
 
 	err := c.ScalingoAPI().SubresourceUpdate(ctx, "apps", app, "notifiers", ID, notifierRequestParams, &notifierRes)
 	if err != nil {
-		return nil, errgo.Mask(err, errgo.Any)
+		return nil, errors.Wrap(ctx, err, "update notifier")
 	}
 	return &notifierRes.Notifier, nil
 }

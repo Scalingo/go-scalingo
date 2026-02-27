@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 )
@@ -38,7 +38,7 @@ func (c *Client) ContainersStop(ctx context.Context, appName, containerID string
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, nil)
 	if err != nil {
-		return errgo.Notef(err, "fail to execute the POST request to stop a container")
+		return errors.Wrap(ctx, err, "fail to execute the POST request to stop a container")
 	}
 
 	return nil
@@ -53,7 +53,7 @@ func (c *Client) ContainersKill(ctx context.Context, app string, signal string, 
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, nil)
 	if err != nil {
-		return errgo.Notef(err, "fail to execute the POST request to send signal to a container")
+		return errors.Wrap(ctx, err, "fail to execute the POST request to send signal to a container")
 	}
 
 	return nil

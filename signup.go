@@ -3,7 +3,7 @@ package scalingo
 import (
 	"context"
 
-	"gopkg.in/errgo.v1"
+	"github.com/Scalingo/go-utils/errors/v2"
 
 	"github.com/Scalingo/go-scalingo/v9/http"
 )
@@ -29,7 +29,7 @@ func (c *Client) SignUp(ctx context.Context, email, password string) error {
 	}
 	res, err := c.ScalingoAPI().Do(ctx, req)
 	if err != nil {
-		return errgo.Mask(err)
+		return errors.Wrap(ctx, err, "sign up user")
 	}
 	defer res.Body.Close()
 
