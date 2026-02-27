@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Scalingo/go-utils/errors/v2"
+	"github.com/Scalingo/go-utils/errors/v3"
 
 	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 )

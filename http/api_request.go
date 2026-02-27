@@ -13,7 +13,7 @@ import (
 
 	"github.com/Scalingo/go-scalingo/v9/debug"
 	pkgio "github.com/Scalingo/go-scalingo/v9/io"
-	"github.com/Scalingo/go-utils/errors/v2"
+	"github.com/Scalingo/go-utils/errors/v3"
 )
 
 type APIRequest struct {

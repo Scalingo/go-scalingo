@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/Scalingo/go-scalingo/v9/http"
-	errors "github.com/Scalingo/go-utils/errors/v2"
+	errors "github.com/Scalingo/go-utils/errors/v3"
 )
 
 type RunsService interface {
