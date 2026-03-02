@@ -1292,10 +1292,10 @@ func (mr *MockAPIMockRecorder) LogsArchivesByCursor(arg0, arg1, arg2 interface{}
 }
 
 // LogsURL mocks base method.
-func (m *MockAPI) LogsURL(arg0 context.Context, arg1 string) (*http0.Response, error) {
+func (m *MockAPI) LogsURL(arg0 context.Context, arg1 string) (*scalingo.LogsURLRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsURL", arg0, arg1)
-	ret0, _ := ret[0].(*http0.Response)
+	ret0, _ := ret[0].(*scalingo.LogsURLRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

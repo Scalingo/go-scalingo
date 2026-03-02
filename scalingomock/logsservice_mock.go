@@ -9,6 +9,7 @@ import (
 	http "net/http"
 	reflect "reflect"
 
+	scalingo "github.com/Scalingo/go-scalingo/v9"
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -51,10 +52,10 @@ func (mr *MockLogsServiceMockRecorder) Logs(arg0, arg1, arg2, arg3 interface{}) 
 }
 
 // LogsURL mocks base method.
-func (m *MockLogsService) LogsURL(arg0 context.Context, arg1 string) (*http.Response, error) {
+func (m *MockLogsService) LogsURL(arg0 context.Context, arg1 string) (*scalingo.LogsURLRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsURL", arg0, arg1)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(*scalingo.LogsURLRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
