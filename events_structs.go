@@ -11,16 +11,16 @@ import (
 )
 
 type Event struct {
-	ID          string                 `json:"id"`
-	AppID       string                 `json:"app_id"`
-	CreatedAt   time.Time              `json:"created_at"`
-	User        EventUser              `json:"user"`
-	Type        EventTypeName          `json:"type"`
-	AppName     string                 `json:"app_name"`
-	RawTypeData json.RawMessage        `json:"type_data"`
-	TypeData    map[string]interface{} `json:"-"`
-	ProjectID   string                 `json:"project_id"`
-	ProjectName string                 `json:"project_name"`
+	ID          string          `json:"id"`
+	AppID       string          `json:"app_id"`
+	CreatedAt   time.Time       `json:"created_at"`
+	User        EventUser       `json:"user"`
+	Type        EventTypeName   `json:"type"`
+	AppName     string          `json:"app_name"`
+	RawTypeData json.RawMessage `json:"type_data"`
+	TypeData    map[string]any  `json:"-"`
+	ProjectID   string          `json:"project_id"`
+	ProjectName string          `json:"project_name"`
 }
 
 type EventSecurityTypeData struct {
@@ -31,7 +31,7 @@ func (ev *Event) GetEvent() *Event {
 	return ev
 }
 
-func (ev *Event) TypeDataPtr() interface{} {
+func (ev *Event) TypeDataPtr() any {
 	return ev.TypeData
 }
 
@@ -58,7 +58,7 @@ type DetailedEvent interface {
 	PrintableType() string
 	When() string
 	Who() string
-	TypeDataPtr() interface{}
+	TypeDataPtr() any
 }
 
 type Events []DetailedEvent
@@ -756,13 +756,13 @@ func (ev *EventDeleteAddonLogDrainType) String() string {
 
 // New notifier
 type EventNewNotifierTypeData struct {
-	NotifierName     string                 `json:"notifier_name"`
-	Active           bool                   `json:"active"`
-	SendAllEvents    bool                   `json:"send_all_events"`
-	SelectedEvents   []string               `json:"selected_events"`
-	NotifierType     string                 `json:"notifier_type"`
-	NotifierTypeData map[string]interface{} `json:"notifier_type_data"`
-	PlatformName     string                 `json:"platform_name"`
+	NotifierName     string         `json:"notifier_name"`
+	Active           bool           `json:"active"`
+	SendAllEvents    bool           `json:"send_all_events"`
+	SelectedEvents   []string       `json:"selected_events"`
+	NotifierType     string         `json:"notifier_type"`
+	NotifierTypeData map[string]any `json:"notifier_type_data"`
+	PlatformName     string         `json:"platform_name"`
 }
 
 type EventNewNotifierType struct {
@@ -788,13 +788,13 @@ func (ev *EventNewNotifierType) String() string {
 
 // Edit notifier
 type EventEditNotifierTypeData struct {
-	NotifierName     string                 `json:"notifier_name"`
-	Active           bool                   `json:"active"`
-	SendAllEvents    bool                   `json:"send_all_events"`
-	SelectedEvents   []string               `json:"selected_events"`
-	NotifierType     string                 `json:"notifier_type"`
-	NotifierTypeData map[string]interface{} `json:"notifier_type_data"`
-	PlatformName     string                 `json:"platform_name"`
+	NotifierName     string         `json:"notifier_name"`
+	Active           bool           `json:"active"`
+	SendAllEvents    bool           `json:"send_all_events"`
+	SelectedEvents   []string       `json:"selected_events"`
+	NotifierType     string         `json:"notifier_type"`
+	NotifierTypeData map[string]any `json:"notifier_type_data"`
+	PlatformName     string         `json:"platform_name"`
 }
 
 type EventEditNotifierType struct {
@@ -809,13 +809,13 @@ func (ev *EventEditNotifierType) String() string {
 
 // Delete notifier
 type EventDeleteNotifierTypeData struct {
-	NotifierName     string                 `json:"notifier_name"`
-	Active           bool                   `json:"active"`
-	SendAllEvents    bool                   `json:"send_all_events"`
-	SelectedEvents   []string               `json:"selected_events"`
-	NotifierType     string                 `json:"notifier_type"`
-	NotifierTypeData map[string]interface{} `json:"notifier_type_data"`
-	PlatformName     string                 `json:"platform_name"`
+	NotifierName     string         `json:"notifier_name"`
+	Active           bool           `json:"active"`
+	SendAllEvents    bool           `json:"send_all_events"`
+	SelectedEvents   []string       `json:"selected_events"`
+	NotifierType     string         `json:"notifier_type"`
+	NotifierTypeData map[string]any `json:"notifier_type_data"`
+	PlatformName     string         `json:"platform_name"`
 }
 
 type EventDeleteNotifierType struct {

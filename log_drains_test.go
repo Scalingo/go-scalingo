@@ -24,7 +24,7 @@ func TestLogDrainsClient(t *testing.T) {
 		testedClientCall func(c LogDrainsService) error
 		expectedEndpoint string
 		expectedMethod   string
-		response         interface{}
+		response         any
 		responseStatus   int
 		noBody           bool
 	}{

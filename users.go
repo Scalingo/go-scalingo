@@ -63,7 +63,7 @@ func (c *Client) UpdateUser(ctx context.Context, params UpdateUserParams) (*User
 	req := &http.APIRequest{
 		Method:   "PATCH",
 		Endpoint: "/account/profile",
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"user": params,
 		},
 		Expected: http.Statuses{200},
@@ -87,7 +87,7 @@ func (c *Client) UserStopFreeTrial(ctx context.Context) error {
 	req := &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/users/stop_free_trial",
-		Params:   map[string]interface{}{},
+		Params:   map[string]any{},
 		Expected: http.Statuses{200},
 	}
 

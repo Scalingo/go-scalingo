@@ -48,7 +48,7 @@ func TestEventsList(t *testing.T) {
 			apiMock := httpmock.NewMockClient(ctrl)
 			client.apiClient = apiMock
 
-			apiMock.EXPECT().SubresourceList(gomock.Any(), "apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_ context.Context, _, _, _ string, _ interface{}, res interface{}) {
+			apiMock.EXPECT().SubresourceList(gomock.Any(), "apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_ context.Context, _, _, _ string, _ any, res any) {
 				err := json.Unmarshal([]byte(c.Body), &res)
 				require.NoError(t, err)
 			}).Return(nil)

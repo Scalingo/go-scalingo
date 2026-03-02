@@ -64,7 +64,7 @@ func (c *Client) VariableSet(ctx context.Context, app string, name string, value
 	req := &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/variables",
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"variable": map[string]string{
 				"name":  name,
 				"value": value,

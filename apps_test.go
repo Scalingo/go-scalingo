@@ -22,7 +22,7 @@ func TestAppsClient_Update(t *testing.T) {
 		expectedEndpoint string
 		expectedMethod   string
 		expectedParams   string
-		response         interface{}
+		response         any
 		responseStatus   int
 	}{
 		"it should enable the app router_logs attribute": {

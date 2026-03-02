@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"slices"
 	"time"
 
 	"github.com/Scalingo/go-scalingo/v9/debug"
@@ -22,7 +23,7 @@ type APIRequest struct {
 	Method      string
 	Endpoint    string
 	Expected    Statuses
-	Params      interface{}
+	Params      any
 	HTTPRequest *http.Request
 	Token       string // Directly use a Bearer token
 	Username    string // Username for the OAuth generator (nil if you use a token)
@@ -40,7 +41,7 @@ func (c *client) fillDefaultValues(ctx context.Context, req *APIRequest) error {
 		req.Expected = Statuses{200}
 	}
 	if req.Params == nil {
-		req.Params = make(map[string]interface{})
+		req.Params = make(map[string]any)
 	}
 
 	if !req.NoAuth && c.IsAuthenticatedClient() {
@@ -58,12 +59,7 @@ func (c *client) fillDefaultValues(ctx context.Context, req *APIRequest) error {
 }
 
 func (statuses Statuses) Contains(status int) bool {
-	for _, s := range statuses {
-		if s == status {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(statuses, status)
 }
 
 // Execute an API request and return its response/error

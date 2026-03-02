@@ -34,7 +34,7 @@ func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
 	req := &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + opts.App + "/run",
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"command":     strings.Join(opts.Command, " "),
 			"env":         opts.Env,
 			"size":        opts.Size,

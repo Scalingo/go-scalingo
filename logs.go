@@ -43,7 +43,7 @@ func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string)
 		Expected: httpclient.Statuses{200, 204, 404},
 		URL:      u.Scheme + "://" + u.Host,
 		Endpoint: u.Path,
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"token":     u.Query().Get("token"),
 			"timestamp": u.Query().Get("timestamp"),
 			"n":         n,

@@ -41,8 +41,8 @@ const (
 
 func (c *Client) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addonID string, params MaintenanceWindowParams) (Database, error) {
 	var dbRes DatabaseRes
-	err := c.DBAPI(app, addonID).ResourceUpdate(ctx, "databases", addonID, map[string]interface{}{
-		"database": map[string]interface{}{
+	err := c.DBAPI(app, addonID).ResourceUpdate(ctx, "databases", addonID, map[string]any{
+		"database": map[string]any{
 			"maintenance_window": params,
 		},
 	}, &dbRes)

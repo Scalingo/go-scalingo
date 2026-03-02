@@ -220,7 +220,7 @@ func (c *Client) DeploymentsCreate(ctx context.Context, app string, params *Depl
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/deployments",
 		Expected: httpclient.Statuses{201},
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"deployment": params,
 		},
 	}

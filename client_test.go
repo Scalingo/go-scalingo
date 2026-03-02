@@ -54,7 +54,7 @@ func TestNewClient(t *testing.T) {
 				require.True(t, ok)
 				assert.Equal(t, "api-token", password)
 				w.WriteHeader(200)
-				_, err := w.Write([]byte(fmt.Sprintf(`{"token": "%v"}`, jwt)))
+				_, err := w.Write(fmt.Appendf(nil, `{"token": "%v"}`, jwt))
 				assert.NoError(t, err)
 			}
 			if strings.Contains(r.URL.Path, "self") {
