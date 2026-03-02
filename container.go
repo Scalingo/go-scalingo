@@ -47,7 +47,7 @@ func (c *Client) ContainersKill(ctx context.Context, app string, signal string, 
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/containers/" + containerID + "/kill",
-		Params:   map[string]interface{}{"signal": signal},
+		Params:   map[string]any{"signal": signal},
 		Expected: httpclient.Statuses{204},
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, nil)

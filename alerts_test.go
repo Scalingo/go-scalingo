@@ -22,7 +22,7 @@ func TestAlertsClient(t *testing.T) {
 		testedClientCall func(c AlertsService) error
 		expectedEndpoint string
 		expectedMethod   string
-		response         interface{}
+		response         any
 		responseStatus   int
 		noBody           bool
 	}{

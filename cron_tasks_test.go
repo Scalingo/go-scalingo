@@ -21,7 +21,7 @@ func TestCronTasksClient_CronTasksGet(t *testing.T) {
 		testedClientCall func(c CronTasksService) error
 		expectedEndpoint string
 		expectedMethod   string
-		response         interface{}
+		response         any
 		responseStatus   int
 	}{
 		{

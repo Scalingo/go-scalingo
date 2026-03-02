@@ -106,7 +106,7 @@ func (c *Client) TokenCreateWithLogin(ctx context.Context, params TokenCreatePar
 		Password: login.Password,
 		OTP:      login.OTP,
 		Token:    login.JWT,
-		Params:   map[string]interface{}{"token": params},
+		Params:   map[string]any{"token": params},
 	}
 
 	resp, err := c.AuthAPI().Do(ctx, req)

@@ -19,7 +19,7 @@ func (c *Client) SignUp(ctx context.Context, email, password string) error {
 		Method:   "POST",
 		Endpoint: "/users",
 		Expected: http.Statuses{201},
-		Params: map[string]interface{}{
+		Params: map[string]any{
 			"user": map[string]string{
 				"email":    email,
 				"password": password,

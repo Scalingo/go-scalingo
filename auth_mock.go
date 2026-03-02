@@ -29,7 +29,7 @@ func MockAuth(ctrl *gomock.Controller) *httpmock.MockClient {
 		}
 
 		return &http.Response{
-			Body: io.NopCloser(bytes.NewBuffer([]byte(fmt.Sprintf(`{"token": "%v"}`, jwt)))),
+			Body: io.NopCloser(bytes.NewBuffer(fmt.Appendf(nil, `{"token": "%v"}`, jwt))),
 		}, nil
 	}).AnyTimes()
 	return mock

@@ -20,7 +20,7 @@ func TestAddonProvidersClient(t *testing.T) {
 		expectedEndpoint string
 		expectedMethod   string
 		expectedQuery    string
-		response         interface{}
+		response         any
 		responseStatus   int
 		noBody           bool
 	}{

@@ -62,7 +62,7 @@ func TestStacksList(t *testing.T) {
 			apiMock := httpmock.NewMockClient(ctrl)
 			client.apiClient = apiMock
 
-			apiMock.EXPECT().DoRequest(gomock.Any(), gomock.Any(), gomock.Any()).Do(func(_ context.Context, _, res interface{}) {
+			apiMock.EXPECT().DoRequest(gomock.Any(), gomock.Any(), gomock.Any()).Do(func(_ context.Context, _, res any) {
 				err := json.Unmarshal([]byte(test.json), &res)
 				require.NoError(t, err)
 			}).Return(nil)
