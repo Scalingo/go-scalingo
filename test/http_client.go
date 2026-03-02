@@ -7,6 +7,7 @@ import (
 
 type HTTPClient struct {
 	*sync.Mutex
+
 	Calls         []*http.Request
 	responseData  *http.Response
 	responseError error

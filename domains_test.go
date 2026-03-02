@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -14,7 +13,7 @@ import (
 )
 
 func TestDomainsClient_Domain_Updates(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 	appName := "my-app"
 	domainID := "domain-id"
 

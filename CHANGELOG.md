@@ -6,7 +6,7 @@
 * build(deps): update `github.com/golang-jwt/jwt` from v4 to v5
 * refactor: replace `errgo` with `github.com/Scalingo/go-utils/errors/v3` (breaking change)
 * feat(logs): `LogsURL` returns a parsed structure (breaking change)
-* refactor: autofix by `go fix`
+* refactor: autofix by `go fix` and `golangci-lint`
 
 ## 9.2.0
 

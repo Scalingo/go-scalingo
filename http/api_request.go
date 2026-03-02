@@ -110,7 +110,7 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 	debug.Printf(pkgio.Indent("Params: %v", 6), req.Params)
 
 	if req.Token != "" {
-		req.HTTPRequest.Header.Add("Authorization", fmt.Sprintf("Bearer %s", req.Token))
+		req.HTTPRequest.Header.Add("Authorization", "Bearer "+req.Token)
 	} else if req.Username != "" || req.Password != "" {
 		req.HTTPRequest.SetBasicAuth(req.Username, req.Password)
 	}
@@ -135,8 +135,8 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 }
 
 func (c *client) doRequest(req *http.Request) (*http.Response, error) {
-	if req.Header.Get("Content-type") == "" {
-		req.Header.Set("Content-type", "application/json")
+	if req.Header.Get("Content-Type") == "" {
+		req.Header.Set("Content-Type", "application/json")
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Add("User-Agent", "Scalingo Go Client")

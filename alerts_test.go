@@ -1,7 +1,6 @@
 package scalingo
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -13,7 +12,7 @@ import (
 )
 
 func TestAlertsClient(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 	const appName = "my-app"
 	alertID := "my-id"
 

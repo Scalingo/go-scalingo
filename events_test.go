@@ -37,7 +37,7 @@ var eventsListCases = map[string]struct {
 }
 
 func TestEventsList(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	for msg, c := range eventsListCases {
 		t.Run(msg, func(t *testing.T) {
