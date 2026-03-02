@@ -11,6 +11,8 @@ import (
 
 type LogsService interface {
 	LogsURL(ctx context.Context, app string) (*LogsURLRes, error)
+	// Logs returns the raw http.Response from the request to the API. This response body contains the requested log lines in raw text.
+	// It has been decided to let the user of this function decides how to best read the body (type is io.ReadCloser) depending on their context.
 	Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error)
 }
 
