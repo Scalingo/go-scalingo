@@ -11,11 +11,12 @@ import (
 
 	httpclient "github.com/Scalingo/go-scalingo/v9/http"
 	"github.com/Scalingo/go-utils/errors/v3"
+	"github.com/Scalingo/go-utils/pagination"
 )
 
 type DeploymentsService interface {
 	DeploymentList(ctx context.Context, app string) ([]*Deployment, error)
-	DeploymentListWithPagination(ctx context.Context, app string, opts PaginationOpts) ([]*Deployment, PaginationMeta, error)
+	DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*Deployment, pagination.Meta, error)
 	Deployment(ctx context.Context, app string, deploy string) (*Deployment, error)
 	DeploymentLogs(ctx context.Context, deployURL string) (*http.Response, error)
 	DeploymentStream(ctx context.Context, deployURL string) (*websocket.Conn, error)
@@ -119,7 +120,7 @@ func IsFinishedString(status DeploymentStatus) bool {
 type DeploymentList struct {
 	Deployments []*Deployment `json:"deployments"`
 	Meta        struct {
-		PaginationMeta PaginationMeta `json:"pagination"`
+		Pagination pagination.Meta `json:"pagination"`
 	}
 }
 
@@ -149,14 +150,14 @@ func (c *Client) DeploymentList(ctx context.Context, app string) ([]*Deployment,
 	return deployments.Deployments, nil
 }
 
-func (c *Client) DeploymentListWithPagination(ctx context.Context, app string, opts PaginationOpts) ([]*Deployment, PaginationMeta, error) {
+func (c *Client) DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*Deployment, pagination.Meta, error) {
 	var deployments DeploymentList
-	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "deployments", opts.ToMap(), &deployments)
+	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "deployments", paginationRequestToMap(paginationReq), &deployments)
 	if err != nil {
-		return []*Deployment{}, PaginationMeta{}, errors.Wrap(ctx, err, "list the deployments with pagination")
+		return []*Deployment{}, pagination.Meta{}, errors.Wrap(ctx, err, "list the deployments with pagination")
 	}
 
-	return deployments.Deployments, deployments.Meta.PaginationMeta, nil
+	return deployments.Deployments, deployments.Meta.Pagination, nil
 }
 
 func (c *Client) Deployment(ctx context.Context, app string, deploy string) (*Deployment, error) {

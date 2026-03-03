@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	gomock "github.com/golang/mock/gomock"
-
 	scalingo "github.com/Scalingo/go-scalingo/v9"
+	pagination "github.com/Scalingo/go-utils/pagination"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockDatabasesService is a mock of DatabasesService interface.
@@ -67,11 +67,11 @@ func (mr *MockDatabasesServiceMockRecorder) DatabaseEnableFeature(arg0, arg1, ar
 }
 
 // DatabaseListMaintenance mocks base method.
-func (m *MockDatabasesService) DatabaseListMaintenance(arg0 context.Context, arg1, arg2 string, arg3 scalingo.PaginationOpts) ([]*scalingo.Maintenance, scalingo.PaginationMeta, error) {
+func (m *MockDatabasesService) DatabaseListMaintenance(arg0 context.Context, arg1, arg2 string, paginationReq pagination.Request) ([]*scalingo.Maintenance, pagination.Meta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DatabaseListMaintenance", arg0, arg1, arg2, arg3)
+	ret := m.ctrl.Call(m, "DatabaseListMaintenance", arg0, arg1, arg2, paginationReq)
 	ret0, _ := ret[0].([]*scalingo.Maintenance)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }

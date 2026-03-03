@@ -9,10 +9,10 @@ import (
 	http "net/http"
 	reflect "reflect"
 
+	scalingo "github.com/Scalingo/go-scalingo/v9"
+	pagination "github.com/Scalingo/go-utils/pagination"
 	gomock "github.com/golang/mock/gomock"
 	websocket "github.com/gorilla/websocket"
-
-	scalingo "github.com/Scalingo/go-scalingo/v9"
 )
 
 // MockDeploymentsService is a mock of DeploymentsService interface.
@@ -69,11 +69,11 @@ func (mr *MockDeploymentsServiceMockRecorder) DeploymentList(arg0, arg1 interfac
 }
 
 // DeploymentListWithPagination mocks base method.
-func (m *MockDeploymentsService) DeploymentListWithPagination(arg0 context.Context, arg1 string, arg2 scalingo.PaginationOpts) ([]*scalingo.Deployment, scalingo.PaginationMeta, error) {
+func (m *MockDeploymentsService) DeploymentListWithPagination(arg0 context.Context, arg1 string, paginationReq pagination.Request) ([]*scalingo.Deployment, pagination.Meta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeploymentListWithPagination", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "DeploymentListWithPagination", arg0, arg1, paginationReq)
 	ret0, _ := ret[0].([]*scalingo.Deployment)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
