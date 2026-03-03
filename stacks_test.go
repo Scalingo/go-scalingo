@@ -33,7 +33,7 @@ func TestStackIsDeprecated(t *testing.T) {
 }
 
 func TestStacksList(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	stacksListCases := map[string]struct {
 		json          string

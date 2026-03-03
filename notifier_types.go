@@ -12,6 +12,7 @@ type omit *struct{}
 // Struct used to serialize a notifier
 type NotifierOutput struct {
 	*Notifier
+
 	TypeData    NotifierTypeDataParams `json:"type_data"`
 	RawTypeData omit                   `json:",omitempty"` // Will always be empty and not serialized
 }
@@ -95,6 +96,7 @@ func (n *Notifier) TypeDataMap() map[string]any {
 // Webhook
 type NotifierWebhookType struct {
 	Notifier
+
 	TypeData NotifierWebhookTypeData `json:"type_data"`
 }
 
@@ -115,6 +117,7 @@ func (n *NotifierWebhookType) TypeDataMap() map[string]any {
 // Slack
 type NotifierSlackType struct {
 	Notifier
+
 	TypeData NotifierSlackTypeData `json:"type_data"`
 }
 
@@ -135,6 +138,7 @@ func (n *NotifierSlackType) TypeDataMap() map[string]any {
 // Email
 type NotifierEmailType struct {
 	Notifier
+
 	TypeData NotifierEmailTypeData `json:"type_data"`
 }
 

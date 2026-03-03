@@ -1,7 +1,6 @@
 package http
 
 import (
-	"context"
 	"testing"
 	"time"
 
@@ -13,7 +12,7 @@ import (
 )
 
 func TestAPITokenGenerator_GetAccessToken(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 	apiToken := "tk-token-test"
 
 	ctrl := gomock.NewController(t)

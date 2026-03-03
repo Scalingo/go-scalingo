@@ -1,6 +1,6 @@
 package scalingo
 
-import "fmt"
+import "strconv"
 
 type PaginationOpts struct {
 	Page    int
@@ -9,8 +9,8 @@ type PaginationOpts struct {
 
 func (opts PaginationOpts) ToMap() map[string]string {
 	return map[string]string{
-		"page":     fmt.Sprintf("%d", opts.Page),
-		"per_page": fmt.Sprintf("%d", opts.PerPage),
+		"page":     strconv.Itoa(opts.Page),
+		"per_page": strconv.Itoa(opts.PerPage),
 	}
 }
 

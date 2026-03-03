@@ -182,7 +182,7 @@ func NewRequestFailedError(ctx context.Context, res *http.Response, req *APIRequ
 	case http.StatusInternalServerError: // 500
 		return &RequestFailedError{Code: res.StatusCode, APIError: errors.New(ctx, "server internal error - our team has been notified"), Req: req}
 	case http.StatusServiceUnavailable: // 503
-		return &RequestFailedError{Code: res.StatusCode, APIError: fmt.Errorf("upstream provider returned an error, please retry later"), Req: req}
+		return &RequestFailedError{Code: res.StatusCode, APIError: errors.New(ctx, "upstream provider returned an error, please retry later"), Req: req}
 	default:
 		return &RequestFailedError{Code: res.StatusCode, APIError: fmt.Errorf("invalid status from server: %v", res.Status), Req: req}
 	}

@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -14,7 +13,7 @@ import (
 )
 
 func TestAppsClient_Update(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 	const appName = "my-app"
 
 	runs := map[string]struct {
