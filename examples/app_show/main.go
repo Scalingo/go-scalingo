@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Scalingo/go-scalingo/v9"
+	"github.com/Scalingo/go-scalingo/v10"
 )
 
 func main() {

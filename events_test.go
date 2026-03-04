@@ -8,7 +8,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Scalingo/go-scalingo/v9/http/httpmock"
+	"github.com/Scalingo/go-scalingo/v10/http/httpmock"
 	"github.com/Scalingo/go-utils/pagination"
 )
 
