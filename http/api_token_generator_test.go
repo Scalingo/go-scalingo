@@ -8,7 +8,7 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Scalingo/go-scalingo/v9/http/tokensservicemock"
+	"github.com/Scalingo/go-scalingo/v10/http/tokensservicemock"
 )
 
 func TestAPITokenGenerator_GetAccessToken(t *testing.T) {

@@ -11,8 +11,8 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/golang/mock/gomock"
 
-	httpclient "github.com/Scalingo/go-scalingo/v9/http"
-	"github.com/Scalingo/go-scalingo/v9/http/httpmock"
+	httpclient "github.com/Scalingo/go-scalingo/v10/http"
+	"github.com/Scalingo/go-scalingo/v10/http/httpmock"
 )
 
 func MockAuth(ctrl *gomock.Controller) *httpmock.MockClient {

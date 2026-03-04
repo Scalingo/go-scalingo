@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v9/debug"
+	"github.com/Scalingo/go-scalingo/v10/debug"
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 

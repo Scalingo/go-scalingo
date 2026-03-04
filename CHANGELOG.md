@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 10.0.0
+
 * chore(databases): refactor constants
 * build(deps): update `github.com/golang-jwt/jwt` from v4 to v5
 * refactor: replace `errgo` with `github.com/Scalingo/go-utils/errors/v3` (breaking change)
