@@ -7,10 +7,11 @@ import (
 
 	"github.com/Scalingo/go-scalingo/v9/http"
 	"github.com/Scalingo/go-utils/errors/v3"
+	"github.com/Scalingo/go-utils/pagination"
 )
 
 type SCMRepoLinkService interface {
-	SCMRepoLinkList(ctx context.Context, opts PaginationOpts) ([]*SCMRepoLink, PaginationMeta, error)
+	SCMRepoLinkList(ctx context.Context, paginationReq pagination.Request) ([]*SCMRepoLink, pagination.Meta, error)
 	SCMRepoLinkShow(ctx context.Context, app string) (*SCMRepoLink, error)
 	SCMRepoLinkCreate(ctx context.Context, app string, params SCMRepoLinkCreateParams) (*SCMRepoLink, error)
 	SCMRepoLinkUpdate(ctx context.Context, app string, params SCMRepoLinkUpdateParams) (*SCMRepoLink, error)
@@ -78,7 +79,7 @@ type SCMRepoLinkLinker struct {
 type SCMRepoLinksResponse struct {
 	SCMRepoLinks []*SCMRepoLink `json:"scm_repo_links"`
 	Meta         struct {
-		PaginationMeta PaginationMeta `json:"pagination"`
+		Pagination pagination.Meta `json:"pagination"`
 	}
 }
 
@@ -114,13 +115,13 @@ type RepoLinkPullRequest struct {
 
 var _ SCMRepoLinkService = (*Client)(nil)
 
-func (c *Client) SCMRepoLinkList(ctx context.Context, opts PaginationOpts) ([]*SCMRepoLink, PaginationMeta, error) {
+func (c *Client) SCMRepoLinkList(ctx context.Context, paginationReq pagination.Request) ([]*SCMRepoLink, pagination.Meta, error) {
 	var res SCMRepoLinksResponse
-	err := c.ScalingoAPI().ResourceList(ctx, "scm_repo_links", opts.ToMap(), &res)
+	err := c.ScalingoAPI().ResourceList(ctx, "scm_repo_links", paginationReq.ToURLValues(), &res)
 	if err != nil {
-		return nil, PaginationMeta{}, errors.Wrap(ctx, err, "list SCM repo links")
+		return nil, pagination.Meta{}, errors.Wrap(ctx, err, "list SCM repo links")
 	}
-	return res.SCMRepoLinks, res.Meta.PaginationMeta, nil
+	return res.SCMRepoLinks, res.Meta.Pagination, nil
 }
 
 func (c *Client) SCMRepoLinkShow(ctx context.Context, app string) (*SCMRepoLink, error) {

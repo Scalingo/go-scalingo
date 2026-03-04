@@ -737,11 +737,11 @@ func (mr *MockAPIMockRecorder) DatabaseEnableFeature(arg0, arg1, arg2, arg3 inte
 }
 
 // DatabaseListMaintenance mocks base method.
-func (m *MockAPI) DatabaseListMaintenance(arg0 context.Context, arg1, arg2 string, arg3 scalingo.PaginationOpts) ([]*scalingo.Maintenance, scalingo.PaginationMeta, error) {
+func (m *MockAPI) DatabaseListMaintenance(arg0 context.Context, arg1, arg2 string, arg3 pagination.Request) ([]*scalingo.Maintenance, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseListMaintenance", arg0, arg1, arg2, arg3)
 	ret0, _ := ret[0].([]*scalingo.Maintenance)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
@@ -843,11 +843,11 @@ func (mr *MockAPIMockRecorder) DeploymentList(arg0, arg1 interface{}) *gomock.Ca
 }
 
 // DeploymentListWithPagination mocks base method.
-func (m *MockAPI) DeploymentListWithPagination(arg0 context.Context, arg1 string, arg2 scalingo.PaginationOpts) ([]*scalingo.Deployment, scalingo.PaginationMeta, error) {
+func (m *MockAPI) DeploymentListWithPagination(arg0 context.Context, arg1 string, arg2 pagination.Request) ([]*scalingo.Deployment, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentListWithPagination", arg0, arg1, arg2)
 	ret0, _ := ret[0].([]*scalingo.Deployment)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
@@ -1053,11 +1053,11 @@ func (mr *MockAPIMockRecorder) EventTypesList(arg0 interface{}) *gomock.Call {
 }
 
 // EventsList mocks base method.
-func (m *MockAPI) EventsList(arg0 context.Context, arg1 string, arg2 scalingo.PaginationOpts) (scalingo.Events, scalingo.PaginationMeta, error) {
+func (m *MockAPI) EventsList(arg0 context.Context, arg1 string, arg2 pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventsList", arg0, arg1, arg2)
 	ret0, _ := ret[0].(scalingo.Events)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
@@ -1099,11 +1099,11 @@ func (mr *MockAPIMockRecorder) InvoiceShow(arg0, arg1 interface{}) *gomock.Call 
 }
 
 // InvoicesList mocks base method.
-func (m *MockAPI) InvoicesList(arg0 context.Context, arg1 scalingo.PaginationOpts) (scalingo.Invoices, scalingo.PaginationMeta, error) {
+func (m *MockAPI) InvoicesList(arg0 context.Context, arg1 pagination.Request) (scalingo.Invoices, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "InvoicesList", arg0, arg1)
 	ret0, _ := ret[0].(scalingo.Invoices)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
@@ -1619,11 +1619,11 @@ func (mr *MockAPIMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // UserEventsList mocks base method.
-func (m *MockAPI) UserEventsList(arg0 context.Context, arg1 scalingo.PaginationOpts) (scalingo.Events, scalingo.PaginationMeta, error) {
+func (m *MockAPI) UserEventsList(arg0 context.Context, arg1 pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserEventsList", arg0, arg1)
 	ret0, _ := ret[0].(scalingo.Events)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }

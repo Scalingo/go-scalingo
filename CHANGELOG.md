@@ -7,6 +7,7 @@
 * refactor: replace `errgo` with `github.com/Scalingo/go-utils/errors/v3` (breaking change)
 * feat(logs): `LogsURL` returns a parsed structure (breaking change)
 * refactor: autofix by `go fix` and `golangci-lint`
+* refactor: remove use of a custom pagination structure
 
 ## 9.2.0
 

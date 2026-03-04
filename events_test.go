@@ -9,15 +9,16 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/Scalingo/go-scalingo/v9/http/httpmock"
+	"github.com/Scalingo/go-utils/pagination"
 )
 
 var eventsListCases = map[string]struct {
-	PaginationOpts PaginationOpts
-	App            string
-	Body           string
-	Code           int
-	EventsCount    int
-	Error          error
+	PaginationReq pagination.Request
+	App           string
+	Body          string
+	Code          int
+	EventsCount   int
+	Error         error
 }{
 	"test get list of events with no event": {
 		App:         "app-1",
@@ -48,12 +49,12 @@ func TestEventsList(t *testing.T) {
 			apiMock := httpmock.NewMockClient(ctrl)
 			client.apiClient = apiMock
 
-			apiMock.EXPECT().SubresourceList(gomock.Any(), "apps", c.App, "events", c.PaginationOpts.ToMap(), gomock.Any()).Do(func(_ context.Context, _, _, _ string, _ any, res any) {
+			apiMock.EXPECT().SubresourceList(gomock.Any(), "apps", c.App, "events", c.PaginationReq.ToURLValues(), gomock.Any()).Do(func(_ context.Context, _, _, _ string, _ any, res any) {
 				err := json.Unmarshal([]byte(c.Body), &res)
 				require.NoError(t, err)
 			}).Return(nil)
 
-			events, _, err := client.EventsList(ctx, c.App, c.PaginationOpts)
+			events, _, err := client.EventsList(ctx, c.App, c.PaginationReq)
 			if len(events) != c.EventsCount {
 				t.Errorf("expected %d event, got %v", c.EventsCount, len(events))
 			}

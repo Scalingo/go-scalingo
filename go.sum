@@ -1,7 +1,7 @@
 github.com/Scalingo/go-utils/errors/v3 v3.2.0 h1:Ks+v2oRwv3VZfe+xVB+kpfmZouXHVCPHHtwL5W60prc=
 github.com/Scalingo/go-utils/errors/v3 v3.2.0/go.mod h1:jVVNoOdYFjuNkR/BeEZWNWJVvu4jmyLY4udlsQQyBss=
-github.com/Scalingo/go-utils/pagination v1.1.2 h1:DfHxWXK76F6+UyJqmJ/XIxTuwurMIJHRFfiejmPBC+8=
-github.com/Scalingo/go-utils/pagination v1.1.2/go.mod h1:MwT1RRecXktFgVNeib+B4dnM4r0cPc93JichOPs5tj0=
+github.com/Scalingo/go-utils/pagination v1.2.0 h1:dTvce+thcZXH/S13HF5dxGNPCMdGALNsW6p2EYe2Pno=
+github.com/Scalingo/go-utils/pagination v1.2.0/go.mod h1:MwT1RRecXktFgVNeib+B4dnM4r0cPc93JichOPs5tj0=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/frankban/quicktest v1.2.2 h1:xfmOhhoH5fGPgbEAlhLpJH9p0z/0Qizio9osmvn9IUY=

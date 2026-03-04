@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	gomock "github.com/golang/mock/gomock"
-
 	scalingo "github.com/Scalingo/go-scalingo/v9"
+	pagination "github.com/Scalingo/go-utils/pagination"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockSCMRepoLinkService is a mock of SCMRepoLinkService interface.
@@ -81,11 +81,11 @@ func (mr *MockSCMRepoLinkServiceMockRecorder) SCMRepoLinkDeployments(arg0, arg1 
 }
 
 // SCMRepoLinkList mocks base method.
-func (m *MockSCMRepoLinkService) SCMRepoLinkList(arg0 context.Context, arg1 scalingo.PaginationOpts) ([]*scalingo.SCMRepoLink, scalingo.PaginationMeta, error) {
+func (m *MockSCMRepoLinkService) SCMRepoLinkList(arg0 context.Context, paginationReq pagination.Request) ([]*scalingo.SCMRepoLink, pagination.Meta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SCMRepoLinkList", arg0, arg1)
+	ret := m.ctrl.Call(m, "SCMRepoLinkList", arg0, paginationReq)
 	ret0, _ := ret[0].([]*scalingo.SCMRepoLink)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }

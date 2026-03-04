@@ -8,9 +8,9 @@ import (
 	context "context"
 	reflect "reflect"
 
-	gomock "github.com/golang/mock/gomock"
-
 	scalingo "github.com/Scalingo/go-scalingo/v9"
+	pagination "github.com/Scalingo/go-utils/pagination"
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockEventsService is a mock of EventsService interface.
@@ -67,11 +67,11 @@ func (mr *MockEventsServiceMockRecorder) EventTypesList(arg0 interface{}) *gomoc
 }
 
 // EventsList mocks base method.
-func (m *MockEventsService) EventsList(arg0 context.Context, arg1 string, arg2 scalingo.PaginationOpts) (scalingo.Events, scalingo.PaginationMeta, error) {
+func (m *MockEventsService) EventsList(arg0 context.Context, arg1 string, paginationReq pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "EventsList", arg0, arg1, arg2)
+	ret := m.ctrl.Call(m, "EventsList", arg0, arg1, paginationReq)
 	ret0, _ := ret[0].(scalingo.Events)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
@@ -83,11 +83,11 @@ func (mr *MockEventsServiceMockRecorder) EventsList(arg0, arg1, arg2 interface{}
 }
 
 // UserEventsList mocks base method.
-func (m *MockEventsService) UserEventsList(arg0 context.Context, arg1 scalingo.PaginationOpts) (scalingo.Events, scalingo.PaginationMeta, error) {
+func (m *MockEventsService) UserEventsList(arg0 context.Context, paginationReq pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UserEventsList", arg0, arg1)
+	ret := m.ctrl.Call(m, "UserEventsList", arg0, paginationReq)
 	ret0, _ := ret[0].(scalingo.Events)
-	ret1, _ := ret[1].(scalingo.PaginationMeta)
+	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
