@@ -61,7 +61,7 @@ type InvoiceRes struct {
 
 func (c *Client) InvoicesList(ctx context.Context, paginationReq pagination.Request) (Invoices, pagination.Meta, error) {
 	var invoicesRes InvoicesRes
-	err := c.ScalingoAPI().ResourceList(ctx, "account/invoices", paginationRequestToMap(paginationReq), &invoicesRes)
+	err := c.ScalingoAPI().ResourceList(ctx, "account/invoices", paginationReq.ToURLValues(), &invoicesRes)
 	if err != nil {
 		return nil, pagination.Meta{}, errors.Wrap(ctx, err, "list invoices")
 	}

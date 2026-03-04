@@ -152,7 +152,7 @@ func (c *Client) DeploymentList(ctx context.Context, app string) ([]*Deployment,
 
 func (c *Client) DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*Deployment, pagination.Meta, error) {
 	var deployments DeploymentList
-	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "deployments", paginationRequestToMap(paginationReq), &deployments)
+	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "deployments", paginationReq.ToURLValues(), &deployments)
 	if err != nil {
 		return []*Deployment{}, pagination.Meta{}, errors.Wrap(ctx, err, "list the deployments with pagination")
 	}

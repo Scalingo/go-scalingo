@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/Scalingo/go-utils/errors/v3 v3.2.0
-	github.com/Scalingo/go-utils/pagination v1.1.2
+	github.com/Scalingo/go-utils/pagination v1.2.0
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/websocket v1.5.3

@@ -81,7 +81,7 @@ func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error
 		}
 		body = bytes.NewReader(buffer)
 	case http.MethodGet, http.MethodDelete:
-		values, err := req.BuildQueryFromParams(ctx)
+		values, err := req.buildQueryFromParams(ctx)
 		if err != nil {
 			return nil, errors.Wrap(ctx, err, "build the query params")
 		}
@@ -161,7 +161,12 @@ func parseJSON(ctx context.Context, res *http.Response, data any) error {
 	return nil
 }
 
-func (req *APIRequest) BuildQueryFromParams(ctx context.Context) (url.Values, error) {
+func (req *APIRequest) buildQueryFromParams(ctx context.Context) (url.Values, error) {
+	urlValues, ok := req.Params.(url.Values)
+	if ok {
+		return urlValues, nil
+	}
+
 	values := url.Values{}
 	if reflect.TypeOf(req.Params).Kind() != reflect.Map {
 		return nil, errors.Errorf(ctx, "%#v is not a map", req.Params)

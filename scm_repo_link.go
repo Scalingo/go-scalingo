@@ -117,7 +117,7 @@ var _ SCMRepoLinkService = (*Client)(nil)
 
 func (c *Client) SCMRepoLinkList(ctx context.Context, paginationReq pagination.Request) ([]*SCMRepoLink, pagination.Meta, error) {
 	var res SCMRepoLinksResponse
-	err := c.ScalingoAPI().ResourceList(ctx, "scm_repo_links", paginationRequestToMap(paginationReq), &res)
+	err := c.ScalingoAPI().ResourceList(ctx, "scm_repo_links", paginationReq.ToURLValues(), &res)
 	if err != nil {
 		return nil, pagination.Meta{}, errors.Wrap(ctx, err, "list SCM repo links")
 	}

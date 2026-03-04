@@ -63,7 +63,7 @@ type ListMaintenanceResponse struct {
 
 func (c *Client) DatabaseListMaintenance(ctx context.Context, app, addonID string, paginationReq pagination.Request) ([]*Maintenance, pagination.Meta, error) {
 	var maintenanceRes ListMaintenanceResponse
-	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", paginationRequestToMap(paginationReq), &maintenanceRes)
+	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "maintenance", paginationReq.ToURLValues(), &maintenanceRes)
 	if err != nil {
 		return nil, pagination.Meta{}, errors.Wrapf(ctx, err, "list database '%v' maintenance", addonID)
 	}
