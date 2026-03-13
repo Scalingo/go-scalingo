@@ -4,6 +4,7 @@
 
 * fix(privatenetworks): `PrivateNetworksDomainsList` must take a `pagination.Request` in argument (breaking change)
 * fix(errors): detect if body is invalid in case of 422
+* refactor(env): replace call to `Do` with call to `DoRequest` (breaking change)
 
 ## 10.0.0
 

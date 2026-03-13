@@ -5,7 +5,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
 	"github.com/Scalingo/go-utils/errors/v3"
@@ -48,15 +47,9 @@ func (c *Client) UserEventsList(ctx context.Context, paginationReq pagination.Re
 	}
 
 	var eventsRes EventsRes
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &eventsRes)
 	if err != nil {
 		return nil, pagination.Meta{}, errors.Wrap(ctx, err, "list user events")
-	}
-	defer res.Body.Close()
-
-	err = json.NewDecoder(res.Body).Decode(&eventsRes)
-	if err != nil {
-		return nil, pagination.Meta{}, errors.Wrap(ctx, err, "decode user events response")
 	}
 
 	var events Events

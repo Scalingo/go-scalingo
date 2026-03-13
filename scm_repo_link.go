@@ -168,15 +168,14 @@ func (c *Client) SCMRepoLinkUpdate(ctx context.Context, app string, params SCMRe
 }
 
 func (c *Client) SCMRepoLinkDelete(ctx context.Context, app string) error {
-	res, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
+	err := c.ScalingoAPI().DoRequest(ctx, &http.APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/apps/" + app + "/scm_repo_link",
 		Expected: http.Statuses{204},
-	})
+	}, nil)
 	if err != nil {
 		return errors.Wrap(ctx, err, "delete this SCM repo link")
 	}
-	defer res.Body.Close()
 
 	return nil
 }
@@ -210,16 +209,15 @@ func (c *Client) SCMRepoLinkManualDeploy(ctx context.Context, app, branch string
 }
 
 func (c *Client) SCMRepoLinkManualReviewApp(ctx context.Context, app, pullRequestID string) error {
-	res, err := c.ScalingoAPI().Do(ctx, &http.APIRequest{
+	err := c.ScalingoAPI().DoRequest(ctx, &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scm_repo_link/manual_review_app",
 		Expected: http.Statuses{200},
 		Params:   map[string]string{"pull_request_id": pullRequestID},
-	})
+	}, nil)
 	if err != nil {
 		return errors.Wrap(ctx, err, "trigger manual review app deployment")
 	}
-	defer res.Body.Close()
 
 	return nil
 }

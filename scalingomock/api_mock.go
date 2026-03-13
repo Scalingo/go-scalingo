@@ -14,7 +14,7 @@ import (
 	http0 "net/http"
 	reflect "reflect"
 
-	v10 "github.com/Scalingo/go-scalingo/v10"
+	scalingo "github.com/Scalingo/go-scalingo/v10"
 	http "github.com/Scalingo/go-scalingo/v10/http"
 	pagination "github.com/Scalingo/go-utils/pagination"
 	websocket "github.com/gorilla/websocket"
@@ -60,10 +60,10 @@ func (mr *MockAPIMockRecorder) AddonDestroy(ctx, app, addonID any) *gomock.Call 
 }
 
 // AddonLogsArchives mocks base method.
-func (m *MockAPI) AddonLogsArchives(ctx context.Context, app, addonID string, page int) (*v10.LogsArchivesResponse, error) {
+func (m *MockAPI) AddonLogsArchives(ctx context.Context, app, addonID string, page int) (*scalingo.LogsArchivesResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonLogsArchives", ctx, app, addonID, page)
-	ret0, _ := ret[0].(*v10.LogsArchivesResponse)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -90,10 +90,10 @@ func (mr *MockAPIMockRecorder) AddonLogsURL(ctx, app, addonID any) *gomock.Call 
 }
 
 // AddonProviderPlansList mocks base method.
-func (m *MockAPI) AddonProviderPlansList(ctx context.Context, addon string, opts v10.AddonProviderPlansListOpts) ([]*v10.Plan, error) {
+func (m *MockAPI) AddonProviderPlansList(ctx context.Context, addon string, opts scalingo.AddonProviderPlansListOpts) ([]*scalingo.Plan, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProviderPlansList", ctx, addon, opts)
-	ret0, _ := ret[0].([]*v10.Plan)
+	ret0, _ := ret[0].([]*scalingo.Plan)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -105,10 +105,10 @@ func (mr *MockAPIMockRecorder) AddonProviderPlansList(ctx, addon, opts any) *gom
 }
 
 // AddonProvidersList mocks base method.
-func (m *MockAPI) AddonProvidersList(arg0 context.Context) ([]*v10.AddonProvider, error) {
+func (m *MockAPI) AddonProvidersList(arg0 context.Context) ([]*scalingo.AddonProvider, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvidersList", arg0)
-	ret0, _ := ret[0].([]*v10.AddonProvider)
+	ret0, _ := ret[0].([]*scalingo.AddonProvider)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -120,10 +120,10 @@ func (mr *MockAPIMockRecorder) AddonProvidersList(arg0 any) *gomock.Call {
 }
 
 // AddonProvision mocks base method.
-func (m *MockAPI) AddonProvision(ctx context.Context, app string, params v10.AddonProvisionParams) (v10.AddonRes, error) {
+func (m *MockAPI) AddonProvision(ctx context.Context, app string, params scalingo.AddonProvisionParams) (scalingo.AddonRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonProvision", ctx, app, params)
-	ret0, _ := ret[0].(v10.AddonRes)
+	ret0, _ := ret[0].(scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -150,10 +150,10 @@ func (mr *MockAPIMockRecorder) AddonToken(ctx, app, addonID any) *gomock.Call {
 }
 
 // AddonUpgrade mocks base method.
-func (m *MockAPI) AddonUpgrade(ctx context.Context, app, addonID string, params v10.AddonUpgradeParams) (v10.AddonRes, error) {
+func (m *MockAPI) AddonUpgrade(ctx context.Context, app, addonID string, params scalingo.AddonUpgradeParams) (scalingo.AddonRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonUpgrade", ctx, app, addonID, params)
-	ret0, _ := ret[0].(v10.AddonRes)
+	ret0, _ := ret[0].(scalingo.AddonRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -165,10 +165,10 @@ func (mr *MockAPIMockRecorder) AddonUpgrade(ctx, app, addonID, params any) *gomo
 }
 
 // AddonsList mocks base method.
-func (m *MockAPI) AddonsList(ctx context.Context, app string) ([]*v10.Addon, error) {
+func (m *MockAPI) AddonsList(ctx context.Context, app string) ([]*scalingo.Addon, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AddonsList", ctx, app)
-	ret0, _ := ret[0].([]*v10.Addon)
+	ret0, _ := ret[0].([]*scalingo.Addon)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -180,10 +180,10 @@ func (mr *MockAPIMockRecorder) AddonsList(ctx, app any) *gomock.Call {
 }
 
 // AlertAdd mocks base method.
-func (m *MockAPI) AlertAdd(ctx context.Context, app string, params v10.AlertAddParams) (*v10.Alert, error) {
+func (m *MockAPI) AlertAdd(ctx context.Context, app string, params scalingo.AlertAddParams) (*scalingo.Alert, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertAdd", ctx, app, params)
-	ret0, _ := ret[0].(*v10.Alert)
+	ret0, _ := ret[0].(*scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -209,10 +209,10 @@ func (mr *MockAPIMockRecorder) AlertRemove(ctx, app, id any) *gomock.Call {
 }
 
 // AlertShow mocks base method.
-func (m *MockAPI) AlertShow(ctx context.Context, app, id string) (*v10.Alert, error) {
+func (m *MockAPI) AlertShow(ctx context.Context, app, id string) (*scalingo.Alert, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertShow", ctx, app, id)
-	ret0, _ := ret[0].(*v10.Alert)
+	ret0, _ := ret[0].(*scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -224,10 +224,10 @@ func (mr *MockAPIMockRecorder) AlertShow(ctx, app, id any) *gomock.Call {
 }
 
 // AlertUpdate mocks base method.
-func (m *MockAPI) AlertUpdate(ctx context.Context, app, id string, params v10.AlertUpdateParams) (*v10.Alert, error) {
+func (m *MockAPI) AlertUpdate(ctx context.Context, app, id string, params scalingo.AlertUpdateParams) (*scalingo.Alert, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertUpdate", ctx, app, id, params)
-	ret0, _ := ret[0].(*v10.Alert)
+	ret0, _ := ret[0].(*scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -239,10 +239,10 @@ func (mr *MockAPIMockRecorder) AlertUpdate(ctx, app, id, params any) *gomock.Cal
 }
 
 // AlertsList mocks base method.
-func (m *MockAPI) AlertsList(ctx context.Context, app string) ([]*v10.Alert, error) {
+func (m *MockAPI) AlertsList(ctx context.Context, app string) ([]*scalingo.Alert, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AlertsList", ctx, app)
-	ret0, _ := ret[0].([]*v10.Alert)
+	ret0, _ := ret[0].([]*scalingo.Alert)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -254,10 +254,10 @@ func (mr *MockAPIMockRecorder) AlertsList(ctx, app any) *gomock.Call {
 }
 
 // AppsContainerTypes mocks base method.
-func (m *MockAPI) AppsContainerTypes(ctx context.Context, app string) ([]v10.ContainerType, error) {
+func (m *MockAPI) AppsContainerTypes(ctx context.Context, app string) ([]scalingo.ContainerType, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsContainerTypes", ctx, app)
-	ret0, _ := ret[0].([]v10.ContainerType)
+	ret0, _ := ret[0].([]scalingo.ContainerType)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -269,10 +269,10 @@ func (mr *MockAPIMockRecorder) AppsContainerTypes(ctx, app any) *gomock.Call {
 }
 
 // AppsContainersPs mocks base method.
-func (m *MockAPI) AppsContainersPs(ctx context.Context, app string) ([]v10.Container, error) {
+func (m *MockAPI) AppsContainersPs(ctx context.Context, app string) ([]scalingo.Container, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsContainersPs", ctx, app)
-	ret0, _ := ret[0].([]v10.Container)
+	ret0, _ := ret[0].([]scalingo.Container)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -284,10 +284,10 @@ func (mr *MockAPIMockRecorder) AppsContainersPs(ctx, app any) *gomock.Call {
 }
 
 // AppsCreate mocks base method.
-func (m *MockAPI) AppsCreate(ctx context.Context, opts v10.AppsCreateOpts) (*v10.App, error) {
+func (m *MockAPI) AppsCreate(ctx context.Context, opts scalingo.AppsCreateOpts) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsCreate", ctx, opts)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -313,10 +313,10 @@ func (mr *MockAPIMockRecorder) AppsDestroy(ctx, name, currentName any) *gomock.C
 }
 
 // AppsForceHTTPS mocks base method.
-func (m *MockAPI) AppsForceHTTPS(ctx context.Context, name string, enable bool) (*v10.App, error) {
+func (m *MockAPI) AppsForceHTTPS(ctx context.Context, name string, enable bool) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsForceHTTPS", ctx, name, enable)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -328,10 +328,10 @@ func (mr *MockAPIMockRecorder) AppsForceHTTPS(ctx, name, enable any) *gomock.Cal
 }
 
 // AppsList mocks base method.
-func (m *MockAPI) AppsList(ctx context.Context) ([]*v10.App, error) {
+func (m *MockAPI) AppsList(ctx context.Context) ([]*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsList", ctx)
-	ret0, _ := ret[0].([]*v10.App)
+	ret0, _ := ret[0].([]*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -343,10 +343,10 @@ func (mr *MockAPIMockRecorder) AppsList(ctx any) *gomock.Call {
 }
 
 // AppsRename mocks base method.
-func (m *MockAPI) AppsRename(ctx context.Context, name, newName string) (*v10.App, error) {
+func (m *MockAPI) AppsRename(ctx context.Context, name, newName string) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRename", ctx, name, newName)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -358,7 +358,7 @@ func (mr *MockAPIMockRecorder) AppsRename(ctx, name, newName any) *gomock.Call {
 }
 
 // AppsRestart mocks base method.
-func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *v10.AppsRestartParams) (*http0.Response, error) {
+func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (*http0.Response, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", ctx, app, scope)
 	ret0, _ := ret[0].(*http0.Response)
@@ -373,10 +373,10 @@ func (mr *MockAPIMockRecorder) AppsRestart(ctx, app, scope any) *gomock.Call {
 }
 
 // AppsRouterLogs mocks base method.
-func (m *MockAPI) AppsRouterLogs(ctx context.Context, name string, enable bool) (*v10.App, error) {
+func (m *MockAPI) AppsRouterLogs(ctx context.Context, name string, enable bool) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRouterLogs", ctx, name, enable)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -388,7 +388,7 @@ func (mr *MockAPIMockRecorder) AppsRouterLogs(ctx, name, enable any) *gomock.Cal
 }
 
 // AppsScale mocks base method.
-func (m *MockAPI) AppsScale(ctx context.Context, app string, params *v10.AppsScaleParams) (*http0.Response, error) {
+func (m *MockAPI) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) (*http0.Response, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", ctx, app, params)
 	ret0, _ := ret[0].(*http0.Response)
@@ -403,10 +403,10 @@ func (mr *MockAPIMockRecorder) AppsScale(ctx, app, params any) *gomock.Call {
 }
 
 // AppsSetStack mocks base method.
-func (m *MockAPI) AppsSetStack(ctx context.Context, name, stackID string) (*v10.App, error) {
+func (m *MockAPI) AppsSetStack(ctx context.Context, name, stackID string) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsSetStack", ctx, name, stackID)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -418,10 +418,10 @@ func (mr *MockAPIMockRecorder) AppsSetStack(ctx, name, stackID any) *gomock.Call
 }
 
 // AppsShow mocks base method.
-func (m *MockAPI) AppsShow(ctx context.Context, appName string) (*v10.App, error) {
+func (m *MockAPI) AppsShow(ctx context.Context, appName string) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsShow", ctx, appName)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -433,10 +433,10 @@ func (mr *MockAPIMockRecorder) AppsShow(ctx, appName any) *gomock.Call {
 }
 
 // AppsStats mocks base method.
-func (m *MockAPI) AppsStats(ctx context.Context, app string) (*v10.AppStatsRes, error) {
+func (m *MockAPI) AppsStats(ctx context.Context, app string) (*scalingo.AppStatsRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStats", ctx, app)
-	ret0, _ := ret[0].(*v10.AppStatsRes)
+	ret0, _ := ret[0].(*scalingo.AppStatsRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -448,10 +448,10 @@ func (mr *MockAPIMockRecorder) AppsStats(ctx, app any) *gomock.Call {
 }
 
 // AppsStickySession mocks base method.
-func (m *MockAPI) AppsStickySession(ctx context.Context, name string, enable bool) (*v10.App, error) {
+func (m *MockAPI) AppsStickySession(ctx context.Context, name string, enable bool) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsStickySession", ctx, name, enable)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -463,10 +463,10 @@ func (mr *MockAPIMockRecorder) AppsStickySession(ctx, name, enable any) *gomock.
 }
 
 // AppsTransfer mocks base method.
-func (m *MockAPI) AppsTransfer(ctx context.Context, name, email string) (*v10.App, error) {
+func (m *MockAPI) AppsTransfer(ctx context.Context, name, email string) (*scalingo.App, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsTransfer", ctx, name, email)
-	ret0, _ := ret[0].(*v10.App)
+	ret0, _ := ret[0].(*scalingo.App)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -492,10 +492,10 @@ func (mr *MockAPIMockRecorder) AuthAPI() *gomock.Call {
 }
 
 // AutoscalerAdd mocks base method.
-func (m *MockAPI) AutoscalerAdd(ctx context.Context, app string, params v10.AutoscalerAddParams) (*v10.Autoscaler, error) {
+func (m *MockAPI) AutoscalerAdd(ctx context.Context, app string, params scalingo.AutoscalerAddParams) (*scalingo.Autoscaler, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalerAdd", ctx, app, params)
-	ret0, _ := ret[0].(*v10.Autoscaler)
+	ret0, _ := ret[0].(*scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -521,10 +521,10 @@ func (mr *MockAPIMockRecorder) AutoscalerRemove(ctx, app, id any) *gomock.Call {
 }
 
 // AutoscalersList mocks base method.
-func (m *MockAPI) AutoscalersList(ctx context.Context, app string) ([]v10.Autoscaler, error) {
+func (m *MockAPI) AutoscalersList(ctx context.Context, app string) ([]scalingo.Autoscaler, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AutoscalersList", ctx, app)
-	ret0, _ := ret[0].([]v10.Autoscaler)
+	ret0, _ := ret[0].([]scalingo.Autoscaler)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -536,10 +536,10 @@ func (mr *MockAPIMockRecorder) AutoscalersList(ctx, app any) *gomock.Call {
 }
 
 // BackupCreate mocks base method.
-func (m *MockAPI) BackupCreate(ctx context.Context, app, addonID string) (*v10.Backup, error) {
+func (m *MockAPI) BackupCreate(ctx context.Context, app, addonID string) (*scalingo.Backup, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupCreate", ctx, app, addonID)
-	ret0, _ := ret[0].(*v10.Backup)
+	ret0, _ := ret[0].(*scalingo.Backup)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -566,10 +566,10 @@ func (mr *MockAPIMockRecorder) BackupDownloadURL(ctx, app, addonID, backupID any
 }
 
 // BackupList mocks base method.
-func (m *MockAPI) BackupList(ctx context.Context, app, addonID string) ([]v10.Backup, error) {
+func (m *MockAPI) BackupList(ctx context.Context, app, addonID string) ([]scalingo.Backup, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupList", ctx, app, addonID)
-	ret0, _ := ret[0].([]v10.Backup)
+	ret0, _ := ret[0].([]scalingo.Backup)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -581,10 +581,10 @@ func (mr *MockAPIMockRecorder) BackupList(ctx, app, addonID any) *gomock.Call {
 }
 
 // BackupShow mocks base method.
-func (m *MockAPI) BackupShow(ctx context.Context, app, addonID, backupID string) (*v10.Backup, error) {
+func (m *MockAPI) BackupShow(ctx context.Context, app, addonID, backupID string) (*scalingo.Backup, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BackupShow", ctx, app, addonID, backupID)
-	ret0, _ := ret[0].(*v10.Backup)
+	ret0, _ := ret[0].(*scalingo.Backup)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -596,10 +596,10 @@ func (mr *MockAPIMockRecorder) BackupShow(ctx, app, addonID, backupID any) *gomo
 }
 
 // CollaboratorAdd mocks base method.
-func (m *MockAPI) CollaboratorAdd(ctx context.Context, app string, params v10.CollaboratorAddParams) (v10.Collaborator, error) {
+func (m *MockAPI) CollaboratorAdd(ctx context.Context, app string, params scalingo.CollaboratorAddParams) (scalingo.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorAdd", ctx, app, params)
-	ret0, _ := ret[0].(v10.Collaborator)
+	ret0, _ := ret[0].(scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -625,10 +625,10 @@ func (mr *MockAPIMockRecorder) CollaboratorRemove(ctx, app, collaboratorID any) 
 }
 
 // CollaboratorUpdate mocks base method.
-func (m *MockAPI) CollaboratorUpdate(ctx context.Context, app, collaboratorID string, params v10.CollaboratorUpdateParams) (v10.Collaborator, error) {
+func (m *MockAPI) CollaboratorUpdate(ctx context.Context, app, collaboratorID string, params scalingo.CollaboratorUpdateParams) (scalingo.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorUpdate", ctx, app, collaboratorID, params)
-	ret0, _ := ret[0].(v10.Collaborator)
+	ret0, _ := ret[0].(scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -640,10 +640,10 @@ func (mr *MockAPIMockRecorder) CollaboratorUpdate(ctx, app, collaboratorID, para
 }
 
 // CollaboratorsList mocks base method.
-func (m *MockAPI) CollaboratorsList(ctx context.Context, app string) ([]v10.Collaborator, error) {
+func (m *MockAPI) CollaboratorsList(ctx context.Context, app string) ([]scalingo.Collaborator, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CollaboratorsList", ctx, app)
-	ret0, _ := ret[0].([]v10.Collaborator)
+	ret0, _ := ret[0].([]scalingo.Collaborator)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -655,10 +655,10 @@ func (mr *MockAPIMockRecorder) CollaboratorsList(ctx, app any) *gomock.Call {
 }
 
 // ContainerSizesList mocks base method.
-func (m *MockAPI) ContainerSizesList(ctx context.Context) ([]v10.ContainerSize, error) {
+func (m *MockAPI) ContainerSizesList(ctx context.Context) ([]scalingo.ContainerSize, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ContainerSizesList", ctx)
-	ret0, _ := ret[0].([]v10.ContainerSize)
+	ret0, _ := ret[0].([]scalingo.ContainerSize)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -684,10 +684,10 @@ func (mr *MockAPIMockRecorder) ContainersStop(ctx, appName, containerID any) *go
 }
 
 // CronTasksGet mocks base method.
-func (m *MockAPI) CronTasksGet(ctx context.Context, app string) (v10.CronTasks, error) {
+func (m *MockAPI) CronTasksGet(ctx context.Context, app string) (scalingo.CronTasks, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CronTasksGet", ctx, app)
-	ret0, _ := ret[0].(v10.CronTasks)
+	ret0, _ := ret[0].(scalingo.CronTasks)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -713,10 +713,10 @@ func (mr *MockAPIMockRecorder) DBAPI(app, addon any) *gomock.Call {
 }
 
 // DatabaseDisableFeature mocks base method.
-func (m *MockAPI) DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (v10.DatabaseDisableFeatureResponse, error) {
+func (m *MockAPI) DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (scalingo.DatabaseDisableFeatureResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseDisableFeature", ctx, app, addonID, feature)
-	ret0, _ := ret[0].(v10.DatabaseDisableFeatureResponse)
+	ret0, _ := ret[0].(scalingo.DatabaseDisableFeatureResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -728,10 +728,10 @@ func (mr *MockAPIMockRecorder) DatabaseDisableFeature(ctx, app, addonID, feature
 }
 
 // DatabaseEnableFeature mocks base method.
-func (m *MockAPI) DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (v10.DatabaseEnableFeatureResponse, error) {
+func (m *MockAPI) DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (scalingo.DatabaseEnableFeatureResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseEnableFeature", ctx, app, addonID, feature)
-	ret0, _ := ret[0].(v10.DatabaseEnableFeatureResponse)
+	ret0, _ := ret[0].(scalingo.DatabaseEnableFeatureResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -743,10 +743,10 @@ func (mr *MockAPIMockRecorder) DatabaseEnableFeature(ctx, app, addonID, feature 
 }
 
 // DatabaseListMaintenance mocks base method.
-func (m *MockAPI) DatabaseListMaintenance(ctx context.Context, app, addonID string, paginationReq pagination.Request) ([]*v10.Maintenance, pagination.Meta, error) {
+func (m *MockAPI) DatabaseListMaintenance(ctx context.Context, app, addonID string, paginationReq pagination.Request) ([]*scalingo.Maintenance, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseListMaintenance", ctx, app, addonID, paginationReq)
-	ret0, _ := ret[0].([]*v10.Maintenance)
+	ret0, _ := ret[0].([]*scalingo.Maintenance)
 	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
@@ -759,10 +759,10 @@ func (mr *MockAPIMockRecorder) DatabaseListMaintenance(ctx, app, addonID, pagina
 }
 
 // DatabaseShow mocks base method.
-func (m *MockAPI) DatabaseShow(ctx context.Context, app, addonID string) (v10.Database, error) {
+func (m *MockAPI) DatabaseShow(ctx context.Context, app, addonID string) (scalingo.Database, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseShow", ctx, app, addonID)
-	ret0, _ := ret[0].(v10.Database)
+	ret0, _ := ret[0].(scalingo.Database)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -774,10 +774,10 @@ func (mr *MockAPIMockRecorder) DatabaseShow(ctx, app, addonID any) *gomock.Call 
 }
 
 // DatabaseShowMaintenance mocks base method.
-func (m *MockAPI) DatabaseShowMaintenance(ctx context.Context, app, addonID, maintenanceID string) (v10.Maintenance, error) {
+func (m *MockAPI) DatabaseShowMaintenance(ctx context.Context, app, addonID, maintenanceID string) (scalingo.Maintenance, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseShowMaintenance", ctx, app, addonID, maintenanceID)
-	ret0, _ := ret[0].(v10.Maintenance)
+	ret0, _ := ret[0].(scalingo.Maintenance)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -789,10 +789,10 @@ func (mr *MockAPIMockRecorder) DatabaseShowMaintenance(ctx, app, addonID, mainte
 }
 
 // DatabaseUpdateMaintenanceWindow mocks base method.
-func (m *MockAPI) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addonID string, params v10.MaintenanceWindowParams) (v10.Database, error) {
+func (m *MockAPI) DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addonID string, params scalingo.MaintenanceWindowParams) (scalingo.Database, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseUpdateMaintenanceWindow", ctx, app, addonID, params)
-	ret0, _ := ret[0].(v10.Database)
+	ret0, _ := ret[0].(scalingo.Database)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -804,10 +804,10 @@ func (mr *MockAPIMockRecorder) DatabaseUpdateMaintenanceWindow(ctx, app, addonID
 }
 
 // DatabaseUpdatePeriodicBackupsConfig mocks base method.
-func (m *MockAPI) DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params v10.DatabaseUpdatePeriodicBackupsConfigParams) (v10.Database, error) {
+func (m *MockAPI) DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params scalingo.DatabaseUpdatePeriodicBackupsConfigParams) (scalingo.Database, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DatabaseUpdatePeriodicBackupsConfig", ctx, app, addonID, params)
-	ret0, _ := ret[0].(v10.Database)
+	ret0, _ := ret[0].(scalingo.Database)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -819,10 +819,10 @@ func (mr *MockAPIMockRecorder) DatabaseUpdatePeriodicBackupsConfig(ctx, app, add
 }
 
 // Deployment mocks base method.
-func (m *MockAPI) Deployment(ctx context.Context, app, deploy string) (*v10.Deployment, error) {
+func (m *MockAPI) Deployment(ctx context.Context, app, deploy string) (*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Deployment", ctx, app, deploy)
-	ret0, _ := ret[0].(*v10.Deployment)
+	ret0, _ := ret[0].(*scalingo.Deployment)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -834,10 +834,10 @@ func (mr *MockAPIMockRecorder) Deployment(ctx, app, deploy any) *gomock.Call {
 }
 
 // DeploymentList mocks base method.
-func (m *MockAPI) DeploymentList(ctx context.Context, app string) ([]*v10.Deployment, error) {
+func (m *MockAPI) DeploymentList(ctx context.Context, app string) ([]*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentList", ctx, app)
-	ret0, _ := ret[0].([]*v10.Deployment)
+	ret0, _ := ret[0].([]*scalingo.Deployment)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -849,10 +849,10 @@ func (mr *MockAPIMockRecorder) DeploymentList(ctx, app any) *gomock.Call {
 }
 
 // DeploymentListWithPagination mocks base method.
-func (m *MockAPI) DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*v10.Deployment, pagination.Meta, error) {
+func (m *MockAPI) DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*scalingo.Deployment, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentListWithPagination", ctx, app, paginationReq)
-	ret0, _ := ret[0].([]*v10.Deployment)
+	ret0, _ := ret[0].([]*scalingo.Deployment)
 	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
@@ -895,10 +895,10 @@ func (mr *MockAPIMockRecorder) DeploymentStream(ctx, deployURL any) *gomock.Call
 }
 
 // DeploymentsCreate mocks base method.
-func (m *MockAPI) DeploymentsCreate(ctx context.Context, app string, params *v10.DeploymentsCreateParams) (*v10.Deployment, error) {
+func (m *MockAPI) DeploymentsCreate(ctx context.Context, app string, params *scalingo.DeploymentsCreateParams) (*scalingo.Deployment, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentsCreate", ctx, app, params)
-	ret0, _ := ret[0].(*v10.Deployment)
+	ret0, _ := ret[0].(*scalingo.Deployment)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -910,10 +910,10 @@ func (mr *MockAPIMockRecorder) DeploymentsCreate(ctx, app, params any) *gomock.C
 }
 
 // DomainSetCanonical mocks base method.
-func (m *MockAPI) DomainSetCanonical(ctx context.Context, app, id string) (v10.Domain, error) {
+func (m *MockAPI) DomainSetCanonical(ctx context.Context, app, id string) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainSetCanonical", ctx, app, id)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -925,10 +925,10 @@ func (mr *MockAPIMockRecorder) DomainSetCanonical(ctx, app, id any) *gomock.Call
 }
 
 // DomainSetCertificate mocks base method.
-func (m *MockAPI) DomainSetCertificate(ctx context.Context, app, id, tlsCert, tlsKey string) (v10.Domain, error) {
+func (m *MockAPI) DomainSetCertificate(ctx context.Context, app, id, tlsCert, tlsKey string) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainSetCertificate", ctx, app, id, tlsCert, tlsKey)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -940,10 +940,10 @@ func (mr *MockAPIMockRecorder) DomainSetCertificate(ctx, app, id, tlsCert, tlsKe
 }
 
 // DomainUnsetCanonical mocks base method.
-func (m *MockAPI) DomainUnsetCanonical(ctx context.Context, app string) (v10.Domain, error) {
+func (m *MockAPI) DomainUnsetCanonical(ctx context.Context, app string) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainUnsetCanonical", ctx, app)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -955,10 +955,10 @@ func (mr *MockAPIMockRecorder) DomainUnsetCanonical(ctx, app any) *gomock.Call {
 }
 
 // DomainUnsetCertificate mocks base method.
-func (m *MockAPI) DomainUnsetCertificate(ctx context.Context, app, id string) (v10.Domain, error) {
+func (m *MockAPI) DomainUnsetCertificate(ctx context.Context, app, id string) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainUnsetCertificate", ctx, app, id)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -970,10 +970,10 @@ func (mr *MockAPIMockRecorder) DomainUnsetCertificate(ctx, app, id any) *gomock.
 }
 
 // DomainsAdd mocks base method.
-func (m *MockAPI) DomainsAdd(ctx context.Context, app string, d v10.DomainsAddParams) (v10.Domain, error) {
+func (m *MockAPI) DomainsAdd(ctx context.Context, app string, d scalingo.DomainsAddParams) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsAdd", ctx, app, d)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -985,10 +985,10 @@ func (mr *MockAPIMockRecorder) DomainsAdd(ctx, app, d any) *gomock.Call {
 }
 
 // DomainsList mocks base method.
-func (m *MockAPI) DomainsList(ctx context.Context, app string) ([]v10.Domain, error) {
+func (m *MockAPI) DomainsList(ctx context.Context, app string) ([]scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsList", ctx, app)
-	ret0, _ := ret[0].([]v10.Domain)
+	ret0, _ := ret[0].([]scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1014,10 +1014,10 @@ func (mr *MockAPIMockRecorder) DomainsRemove(ctx, app, id any) *gomock.Call {
 }
 
 // DomainsUpdate mocks base method.
-func (m *MockAPI) DomainsUpdate(ctx context.Context, app, id string, d v10.DomainsUpdateParams) (v10.Domain, error) {
+func (m *MockAPI) DomainsUpdate(ctx context.Context, app, id string, d scalingo.DomainsUpdateParams) (scalingo.Domain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DomainsUpdate", ctx, app, id, d)
-	ret0, _ := ret[0].(v10.Domain)
+	ret0, _ := ret[0].(scalingo.Domain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1029,10 +1029,10 @@ func (mr *MockAPIMockRecorder) DomainsUpdate(ctx, app, id, d any) *gomock.Call {
 }
 
 // EventCategoriesList mocks base method.
-func (m *MockAPI) EventCategoriesList(arg0 context.Context) ([]v10.EventCategory, error) {
+func (m *MockAPI) EventCategoriesList(arg0 context.Context) ([]scalingo.EventCategory, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventCategoriesList", arg0)
-	ret0, _ := ret[0].([]v10.EventCategory)
+	ret0, _ := ret[0].([]scalingo.EventCategory)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1044,10 +1044,10 @@ func (mr *MockAPIMockRecorder) EventCategoriesList(arg0 any) *gomock.Call {
 }
 
 // EventTypesList mocks base method.
-func (m *MockAPI) EventTypesList(arg0 context.Context) ([]v10.EventType, error) {
+func (m *MockAPI) EventTypesList(arg0 context.Context) ([]scalingo.EventType, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventTypesList", arg0)
-	ret0, _ := ret[0].([]v10.EventType)
+	ret0, _ := ret[0].([]scalingo.EventType)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1059,10 +1059,10 @@ func (mr *MockAPIMockRecorder) EventTypesList(arg0 any) *gomock.Call {
 }
 
 // EventsList mocks base method.
-func (m *MockAPI) EventsList(ctx context.Context, app string, paginationReq pagination.Request) (v10.Events, pagination.Meta, error) {
+func (m *MockAPI) EventsList(ctx context.Context, app string, paginationReq pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "EventsList", ctx, app, paginationReq)
-	ret0, _ := ret[0].(v10.Events)
+	ret0, _ := ret[0].(scalingo.Events)
 	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
@@ -1090,10 +1090,10 @@ func (mr *MockAPIMockRecorder) GetAccessToken(arg0 any) *gomock.Call {
 }
 
 // InvoiceShow mocks base method.
-func (m *MockAPI) InvoiceShow(ctx context.Context, id string) (*v10.Invoice, error) {
+func (m *MockAPI) InvoiceShow(ctx context.Context, id string) (*scalingo.Invoice, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "InvoiceShow", ctx, id)
-	ret0, _ := ret[0].(*v10.Invoice)
+	ret0, _ := ret[0].(*scalingo.Invoice)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1105,10 +1105,10 @@ func (mr *MockAPIMockRecorder) InvoiceShow(ctx, id any) *gomock.Call {
 }
 
 // InvoicesList mocks base method.
-func (m *MockAPI) InvoicesList(ctx context.Context, paginationReq pagination.Request) (v10.Invoices, pagination.Meta, error) {
+func (m *MockAPI) InvoicesList(ctx context.Context, paginationReq pagination.Request) (scalingo.Invoices, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "InvoicesList", ctx, paginationReq)
-	ret0, _ := ret[0].(v10.Invoices)
+	ret0, _ := ret[0].(scalingo.Invoices)
 	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
@@ -1121,10 +1121,10 @@ func (mr *MockAPIMockRecorder) InvoicesList(ctx, paginationReq any) *gomock.Call
 }
 
 // KeysAdd mocks base method.
-func (m *MockAPI) KeysAdd(ctx context.Context, name, content string) (*v10.Key, error) {
+func (m *MockAPI) KeysAdd(ctx context.Context, name, content string) (*scalingo.Key, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "KeysAdd", ctx, name, content)
-	ret0, _ := ret[0].(*v10.Key)
+	ret0, _ := ret[0].(*scalingo.Key)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1150,10 +1150,10 @@ func (mr *MockAPIMockRecorder) KeysDelete(ctx, id any) *gomock.Call {
 }
 
 // KeysList mocks base method.
-func (m *MockAPI) KeysList(arg0 context.Context) ([]v10.Key, error) {
+func (m *MockAPI) KeysList(arg0 context.Context) ([]scalingo.Key, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "KeysList", arg0)
-	ret0, _ := ret[0].([]v10.Key)
+	ret0, _ := ret[0].([]scalingo.Key)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1165,10 +1165,10 @@ func (mr *MockAPIMockRecorder) KeysList(arg0 any) *gomock.Call {
 }
 
 // LogDrainAdd mocks base method.
-func (m *MockAPI) LogDrainAdd(ctx context.Context, app string, params v10.LogDrainAddParams) (*v10.LogDrainRes, error) {
+func (m *MockAPI) LogDrainAdd(ctx context.Context, app string, params scalingo.LogDrainAddParams) (*scalingo.LogDrainRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogDrainAdd", ctx, app, params)
-	ret0, _ := ret[0].(*v10.LogDrainRes)
+	ret0, _ := ret[0].(*scalingo.LogDrainRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1180,10 +1180,10 @@ func (mr *MockAPIMockRecorder) LogDrainAdd(ctx, app, params any) *gomock.Call {
 }
 
 // LogDrainAddonAdd mocks base method.
-func (m *MockAPI) LogDrainAddonAdd(ctx context.Context, app, addonID string, params v10.LogDrainAddParams) (*v10.LogDrainRes, error) {
+func (m *MockAPI) LogDrainAddonAdd(ctx context.Context, app, addonID string, params scalingo.LogDrainAddParams) (*scalingo.LogDrainRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogDrainAddonAdd", ctx, app, addonID, params)
-	ret0, _ := ret[0].(*v10.LogDrainRes)
+	ret0, _ := ret[0].(*scalingo.LogDrainRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1223,10 +1223,10 @@ func (mr *MockAPIMockRecorder) LogDrainRemove(ctx, app, URL any) *gomock.Call {
 }
 
 // LogDrainsAddonList mocks base method.
-func (m *MockAPI) LogDrainsAddonList(ctx context.Context, app, addonID string) ([]v10.LogDrain, error) {
+func (m *MockAPI) LogDrainsAddonList(ctx context.Context, app, addonID string) ([]scalingo.LogDrain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogDrainsAddonList", ctx, app, addonID)
-	ret0, _ := ret[0].([]v10.LogDrain)
+	ret0, _ := ret[0].([]scalingo.LogDrain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1238,10 +1238,10 @@ func (mr *MockAPIMockRecorder) LogDrainsAddonList(ctx, app, addonID any) *gomock
 }
 
 // LogDrainsList mocks base method.
-func (m *MockAPI) LogDrainsList(ctx context.Context, app string) ([]v10.LogDrain, error) {
+func (m *MockAPI) LogDrainsList(ctx context.Context, app string) ([]scalingo.LogDrain, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogDrainsList", ctx, app)
-	ret0, _ := ret[0].([]v10.LogDrain)
+	ret0, _ := ret[0].([]scalingo.LogDrain)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1268,10 +1268,10 @@ func (mr *MockAPIMockRecorder) Logs(ctx, logsURL, n, filter any) *gomock.Call {
 }
 
 // LogsArchives mocks base method.
-func (m *MockAPI) LogsArchives(ctx context.Context, app string, page int) (*v10.LogsArchivesResponse, error) {
+func (m *MockAPI) LogsArchives(ctx context.Context, app string, page int) (*scalingo.LogsArchivesResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchives", ctx, app, page)
-	ret0, _ := ret[0].(*v10.LogsArchivesResponse)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1283,10 +1283,10 @@ func (mr *MockAPIMockRecorder) LogsArchives(ctx, app, page any) *gomock.Call {
 }
 
 // LogsArchivesByCursor mocks base method.
-func (m *MockAPI) LogsArchivesByCursor(ctx context.Context, app, cursor string) (*v10.LogsArchivesResponse, error) {
+func (m *MockAPI) LogsArchivesByCursor(ctx context.Context, app, cursor string) (*scalingo.LogsArchivesResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsArchivesByCursor", ctx, app, cursor)
-	ret0, _ := ret[0].(*v10.LogsArchivesResponse)
+	ret0, _ := ret[0].(*scalingo.LogsArchivesResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1298,10 +1298,10 @@ func (mr *MockAPIMockRecorder) LogsArchivesByCursor(ctx, app, cursor any) *gomoc
 }
 
 // LogsURL mocks base method.
-func (m *MockAPI) LogsURL(ctx context.Context, app string) (*v10.LogsURLRes, error) {
+func (m *MockAPI) LogsURL(ctx context.Context, app string) (*scalingo.LogsURLRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogsURL", ctx, app)
-	ret0, _ := ret[0].(*v10.LogsURLRes)
+	ret0, _ := ret[0].(*scalingo.LogsURLRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1313,10 +1313,10 @@ func (mr *MockAPIMockRecorder) LogsURL(ctx, app any) *gomock.Call {
 }
 
 // NotificationPlatformByName mocks base method.
-func (m *MockAPI) NotificationPlatformByName(ctx context.Context, name string) ([]*v10.NotificationPlatform, error) {
+func (m *MockAPI) NotificationPlatformByName(ctx context.Context, name string) ([]*scalingo.NotificationPlatform, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformByName", ctx, name)
-	ret0, _ := ret[0].([]*v10.NotificationPlatform)
+	ret0, _ := ret[0].([]*scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1328,10 +1328,10 @@ func (mr *MockAPIMockRecorder) NotificationPlatformByName(ctx, name any) *gomock
 }
 
 // NotificationPlatformsList mocks base method.
-func (m *MockAPI) NotificationPlatformsList(arg0 context.Context) ([]*v10.NotificationPlatform, error) {
+func (m *MockAPI) NotificationPlatformsList(arg0 context.Context) ([]*scalingo.NotificationPlatform, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotificationPlatformsList", arg0)
-	ret0, _ := ret[0].([]*v10.NotificationPlatform)
+	ret0, _ := ret[0].([]*scalingo.NotificationPlatform)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1343,10 +1343,10 @@ func (mr *MockAPIMockRecorder) NotificationPlatformsList(arg0 any) *gomock.Call 
 }
 
 // NotifierByID mocks base method.
-func (m *MockAPI) NotifierByID(ctx context.Context, app, ID string) (*v10.Notifier, error) {
+func (m *MockAPI) NotifierByID(ctx context.Context, app, ID string) (*scalingo.Notifier, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierByID", ctx, app, ID)
-	ret0, _ := ret[0].(*v10.Notifier)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1372,10 +1372,10 @@ func (mr *MockAPIMockRecorder) NotifierDestroy(ctx, app, ID any) *gomock.Call {
 }
 
 // NotifierProvision mocks base method.
-func (m *MockAPI) NotifierProvision(ctx context.Context, app string, params v10.NotifierParams) (*v10.Notifier, error) {
+func (m *MockAPI) NotifierProvision(ctx context.Context, app string, params scalingo.NotifierParams) (*scalingo.Notifier, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierProvision", ctx, app, params)
-	ret0, _ := ret[0].(*v10.Notifier)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1387,10 +1387,10 @@ func (mr *MockAPIMockRecorder) NotifierProvision(ctx, app, params any) *gomock.C
 }
 
 // NotifierUpdate mocks base method.
-func (m *MockAPI) NotifierUpdate(ctx context.Context, app, ID string, params v10.NotifierParams) (*v10.Notifier, error) {
+func (m *MockAPI) NotifierUpdate(ctx context.Context, app, ID string, params scalingo.NotifierParams) (*scalingo.Notifier, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifierUpdate", ctx, app, ID, params)
-	ret0, _ := ret[0].(*v10.Notifier)
+	ret0, _ := ret[0].(*scalingo.Notifier)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1402,10 +1402,10 @@ func (mr *MockAPIMockRecorder) NotifierUpdate(ctx, app, ID, params any) *gomock.
 }
 
 // NotifiersList mocks base method.
-func (m *MockAPI) NotifiersList(ctx context.Context, app string) (v10.Notifiers, error) {
+func (m *MockAPI) NotifiersList(ctx context.Context, app string) (scalingo.Notifiers, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "NotifiersList", ctx, app)
-	ret0, _ := ret[0].(v10.Notifiers)
+	ret0, _ := ret[0].(scalingo.Notifiers)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1417,10 +1417,10 @@ func (mr *MockAPIMockRecorder) NotifiersList(ctx, app any) *gomock.Call {
 }
 
 // OperationsShow mocks base method.
-func (m *MockAPI) OperationsShow(ctx context.Context, app, opID string) (*v10.Operation, error) {
+func (m *MockAPI) OperationsShow(ctx context.Context, app, opID string) (*scalingo.Operation, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "OperationsShow", ctx, app, opID)
-	ret0, _ := ret[0].(*v10.Operation)
+	ret0, _ := ret[0].(*scalingo.Operation)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1432,10 +1432,10 @@ func (mr *MockAPIMockRecorder) OperationsShow(ctx, app, opID any) *gomock.Call {
 }
 
 // PrivateNetworksDomainsList mocks base method.
-func (m *MockAPI) PrivateNetworksDomainsList(ctx context.Context, app string, paginationReq pagination.Request) (pagination.Paginated[[]v10.PrivateNetworkDomain], error) {
+func (m *MockAPI) PrivateNetworksDomainsList(ctx context.Context, app string, paginationReq pagination.Request) (pagination.Paginated[[]scalingo.PrivateNetworkDomain], error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "PrivateNetworksDomainsList", ctx, app, paginationReq)
-	ret0, _ := ret[0].(pagination.Paginated[[]v10.PrivateNetworkDomain])
+	ret0, _ := ret[0].(pagination.Paginated[[]scalingo.PrivateNetworkDomain])
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1447,10 +1447,10 @@ func (mr *MockAPIMockRecorder) PrivateNetworksDomainsList(ctx, app, paginationRe
 }
 
 // RegionsList mocks base method.
-func (m *MockAPI) RegionsList(arg0 context.Context) ([]v10.Region, error) {
+func (m *MockAPI) RegionsList(arg0 context.Context) ([]scalingo.Region, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RegionsList", arg0)
-	ret0, _ := ret[0].([]v10.Region)
+	ret0, _ := ret[0].([]scalingo.Region)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1462,10 +1462,10 @@ func (mr *MockAPIMockRecorder) RegionsList(arg0 any) *gomock.Call {
 }
 
 // Run mocks base method.
-func (m *MockAPI) Run(ctx context.Context, opts v10.RunOpts) (*v10.RunRes, error) {
+func (m *MockAPI) Run(ctx context.Context, opts scalingo.RunOpts) (*scalingo.RunRes, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Run", ctx, opts)
-	ret0, _ := ret[0].(*v10.RunRes)
+	ret0, _ := ret[0].(*scalingo.RunRes)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1491,10 +1491,10 @@ func (mr *MockAPIMockRecorder) ScalingoAPI() *gomock.Call {
 }
 
 // Self mocks base method.
-func (m *MockAPI) Self(arg0 context.Context) (*v10.User, error) {
+func (m *MockAPI) Self(arg0 context.Context) (*scalingo.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Self", arg0)
-	ret0, _ := ret[0].(*v10.User)
+	ret0, _ := ret[0].(*scalingo.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1520,10 +1520,10 @@ func (mr *MockAPIMockRecorder) SignUp(ctx, email, password any) *gomock.Call {
 }
 
 // SourcesCreate mocks base method.
-func (m *MockAPI) SourcesCreate(arg0 context.Context) (*v10.Source, error) {
+func (m *MockAPI) SourcesCreate(arg0 context.Context) (*scalingo.Source, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SourcesCreate", arg0)
-	ret0, _ := ret[0].(*v10.Source)
+	ret0, _ := ret[0].(*scalingo.Source)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1535,10 +1535,10 @@ func (mr *MockAPIMockRecorder) SourcesCreate(arg0 any) *gomock.Call {
 }
 
 // StacksList mocks base method.
-func (m *MockAPI) StacksList(ctx context.Context) ([]v10.Stack, error) {
+func (m *MockAPI) StacksList(ctx context.Context) ([]scalingo.Stack, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "StacksList", ctx)
-	ret0, _ := ret[0].([]v10.Stack)
+	ret0, _ := ret[0].([]scalingo.Stack)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1550,10 +1550,10 @@ func (mr *MockAPIMockRecorder) StacksList(ctx any) *gomock.Call {
 }
 
 // TokenCreate mocks base method.
-func (m *MockAPI) TokenCreate(arg0 context.Context, arg1 v10.TokenCreateParams) (v10.Token, error) {
+func (m *MockAPI) TokenCreate(arg0 context.Context, arg1 scalingo.TokenCreateParams) (scalingo.Token, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenCreate", arg0, arg1)
-	ret0, _ := ret[0].(v10.Token)
+	ret0, _ := ret[0].(scalingo.Token)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1580,10 +1580,10 @@ func (mr *MockAPIMockRecorder) TokenExchange(ctx, token any) *gomock.Call {
 }
 
 // TokenShow mocks base method.
-func (m *MockAPI) TokenShow(ctx context.Context, id int) (v10.Token, error) {
+func (m *MockAPI) TokenShow(ctx context.Context, id int) (scalingo.Token, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokenShow", ctx, id)
-	ret0, _ := ret[0].(v10.Token)
+	ret0, _ := ret[0].(scalingo.Token)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1595,10 +1595,10 @@ func (mr *MockAPIMockRecorder) TokenShow(ctx, id any) *gomock.Call {
 }
 
 // TokensList mocks base method.
-func (m *MockAPI) TokensList(arg0 context.Context) (v10.Tokens, error) {
+func (m *MockAPI) TokensList(arg0 context.Context) (scalingo.Tokens, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TokensList", arg0)
-	ret0, _ := ret[0].(v10.Tokens)
+	ret0, _ := ret[0].(scalingo.Tokens)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1610,10 +1610,10 @@ func (mr *MockAPIMockRecorder) TokensList(arg0 any) *gomock.Call {
 }
 
 // UpdateUser mocks base method.
-func (m *MockAPI) UpdateUser(arg0 context.Context, arg1 v10.UpdateUserParams) (*v10.User, error) {
+func (m *MockAPI) UpdateUser(arg0 context.Context, arg1 scalingo.UpdateUserParams) (*scalingo.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateUser", arg0, arg1)
-	ret0, _ := ret[0].(*v10.User)
+	ret0, _ := ret[0].(*scalingo.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1625,10 +1625,10 @@ func (mr *MockAPIMockRecorder) UpdateUser(arg0, arg1 any) *gomock.Call {
 }
 
 // UserEventsList mocks base method.
-func (m *MockAPI) UserEventsList(ctx context.Context, paginationReq pagination.Request) (v10.Events, pagination.Meta, error) {
+func (m *MockAPI) UserEventsList(ctx context.Context, paginationReq pagination.Request) (scalingo.Events, pagination.Meta, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserEventsList", ctx, paginationReq)
-	ret0, _ := ret[0].(v10.Events)
+	ret0, _ := ret[0].(scalingo.Events)
 	ret1, _ := ret[1].(pagination.Meta)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
@@ -1655,10 +1655,10 @@ func (mr *MockAPIMockRecorder) UserStopFreeTrial(arg0 any) *gomock.Call {
 }
 
 // VariableMultipleSet mocks base method.
-func (m *MockAPI) VariableMultipleSet(ctx context.Context, app string, variables v10.Variables) (v10.Variables, error) {
+func (m *MockAPI) VariableMultipleSet(ctx context.Context, app string, variables scalingo.Variables) (scalingo.Variables, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableMultipleSet", ctx, app, variables)
-	ret0, _ := ret[0].(v10.Variables)
+	ret0, _ := ret[0].(scalingo.Variables)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1670,10 +1670,10 @@ func (mr *MockAPIMockRecorder) VariableMultipleSet(ctx, app, variables any) *gom
 }
 
 // VariableSet mocks base method.
-func (m *MockAPI) VariableSet(ctx context.Context, app, name, value string) (*v10.Variable, error) {
+func (m *MockAPI) VariableSet(ctx context.Context, app, name, value string) (*scalingo.Variable, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableSet", ctx, app, name, value)
-	ret0, _ := ret[0].(*v10.Variable)
+	ret0, _ := ret[0].(*scalingo.Variable)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1699,10 +1699,10 @@ func (mr *MockAPIMockRecorder) VariableUnset(ctx, app, id any) *gomock.Call {
 }
 
 // VariablesList mocks base method.
-func (m *MockAPI) VariablesList(ctx context.Context, app string) (v10.Variables, error) {
+func (m *MockAPI) VariablesList(ctx context.Context, app string) (scalingo.Variables, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesList", ctx, app)
-	ret0, _ := ret[0].(v10.Variables)
+	ret0, _ := ret[0].(scalingo.Variables)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1714,10 +1714,10 @@ func (mr *MockAPIMockRecorder) VariablesList(ctx, app any) *gomock.Call {
 }
 
 // VariablesListWithoutAlias mocks base method.
-func (m *MockAPI) VariablesListWithoutAlias(ctx context.Context, app string) (v10.Variables, error) {
+func (m *MockAPI) VariablesListWithoutAlias(ctx context.Context, app string) (scalingo.Variables, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariablesListWithoutAlias", ctx, app)
-	ret0, _ := ret[0].(v10.Variables)
+	ret0, _ := ret[0].(scalingo.Variables)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
