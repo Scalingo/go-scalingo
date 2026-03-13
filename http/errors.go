@@ -171,6 +171,9 @@ func NewRequestFailedError(ctx context.Context, res *http.Response, req *APIRequ
 		if err != nil {
 			return err
 		}
+		if len(unprocessableError.Errors) == 0 {
+			return errors.New(ctx, "invalid body when returning a 422 Unprocessable Content")
+		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: unprocessableError, Req: req}
 	case http.StatusTooManyRequests: // 429
 		var tooManyRequestsError TooManyRequestsError

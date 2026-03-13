@@ -3,6 +3,7 @@
 ## To Be Released
 
 * fix(privatenetworks): `PrivateNetworksDomainsList` must take a `pagination.Request` in argument (breaking change)
+* fix(errors): detect if body is invalid in case of 422
 
 ## 10.0.0
 
