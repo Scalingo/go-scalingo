@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
 	"github.com/Scalingo/go-utils/errors/v3"
@@ -29,21 +28,15 @@ type SelfResponse struct {
 }
 
 func (c *Client) Self(ctx context.Context) (*User, error) {
+	var selfRes SelfResponse
 	req := &http.APIRequest{
 		Endpoint: "/users/self",
 	}
-	res, err := c.AuthAPI().Do(ctx, req)
+	err := c.AuthAPI().DoRequest(ctx, req, &selfRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get current user")
 	}
-	defer res.Body.Close()
-
-	var u SelfResponse
-	err = json.NewDecoder(res.Body).Decode(&u)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode current user response")
-	}
-	return u.User, nil
+	return selfRes.User, nil
 }
 
 type UpdateUserParams struct {
@@ -68,19 +61,13 @@ func (c *Client) UpdateUser(ctx context.Context, params UpdateUserParams) (*User
 		},
 		Expected: http.Statuses{200},
 	}
-	res, err := c.AuthAPI().Do(ctx, req)
+	var updateUserRes UpdateUserResponse
+	err := c.AuthAPI().DoRequest(ctx, req, &updateUserRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "execute the query to update the user")
 	}
-	defer res.Body.Close()
 
-	var u UpdateUserResponse
-	err = json.NewDecoder(res.Body).Decode(&u)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode response of the query to update the user")
-	}
-
-	return u.User, nil
+	return updateUserRes.User, nil
 }
 
 func (c *Client) UserStopFreeTrial(ctx context.Context) error {
@@ -91,11 +78,10 @@ func (c *Client) UserStopFreeTrial(ctx context.Context) error {
 		Expected: http.Statuses{200},
 	}
 
-	res, err := c.AuthAPI().Do(ctx, req)
+	err := c.AuthAPI().DoRequest(ctx, req, nil)
 	if err != nil {
 		return errors.Wrap(ctx, err, "execute the query to stop user free trial")
 	}
-	defer res.Body.Close()
 
 	return nil
 }

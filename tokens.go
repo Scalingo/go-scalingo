@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 	"strconv"
 	"time"
 
@@ -74,6 +73,7 @@ func (c *Client) TokensList(ctx context.Context) (Tokens, error) {
 }
 
 func (c *Client) TokenExchange(ctx context.Context, token string) (string, error) {
+	var btRes BearerTokenRes
 	req := &http.APIRequest{
 		NoAuth:   true,
 		Method:   "POST",
@@ -81,16 +81,9 @@ func (c *Client) TokenExchange(ctx context.Context, token string) (string, error
 		Password: token,
 	}
 
-	res, err := c.AuthAPI().Do(ctx, req)
+	err := c.AuthAPI().DoRequest(ctx, req, &btRes)
 	if err != nil {
 		return "", errors.Wrap(ctx, err, "make request POST /v1/tokens/exchange")
-	}
-	defer res.Body.Close()
-
-	var btRes BearerTokenRes
-	err = json.NewDecoder(res.Body).Decode(&btRes)
-	if err != nil {
-		return "", errors.Wrap(ctx, err, "invalid response from authentication service")
 	}
 
 	return btRes.Token, nil
@@ -109,19 +102,13 @@ func (c *Client) TokenCreateWithLogin(ctx context.Context, params TokenCreatePar
 		Params:   map[string]any{"token": params},
 	}
 
-	resp, err := c.AuthAPI().Do(ctx, req)
+	var tokenRes TokenRes
+	err := c.AuthAPI().DoRequest(ctx, req, &tokenRes)
 	if err != nil {
 		if http.IsOTPRequired(err) {
 			return Token{}, http.ErrOTPRequired
 		}
 		return Token{}, errors.Wrap(ctx, err, "create token with login")
-	}
-	defer resp.Body.Close()
-
-	var tokenRes TokenRes
-	err = json.NewDecoder(resp.Body).Decode(&tokenRes)
-	if err != nil {
-		return Token{}, errors.Wrap(ctx, err, "invalid response from authentication service")
 	}
 
 	return tokenRes.Token, nil

@@ -184,7 +184,9 @@ func (c *Client) DeploymentLogs(ctx context.Context, deployURL string) (*http.Re
 		URL:      u.Scheme + "://" + u.Host,
 	}
 
-	return c.ScalingoAPI().Do(ctx, req)
+	var res *http.Response
+	err = c.ScalingoAPI().DoRequest(ctx, req, &res)
+	return res, err
 }
 
 // DeploymentStream returns a websocket connection to follow the various deployment events happening on an application. The type of the data sent on this connection is DeployEvent.

@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 	"time"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
@@ -83,20 +82,14 @@ func (c *Client) BackupShow(ctx context.Context, app, addonID, backup string) (*
 }
 
 func (c *Client) BackupDownloadURL(ctx context.Context, app, addonID, backupID string) (string, error) {
+	var downloadRes DownloadURLRes
 	req := &http.APIRequest{
 		Method:   "GET",
 		Endpoint: "/databases/" + addonID + "/backups/" + backupID + "/archive",
 	}
-	resp, err := c.DBAPI(app, addonID).Do(ctx, req)
+	err := c.DBAPI(app, addonID).DoRequest(ctx, req, &downloadRes)
 	if err != nil {
 		return "", errors.Wrap(ctx, err, "get backup archive")
-	}
-	defer resp.Body.Close()
-
-	var downloadRes DownloadURLRes
-	err = json.NewDecoder(resp.Body).Decode(&downloadRes)
-	if err != nil {
-		return "", errors.Wrap(ctx, err, "decode backup archive")
 	}
 	return downloadRes.DownloadURL, nil
 }

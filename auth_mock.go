@@ -1,11 +1,7 @@
 package scalingo
 
 import (
-	"bytes"
 	"context"
-	"fmt"
-	"io"
-	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -18,19 +14,21 @@ import (
 func MockAuth(ctrl *gomock.Controller) *httpmock.MockClient {
 	mock := httpmock.NewMockClient(ctrl)
 
-	mock.EXPECT().Do(gomock.Any(), gomock.Any()).DoAndReturn(func(_ context.Context, _ *httpclient.APIRequest) (*http.Response, error) {
+	mock.EXPECT().DoRequest(gomock.Any(), gomock.Any(), gomock.Any()).DoAndReturn(func(_ context.Context, _ *httpclient.APIRequest, data any) error {
 		claims := &jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(5 * time.Minute)),
 		}
 		jwtToken := jwt.NewWithClaims(jwt.SigningMethodNone, claims)
 		jwt, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)
 		if err != nil {
-			return nil, err
+			return err
 		}
 
-		return &http.Response{
-			Body: io.NopCloser(bytes.NewBuffer(fmt.Appendf(nil, `{"token": "%v"}`, jwt))),
-		}, nil
+		if data != nil {
+			res, _ := data.(*BearerTokenRes)
+			res.Token = jwt
+		}
+		return nil
 	}).AnyTimes()
 	return mock
 }

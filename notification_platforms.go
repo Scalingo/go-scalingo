@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/Scalingo/go-scalingo/v10/debug"
 	"github.com/Scalingo/go-scalingo/v10/http"
@@ -34,44 +33,31 @@ type PlatformsRes struct {
 }
 
 func (c *Client) NotificationPlatformsList(ctx context.Context) ([]*NotificationPlatform, error) {
+	var platformsRes PlatformsRes
 	req := &http.APIRequest{
 		NoAuth:   true,
 		Endpoint: "/notification_platforms",
 	}
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &platformsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list notification platforms")
 	}
-	defer res.Body.Close()
 
-	var response PlatformsRes
-	err = json.NewDecoder(res.Body).Decode(&response)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode notification platforms response")
-	}
-
-	return response.NotificationPlatforms, nil
+	return platformsRes.NotificationPlatforms, nil
 }
 
 func (c *Client) NotificationPlatformByName(ctx context.Context, name string) ([]*NotificationPlatform, error) {
 	debug.Printf("[NotificationPlatformByName] name: %s", name)
+	var platformsRes PlatformsRes
 	req := &http.APIRequest{
 		NoAuth:   true,
 		Endpoint: "/notification_platforms/search",
 		Params:   map[string]string{"name": name},
 	}
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &platformsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "search notification platforms by name")
 	}
-	defer res.Body.Close()
 
-	debug.Printf("[NotificationPlatformByName] response: %+v", res.Body)
-	var response PlatformsRes
-	err = json.NewDecoder(res.Body).Decode(&response)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode notification platform search response")
-	}
-
-	return response.NotificationPlatforms, nil
+	return platformsRes.NotificationPlatforms, nil
 }
