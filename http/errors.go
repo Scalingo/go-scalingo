@@ -125,56 +125,59 @@ func NewRequestFailedError(ctx context.Context, res *http.Response, req *APIRequ
 	switch res.StatusCode {
 	case http.StatusBadRequest: // 400
 		var badRequestError BadRequestError
-		err := parseJSON(ctx, res, &badRequestError)
+		_, err := parseJSON(ctx, res, &badRequestError)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: badRequestError, Req: req}
 	case http.StatusUnauthorized: // 401
 		var apiErr APIError
-		err := parseJSON(ctx, res, &apiErr)
+		_, err := parseJSON(ctx, res, &apiErr)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: errors.New(ctx, "unauthorized - you are not authorized to do this operation"), Req: req, Message: apiErr.Error}
 	case http.StatusPaymentRequired: // 402
 		var paymentRequiredErr PaymentRequiredError
-		err := parseJSON(ctx, res, &paymentRequiredErr)
+		_, err := parseJSON(ctx, res, &paymentRequiredErr)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: paymentRequiredErr, Req: req}
 	case http.StatusForbidden: // 403
 		var forbiddenError ForbiddenError
-		err := parseJSON(ctx, res, &forbiddenError)
+		_, err := parseJSON(ctx, res, &forbiddenError)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: forbiddenError, Req: req}
 	case http.StatusNotFound: // 404
 		var notFoundErr NotFoundError
-		err := parseJSON(ctx, res, &notFoundErr)
+		_, err := parseJSON(ctx, res, &notFoundErr)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: notFoundErr, Req: req}
 	case http.StatusConflict: // 409
 		var conflictErr ConflictError
-		err := parseJSON(ctx, res, &conflictErr)
+		_, err := parseJSON(ctx, res, &conflictErr)
 		if err != nil {
 			return err
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: conflictErr, Req: req}
 	case http.StatusUnprocessableEntity: // 422
 		var unprocessableError UnprocessableEntity
-		err := parseJSON(ctx, res, &unprocessableError)
+		body, err := parseJSON(ctx, res, &unprocessableError)
 		if err != nil {
 			return err
+		}
+		if len(unprocessableError.Errors) == 0 {
+			return errors.Newf(ctx, "invalid body when returning a 422 Unprocessable Content: %v", body)
 		}
 		return &RequestFailedError{Code: res.StatusCode, APIError: unprocessableError, Req: req}
 	case http.StatusTooManyRequests: // 429
 		var tooManyRequestsError TooManyRequestsError
-		err := parseJSON(ctx, res, &tooManyRequestsError)
+		_, err := parseJSON(ctx, res, &tooManyRequestsError)
 		if err != nil {
 			return err
 		}

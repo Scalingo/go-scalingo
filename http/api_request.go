@@ -143,11 +143,11 @@ func (c *client) doRequest(req *http.Request) (*http.Response, error) {
 	return c.HTTPClient().Do(req)
 }
 
-func parseJSON(ctx context.Context, res *http.Response, data any) error {
+func parseJSON(ctx context.Context, res *http.Response, data any) (string, error) {
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		reqErr := fmt.Sprintf("%v %v", res.Request.Method, res.Request.URL)
-		return errors.Errorf(ctx, "read body of request %v: %v", reqErr, err)
+		return "", errors.Errorf(ctx, "read body of request %v: %v", reqErr, err)
 	}
 
 	debug.Println(string(body))
@@ -155,10 +155,10 @@ func parseJSON(ctx context.Context, res *http.Response, data any) error {
 	err = json.Unmarshal(body, data)
 	if err != nil {
 		reqErr := fmt.Sprintf("%v %v", res.Request.Method, res.Request.URL)
-		return errors.Errorf(ctx, "parse JSON of request %v: %v", reqErr, err)
+		return "", errors.Errorf(ctx, "parse JSON of request %v: %v", reqErr, err)
 	}
 
-	return nil
+	return string(body), nil
 }
 
 func (req *APIRequest) buildQueryFromParams(ctx context.Context) (url.Values, error) {
