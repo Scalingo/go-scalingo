@@ -179,7 +179,7 @@ func (c *client) DoRequest(ctx context.Context, req *APIRequest, data any) error
 		return nil
 	}
 
-	err = parseJSON(ctx, res, data)
+	_, err = parseJSON(ctx, res, data)
 	if err != nil {
 		return errors.Wrap(ctx, err, "parse JSON of subresource response")
 	}
