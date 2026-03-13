@@ -2,8 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
-	"io"
 	"strconv"
 	"time"
 
@@ -142,43 +140,26 @@ func (c *Client) AddonToken(ctx context.Context, app, addonID string) (string, e
 
 func (c *Client) AddonLogsURL(ctx context.Context, app, addonID string) (string, error) {
 	var url AddonLogsURLRes
-	res, err := c.DBAPI(app, addonID).Do(ctx, &http.APIRequest{
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &http.APIRequest{
 		Endpoint: "/databases/" + addonID + "/logs",
-	})
+	}, &url)
 	if err != nil {
 		return "", errors.Wrap(ctx, err, "get addon log URL")
-	}
-	defer res.Body.Close()
-
-	err = json.NewDecoder(res.Body).Decode(&url)
-	if err != nil {
-		return "", errors.Wrap(ctx, err, "decode addon log URL response")
 	}
 
 	return url.URL, nil
 }
 
 func (c *Client) AddonLogsArchives(ctx context.Context, app, addonID string, page int) (*LogsArchivesResponse, error) {
-	res, err := c.DBAPI(app, addonID).Do(ctx, &http.APIRequest{
+	var logsRes LogsArchivesResponse
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &http.APIRequest{
 		Endpoint: "/databases/" + addonID + "/logs_archives",
 		Params: map[string]string{
 			"page": strconv.FormatInt(int64(page), 10),
 		},
-	})
+	}, &logsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get addon log archives")
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "read addon log archives response body")
-	}
-
-	var logsRes = LogsArchivesResponse{}
-	err = json.Unmarshal(body, &logsRes)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode addon log archives response")
 	}
 
 	return &logsRes, nil

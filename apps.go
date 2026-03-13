@@ -249,7 +249,9 @@ func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestart
 		Params:   scope,
 	}
 
-	return c.ScalingoAPI().Do(ctx, req)
+	var res *http.Response
+	err := c.ScalingoAPI().DoRequest(ctx, req, &res)
+	return res, err
 }
 
 func (c *Client) AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error) {
@@ -314,7 +316,9 @@ func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScalePar
 		// Otherwise async job is triggered, it's 202
 		Expected: httpclient.Statuses{200, 202},
 	}
-	return c.ScalingoAPI().Do(ctx, req)
+	var res *http.Response
+	err := c.ScalingoAPI().DoRequest(ctx, req, &res)
+	return res, err
 }
 
 func (c *Client) AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error) {

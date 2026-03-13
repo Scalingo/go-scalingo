@@ -50,5 +50,7 @@ func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string)
 			"filter":    filter,
 		},
 	}
-	return c.ScalingoAPI().Do(ctx, req)
+	var res *http.Response
+	err = c.ScalingoAPI().DoRequest(ctx, req, &res)
+	return res, err
 }
