@@ -42,13 +42,12 @@ func (m *MockVariablesService) EXPECT() *MockVariablesServiceMockRecorder {
 }
 
 // VariableMultipleSet mocks base method.
-func (m *MockVariablesService) VariableMultipleSet(ctx context.Context, app string, variables scalingo.Variables) (scalingo.Variables, int, error) {
+func (m *MockVariablesService) VariableMultipleSet(ctx context.Context, app string, variables scalingo.Variables) (scalingo.Variables, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableMultipleSet", ctx, app, variables)
 	ret0, _ := ret[0].(scalingo.Variables)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // VariableMultipleSet indicates an expected call of VariableMultipleSet.
@@ -58,13 +57,12 @@ func (mr *MockVariablesServiceMockRecorder) VariableMultipleSet(ctx, app, variab
 }
 
 // VariableSet mocks base method.
-func (m *MockVariablesService) VariableSet(ctx context.Context, app, name, value string) (*scalingo.Variable, int, error) {
+func (m *MockVariablesService) VariableSet(ctx context.Context, app, name, value string) (*scalingo.Variable, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableSet", ctx, app, name, value)
 	ret0, _ := ret[0].(*scalingo.Variable)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // VariableSet indicates an expected call of VariableSet.

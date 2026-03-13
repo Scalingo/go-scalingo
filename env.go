@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
 	"github.com/Scalingo/go-utils/errors/v3"
@@ -11,8 +10,8 @@ import (
 type VariablesService interface {
 	VariablesList(ctx context.Context, app string) (Variables, error)
 	VariablesListWithoutAlias(ctx context.Context, app string) (Variables, error)
-	VariableSet(ctx context.Context, app string, name string, value string) (*Variable, int, error)
-	VariableMultipleSet(ctx context.Context, app string, variables Variables) (Variables, int, error)
+	VariableSet(ctx context.Context, app string, name string, value string) (*Variable, error)
+	VariableMultipleSet(ctx context.Context, app string, variables Variables) (Variables, error)
 	VariableUnset(ctx context.Context, app string, id string) error
 }
 
@@ -60,8 +59,9 @@ func (c *Client) variableList(ctx context.Context, app string, aliases bool) (Va
 	return variablesRes.Variables, nil
 }
 
-func (c *Client) VariableSet(ctx context.Context, app string, name string, value string) (*Variable, int, error) {
-	req := &http.APIRequest{
+func (c *Client) VariableSet(ctx context.Context, app string, name string, value string) (*Variable, error) {
+	var variablesSetRes VariableSetParams
+	err := c.ScalingoAPI().DoRequest(ctx, &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/variables",
 		Params: map[string]any{
@@ -71,23 +71,16 @@ func (c *Client) VariableSet(ctx context.Context, app string, name string, value
 			},
 		},
 		Expected: http.Statuses{200, 201},
-	}
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	}, &variablesSetRes)
 	if err != nil {
-		return nil, 0, errors.Wrap(ctx, err, "set app variable")
-	}
-	defer res.Body.Close()
-
-	var params VariableSetParams
-	err = json.NewDecoder(res.Body).Decode(&params)
-	if err != nil {
-		return nil, 0, errors.Wrap(ctx, err, "decode app variable response")
+		return nil, errors.Wrap(ctx, err, "set app variable")
 	}
 
-	return params.Variable, res.StatusCode, nil
+	return variablesSetRes.Variable, nil
 }
 
-func (c *Client) VariableMultipleSet(ctx context.Context, app string, variables Variables) (Variables, int, error) {
+func (c *Client) VariableMultipleSet(ctx context.Context, app string, variables Variables) (Variables, error) {
+	var variabelsRes VariablesRes
 	req := &http.APIRequest{
 		Method:   "PUT",
 		Endpoint: "/apps/" + app + "/variables",
@@ -96,19 +89,12 @@ func (c *Client) VariableMultipleSet(ctx context.Context, app string, variables 
 		},
 		Expected: http.Statuses{200, 201},
 	}
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &variabelsRes)
 	if err != nil {
-		return nil, 0, errors.Wrap(ctx, err, "set multiple app variables")
-	}
-	defer res.Body.Close()
-
-	var params VariablesRes
-	err = json.NewDecoder(res.Body).Decode(&params)
-	if err != nil {
-		return nil, 0, errors.Wrap(ctx, err, "decode app variables response")
+		return nil, errors.Wrap(ctx, err, "set multiple app variables")
 	}
 
-	return params.Variables, res.StatusCode, nil
+	return variabelsRes.Variables, nil
 }
 
 func (c *Client) VariableUnset(ctx context.Context, app string, id string) error {
