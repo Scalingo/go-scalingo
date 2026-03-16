@@ -29,6 +29,6 @@
   "github.com/Scalingo/go-scalingo.TokensService": "32 2d 05 42 b4 9c a9 3b 1b 6c ce 0e da 18 cf 6f 8f cb fc 2a",
   "github.com/Scalingo/go-scalingo.UsersService": "9e c5 75 1e aa 05 dd a7 a3 17 5f 4e 82 80 e2 34 55 a2 70 df",
   "github.com/Scalingo/go-scalingo.VariablesService": "8c d1 eb bc dc ab a9 7e 98 c5 8e 58 03 63 1f 35 5b f4 e6 2a",
-  "github.com/Scalingo/go-scalingo/http.Client": "26 26 d6 21 12 7a b4 88 dc 46 fe 51 21 d6 00 94 94 a1 7f 89",
+  "github.com/Scalingo/go-scalingo/http.Client": "0d f4 50 e8 93 5c 37 01 f5 1b b9 90 eb bc 21 8c 03 19 81 a3",
   "github.com/Scalingo/go-scalingo/http.TokensService": "e0 cf 0b 06 6f 07 a7 2b f2 c9 14 0f 3e aa d1 6b 83 5b 95 73"
 }

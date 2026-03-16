@@ -27,7 +27,6 @@ type Client interface {
 	SubresourceUpdate(ctx context.Context, resource, resourceID, subresource, id string, payload, data any) error
 	SubresourceDelete(ctx context.Context, resource, resourceID, subresource, id string) error
 	DoRequest(ctx context.Context, req *APIRequest, data any) error
-	Do(context.Context, *APIRequest) (*http.Response, error)
 
 	TokenGenerator() TokenGenerator
 	IsAuthenticatedClient() bool
@@ -169,7 +168,7 @@ func (c *client) DoRequest(ctx context.Context, req *APIRequest, data any) error
 		return errors.New(ctx, "API Endpoint is not defined, did you forget to pass the Region field to the New method?")
 	}
 
-	res, err := c.Do(ctx, req)
+	res, err := c.do(ctx, req)
 	if err != nil {
 		return err
 	}
