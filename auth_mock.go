@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/golang/mock/gomock"
+	"go.uber.org/mock/gomock"
 
 	httpclient "github.com/Scalingo/go-scalingo/v10/http"
 	"github.com/Scalingo/go-scalingo/v10/http/httpmock"
