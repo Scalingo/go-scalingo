@@ -37,7 +37,7 @@ func (c *client) fillDefaultValues(ctx context.Context, req *APIRequest) error {
 	if req.Method == "" {
 		req.Method = "GET"
 	}
-	if req.Expected == nil || len(req.Expected) == 0 {
+	if len(req.Expected) == 0 {
 		req.Expected = Statuses{200}
 	}
 	if req.Params == nil {
