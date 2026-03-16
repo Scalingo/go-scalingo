@@ -4,6 +4,7 @@
 
 * fix(privatenetworks): `PrivateNetworksDomainsList` must take a `pagination.Request` in argument (breaking change)
 * fix(errors): detect if body is invalid in case of 422
+* refactor: replace `github.com/golang/mock` with `go.uber.org/mock`
 
 ## 10.0.0
 

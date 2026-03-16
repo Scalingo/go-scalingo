@@ -5,8 +5,9 @@
 package scalingo
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	gomock "go.uber.org/mock/gomock"
 )
 
 // MockSubresourceService is a mock of SubresourceService interface
