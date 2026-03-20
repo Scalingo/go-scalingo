@@ -332,6 +332,7 @@ func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScalePar
 	if err != nil {
 		return nil, "", errors.Wrap(ctx, err, "request Scalingo API to scale the application")
 	}
+	defer res.Body.Close()
 
 	var scaleRes ScaleRes
 	err = json.NewDecoder(res.Body).Decode(&scaleRes)
