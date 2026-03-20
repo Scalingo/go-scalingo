@@ -11,7 +11,6 @@ package scalingomock
 
 import (
 	context "context"
-	http "net/http"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v10"
@@ -147,10 +146,10 @@ func (mr *MockAppsServiceMockRecorder) AppsRename(ctx, name, newName any) *gomoc
 }
 
 // AppsRestart mocks base method.
-func (m *MockAppsService) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (*http.Response, error) {
+func (m *MockAppsService) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", ctx, app, scope)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -177,12 +176,13 @@ func (mr *MockAppsServiceMockRecorder) AppsRouterLogs(ctx, name, enable any) *go
 }
 
 // AppsScale mocks base method.
-func (m *MockAppsService) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) (*http.Response, error) {
+func (m *MockAppsService) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) ([]scalingo.ContainerType, string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", ctx, app, params)
-	ret0, _ := ret[0].(*http.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret0, _ := ret[0].([]scalingo.ContainerType)
+	ret1, _ := ret[1].(string)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // AppsScale indicates an expected call of AppsScale.

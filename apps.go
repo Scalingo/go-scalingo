@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -27,12 +28,12 @@ type AppsService interface {
 	AppsRename(ctx context.Context, name string, newName string) (*App, error)
 	AppsTransfer(ctx context.Context, name string, email string) (*App, error)
 	AppsSetStack(ctx context.Context, name string, stackID string) (*App, error)
-	AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (*http.Response, error)
+	AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (string, error)
 	AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error)
 	AppsStats(ctx context.Context, app string) (*AppStatsRes, error)
 	AppsContainerTypes(ctx context.Context, app string) ([]ContainerType, error)
 	AppsContainersPs(ctx context.Context, app string) ([]Container, error)
-	AppsScale(ctx context.Context, app string, params *AppsScaleParams) (*http.Response, error)
+	AppsScale(ctx context.Context, app string, params *AppsScaleParams) ([]ContainerType, string, error)
 	AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error)
 	AppsStickySession(ctx context.Context, name string, enable bool) (*App, error)
 	AppsRouterLogs(ctx context.Context, name string, enable bool) (*App, error)
@@ -241,7 +242,9 @@ func (c *Client) AppsSetStack(ctx context.Context, app string, stackID string) (
 	return appRes.App, nil
 }
 
-func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (*http.Response, error) {
+// AppsRestart order the restart of the given application containers, limited by the given scope.
+// It returns an operation URL to track its progress.
+func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (string, error) {
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/restart",
@@ -249,7 +252,13 @@ func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestart
 		Params:   scope,
 	}
 
-	return c.ScalingoAPI().Do(ctx, req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return "", errors.Wrap(ctx, err, "request Scalingo API to restart the application")
+	}
+	defer res.Body.Close()
+
+	return res.Header.Get("Location"), nil
 }
 
 func (c *Client) AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error) {
@@ -305,16 +314,33 @@ func (c *Client) AppsContainerTypes(ctx context.Context, app string) ([]Containe
 	return containerTypesRes.Containers, nil
 }
 
-func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScaleParams) (*http.Response, error) {
+type ScaleRes struct {
+	Containers []ContainerType `json:"containers"`
+}
+
+// AppsScale scales an app and returns the updated containers and the operation URL when scaling is processed asynchronously.
+func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScaleParams) ([]ContainerType, string, error) {
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scale",
 		Params:   params,
-		// Return 200 if app is scaled before deployment
-		// Otherwise async job is triggered, it's 202
-		Expected: httpclient.Statuses{200, 202},
+		// Return "200 OK" if app is scaled before deployment.
+		// Otherwise async job is triggered, it's "202 Accepted".
+		Expected: httpclient.Statuses{http.StatusOK, http.StatusAccepted},
 	}
-	return c.ScalingoAPI().Do(ctx, req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return nil, "", errors.Wrap(ctx, err, "request Scalingo API to scale the application")
+	}
+	defer res.Body.Close()
+
+	var scaleRes ScaleRes
+	err = json.NewDecoder(res.Body).Decode(&scaleRes)
+	if err != nil {
+		return nil, "", errors.Wrapf(ctx, err, "decode API response to scale request")
+	}
+
+	return scaleRes.Containers, res.Header.Get("Location"), nil
 }
 
 func (c *Client) AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error) {

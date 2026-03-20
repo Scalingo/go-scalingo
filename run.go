@@ -2,11 +2,10 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
 	"strings"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
-	errors "github.com/Scalingo/go-utils/errors/v3"
+	"github.com/Scalingo/go-utils/errors/v3"
 )
 
 type RunsService interface {
@@ -31,6 +30,7 @@ type RunRes struct {
 }
 
 func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
+	var runRes RunRes
 	req := &http.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + opts.App + "/run",
@@ -42,19 +42,10 @@ func (c *Client) Run(ctx context.Context, opts RunOpts) (*RunRes, error) {
 			"has_uploads": opts.HasUploads,
 		},
 	}
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &runRes)
 	if err != nil {
 		return nil, errors.Wrapf(ctx, err, "request endpoint %v", req.Endpoint)
 	}
-	defer res.Body.Close()
-
-	var runRes RunRes
-	err = json.NewDecoder(res.Body).Decode(&runRes)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode response body")
-	}
-
-	runRes.OperationURL = res.Header.Get("Location")
 
 	return &runRes, nil
 }

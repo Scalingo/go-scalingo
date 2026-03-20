@@ -37,7 +37,7 @@ func (c *client) fillDefaultValues(ctx context.Context, req *APIRequest) error {
 	if req.Method == "" {
 		req.Method = "GET"
 	}
-	if req.Expected == nil || len(req.Expected) == 0 {
+	if len(req.Expected) == 0 {
 		req.Expected = Statuses{200}
 	}
 	if req.Params == nil {
@@ -63,6 +63,7 @@ func (statuses Statuses) Contains(status int) bool {
 }
 
 // Execute an API request and return its response/error
+// This should mostly be called from the http/client.DoRequest function. Don't forget to close the body of the returned http.Response.
 func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error) {
 	err := c.fillDefaultValues(ctx, req)
 	if err != nil {

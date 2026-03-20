@@ -11,7 +11,7 @@ package scalingomock
 
 import (
 	context "context"
-	http0 "net/http"
+	io "io"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v10"
@@ -358,10 +358,10 @@ func (mr *MockAPIMockRecorder) AppsRename(ctx, name, newName any) *gomock.Call {
 }
 
 // AppsRestart mocks base method.
-func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (*http0.Response, error) {
+func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", ctx, app, scope)
-	ret0, _ := ret[0].(*http0.Response)
+	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -388,12 +388,13 @@ func (mr *MockAPIMockRecorder) AppsRouterLogs(ctx, name, enable any) *gomock.Cal
 }
 
 // AppsScale mocks base method.
-func (m *MockAPI) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) (*http0.Response, error) {
+func (m *MockAPI) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) ([]scalingo.ContainerType, string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", ctx, app, params)
-	ret0, _ := ret[0].(*http0.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret0, _ := ret[0].([]scalingo.ContainerType)
+	ret1, _ := ret[1].(string)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // AppsScale indicates an expected call of AppsScale.
@@ -865,10 +866,10 @@ func (mr *MockAPIMockRecorder) DeploymentListWithPagination(ctx, app, pagination
 }
 
 // DeploymentLogs mocks base method.
-func (m *MockAPI) DeploymentLogs(ctx context.Context, deployURL string) (*http0.Response, error) {
+func (m *MockAPI) DeploymentLogs(ctx context.Context, deployURL string) (io.ReadCloser, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentLogs", ctx, deployURL)
-	ret0, _ := ret[0].(*http0.Response)
+	ret0, _ := ret[0].(io.ReadCloser)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1253,10 +1254,10 @@ func (mr *MockAPIMockRecorder) LogDrainsList(ctx, app any) *gomock.Call {
 }
 
 // Logs mocks base method.
-func (m *MockAPI) Logs(ctx context.Context, logsURL string, n int, filter string) (*http0.Response, error) {
+func (m *MockAPI) Logs(ctx context.Context, logsURL string, n int, filter string) (io.ReadCloser, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Logs", ctx, logsURL, n, filter)
-	ret0, _ := ret[0].(*http0.Response)
+	ret0, _ := ret[0].(io.ReadCloser)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1655,13 +1656,12 @@ func (mr *MockAPIMockRecorder) UserStopFreeTrial(arg0 any) *gomock.Call {
 }
 
 // VariableMultipleSet mocks base method.
-func (m *MockAPI) VariableMultipleSet(ctx context.Context, app string, variables scalingo.Variables) (scalingo.Variables, int, error) {
+func (m *MockAPI) VariableMultipleSet(ctx context.Context, app string, variables scalingo.Variables) (scalingo.Variables, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableMultipleSet", ctx, app, variables)
 	ret0, _ := ret[0].(scalingo.Variables)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // VariableMultipleSet indicates an expected call of VariableMultipleSet.
@@ -1671,13 +1671,12 @@ func (mr *MockAPIMockRecorder) VariableMultipleSet(ctx, app, variables any) *gom
 }
 
 // VariableSet mocks base method.
-func (m *MockAPI) VariableSet(ctx context.Context, app, name, value string) (*scalingo.Variable, int, error) {
+func (m *MockAPI) VariableSet(ctx context.Context, app, name, value string) (*scalingo.Variable, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VariableSet", ctx, app, name, value)
 	ret0, _ := ret[0].(*scalingo.Variable)
-	ret1, _ := ret[1].(int)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // VariableSet indicates an expected call of VariableSet.

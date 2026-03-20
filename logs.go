@@ -2,7 +2,8 @@ package scalingo
 
 import (
 	"context"
-	"net/http"
+	stderrors "errors"
+	"io"
 	"net/url"
 
 	httpclient "github.com/Scalingo/go-scalingo/v10/http"
@@ -13,7 +14,7 @@ type LogsService interface {
 	LogsURL(ctx context.Context, app string) (*LogsURLRes, error)
 	// Logs returns the raw http.Response from the request to the API. This response body contains the requested log lines in raw text.
 	// It has been decided to let the user of this function decides how to best read the body (type is io.ReadCloser) depending on their context.
-	Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error)
+	Logs(ctx context.Context, logsURL string, n int, filter string) (io.ReadCloser, error)
 }
 
 var _ LogsService = (*Client)(nil)
@@ -33,7 +34,9 @@ func (c *Client) LogsURL(ctx context.Context, app string) (*LogsURLRes, error) {
 	return &logsURLRes, nil
 }
 
-func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error) {
+var ErrNoLogs = stderrors.New("application didn't logged anything yet")
+
+func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string) (io.ReadCloser, error) {
 	u, err := url.Parse(logsURL)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "parse logs URL")
@@ -50,5 +53,14 @@ func (c *Client) Logs(ctx context.Context, logsURL string, n int, filter string)
 			"filter":    filter,
 		},
 	}
-	return c.ScalingoAPI().Do(ctx, req)
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return nil, errors.Wrap(ctx, err, "request Scalingo API to get the application logs")
+	}
+
+	if res.StatusCode == 404 || res.StatusCode == 204 {
+		return nil, ErrNoLogs
+	}
+
+	return res.Body, nil
 }

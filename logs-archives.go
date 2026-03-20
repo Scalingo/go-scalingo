@@ -2,8 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"encoding/json"
-	"io"
 	"strconv"
 
 	"github.com/Scalingo/go-scalingo/v10/http"
@@ -31,6 +29,7 @@ type LogsArchivesResponse struct {
 }
 
 func (c *Client) LogsArchivesByCursor(ctx context.Context, app string, cursor string) (*LogsArchivesResponse, error) {
+	var logsRes LogsArchivesResponse
 	req := &http.APIRequest{
 		Endpoint: "/apps/" + app + "/logs_archives",
 		Params: map[string]string{
@@ -38,21 +37,9 @@ func (c *Client) LogsArchivesByCursor(ctx context.Context, app string, cursor st
 		},
 	}
 
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	err := c.ScalingoAPI().DoRequest(ctx, req, &logsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list logs archives by cursor")
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "read logs archives response body")
-	}
-
-	var logsRes = LogsArchivesResponse{}
-	err = json.Unmarshal(body, &logsRes)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode logs archives response")
 	}
 
 	return &logsRes, nil
@@ -70,21 +57,10 @@ func (c *Client) LogsArchives(ctx context.Context, app string, page int) (*LogsA
 		},
 	}
 
-	res, err := c.ScalingoAPI().Do(ctx, req)
+	var logsRes LogsArchivesResponse
+	err := c.ScalingoAPI().DoRequest(ctx, req, &logsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list logs archives")
-	}
-	defer res.Body.Close()
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "read logs archives response body")
-	}
-
-	var logsRes = LogsArchivesResponse{}
-	err = json.Unmarshal(body, &logsRes)
-	if err != nil {
-		return nil, errors.Wrap(ctx, err, "decode logs archives response")
 	}
 
 	return &logsRes, nil
