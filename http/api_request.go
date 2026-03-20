@@ -63,8 +63,8 @@ func (statuses Statuses) Contains(status int) bool {
 }
 
 // Execute an API request and return its response/error
-// This should only be called from the http/client.DoRequest function.
-func (c *client) do(ctx context.Context, req *APIRequest) (*http.Response, error) {
+// This should mostly be called from the http/client.DoRequest function. Don't forget to close the body of the returned http.Response.
+func (c *client) Do(ctx context.Context, req *APIRequest) (*http.Response, error) {
 	err := c.fillDefaultValues(ctx, req)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "fill request default values")

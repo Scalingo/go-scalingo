@@ -27,7 +27,7 @@ type AppsService interface {
 	AppsRename(ctx context.Context, name string, newName string) (*App, error)
 	AppsTransfer(ctx context.Context, name string, email string) (*App, error)
 	AppsSetStack(ctx context.Context, name string, stackID string) (*App, error)
-	AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (*http.Response, error)
+	AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (string, error)
 	AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error)
 	AppsStats(ctx context.Context, app string) (*AppStatsRes, error)
 	AppsContainerTypes(ctx context.Context, app string) ([]ContainerType, error)
@@ -241,7 +241,9 @@ func (c *Client) AppsSetStack(ctx context.Context, app string, stackID string) (
 	return appRes.App, nil
 }
 
-func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (*http.Response, error) {
+// AppsRestart order the restart of the given application containers, limited by the given scope.
+// It returns an operation URL to track its progress.
+func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestartParams) (string, error) {
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/restart",
@@ -249,9 +251,13 @@ func (c *Client) AppsRestart(ctx context.Context, app string, scope *AppsRestart
 		Params:   scope,
 	}
 
-	var res *http.Response
-	err := c.ScalingoAPI().DoRequest(ctx, req, &res)
-	return res, err
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return "", errors.Wrap(ctx, err, "request Scalingo API to restart the application")
+	}
+	defer res.Body.Close()
+
+	return res.Header.Get("Location"), nil
 }
 
 func (c *Client) AppsCreate(ctx context.Context, opts AppsCreateOpts) (*App, error) {
