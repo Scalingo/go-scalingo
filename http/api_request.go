@@ -12,8 +12,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v10/debug"
-	pkgio "github.com/Scalingo/go-scalingo/v10/io"
+	"github.com/Scalingo/go-scalingo/v11/debug"
+	pkgio "github.com/Scalingo/go-scalingo/v11/io"
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 

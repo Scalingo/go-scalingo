@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v10/http"
+	"github.com/Scalingo/go-scalingo/v11/http"
 	"github.com/Scalingo/go-utils/errors/v3"
 	"github.com/Scalingo/go-utils/pagination"
 )

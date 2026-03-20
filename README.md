@@ -1,4 +1,4 @@
-# Go client for Scalingo API v10.0.0
+# Go client for Scalingo API v11.0.0
 
 This repository is the Go client for the [Scalingo APIs](https://developers.scalingo.com/).
 
@@ -8,7 +8,7 @@ This repository is the Go client for the [Scalingo APIs](https://developers.scal
 package main
 
 import (
-	"github.com/Scalingo/go-scalingo/v10"
+	"github.com/Scalingo/go-scalingo/v11"
 )
 
 func getClient() (*scalingo.Client, error) {
@@ -81,11 +81,11 @@ Bump new version number in:
 Commit, tag and create a new release:
 
 ```sh
-version="10.0.0"
+version="11.0.0"
 
 git switch --create release/${version}
 git add CHANGELOG.md README.md version.go
-git commit -m "Bump v${version}"
+git commit --message="Bump v${version}"
 git push --set-upstream origin release/${version}
 gh pr create --reviewer=scalingo/team-ist --title "$(git log -1 --pretty=%B)"
 ```
