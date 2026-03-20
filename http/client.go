@@ -101,7 +101,7 @@ func (c *client) ResourceAdd(ctx context.Context, resource string, payload, data
 	return c.DoRequest(ctx, &APIRequest{
 		Method:   "POST",
 		Endpoint: "/" + resource,
-		Expected: Statuses{201},
+		Expected: Statuses{http.StatusCreated},
 		Params:   payload,
 	}, data)
 }
@@ -118,7 +118,7 @@ func (c *client) ResourceDelete(ctx context.Context, resource, resourceID string
 	return c.DoRequest(ctx, &APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/" + resource + "/" + resourceID,
-		Expected: Statuses{204},
+		Expected: Statuses{http.StatusNoContent},
 	}, nil)
 }
 
@@ -142,7 +142,7 @@ func (c *client) SubresourceAdd(ctx context.Context, resource, resourceID, subre
 	return c.DoRequest(ctx, &APIRequest{
 		Method:   "POST",
 		Endpoint: "/" + resource + "/" + resourceID + "/" + subresource,
-		Expected: Statuses{201},
+		Expected: Statuses{http.StatusCreated},
 		Params:   payload,
 	}, data)
 }
@@ -151,7 +151,7 @@ func (c *client) SubresourceDelete(ctx context.Context, resource, resourceID, su
 	return c.DoRequest(ctx, &APIRequest{
 		Method:   "DELETE",
 		Endpoint: "/" + resource + "/" + resourceID + "/" + subresource + "/" + id,
-		Expected: Statuses{204},
+		Expected: Statuses{http.StatusNoContent},
 	}, nil)
 }
 
