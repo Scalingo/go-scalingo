@@ -11,7 +11,7 @@ package scalingomock
 
 import (
 	context "context"
-	http "net/http"
+	io "io"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v10"
@@ -43,10 +43,10 @@ func (m *MockLogsService) EXPECT() *MockLogsServiceMockRecorder {
 }
 
 // Logs mocks base method.
-func (m *MockLogsService) Logs(ctx context.Context, logsURL string, n int, filter string) (*http.Response, error) {
+func (m *MockLogsService) Logs(ctx context.Context, logsURL string, n int, filter string) (io.ReadCloser, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Logs", ctx, logsURL, n, filter)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(io.ReadCloser)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

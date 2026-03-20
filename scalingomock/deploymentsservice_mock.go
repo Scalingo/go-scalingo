@@ -11,7 +11,7 @@ package scalingomock
 
 import (
 	context "context"
-	http "net/http"
+	io "io"
 	reflect "reflect"
 
 	scalingo "github.com/Scalingo/go-scalingo/v10"
@@ -91,10 +91,10 @@ func (mr *MockDeploymentsServiceMockRecorder) DeploymentListWithPagination(ctx, 
 }
 
 // DeploymentLogs mocks base method.
-func (m *MockDeploymentsService) DeploymentLogs(ctx context.Context, deployURL string) (*http.Response, error) {
+func (m *MockDeploymentsService) DeploymentLogs(ctx context.Context, deployURL string) (io.ReadCloser, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeploymentLogs", ctx, deployURL)
-	ret0, _ := ret[0].(*http.Response)
+	ret0, _ := ret[0].(io.ReadCloser)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

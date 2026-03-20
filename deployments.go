@@ -3,6 +3,7 @@ package scalingo
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -18,7 +19,7 @@ type DeploymentsService interface {
 	DeploymentList(ctx context.Context, app string) ([]*Deployment, error)
 	DeploymentListWithPagination(ctx context.Context, app string, paginationReq pagination.Request) ([]*Deployment, pagination.Meta, error)
 	Deployment(ctx context.Context, app string, deploy string) (*Deployment, error)
-	DeploymentLogs(ctx context.Context, deployURL string) (*http.Response, error)
+	DeploymentLogs(ctx context.Context, deployURL string) (io.ReadCloser, error)
 	DeploymentStream(ctx context.Context, deployURL string) (*websocket.Conn, error)
 	DeploymentsCreate(ctx context.Context, app string, params *DeploymentsCreateParams) (*Deployment, error)
 }
@@ -173,20 +174,22 @@ func (c *Client) Deployment(ctx context.Context, app string, deploy string) (*De
 	return deploymentMap["deployment"], nil
 }
 
-func (c *Client) DeploymentLogs(ctx context.Context, deployURL string) (*http.Response, error) {
+func (c *Client) DeploymentLogs(ctx context.Context, deployURL string) (io.ReadCloser, error) {
 	u, err := url.Parse(deployURL)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "parse deployment URL")
 	}
 	req := &httpclient.APIRequest{
-		Expected: httpclient.Statuses{200, 404},
+		Expected: httpclient.Statuses{http.StatusOK},
 		Endpoint: u.Path,
 		URL:      u.Scheme + "://" + u.Host,
 	}
 
-	var res *http.Response
-	err = c.ScalingoAPI().DoRequest(ctx, req, &res)
-	return res, err
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return nil, errors.Wrap(ctx, err, "request Scalingo API to get the deployment logs")
+	}
+	return res.Body, err
 }
 
 // DeploymentStream returns a websocket connection to follow the various deployment events happening on an application. The type of the data sent on this connection is DeployEvent.
