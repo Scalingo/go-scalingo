@@ -3,7 +3,7 @@
   "github.com/Scalingo/go-scalingo.AddonProvidersService": "f0 56 1c c9 ae 9b 6e a5 2f 98 fa 72 1f a2 f0 e6 a7 23 b4 4c",
   "github.com/Scalingo/go-scalingo.AddonsService": "e5 fd 9a 36 39 fc 08 7d 37 ef 0d a9 5c a5 ba dc 53 db e8 39",
   "github.com/Scalingo/go-scalingo.AlertsService": "31 44 7d d3 3f 5b 0b 61 26 03 79 65 a2 16 77 a1 66 66 e8 05",
-  "github.com/Scalingo/go-scalingo.AppsService": "bd ac 01 ef a1 ae 45 1e b8 66 b7 d1 ec e3 71 31 c2 62 01 5f",
+  "github.com/Scalingo/go-scalingo.AppsService": "22 f1 ba 14 dd 25 00 06 c4 2e 51 66 16 a1 15 3c ed 86 8b 93",
   "github.com/Scalingo/go-scalingo.AutoscalersService": "9f cf 1b 7a dc 9d e3 d3 62 89 41 0f d4 30 83 28 7b 40 f1 72",
   "github.com/Scalingo/go-scalingo.BackupsService": "66 59 74 49 68 65 69 e4 b0 97 8e a2 45 e6 ff fc 71 85 06 16",
   "github.com/Scalingo/go-scalingo.CollaboratorsService": "c9 3a 93 de 00 2d e8 87 9c cc bd 3f f0 0e a1 48 78 a4 d7 3a",
@@ -29,6 +29,6 @@
   "github.com/Scalingo/go-scalingo.TokensService": "32 2d 05 42 b4 9c a9 3b 1b 6c ce 0e da 18 cf 6f 8f cb fc 2a",
   "github.com/Scalingo/go-scalingo.UsersService": "9e c5 75 1e aa 05 dd a7 a3 17 5f 4e 82 80 e2 34 55 a2 70 df",
   "github.com/Scalingo/go-scalingo.VariablesService": "8c d1 eb bc dc ab a9 7e 98 c5 8e 58 03 63 1f 35 5b f4 e6 2a",
-  "github.com/Scalingo/go-scalingo/http.Client": "0d f4 50 e8 93 5c 37 01 f5 1b b9 90 eb bc 21 8c 03 19 81 a3",
+  "github.com/Scalingo/go-scalingo/http.Client": "26 26 d6 21 12 7a b4 88 dc 46 fe 51 21 d6 00 94 94 a1 7f 89",
   "github.com/Scalingo/go-scalingo/http.TokensService": "e0 cf 0b 06 6f 07 a7 2b f2 c9 14 0f 3e aa d1 6b 83 5b 95 73"
 }

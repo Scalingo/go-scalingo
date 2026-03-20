@@ -358,10 +358,10 @@ func (mr *MockAPIMockRecorder) AppsRename(ctx, name, newName any) *gomock.Call {
 }
 
 // AppsRestart mocks base method.
-func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (*http0.Response, error) {
+func (m *MockAPI) AppsRestart(ctx context.Context, app string, scope *scalingo.AppsRestartParams) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsRestart", ctx, app, scope)
-	ret0, _ := ret[0].(*http0.Response)
+	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -388,12 +388,13 @@ func (mr *MockAPIMockRecorder) AppsRouterLogs(ctx, name, enable any) *gomock.Cal
 }
 
 // AppsScale mocks base method.
-func (m *MockAPI) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) (*http0.Response, error) {
+func (m *MockAPI) AppsScale(ctx context.Context, app string, params *scalingo.AppsScaleParams) ([]scalingo.ContainerType, string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "AppsScale", ctx, app, params)
-	ret0, _ := ret[0].(*http0.Response)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret0, _ := ret[0].([]scalingo.ContainerType)
+	ret1, _ := ret[1].(string)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
 }
 
 // AppsScale indicates an expected call of AppsScale.

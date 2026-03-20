@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -32,7 +33,7 @@ type AppsService interface {
 	AppsStats(ctx context.Context, app string) (*AppStatsRes, error)
 	AppsContainerTypes(ctx context.Context, app string) ([]ContainerType, error)
 	AppsContainersPs(ctx context.Context, app string) ([]Container, error)
-	AppsScale(ctx context.Context, app string, params *AppsScaleParams) (*http.Response, error)
+	AppsScale(ctx context.Context, app string, params *AppsScaleParams) ([]ContainerType, string, error)
 	AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error)
 	AppsStickySession(ctx context.Context, name string, enable bool) (*App, error)
 	AppsRouterLogs(ctx context.Context, name string, enable bool) (*App, error)
@@ -313,18 +314,32 @@ func (c *Client) AppsContainerTypes(ctx context.Context, app string) ([]Containe
 	return containerTypesRes.Containers, nil
 }
 
-func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScaleParams) (*http.Response, error) {
+type ScaleRes struct {
+	Containers []ContainerType `json:"containers"`
+}
+
+// AppsScale scales an app and returns the updated containers and the operation URL when scaling is processed asynchronously.
+func (c *Client) AppsScale(ctx context.Context, app string, params *AppsScaleParams) ([]ContainerType, string, error) {
 	req := &httpclient.APIRequest{
 		Method:   "POST",
 		Endpoint: "/apps/" + app + "/scale",
 		Params:   params,
-		// Return 200 if app is scaled before deployment
-		// Otherwise async job is triggered, it's 202
-		Expected: httpclient.Statuses{200, 202},
+		// Return "200 OK" if app is scaled before deployment.
+		// Otherwise async job is triggered, it's "202 Accepted".
+		Expected: httpclient.Statuses{http.StatusOK, http.StatusAccepted},
 	}
-	var res *http.Response
-	err := c.ScalingoAPI().DoRequest(ctx, req, &res)
-	return res, err
+	res, err := c.ScalingoAPI().Do(ctx, req)
+	if err != nil {
+		return nil, "", errors.Wrap(ctx, err, "request Scalingo API to scale the application")
+	}
+
+	var scaleRes ScaleRes
+	err = json.NewDecoder(res.Body).Decode(&scaleRes)
+	if err != nil {
+		return nil, "", errors.Wrapf(ctx, err, "decode API response to scale request")
+	}
+
+	return scaleRes.Containers, res.Header.Get("Location"), nil
 }
 
 func (c *Client) AppsForceHTTPS(ctx context.Context, name string, enable bool) (*App, error) {
