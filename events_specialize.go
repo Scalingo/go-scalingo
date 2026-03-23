@@ -5,7 +5,7 @@ package scalingo
 import (
 	"encoding/json"
 
-	"github.com/Scalingo/go-scalingo/v10/debug"
+	"github.com/Scalingo/go-scalingo/v11/debug"
 )
 
 func (pev *Event) Specialize() DetailedEvent {

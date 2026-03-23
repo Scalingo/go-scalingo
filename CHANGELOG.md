@@ -2,10 +2,12 @@
 
 ## To Be Released
 
+## 11.0.0
+
 * fix(privatenetworks): `PrivateNetworksDomainsList` must take a `pagination.Request` in argument (breaking change)
 * fix(errors): detect if body is invalid in case of 422
 * refactor: replace `github.com/golang/mock` with `go.uber.org/mock`
-* refactor(env): replace most calls to `Do` with calls to `DoRequest`
+* refactor(env): replace most calls to `Do` with calls to `DoRequest` (breaking change)
 
 ## 10.0.0
 
