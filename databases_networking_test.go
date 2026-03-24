@@ -2,19 +2,18 @@ package scalingo
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"go.uber.org/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/mock/gomock"
 )
 
 func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	const databaseID = "db-id"
 	const netPeeringID = "np-id"
@@ -35,7 +34,7 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 		expectedPath     string
 		expectedBody     string
 		responseStatus   int
-		responseBody     interface{}
+		responseBody     any
 	}{
 		"create database net peering": {
 			testedClientCall: func(c *PreviewClient) error {
@@ -111,14 +110,16 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 				if run.expectedBody != "" {
 					buf := new(bytes.Buffer)
 					_, err := buf.ReadFrom(r.Body)
-					require.NoError(t, err)
+					if !assert.NoError(t, err) {
+						return
+					}
 					assert.Equal(t, run.expectedBody, buf.String())
 				}
 
 				w.WriteHeader(run.responseStatus)
 				if run.responseBody != nil {
 					err := json.NewEncoder(w).Encode(run.responseBody)
-					require.NoError(t, err)
+					assert.NoError(t, err)
 				}
 			}))
 			defer ts.Close()
@@ -137,7 +138,7 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 }
 
 func TestPreviewClient_DatabaseNetworkConfigurationShow(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	const databaseID = "db-id"
 
@@ -155,7 +156,7 @@ func TestPreviewClient_DatabaseNetworkConfigurationShow(t *testing.T) {
 				IPRange:           "10.0.0.0/24",
 			},
 		})
-		require.NoError(t, err)
+		assert.NoError(t, err)
 	}))
 	defer ts.Close()
 
