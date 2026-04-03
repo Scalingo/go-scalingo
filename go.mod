@@ -1,6 +1,6 @@
 module github.com/Scalingo/go-scalingo/v11
 
-go 1.24.0
+go 1.25.0
 
 require (
 	github.com/Scalingo/go-utils/errors/v3 v3.2.0
@@ -9,7 +9,7 @@ require (
 	github.com/gorilla/websocket v1.5.3
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/mock v0.6.0
-	golang.org/x/text v0.34.0
+	golang.org/x/text v0.35.0
 )
 
 require (
