@@ -108,6 +108,7 @@ func (ev *EventTransferAppType) String() string {
 type EventRestartTypeData struct {
 	Scope     []string `json:"scope"`
 	AddonName string   `json:"addon_name"`
+	Reason    string   `json:"reason"`
 }
 
 type EventRestartType struct {
@@ -116,11 +117,30 @@ type EventRestartType struct {
 	TypeData EventRestartTypeData `json:"type_data"`
 }
 
+// ContainerRestartTrigger identifies the logical origin of a restart request
+type ContainerRestartTrigger string
+
+const (
+	ContainerRestartTriggerUnknown               ContainerRestartTrigger = "unknown"
+	ContainerRestartTriggerWireGuardKeysRotation ContainerRestartTrigger = "wireguard_keys_rotation"
+)
+
 func (ev *EventRestartType) String() string {
+	message := "containers began to restart"
 	if len(ev.TypeData.Scope) != 0 {
-		return fmt.Sprintf("containers %v began to restart", ev.TypeData.Scope)
+		message = fmt.Sprintf("containers %v began to restart", ev.TypeData.Scope)
 	}
-	return "containers began to restart"
+	if ev.TypeData.Reason != "" {
+		reason := ev.TypeData.Reason
+		if ev.TypeData.Reason == string(ContainerRestartTriggerWireGuardKeysRotation) {
+			reason = "WireGuard private keys rotation"
+		} else if ev.TypeData.Reason == string(ContainerRestartTriggerUnknown) {
+			reason = "unknown"
+		}
+
+		message = fmt.Sprintf("%s (reason: %s)", message, reason)
+	}
+	return message
 }
 
 func (ev *EventRestartType) Who() string {
