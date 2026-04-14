@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(EventRestart): add `Reason` field
+
 ## 11.0.1
 
 * chore(deps): bump `golang.org/x/text` from `0.34.0` to `0.35.0` ([#494](https://github.com/Scalingo/go-scalingo/pull/494))
