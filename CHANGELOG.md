@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.0.2
+
 * feat(EventRestart): add `Reason` field
 
 ## 11.0.1
