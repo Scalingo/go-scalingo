@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* fix(run): add JSON tag for `OperationURL`
+
 ## 11.0.2
 
 * feat(EventRestart): add `Reason` field
