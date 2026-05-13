@@ -2,9 +2,10 @@ package scalingo
 
 import (
 	"context"
+	"net/http"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v11/http"
+	httpclient "github.com/Scalingo/go-scalingo/v11/http"
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 
@@ -83,8 +84,8 @@ func (c *Client) BackupShow(ctx context.Context, app, addonID, backup string) (*
 
 func (c *Client) BackupDownloadURL(ctx context.Context, app, addonID, backupID string) (string, error) {
 	var downloadRes DownloadURLRes
-	req := &http.APIRequest{
-		Method:   "GET",
+	req := &httpclient.APIRequest{
+		Method:   http.MethodGet,
 		Endpoint: "/databases/" + addonID + "/backups/" + backupID + "/archive",
 	}
 	err := c.DBAPI(app, addonID).DoRequest(ctx, req, &downloadRes)

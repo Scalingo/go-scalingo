@@ -32,7 +32,7 @@ func TestAlertsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			response:         AlertsRes{},
 		},
 		{
@@ -42,9 +42,9 @@ func TestAlertsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts",
-			expectedMethod:   "POST",
+			expectedMethod:   http.MethodPost,
 			response:         AlertsRes{},
-			responseStatus:   201,
+			responseStatus:   http.StatusCreated,
 		},
 		{
 			action: "show",
@@ -53,7 +53,7 @@ func TestAlertsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			response:         AlertsRes{},
 		},
 		{
@@ -63,7 +63,7 @@ func TestAlertsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			response:         AlertsRes{},
 		},
 		{
@@ -72,8 +72,8 @@ func TestAlertsClient(t *testing.T) {
 				return c.AlertRemove(ctx, appName, alertID)
 			},
 			expectedEndpoint: "/v1/apps/my-app/alerts/my-id",
-			expectedMethod:   "DELETE",
-			responseStatus:   204,
+			expectedMethod:   http.MethodDelete,
+			responseStatus:   http.StatusNoContent,
 		},
 	}
 
@@ -95,7 +95,7 @@ func TestAlertsClient(t *testing.T) {
 					assert.Equal(t, test.expectedMethod, r.Method)
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 					if run.invalidResponse {
-						w.WriteHeader(500)
+						w.WriteHeader(http.StatusInternalServerError)
 						_, err := w.Write([]byte("INVALID"))
 						require.NoError(t, err)
 					} else {

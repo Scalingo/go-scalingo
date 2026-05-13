@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"net/http"
 	"time"
 
 	httpclient "github.com/Scalingo/go-scalingo/v11/http"
@@ -58,7 +59,7 @@ func (op *Operation) ElapsedDuration() float64 {
 func (c *Client) OperationsShowFromURL(ctx context.Context, url string) (*Operation, error) {
 	var opRes OperationResponse
 	err := c.ScalingoAPI().DoRequest(ctx, &httpclient.APIRequest{
-		Method: "GET", URL: url,
+		Method: http.MethodGet, URL: url,
 	}, &opRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "show operation from URL")

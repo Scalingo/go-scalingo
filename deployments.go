@@ -223,9 +223,9 @@ func (c *Client) DeploymentStream(ctx context.Context, deployURL string) (*webso
 func (c *Client) DeploymentsCreate(ctx context.Context, app string, params *DeploymentsCreateParams) (*Deployment, error) {
 	var response *DeploymentsCreateRes
 	req := &httpclient.APIRequest{
-		Method:   "POST",
+		Method:   http.MethodPost,
 		Endpoint: "/apps/" + app + "/deployments",
-		Expected: httpclient.Statuses{201},
+		Expected: httpclient.Statuses{http.StatusCreated},
 		Params: map[string]any{
 			"deployment": params,
 		},
@@ -242,8 +242,8 @@ func (c *Client) DeploymentsCreate(ctx context.Context, app string, params *Depl
 func (c *Client) DeploymentCacheReset(ctx context.Context, app string) error {
 	req := &httpclient.APIRequest{
 		Endpoint: "/apps/" + app + "/caches/deployment",
-		Method:   "DELETE",
-		Expected: httpclient.Statuses{204},
+		Method:   http.MethodDelete,
+		Expected: httpclient.Statuses{http.StatusNoContent},
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, nil)
 	if err != nil {

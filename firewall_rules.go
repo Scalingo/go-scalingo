@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"net/http"
 
 	httpclient "github.com/Scalingo/go-scalingo/v11/http"
 	"github.com/Scalingo/go-utils/errors/v3"
@@ -89,7 +90,7 @@ func (c *PreviewClient) FirewallRulesGetManagedRanges(ctx context.Context, appID
 	var res FirewallManagedRangesResponse
 
 	req := &httpclient.APIRequest{
-		Method:   "GET",
+		Method:   http.MethodGet,
 		Endpoint: "/firewall/managed_ranges",
 	}
 

@@ -84,7 +84,7 @@ func (c *Client) LogDrainRemove(ctx context.Context, app, URL string) error {
 	}
 
 	req := &httpclient.APIRequest{
-		Method:   "DELETE",
+		Method:   http.MethodDelete,
 		Endpoint: "/apps/" + app + "/log_drains",
 		Expected: httpclient.Statuses{http.StatusNoContent},
 		Params:   payload,
@@ -104,7 +104,7 @@ func (c *Client) LogDrainAddonRemove(ctx context.Context, app, addonID string, U
 	}
 
 	req := &httpclient.APIRequest{
-		Method:   "DELETE",
+		Method:   http.MethodDelete,
 		Endpoint: "/apps/" + app + "/addons/" + addonID + "/log_drains",
 		Expected: httpclient.Statuses{http.StatusNoContent},
 		Params:   payload,

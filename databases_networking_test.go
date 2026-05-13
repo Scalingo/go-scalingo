@@ -47,10 +47,10 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 				assert.Equal(t, netPeeringID, res.ID)
 				return nil
 			},
-			expectedMethod: "POST",
+			expectedMethod: http.MethodPost,
 			expectedPath:   "/v1/databases/db-id/net_peerings",
 			expectedBody:   `{"outscale_net_peering_id":"vpcx-1234"}`,
-			responseStatus: 201,
+			responseStatus: http.StatusCreated,
 			responseBody: DatabaseNetPeeringResponse{
 				NetPeering: netPeering,
 			},
@@ -65,9 +65,9 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 				assert.Equal(t, netPeeringID, res[0].ID)
 				return nil
 			},
-			expectedMethod: "GET",
+			expectedMethod: http.MethodGet,
 			expectedPath:   "/v1/databases/db-id/net_peerings",
-			responseStatus: 200,
+			responseStatus: http.StatusOK,
 			responseBody: DatabaseNetPeeringsResponse{
 				NetPeerings: []DatabaseNetPeering{netPeering},
 			},
@@ -81,9 +81,9 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 				assert.Equal(t, netPeeringID, res.ID)
 				return nil
 			},
-			expectedMethod: "GET",
+			expectedMethod: http.MethodGet,
 			expectedPath:   "/v1/databases/db-id/net_peerings/np-id",
-			responseStatus: 200,
+			responseStatus: http.StatusOK,
 			responseBody: DatabaseNetPeeringResponse{
 				NetPeering: netPeering,
 			},
@@ -92,9 +92,9 @@ func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 			testedClientCall: func(c *PreviewClient) error {
 				return c.DatabaseNetPeeringDestroy(ctx, databaseID, netPeeringID)
 			},
-			expectedMethod: "DELETE",
+			expectedMethod: http.MethodDelete,
 			expectedPath:   "/v1/databases/db-id/net_peerings/np-id",
-			responseStatus: 204,
+			responseStatus: http.StatusNoContent,
 		},
 	}
 
@@ -146,9 +146,9 @@ func TestPreviewClient_DatabaseNetworkConfigurationShow(t *testing.T) {
 	defer ctrl.Finish()
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "GET", r.Method)
+		assert.Equal(t, http.MethodGet, r.Method)
 		assert.Equal(t, "/v1/databases/db-id/network_configuration", r.URL.Path)
-		w.WriteHeader(200)
+		w.WriteHeader(http.StatusOK)
 		err := json.NewEncoder(w).Encode(DatabaseNetworkConfigurationResponse{
 			NetworkConfiguration: DatabaseNetworkConfiguration{
 				OutscaleAccountID: "oac-123",

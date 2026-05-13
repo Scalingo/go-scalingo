@@ -33,13 +33,13 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `"canonical":true`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should unset the domain as canonical": {
 			mockDomainsList: func(t *testing.T, w http.ResponseWriter, _ *http.Request) {
-				w.WriteHeader(200)
+				w.WriteHeader(http.StatusOK)
 				err := json.NewEncoder(w).Encode(DomainsRes{Domains: []Domain{
 					{
 						ID:        "domain-id",
@@ -53,13 +53,13 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `"canonical":false`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should return an error if there is no canonical domain": {
 			mockDomainsList: func(t *testing.T, w http.ResponseWriter, _ *http.Request) {
-				w.WriteHeader(200)
+				w.WriteHeader(http.StatusOK)
 				err := json.NewEncoder(w).Encode(DomainsRes{Domains: []Domain{}})
 				assert.NoError(t, err)
 			},
@@ -76,9 +76,9 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `"tlscert":"cert","tlskey":"key"`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should unset the domain certificate": {
 			testedClientCall: func(c DomainsService) error {
@@ -86,9 +86,9 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `"tlscert":"","tlskey":""`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		// Letsencrypt certificate generation
 		"it should update letsencrypt_enabled to false": {
@@ -100,9 +100,9 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `"letsencrypt_enabled":false`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should not update anything if no params": {
 			testedClientCall: func(c DomainsService) error {
@@ -110,9 +110,9 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/domains/domain-id",
-			expectedMethod:   "PATCH",
+			expectedMethod:   http.MethodPatch,
 			expectedParams:   `{"domain":{}}`,
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 	}
 
@@ -123,7 +123,7 @@ func TestDomainsClient_Domain_Updates(t *testing.T) {
 
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				// If request domains list
-				if r.Method == "GET" && r.URL.Path == "/v1/apps/my-app/domains" {
+				if r.Method == http.MethodGet && r.URL.Path == "/v1/apps/my-app/domains" {
 					require.NotNil(t, test.mockDomainsList)
 					test.mockDomainsList(t, w, r)
 					return

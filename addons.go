@@ -2,10 +2,11 @@ package scalingo
 
 import (
 	"context"
+	"net/http"
 	"strconv"
 	"time"
 
-	"github.com/Scalingo/go-scalingo/v11/http"
+	httpclient "github.com/Scalingo/go-scalingo/v11/http"
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 
@@ -127,8 +128,8 @@ func (c *Client) AddonUpgrade(ctx context.Context, app, addonID string, params A
 
 func (c *Client) AddonToken(ctx context.Context, app, addonID string) (string, error) {
 	var res AddonTokenRes
-	err := c.ScalingoAPI().DoRequest(ctx, &http.APIRequest{
-		Method:   "POST",
+	err := c.ScalingoAPI().DoRequest(ctx, &httpclient.APIRequest{
+		Method:   http.MethodPost,
 		Endpoint: "/apps/" + app + "/addons/" + addonID + "/token",
 	}, &res)
 	if err != nil {
@@ -140,7 +141,7 @@ func (c *Client) AddonToken(ctx context.Context, app, addonID string) (string, e
 
 func (c *Client) AddonLogsURL(ctx context.Context, app, addonID string) (string, error) {
 	var urlRes AddonLogsURLRes
-	err := c.DBAPI(app, addonID).DoRequest(ctx, &http.APIRequest{
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
 		Endpoint: "/databases/" + addonID + "/logs",
 	}, &urlRes)
 	if err != nil {
@@ -152,7 +153,7 @@ func (c *Client) AddonLogsURL(ctx context.Context, app, addonID string) (string,
 
 func (c *Client) AddonLogsArchives(ctx context.Context, app, addonID string, page int) (*LogsArchivesResponse, error) {
 	var logsRes LogsArchivesResponse
-	err := c.DBAPI(app, addonID).DoRequest(ctx, &http.APIRequest{
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
 		Endpoint: "/databases/" + addonID + "/logs_archives",
 		Params: map[string]string{
 			"page": strconv.FormatInt(int64(page), 10),
