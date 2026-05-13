@@ -8,6 +8,7 @@ This repository enforces strict linting. Follow these rules for new and modified
   1. Standard library
   2. Third-party
   3. Local imports grouped under `github.com/Scalingo`
+- Always use constants from net/http to deal with HTTP Status and Method (ie. http.StatusOK, or http.MethodGet)
 
 ## Go Modernization
 - Use `any` instead of `interface{}`.
