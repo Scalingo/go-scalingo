@@ -56,18 +56,13 @@ const (
 	alertsResource                    = "alerts"
 	appsResource                      = "apps"
 	autoscalersResource               = "autoscalers"
-	backupsResource                   = "backups"
 	collaboratorsResource             = "collaborators"
 	cronTasksResource                 = "cron_tasks"
-	databasesResource                 = "databases"
 	deploymentsResource               = "deployments"
 	domainsResource                   = "domains"
 	eventsResource                    = "events"
-	firewallRulesResource             = "firewall_rules"
 	logDrainsResource                 = "log_drains"
 	logsResource                      = "logs"
-	maintenanceResource               = "maintenance"
-	netPeeringsResource               = "net_peerings"
 	notifiersResource                 = "notifiers"
 	operationsResource                = "operations"
 	privateNetworkResource            = "private_network"
@@ -75,6 +70,14 @@ const (
 	projectResource                   = "projects"
 	usersResource                     = "users"
 	variablesResource                 = "variables"
+
+	// Database-related resources
+	backupsResource              = "backups"
+	databasesResource            = "databases"
+	firewallRulesResource        = "firewall_rules"
+	maintenanceResource          = "maintenance"
+	netPeeringsResource          = "net_peerings"
+	networkConfigurationResource = "network_configuration"
 )
 
 type Client struct {

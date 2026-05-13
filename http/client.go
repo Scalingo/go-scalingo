@@ -24,6 +24,7 @@ type Client interface {
 	SubresourceList(ctx context.Context, resource, resourceID, subresource string, payload, data any) error
 	SubresourceAdd(ctx context.Context, resource, resourceID, subresource string, payload, data any) error
 	SubresourceGet(ctx context.Context, resource, resourceID, subresource, id string, payload, data any) error
+	SubresourceGetSingleton(ctx context.Context, resource, resourceID, subresource string, payload, data any) error
 	SubresourceUpdate(ctx context.Context, resource, resourceID, subresource, id string, payload, data any) error
 	SubresourceDelete(ctx context.Context, resource, resourceID, subresource, id string) error
 	DoRequest(ctx context.Context, req *APIRequest, data any) error
@@ -127,6 +128,14 @@ func (c *client) SubresourceGet(ctx context.Context, resource, resourceID, subre
 	return c.DoRequest(ctx, &APIRequest{
 		Method:   http.MethodGet,
 		Endpoint: "/" + resource + "/" + resourceID + "/" + subresource + "/" + id,
+		Params:   payload,
+	}, data)
+}
+
+func (c *client) SubresourceGetSingleton(ctx context.Context, resource, resourceID, subresource string, payload, data any) error {
+	return c.DoRequest(ctx, &APIRequest{
+		Method:   http.MethodGet,
+		Endpoint: "/" + resource + "/" + resourceID + "/" + subresource,
 		Params:   payload,
 	}, data)
 }

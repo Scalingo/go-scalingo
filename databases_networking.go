@@ -2,10 +2,8 @@ package scalingo
 
 import (
 	"context"
-	"net/http"
 	"time"
 
-	httpclient "github.com/Scalingo/go-scalingo/v11/http"
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 
@@ -95,12 +93,7 @@ func (c *PreviewClient) DatabaseNetPeeringDestroy(ctx context.Context, databaseI
 func (c *PreviewClient) DatabaseNetworkConfigurationShow(ctx context.Context, databaseID string) (DatabaseNetworkConfiguration, error) {
 	var res DatabaseNetworkConfigurationResponse
 
-	req := &httpclient.APIRequest{
-		Method:   http.MethodGet,
-		Endpoint: "/databases/" + databaseID + "/network_configuration",
-	}
-
-	err := c.parent.ScalingoAPI().DoRequest(ctx, req, &res)
+	err := c.parent.ScalingoAPI().SubresourceGetSingleton(ctx, databasesResource, databaseID, networkConfigurationResource, nil, &res)
 	if err != nil {
 		return DatabaseNetworkConfiguration{}, errors.Wrap(ctx, err, "show database network configuration")
 	}
