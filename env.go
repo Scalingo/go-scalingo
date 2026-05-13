@@ -52,7 +52,7 @@ func (c *Client) VariablesListWithoutAlias(ctx context.Context, app string) (Var
 
 func (c *Client) variableList(ctx context.Context, app string, aliases bool) (Variables, error) {
 	var variablesRes VariablesRes
-	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "variables", map[string]bool{"aliases": aliases}, &variablesRes)
+	err := c.ScalingoAPI().SubresourceList(ctx, appsResource, app, variablesResource, map[string]bool{"aliases": aliases}, &variablesRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list app variables")
 	}
@@ -98,5 +98,5 @@ func (c *Client) VariableMultipleSet(ctx context.Context, app string, variables 
 }
 
 func (c *Client) VariableUnset(ctx context.Context, app string, id string) error {
-	return c.ScalingoAPI().SubresourceDelete(ctx, "apps", app, "variables", id)
+	return c.ScalingoAPI().SubresourceDelete(ctx, appsResource, app, variablesResource, id)
 }

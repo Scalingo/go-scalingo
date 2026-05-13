@@ -26,7 +26,7 @@ type LogsURLRes struct {
 
 func (c *Client) LogsURL(ctx context.Context, app string) (*LogsURLRes, error) {
 	var logsURLRes LogsURLRes
-	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "logs", nil, &logsURLRes)
+	err := c.ScalingoAPI().SubresourceList(ctx, appsResource, app, logsResource, nil, &logsURLRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get app logs URL")
 	}

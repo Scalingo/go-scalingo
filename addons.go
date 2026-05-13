@@ -63,7 +63,7 @@ type AddonLogsURLRes struct {
 
 func (c *Client) AddonsList(ctx context.Context, app string) ([]*Addon, error) {
 	var addonsRes AddonsRes
-	err := c.ScalingoAPI().SubresourceList(ctx, "apps", app, "addons", nil, &addonsRes)
+	err := c.ScalingoAPI().SubresourceList(ctx, appsResource, app, addonsResource, nil, &addonsRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list addons")
 	}
@@ -73,7 +73,7 @@ func (c *Client) AddonsList(ctx context.Context, app string) ([]*Addon, error) {
 func (c *Client) AddonShow(ctx context.Context, app, addonID string) (Addon, error) {
 	var addonRes AddonRes
 
-	err := c.ScalingoAPI().SubresourceGet(ctx, "apps", app, "addons", addonID, nil, &addonRes)
+	err := c.ScalingoAPI().SubresourceGet(ctx, appsResource, app, addonsResource, addonID, nil, &addonRes)
 	if err != nil {
 		return Addon{}, errors.Wrap(ctx, err, "show addon")
 	}
@@ -94,7 +94,7 @@ type AddonProvisionParamsWrapper struct {
 
 func (c *Client) AddonProvision(ctx context.Context, app string, params AddonProvisionParams) (AddonRes, error) {
 	var addonRes AddonRes
-	err := c.ScalingoAPI().SubresourceAdd(ctx, "apps", app, "addons", AddonProvisionParamsWrapper{params}, &addonRes)
+	err := c.ScalingoAPI().SubresourceAdd(ctx, appsResource, app, addonsResource, AddonProvisionParamsWrapper{params}, &addonRes)
 	if err != nil {
 		return AddonRes{}, errors.Wrap(ctx, err, "provision addon")
 	}
@@ -102,7 +102,7 @@ func (c *Client) AddonProvision(ctx context.Context, app string, params AddonPro
 }
 
 func (c *Client) AddonDestroy(ctx context.Context, app, addonID string) error {
-	return c.ScalingoAPI().SubresourceDelete(ctx, "apps", app, "addons", addonID)
+	return c.ScalingoAPI().SubresourceDelete(ctx, appsResource, app, addonsResource, addonID)
 }
 
 type AddonUpgradeParams struct {
@@ -116,7 +116,7 @@ type AddonUpgradeParamsWrapper struct {
 func (c *Client) AddonUpgrade(ctx context.Context, app, addonID string, params AddonUpgradeParams) (AddonRes, error) {
 	var addonRes AddonRes
 	err := c.ScalingoAPI().SubresourceUpdate(
-		ctx, "apps", app, "addons", addonID,
+		ctx, appsResource, app, addonsResource, addonID,
 		AddonUpgradeParamsWrapper{Addon: params}, &addonRes,
 	)
 	if err != nil {

@@ -51,6 +51,32 @@ type API interface {
 
 var _ API = (*Client)(nil)
 
+const (
+	addonsResource                    = "addons"
+	alertsResource                    = "alerts"
+	appsResource                      = "apps"
+	autoscalersResource               = "autoscalers"
+	backupsResource                   = "backups"
+	collaboratorsResource             = "collaborators"
+	cronTasksResource                 = "cron_tasks"
+	databasesResource                 = "databases"
+	deploymentsResource               = "deployments"
+	domainsResource                   = "domains"
+	eventsResource                    = "events"
+	firewallRulesResource             = "firewall_rules"
+	logDrainsResource                 = "log_drains"
+	logsResource                      = "logs"
+	maintenanceResource               = "maintenance"
+	netPeeringsResource               = "net_peerings"
+	notifiersResource                 = "notifiers"
+	operationsResource                = "operations"
+	privateNetworkResource            = "private_network"
+	privateNetworkDomainNamesResource = "private_network_domain_names"
+	projectResource                   = "projects"
+	usersResource                     = "users"
+	variablesResource                 = "variables"
+)
+
 type Client struct {
 	config     ClientConfig
 	apiClient  httpclient.Client

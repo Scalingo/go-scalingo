@@ -56,7 +56,7 @@ type DownloadURLRes struct {
 
 func (c *Client) BackupList(ctx context.Context, app string, addonID string) ([]Backup, error) {
 	var backupRes BackupsRes
-	err := c.DBAPI(app, addonID).SubresourceList(ctx, "databases", addonID, "backups", nil, &backupRes)
+	err := c.DBAPI(app, addonID).SubresourceList(ctx, databasesResource, addonID, backupsResource, nil, &backupRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "get backup")
 	}
@@ -65,7 +65,7 @@ func (c *Client) BackupList(ctx context.Context, app string, addonID string) ([]
 
 func (c *Client) BackupCreate(ctx context.Context, app, addonID string) (*Backup, error) {
 	var backupRes BackupRes
-	err := c.DBAPI(app, addonID).SubresourceAdd(ctx, "databases", addonID, "backups", nil, &backupRes)
+	err := c.DBAPI(app, addonID).SubresourceAdd(ctx, databasesResource, addonID, backupsResource, nil, &backupRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "schedule a new backup")
 	}
