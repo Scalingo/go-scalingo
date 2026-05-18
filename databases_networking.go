@@ -7,6 +7,25 @@ import (
 	"github.com/Scalingo/go-utils/errors/v3"
 )
 
+type DatabaseEndpointType string
+
+const (
+	DatabaseEndpointTypePublicRW         DatabaseEndpointType = "public-rw"
+	DatabaseEndpointTypePrivatePeeringRW DatabaseEndpointType = "private-peering-rw"
+)
+
+type DatabaseEndpoint struct {
+	ID         string               `json:"id"`
+	DatabaseID string               `json:"database_id"`
+	Hostname   string               `json:"hostname"`
+	Port       int                  `json:"port"`
+	Type       DatabaseEndpointType `json:"type"`
+}
+
+type DatabaseEndpointsResponse struct {
+	Endpoints []DatabaseEndpoint `json:"endpoints"`
+}
+
 type DatabaseNetPeeringStatus string
 
 const (
@@ -46,6 +65,17 @@ type DatabaseNetworkConfiguration struct {
 
 type DatabaseNetworkConfigurationResponse struct {
 	NetworkConfiguration DatabaseNetworkConfiguration `json:"network_configuration"`
+}
+
+func (c *PreviewClient) DatabaseEndpointsList(ctx context.Context, databaseID string) ([]DatabaseEndpoint, error) {
+	var res DatabaseEndpointsResponse
+
+	err := c.parent.ScalingoAPI().SubresourceList(ctx, databasesResource, databaseID, databaseEndpointsResource, nil, &res)
+	if err != nil {
+		return nil, errors.Wrap(ctx, err, "list database endpoints")
+	}
+
+	return res.Endpoints, nil
 }
 
 func (c *PreviewClient) DatabaseNetPeeringCreate(ctx context.Context, databaseID string, params DatabaseNetPeeringCreateParams) (DatabaseNetPeering, error) {

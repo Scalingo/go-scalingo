@@ -74,6 +74,7 @@ const (
 	// Database-related resources
 	backupsResource              = "backups"
 	databasesResource            = "databases"
+	databaseEndpointsResource    = "endpoints"
 	firewallRulesResource        = "firewall_rules"
 	maintenanceResource          = "maintenance"
 	netPeeringsResource          = "net_peerings"
