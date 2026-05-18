@@ -33,7 +33,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"router_logs":true}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should disable the app router_logs attribute": {
 			testedClientCall: func(c AppsService) error {
@@ -44,7 +44,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"router_logs":false}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 
 		"it should enable the app force_https attribute": {
@@ -56,7 +56,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"force_https":true}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should disable the app force_https attribute": {
 			testedClientCall: func(c AppsService) error {
@@ -67,7 +67,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"force_https":false}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 
 		"it should enable the app sticky_session attribute": {
@@ -79,7 +79,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"sticky_session":true}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 		"it should disable the app sticky_session attribute": {
 			testedClientCall: func(c AppsService) error {
@@ -90,7 +90,7 @@ func TestAppsClient_Update(t *testing.T) {
 			expectedMethod:   "PUT",
 			expectedParams:   `{"sticky_session":false}`,
 			response:         &AppResponse{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 	}
 

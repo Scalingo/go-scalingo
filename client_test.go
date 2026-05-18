@@ -23,7 +23,7 @@ func TestNewClient(t *testing.T) {
 			split := strings.Split(auth, " ")
 			require.Len(t, split, 2)
 			assert.Equal(t, "static-token", split[1])
-			w.WriteHeader(200)
+			w.WriteHeader(http.StatusOK)
 			_, err := w.Write([]byte(`{"apps": []}`))
 			assert.NoError(t, err)
 		}))
@@ -53,7 +53,7 @@ func TestNewClient(t *testing.T) {
 				_, password, ok := r.BasicAuth()
 				require.True(t, ok)
 				assert.Equal(t, "api-token", password)
-				w.WriteHeader(200)
+				w.WriteHeader(http.StatusOK)
 				_, err := w.Write(fmt.Appendf(nil, `{"token": "%v"}`, jwt))
 				assert.NoError(t, err)
 			}
@@ -63,7 +63,7 @@ func TestNewClient(t *testing.T) {
 				split := strings.Split(auth, " ")
 				require.Len(t, split, 2)
 				assert.Equal(t, jwt, split[1])
-				w.WriteHeader(200)
+				w.WriteHeader(http.StatusOK)
 				_, err := w.Write([]byte(`{"user": {}}`))
 				assert.NoError(t, err)
 			}
@@ -87,7 +87,7 @@ func TestNewClient(t *testing.T) {
 			assert.Equal(t, "bar", r.Header.Get("Foo"))
 			assert.Equal(t, "baz", r.Header.Get("Bar"))
 
-			w.WriteHeader(200)
+			w.WriteHeader(http.StatusOK)
 			_, err := w.Write([]byte(`{"apps": []}`))
 			assert.NoError(t, err)
 		}))
@@ -98,7 +98,7 @@ func TestNewClient(t *testing.T) {
 			assert.Empty(t, r.Header.Get("Bar"))
 
 			if strings.Contains(r.URL.Path, "self") {
-				w.WriteHeader(200)
+				w.WriteHeader(http.StatusOK)
 				_, err := w.Write([]byte(`{"user": {}}`))
 				assert.NoError(t, err)
 			}

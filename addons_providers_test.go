@@ -31,7 +31,7 @@ func TestAddonProvidersClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/addon_providers",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			expectedQuery:    "",
 			response:         AddonProvidersListResponse{},
 		},
@@ -42,7 +42,7 @@ func TestAddonProvidersClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/addon_providers/the-addon/plans",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			expectedQuery:    "show_all=false",
 			response:         AddonProviderPlansListResponse{},
 		},
@@ -53,7 +53,7 @@ func TestAddonProvidersClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/addon_providers/the-addon/plans",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			expectedQuery:    "show_all=true",
 			response:         AddonProviderPlansListResponse{},
 		},
@@ -78,7 +78,7 @@ func TestAddonProvidersClient(t *testing.T) {
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 					assert.Equal(t, test.expectedQuery, r.URL.RawQuery)
 					if run.invalidResponse {
-						w.WriteHeader(500)
+						w.WriteHeader(http.StatusInternalServerError)
 						_, err := w.Write([]byte("INVALID"))
 						assert.NoError(t, err)
 					} else {

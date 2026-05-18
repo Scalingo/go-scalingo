@@ -34,7 +34,7 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			response: LogDrainsRes{
 				[]LogDrain{
 					{
@@ -50,7 +50,7 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			response: LogDrainsRes{
 				[]LogDrain{
 					{
@@ -70,12 +70,12 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
-			expectedMethod:   "POST",
+			expectedMethod:   http.MethodPost,
 			response: LogDrain{
 				AppID: logDrainID,
 				URL:   logDrainURL,
 			},
-			responseStatus: 201,
+			responseStatus: http.StatusCreated,
 		},
 		{
 			action: "addon add",
@@ -88,12 +88,12 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
-			expectedMethod:   "POST",
+			expectedMethod:   http.MethodPost,
 			response: LogDrain{
 				AppID: logDrainID,
 				URL:   logDrainURL,
 			},
-			responseStatus: 201,
+			responseStatus: http.StatusCreated,
 		},
 		{
 			action: "remove",
@@ -102,9 +102,9 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/log_drains",
-			expectedMethod:   "DELETE",
+			expectedMethod:   http.MethodDelete,
 			response:         nil,
-			responseStatus:   204,
+			responseStatus:   http.StatusNoContent,
 		},
 		{
 			action: "addon remove",
@@ -113,9 +113,9 @@ func TestLogDrainsClient(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/addons/" + addonID + "/log_drains",
-			expectedMethod:   "DELETE",
+			expectedMethod:   http.MethodDelete,
 			response:         nil,
-			responseStatus:   204,
+			responseStatus:   http.StatusNoContent,
 		},
 	}
 
@@ -137,7 +137,7 @@ func TestLogDrainsClient(t *testing.T) {
 					assert.Equal(t, test.expectedMethod, r.Method)
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 					if run.invalidResponse {
-						w.WriteHeader(500)
+						w.WriteHeader(http.StatusInternalServerError)
 						_, err := w.Write([]byte("INVALID"))
 						require.NoError(t, err)
 					} else {

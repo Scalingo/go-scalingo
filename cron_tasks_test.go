@@ -24,15 +24,15 @@ func TestCronTasksClient_CronTasksGet(t *testing.T) {
 		responseStatus   int
 	}{
 		{
-			action: "get",
+			action: http.MethodGet,
 			testedClientCall: func(c CronTasksService) error {
 				_, err := c.CronTasksGet(ctx, appName)
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app/cron_tasks",
-			expectedMethod:   "GET",
+			expectedMethod:   http.MethodGet,
 			response:         CronTasks{},
-			responseStatus:   200,
+			responseStatus:   http.StatusOK,
 		},
 	}
 
@@ -54,7 +54,7 @@ func TestCronTasksClient_CronTasksGet(t *testing.T) {
 					assert.Equal(t, test.expectedMethod, r.Method)
 					assert.Equal(t, test.expectedEndpoint, r.URL.Path)
 					if run.invalidResponse {
-						w.WriteHeader(500)
+						w.WriteHeader(http.StatusInternalServerError)
 						_, err := w.Write([]byte("INVALID"))
 						require.NoError(t, err)
 					} else {
