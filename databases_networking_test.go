@@ -12,6 +12,46 @@ import (
 	"go.uber.org/mock/gomock"
 )
 
+func TestPreviewClient_DatabaseEndpointsList(t *testing.T) {
+	ctx := t.Context()
+
+	const databaseID = "db-id"
+
+	endpoint := DatabaseEndpoint{
+		ID:         "endpoint-id",
+		DatabaseID: databaseID,
+		Hostname:   "db.postgresql.dbs.scalingo.com",
+		Port:       1234,
+		Type:       DatabaseEndpointTypePublicRW,
+	}
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, http.MethodGet, r.Method)
+		assert.Equal(t, "/v1/databases/db-id/endpoints", r.URL.Path)
+		w.WriteHeader(http.StatusOK)
+		err := json.NewEncoder(w).Encode(DatabaseEndpointsResponse{
+			Endpoints: []DatabaseEndpoint{endpoint},
+		})
+		assert.NoError(t, err)
+	}))
+	defer ts.Close()
+
+	client, err := New(ctx, ClientConfig{
+		APIEndpoint: ts.URL,
+		APIToken:    "test",
+	})
+	require.NoError(t, err)
+	client.authClient = MockAuth(ctrl)
+
+	res, err := client.Preview().DatabaseEndpointsList(ctx, databaseID)
+	require.NoError(t, err)
+	require.Len(t, res, 1)
+	assert.Equal(t, endpoint, res[0])
+}
+
 func TestPreviewClient_DatabaseNetPeerings(t *testing.T) {
 	ctx := t.Context()
 
