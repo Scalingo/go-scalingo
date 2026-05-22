@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.1.0
+
 * feat: list database endpoints
 * task: create metadata.toml file
 
