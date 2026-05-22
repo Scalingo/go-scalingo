@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
+	"time"
 )
 
 var eventsSpecializeCases = map[string]struct {
@@ -165,6 +166,30 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseBackupFailedType",
 		DetailedEventString: "Manual backup backup-123 for addon 'my-addon' (db-123) failed",
 	},
+	"test continuous backup healthy": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupHealthy,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"healthy","error":null,"recoverable":true,"checked_at":"2026-05-28T08:59:00.011Z","unrecoverable_duration_seconds":0}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy",
+	},
+	"test continuous backup delayed": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupDelayed,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"latest restorable point is more than 12 hours behind","recoverable":true,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupDelayedType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is delayed (status: pgBackRest error, error: latest restorable point is more than 12 hours behind)",
+	},
+	"test continuous backup stale": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupStale,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"repository metadata is unavailable","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: pgBackRest error, error: repository metadata is unavailable)",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
@@ -181,5 +206,87 @@ func TestEvent_Specialize(t *testing.T) {
 				t.Errorf("Expecting event string\n===\n%s\n=== got\n%s\n===", c.DetailedEventString, dev.String())
 			}
 		})
+	}
+}
+
+func TestEventDatabaseContinuousBackupWho(t *testing.T) {
+	testCases := map[string]struct {
+		eventType   EventTypeName
+		rawTypeData string
+		user        EventUser
+		expectedWho string
+	}{
+		"healthy falls back to event user": {
+			eventType:   EventDatabaseContinuousBackupHealthy,
+			rawTypeData: `{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"healthy","error":null,"recoverable":true,"checked_at":"2026-05-28T08:59:00.011Z","unrecoverable_duration_seconds":0}`,
+			user: EventUser{
+				Username: "pitr-monitor",
+				Email:    "pitr-monitor@scalingo.test",
+			},
+			expectedWho: "pitr-monitor (pitr-monitor@scalingo.test)",
+		},
+		"delayed falls back to event user": {
+			eventType:   EventDatabaseContinuousBackupDelayed,
+			rawTypeData: `{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"pgbackrest info returned no stanza: no valid backups","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`,
+			user: EventUser{
+				Username: "backup-service",
+				Email:    "backup-service@scalingo.test",
+			},
+			expectedWho: "backup-service (backup-service@scalingo.test)",
+		},
+	}
+
+	for msg, tc := range testCases {
+		t.Run(msg, func(t *testing.T) {
+			event := &Event{
+				User:        tc.user,
+				Type:        tc.eventType,
+				RawTypeData: json.RawMessage([]byte(tc.rawTypeData)),
+			}
+
+			detailedEvent := event.Specialize()
+
+			if got := detailedEvent.Who(); got != tc.expectedWho {
+				t.Errorf("expected who %q, got %q", tc.expectedWho, got)
+			}
+		})
+	}
+}
+
+func TestEventDatabaseContinuousBackupTypeData(t *testing.T) {
+	event := &Event{
+		Type:        EventDatabaseContinuousBackupStale,
+		RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"pgbackrest info returned no stanza: no valid backups","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+	}
+
+	detailedEvent, ok := event.Specialize().(*EventDatabaseContinuousBackupStaleType)
+	if !ok {
+		t.Errorf("expected *EventDatabaseContinuousBackupStaleType, got %T", event.Specialize())
+	}
+
+	expectedCheckedAt := time.Date(2026, time.May, 28, 8, 57, 0, 9000000, time.UTC)
+	if detailedEvent.TypeData.AddonName != "PostgreSQL" {
+		t.Errorf("expected addon_name to be parsed, got %q", detailedEvent.TypeData.AddonName)
+	}
+	if detailedEvent.TypeData.ResourceID != "db-123" {
+		t.Errorf("expected resource_id to be parsed, got %q", detailedEvent.TypeData.ResourceID)
+	}
+	if detailedEvent.TypeData.AddonUUID != "ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1" {
+		t.Errorf("expected addon_uuid to be parsed, got %q", detailedEvent.TypeData.AddonUUID)
+	}
+	if detailedEvent.TypeData.Status != "pgbackrest_error" {
+		t.Errorf("expected status to be parsed, got %q", detailedEvent.TypeData.Status)
+	}
+	if detailedEvent.TypeData.Error != "pgbackrest info returned no stanza: no valid backups" {
+		t.Errorf("expected error to be parsed, got %q", detailedEvent.TypeData.Error)
+	}
+	if detailedEvent.TypeData.Recoverable {
+		t.Errorf("expected recoverable to be false")
+	}
+	if !detailedEvent.TypeData.CheckedAt.Equal(expectedCheckedAt) {
+		t.Errorf("expected checked_at to be parsed, got %s", detailedEvent.TypeData.CheckedAt)
+	}
+	if detailedEvent.TypeData.UnrecoverableDurationSeconds != 240 {
+		t.Errorf("expected unrecoverable_duration_seconds to be parsed, got %d", detailedEvent.TypeData.UnrecoverableDurationSeconds)
 	}
 }

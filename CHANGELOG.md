@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(events): add database continuous backup events
+
 ## 11.1.0
 
 * feat: list database endpoints
