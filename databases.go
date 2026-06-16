@@ -17,6 +17,10 @@ type DatabasesService interface {
 	DatabaseEnableFeature(ctx context.Context, app, addonID, feature string) (DatabaseEnableFeatureResponse, error)
 	DatabaseDisableFeature(ctx context.Context, app, addonID, feature string) (DatabaseDisableFeatureResponse, error)
 	DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, addonID string, params DatabaseUpdatePeriodicBackupsConfigParams) (Database, error)
+	DatabasePostgreSQLResetStats(ctx context.Context, app, addonID string) error
+	DatabasePostgreSQLStatStatementsEnable(ctx context.Context, app, addonID string) error
+	DatabasePostgreSQLStatStatementsReset(ctx context.Context, app, addonID string) error
+	DatabasePostgreSQLStatStatementsList(ctx context.Context, app, addonID string) ([]DatabasePostgreSQLStatStatement, error)
 	DatabaseUpdateMaintenanceWindow(ctx context.Context, app, addonID string, params MaintenanceWindowParams) (Database, error)
 	DatabaseListMaintenance(ctx context.Context, app, addonID string, paginationReq pagination.Request) ([]*Maintenance, pagination.Meta, error)
 	DatabaseShowMaintenance(ctx context.Context, app, addonID, maintenanceID string) (Maintenance, error)
@@ -134,6 +138,22 @@ type DatabaseRes struct {
 	Database Database `json:"database"`
 }
 
+type DatabasePostgreSQLStatStatement struct {
+	UserID    int     `json:"user_id"`
+	Query     string  `json:"query"`
+	Calls     int     `json:"calls"`
+	Rows      int     `json:"rows"`
+	TotalTime float64 `json:"total_time"`
+	MinTime   float64 `json:"min_time"`
+	MaxTime   float64 `json:"max_time"`
+	MeanTime  float64 `json:"mean_time"`
+	StdDev    float64 `json:"stddev_time"`
+}
+
+type databasePostgreSQLStatStatementsListResponse struct {
+	Result []DatabasePostgreSQLStatStatement `json:"result"`
+}
+
 // DatabaseShow returns the Database info of the given app/addonID
 func (c *Client) DatabaseShow(ctx context.Context, app, addonID string) (Database, error) {
 	var res DatabaseRes
@@ -162,6 +182,59 @@ func (c *Client) DatabaseUpdatePeriodicBackupsConfig(ctx context.Context, app, a
 		return Database{}, errors.Wrapf(ctx, err, "update periodic backups settings")
 	}
 	return dbRes.Database, nil
+}
+
+// DatabasePostgreSQLResetStats resets PostgreSQL statistics for a database addon.
+func (c *Client) DatabasePostgreSQLResetStats(ctx context.Context, app, addonID string) error {
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   http.MethodPost,
+		Endpoint: "/" + databasesResource + "/" + addonID + "/postgresql_reset_stats",
+		Expected: httpclient.Statuses{http.StatusOK},
+	}, nil)
+	if err != nil {
+		return errors.Wrapf(ctx, err, "reset PostgreSQL statistics for database %s", addonID)
+	}
+	return nil
+}
+
+// DatabasePostgreSQLStatStatementsEnable enables pg_stat_statements for a database addon.
+func (c *Client) DatabasePostgreSQLStatStatementsEnable(ctx context.Context, app, addonID string) error {
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   http.MethodPost,
+		Endpoint: "/" + databasesResource + "/" + addonID + "/postgresql_stat_statements_enable",
+		Expected: httpclient.Statuses{http.StatusOK},
+	}, nil)
+	if err != nil {
+		return errors.Wrapf(ctx, err, "enable pg_stat_statements for database %s", addonID)
+	}
+	return nil
+}
+
+// DatabasePostgreSQLStatStatementsReset resets pg_stat_statements for a database addon.
+func (c *Client) DatabasePostgreSQLStatStatementsReset(ctx context.Context, app, addonID string) error {
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   http.MethodPost,
+		Endpoint: "/" + databasesResource + "/" + addonID + "/postgresql_stat_statements_reset",
+		Expected: httpclient.Statuses{http.StatusOK},
+	}, nil)
+	if err != nil {
+		return errors.Wrapf(ctx, err, "reset pg_stat_statements for database %s", addonID)
+	}
+	return nil
+}
+
+// DatabasePostgreSQLStatStatementsList lists pg_stat_statements for a database addon.
+func (c *Client) DatabasePostgreSQLStatStatementsList(ctx context.Context, app, addonID string) ([]DatabasePostgreSQLStatStatement, error) {
+	res := databasePostgreSQLStatStatementsListResponse{}
+	err := c.DBAPI(app, addonID).DoRequest(ctx, &httpclient.APIRequest{
+		Method:   http.MethodPost,
+		Endpoint: "/" + databasesResource + "/" + addonID + "/postgresql_stat_statements_list",
+		Expected: httpclient.Statuses{http.StatusOK},
+	}, &res)
+	if err != nil {
+		return nil, errors.Wrapf(ctx, err, "list pg_stat_statements for database %s", addonID)
+	}
+	return res.Result, nil
 }
 
 // DatabaseEnableFeatureParams contains the feature which has to be enabled

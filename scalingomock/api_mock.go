@@ -9,11 +9,12 @@ import (
 	io "io"
 	reflect "reflect"
 
+	websocket "github.com/gorilla/websocket"
+	gomock "go.uber.org/mock/gomock"
+
 	scalingo "github.com/Scalingo/go-scalingo/v11"
 	http "github.com/Scalingo/go-scalingo/v11/http"
 	pagination "github.com/Scalingo/go-utils/pagination"
-	websocket "github.com/gorilla/websocket"
-	gomock "go.uber.org/mock/gomock"
 )
 
 // MockAPI is a mock of API interface.
@@ -752,6 +753,63 @@ func (m *MockAPI) DatabaseListMaintenance(ctx context.Context, app, addonID stri
 func (mr *MockAPIMockRecorder) DatabaseListMaintenance(ctx, app, addonID, paginationReq any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabaseListMaintenance", reflect.TypeOf((*MockAPI)(nil).DatabaseListMaintenance), ctx, app, addonID, paginationReq)
+}
+
+// DatabasePostgreSQLResetStats mocks base method.
+func (m *MockAPI) DatabasePostgreSQLResetStats(ctx context.Context, app, addonID string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabasePostgreSQLResetStats", ctx, app, addonID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DatabasePostgreSQLResetStats indicates an expected call of DatabasePostgreSQLResetStats.
+func (mr *MockAPIMockRecorder) DatabasePostgreSQLResetStats(ctx, app, addonID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabasePostgreSQLResetStats", reflect.TypeOf((*MockAPI)(nil).DatabasePostgreSQLResetStats), ctx, app, addonID)
+}
+
+// DatabasePostgreSQLStatStatementsEnable mocks base method.
+func (m *MockAPI) DatabasePostgreSQLStatStatementsEnable(ctx context.Context, app, addonID string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabasePostgreSQLStatStatementsEnable", ctx, app, addonID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DatabasePostgreSQLStatStatementsEnable indicates an expected call of DatabasePostgreSQLStatStatementsEnable.
+func (mr *MockAPIMockRecorder) DatabasePostgreSQLStatStatementsEnable(ctx, app, addonID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabasePostgreSQLStatStatementsEnable", reflect.TypeOf((*MockAPI)(nil).DatabasePostgreSQLStatStatementsEnable), ctx, app, addonID)
+}
+
+// DatabasePostgreSQLStatStatementsList mocks base method.
+func (m *MockAPI) DatabasePostgreSQLStatStatementsList(ctx context.Context, app, addonID string) ([]scalingo.DatabasePostgreSQLStatStatement, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabasePostgreSQLStatStatementsList", ctx, app, addonID)
+	ret0, _ := ret[0].([]scalingo.DatabasePostgreSQLStatStatement)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DatabasePostgreSQLStatStatementsList indicates an expected call of DatabasePostgreSQLStatStatementsList.
+func (mr *MockAPIMockRecorder) DatabasePostgreSQLStatStatementsList(ctx, app, addonID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabasePostgreSQLStatStatementsList", reflect.TypeOf((*MockAPI)(nil).DatabasePostgreSQLStatStatementsList), ctx, app, addonID)
+}
+
+// DatabasePostgreSQLStatStatementsReset mocks base method.
+func (m *MockAPI) DatabasePostgreSQLStatStatementsReset(ctx context.Context, app, addonID string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DatabasePostgreSQLStatStatementsReset", ctx, app, addonID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DatabasePostgreSQLStatStatementsReset indicates an expected call of DatabasePostgreSQLStatStatementsReset.
+func (mr *MockAPIMockRecorder) DatabasePostgreSQLStatStatementsReset(ctx, app, addonID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DatabasePostgreSQLStatStatementsReset", reflect.TypeOf((*MockAPI)(nil).DatabasePostgreSQLStatStatementsReset), ctx, app, addonID)
 }
 
 // DatabaseShow mocks base method.
