@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.1.1
+
 * feat(events): add database continuous backup events
 
 ## 11.1.0
