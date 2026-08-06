@@ -345,7 +345,7 @@ type databaseRestorePITRRes struct {
 	OperationID string `json:"operation_id"`
 }
 
-// DatabaseRestorePITR asks for a PiTR restore of the given addon/database.
+// DatabaseRestorePITR asks for a PITR restore of the given addon/database.
 // It returns the linked operation ID.
 func (c *Client) DatabaseRestorePITR(ctx context.Context, app, addonID string, restoreTime time.Time) (string, error) {
 	var res databaseRestorePITRRes
