@@ -2,6 +2,7 @@
 
 ## To Be Released
 
+* task(client): Remove the DB-API client (breaking change)
 * feat(databases): Add new method to restore PITR
 
 ## 11.1.1

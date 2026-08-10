@@ -14,15 +14,14 @@ func main() {
 	ctx := context.Background()
 
 	// ---- PARSE ARGS ----
-	if len(os.Args) != 5 {
-		fmt.Fprintf(os.Stderr, "Usage: ./backup_download [REGION] [APP_NAME] [ADDON_ID] [BACKUP_ID]\n")
+	if len(os.Args) != 4 {
+		fmt.Fprintf(os.Stderr, "Usage: ./backup_download [REGION] [ADDON_ID] [BACKUP_ID]\n")
 		os.Exit(1)
 	}
 
 	region := os.Args[1]
-	appName := os.Args[2]
-	addonId := os.Args[3]
-	backupId := os.Args[4]
+	addonId := os.Args[2]
+	backupId := os.Args[3]
 
 	// ---- CREATE SCALINGO CLIENT ----
 	token := os.Getenv("SCALINGO_TOKEN")
@@ -41,7 +40,7 @@ func main() {
 	}
 
 	// ---- GET BACKUP DOWNLOAD URL ----
-	backupURL, err := client.BackupDownloadURL(ctx, appName, addonId, backupId)
+	backupURL, err := client.BackupDownloadURL(ctx, addonId, backupId)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "get backup URL: %s\n", err.Error())
 		os.Exit(1)
