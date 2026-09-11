@@ -40,7 +40,7 @@ func genBoilerplate(types []string) {
 // Do not edit, generated with 'go generate'
 {{ range . }}
 
-func (e *{{ . }}Type) TypeDataPtr() interface{} {
+func (e *{{ . }}Type) TypeDataPtr() any {
 	return &e.TypeData
 }{{ end }}
 `

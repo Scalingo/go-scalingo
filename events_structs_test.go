@@ -190,6 +190,14 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
 		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: pgBackRest error, error: repository metadata is unavailable)",
 	},
+	"test missed database maintenance": {
+		Event: &Event{
+			Type:        EventMissedDatabaseMaintenance,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"my-database","maintenance_id":"maintenance-123","maintenance_window_in_hours":4,"maintenance_type":"security_upgrade","next_maintenance_window":"2026-09-12T02:00:00Z"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventMissedDatabaseMaintenanceType",
+		DetailedEventString: "The maintenance (ID: maintenance-123) affecting the my-database database has been postponed to a later window",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
