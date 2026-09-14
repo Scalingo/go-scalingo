@@ -1,1 +1,2 @@
-- [ ] Add a [changelog entry](https://changelog.scalingo.com/)
+- [ ] Add a changelog entry in the [public documentation](https://changelog.scalingo.com/)
+- [ ] Add a changelog entry in `CHANGELOG.md`
