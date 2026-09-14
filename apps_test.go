@@ -30,7 +30,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"router_logs":true}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -41,7 +41,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"router_logs":false}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -53,7 +53,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"force_https":true}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -64,7 +64,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"force_https":false}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -76,7 +76,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"sticky_session":true}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -87,7 +87,7 @@ func TestAppsClient_Update(t *testing.T) {
 				return err
 			},
 			expectedEndpoint: "/v1/apps/my-app",
-			expectedMethod:   "PUT",
+			expectedMethod:   http.MethodPut,
 			expectedParams:   `{"sticky_session":false}`,
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
@@ -104,7 +104,9 @@ func TestAppsClient_Update(t *testing.T) {
 				assert.Equal(t, run.expectedEndpoint, r.URL.Path)
 				buf := new(bytes.Buffer)
 				_, err := buf.ReadFrom(r.Body)
-				require.NoError(t, err)
+				if !assert.NoError(t, err) {
+					return
+				}
 				assert.Equal(t, run.expectedParams, buf.String())
 
 				if run.responseStatus != 0 {
@@ -126,6 +128,123 @@ func TestAppsClient_Update(t *testing.T) {
 			c.authClient = MockAuth(ctrl)
 
 			err = run.testedClientCall(c)
+			require.NoError(t, err)
+		})
+	}
+}
+
+func TestAppsFirewallRules(t *testing.T) {
+	ctx := t.Context()
+	const appName = "my-app"
+
+	runs := map[string]struct {
+		testedClientCall func(t *testing.T, c AppsService) error
+		expectedEndpoint string
+		expectedMethod   string
+		expectedParams   string
+		response         any
+		responseStatus   int
+	}{
+		"it should list app firewall rules": {
+			testedClientCall: func(t *testing.T, c AppsService) error {
+				rules, err := c.AppsFirewallRulesList(ctx, appName)
+				require.NoError(t, err)
+				require.Len(t, rules, 1)
+				assert.Equal(t, "app-id", rules[0].AppID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/firewall_rules",
+			expectedMethod:   http.MethodGet,
+			response: &AppFirewallRulesResponse{Rules: []AppFirewallRule{{
+				ID:    "rule-id",
+				AppID: "app-id",
+				CIDR:  "192.0.2.0/24",
+				Label: "office",
+			}}},
+			responseStatus: http.StatusOK,
+		},
+		"it should show an app firewall rule": {
+			testedClientCall: func(t *testing.T, c AppsService) error {
+				rule, err := c.AppsFirewallRuleShow(ctx, appName, "rule-id")
+				require.NoError(t, err)
+				assert.Equal(t, "app-id", rule.AppID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
+			expectedMethod:   http.MethodGet,
+			response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
+				ID:    "rule-id",
+				AppID: "app-id",
+				CIDR:  "192.0.2.0/24",
+				Label: "office",
+			}},
+			responseStatus: http.StatusOK,
+		},
+		"it should create an app firewall rule": {
+			testedClientCall: func(t *testing.T, c AppsService) error {
+				rule, err := c.AppsFirewallRuleCreate(ctx, appName, AppFirewallRuleParams{
+					CIDR:  "192.0.2.0/24",
+					Label: "office",
+				})
+				require.NoError(t, err)
+				assert.Equal(t, "app-id", rule.AppID)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app/firewall_rules",
+			expectedMethod:   http.MethodPost,
+			expectedParams:   `{"firewall_rule":{"cidr":"192.0.2.0/24","label":"office"}}`,
+			response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
+				ID:    "rule-id",
+				AppID: "app-id",
+				CIDR:  "192.0.2.0/24",
+				Label: "office",
+			}},
+			responseStatus: http.StatusCreated,
+		},
+		"it should delete an app firewall rule": {
+			testedClientCall: func(t *testing.T, c AppsService) error {
+				return c.AppsFirewallRuleDelete(ctx, appName, "rule-id")
+			},
+			expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
+			expectedMethod:   http.MethodDelete,
+			responseStatus:   http.StatusNoContent,
+		},
+	}
+
+	for msg, run := range runs {
+		t.Run(msg, func(t *testing.T) {
+			ctrl := gomock.NewController(t)
+			defer ctrl.Finish()
+
+			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, run.expectedMethod, r.Method)
+				assert.Equal(t, run.expectedEndpoint, r.URL.Path)
+				buf := new(bytes.Buffer)
+				_, err := buf.ReadFrom(r.Body)
+				if !assert.NoError(t, err) {
+					return
+				}
+				assert.Equal(t, run.expectedParams, buf.String())
+
+				if run.responseStatus != 0 {
+					w.WriteHeader(run.responseStatus)
+				}
+				if run.response != nil {
+					err := json.NewEncoder(w).Encode(&run.response)
+					assert.NoError(t, err)
+				}
+			}))
+			defer ts.Close()
+
+			c, err := New(ctx, ClientConfig{
+				APIEndpoint: ts.URL,
+				APIToken:    "test",
+			})
+			require.NoError(t, err)
+
+			c.authClient = MockAuth(ctrl)
+
+			err = run.testedClientCall(t, c)
 			require.NoError(t, err)
 		})
 	}
