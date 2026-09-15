@@ -1,7 +1,7 @@
 dependencies = []
 description = "Public Golang client for Scalingo API"
 flags = ["lib"]
-languages = ["go"]
+languages = ["go", "github-actions"]
 owner = "team-infrastructure-services@scalingo.com"
 team = "IST"
 tier = 1
