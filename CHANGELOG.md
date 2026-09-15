@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.4.0
+
 * feat: add `MissedDatabaseMaintenance` event
 
 ## 11.3.0
