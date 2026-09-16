@@ -133,119 +133,88 @@ func TestAppsClient_Update(t *testing.T) {
 	}
 }
 
-func TestAppsFirewallRules(t *testing.T) {
+func TestAppsFirewallRulesList(t *testing.T) {
 	ctx := t.Context()
-	const appName = "my-app"
+	client, cleanup := newTestClient(t, appsTestRequest{
+		expectedEndpoint: "/v1/apps/my-app/firewall_rules",
+		expectedMethod:   http.MethodGet,
+		response: &AppFirewallRulesResponse{Rules: []AppFirewallRule{{
+			ID:    "rule-id",
+			AppID: "app-id",
+			CIDR:  "192.0.2.0/24",
+			Label: "office",
+		}}},
+		responseStatus: http.StatusOK,
+	})
+	defer cleanup()
 
-	runs := map[string]struct {
-		testedClientCall func(t *testing.T, c AppsService) error
-		expectedEndpoint string
-		expectedMethod   string
-		expectedParams   string
-		response         any
-		responseStatus   int
-	}{
-		"it should list app firewall rules": {
-			testedClientCall: func(t *testing.T, c AppsService) error {
-				rules, err := c.AppsFirewallRulesList(ctx, appName)
-				require.NoError(t, err)
-				require.Len(t, rules, 1)
-				assert.Equal(t, "app-id", rules[0].AppID)
-				return err
-			},
-			expectedEndpoint: "/v1/apps/my-app/firewall_rules",
-			expectedMethod:   http.MethodGet,
-			response: &AppFirewallRulesResponse{Rules: []AppFirewallRule{{
-				ID:    "rule-id",
-				AppID: "app-id",
-				CIDR:  "192.0.2.0/24",
-				Label: "office",
-			}}},
-			responseStatus: http.StatusOK,
-		},
-		"it should show an app firewall rule": {
-			testedClientCall: func(t *testing.T, c AppsService) error {
-				rule, err := c.AppsFirewallRuleShow(ctx, appName, "rule-id")
-				require.NoError(t, err)
-				assert.Equal(t, "app-id", rule.AppID)
-				return err
-			},
-			expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
-			expectedMethod:   http.MethodGet,
-			response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
-				ID:    "rule-id",
-				AppID: "app-id",
-				CIDR:  "192.0.2.0/24",
-				Label: "office",
-			}},
-			responseStatus: http.StatusOK,
-		},
-		"it should create an app firewall rule": {
-			testedClientCall: func(t *testing.T, c AppsService) error {
-				rule, err := c.AppsFirewallRuleCreate(ctx, appName, AppFirewallRuleParams{
-					CIDR:  "192.0.2.0/24",
-					Label: "office",
-				})
-				require.NoError(t, err)
-				assert.Equal(t, "app-id", rule.AppID)
-				return err
-			},
-			expectedEndpoint: "/v1/apps/my-app/firewall_rules",
-			expectedMethod:   http.MethodPost,
-			expectedParams:   `{"firewall_rule":{"cidr":"192.0.2.0/24","label":"office"}}`,
-			response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
-				ID:    "rule-id",
-				AppID: "app-id",
-				CIDR:  "192.0.2.0/24",
-				Label: "office",
-			}},
-			responseStatus: http.StatusCreated,
-		},
-		"it should delete an app firewall rule": {
-			testedClientCall: func(t *testing.T, c AppsService) error {
-				return c.AppsFirewallRuleDelete(ctx, appName, "rule-id")
-			},
-			expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
-			expectedMethod:   http.MethodDelete,
-			responseStatus:   http.StatusNoContent,
-		},
-	}
+	rules, err := client.AppsFirewallRulesList(ctx, "my-app")
+	require.NoError(t, err)
+	require.Len(t, rules, 1)
+	assert.Equal(t, "app-id", rules[0].AppID)
+}
 
-	for msg, run := range runs {
-		t.Run(msg, func(t *testing.T) {
-			ctrl := gomock.NewController(t)
-			defer ctrl.Finish()
+func TestAppsFirewallRuleShow(t *testing.T) {
+	ctx := t.Context()
+	client, cleanup := newTestClient(t, appsTestRequest{
+		expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
+		expectedMethod:   http.MethodGet,
+		response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
+			ID:    "rule-id",
+			AppID: "app-id",
+			CIDR:  "192.0.2.0/24",
+			Label: "office",
+		}},
+		responseStatus: http.StatusOK,
+	})
+	defer cleanup()
 
-			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				assert.Equal(t, run.expectedMethod, r.Method)
-				assert.Equal(t, run.expectedEndpoint, r.URL.Path)
-				buf := new(bytes.Buffer)
-				_, err := buf.ReadFrom(r.Body)
-				if !assert.NoError(t, err) {
-					return
-				}
-				assert.Equal(t, run.expectedParams, buf.String())
+	rule, err := client.AppsFirewallRuleShow(ctx, "my-app", "rule-id")
+	require.NoError(t, err)
+	assert.Equal(t, "app-id", rule.AppID)
+}
 
-				if run.responseStatus != 0 {
-					w.WriteHeader(run.responseStatus)
-				}
-				if run.response != nil {
-					err := json.NewEncoder(w).Encode(&run.response)
-					assert.NoError(t, err)
-				}
-			}))
-			defer ts.Close()
+func TestAppsFirewallRuleCreate(t *testing.T) {
+	ctx := t.Context()
+	client, cleanup := newTestClient(t, appsTestRequest{
+		expectedEndpoint: "/v1/apps/my-app/firewall_rules",
+		expectedMethod:   http.MethodPost,
+		expectedParams:   `{"firewall_rule":{"cidr":"192.0.2.0/24","label":"office"}}`,
+		response: &AppFirewallRuleResponse{Rule: &AppFirewallRule{
+			ID:    "rule-id",
+			AppID: "app-id",
+			CIDR:  "192.0.2.0/24",
+			Label: "office",
+		}},
+		responseStatus: http.StatusCreated,
+	})
+	defer cleanup()
 
-			c, err := New(ctx, ClientConfig{
-				APIEndpoint: ts.URL,
-				APIToken:    "test",
-			})
-			require.NoError(t, err)
+	rule, err := client.AppsFirewallRuleCreate(ctx, "my-app", AppFirewallRuleParams{
+		CIDR:  "192.0.2.0/24",
+		Label: "office",
+	})
+	require.NoError(t, err)
+	assert.Equal(t, "app-id", rule.AppID)
+}
 
-			c.authClient = MockAuth(ctrl)
+func TestAppsFirewallRuleDelete(t *testing.T) {
+	ctx := t.Context()
+	client, cleanup := newTestClient(t, appsTestRequest{
+		expectedEndpoint: "/v1/apps/my-app/firewall_rules/rule-id",
+		expectedMethod:   http.MethodDelete,
+		responseStatus:   http.StatusNoContent,
+	})
+	defer cleanup()
 
-			err = run.testedClientCall(t, c)
-			require.NoError(t, err)
-		})
-	}
+	err := client.AppsFirewallRuleDelete(ctx, "my-app", "rule-id")
+	require.NoError(t, err)
+}
+
+type appsTestRequest struct {
+	expectedEndpoint string
+	expectedMethod   string
+	expectedParams   string
+	response         any
+	responseStatus   int
 }

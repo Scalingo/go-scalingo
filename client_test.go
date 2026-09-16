@@ -1,6 +1,8 @@
 package scalingo
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -11,6 +13,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/mock/gomock"
 )
 
 func TestNewClient(t *testing.T) {
@@ -121,4 +124,40 @@ func TestNewClient(t *testing.T) {
 		_, err = client.Self(ctx)
 		require.NoError(t, err)
 	})
+}
+
+func newTestClient(t *testing.T, req appsTestRequest) (*Client, func()) {
+	t.Helper()
+
+	ctrl := gomock.NewController(t)
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, req.expectedMethod, r.Method)
+		assert.Equal(t, req.expectedEndpoint, r.URL.Path)
+		buf := new(bytes.Buffer)
+		_, err := buf.ReadFrom(r.Body)
+		if !assert.NoError(t, err) {
+			return
+		}
+		assert.Equal(t, req.expectedParams, buf.String())
+
+		if req.responseStatus != 0 {
+			w.WriteHeader(req.responseStatus)
+		}
+		if req.response != nil {
+			err := json.NewEncoder(w).Encode(&req.response)
+			assert.NoError(t, err)
+		}
+	}))
+
+	client, err := New(t.Context(), ClientConfig{
+		APIEndpoint: ts.URL,
+		APIToken:    "test",
+	})
+	require.NoError(t, err)
+
+	client.authClient = MockAuth(ctrl)
+
+	return client, func() {
+		ts.Close()
+	}
 }

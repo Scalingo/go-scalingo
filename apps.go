@@ -100,6 +100,10 @@ type AppFirewallRuleParams struct {
 	Label string `json:"label"`
 }
 
+type AppFirewallRuleCreateParamsPayload struct {
+	Rule AppFirewallRuleParams `json:"firewall_rule"`
+}
+
 type AppResponse struct {
 	App *App `json:"app"`
 }
@@ -405,9 +409,7 @@ func (c *Client) AppsFirewallRuleCreate(ctx context.Context, name string, params
 		Method:   http.MethodPost,
 		Endpoint: "/apps/" + name + "/firewall_rules",
 		Expected: httpclient.Statuses{http.StatusCreated, http.StatusOK},
-		Params: map[string]any{
-			"firewall_rule": params,
-		},
+		Params:   AppFirewallRuleCreateParamsPayload{Rule: params},
 	}
 	err := c.ScalingoAPI().DoRequest(ctx, req, &ruleRes)
 	if err != nil {
