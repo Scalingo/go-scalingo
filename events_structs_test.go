@@ -49,6 +49,22 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventEditAppType",
 		DetailedEventString: "application settings have been updated, Force HTTPS has been disabled",
 	},
+	"test new app firewall rule event": {
+		Event: &Event{
+			Type:        EventNewAppFirewallRule,
+			RawTypeData: json.RawMessage([]byte(`{"rule_id":"rule-123","cidr":"203.0.113.42/32","label":"office"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventNewAppFirewallRuleType",
+		DetailedEventString: "app firewall rule '203.0.113.42/32' has been added",
+	},
+	"test delete app firewall rule event": {
+		Event: &Event{
+			Type:        EventDeleteAppFirewallRule,
+			RawTypeData: json.RawMessage([]byte(`{"rule_id":"rule-123","cidr":"203.0.113.42/32","label":"office"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDeleteAppFirewallRuleType",
+		DetailedEventString: "app firewall rule '203.0.113.42/32' has been deleted",
+	},
 	"test app run event for a command run by an operator": {
 		Event: &Event{
 			Type:        EventRun,
