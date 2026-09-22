@@ -46,7 +46,7 @@ func TestPreviewClient_DatabaseEndpointsList(t *testing.T) {
 	require.NoError(t, err)
 	client.authClient = MockAuth(ctrl)
 
-	res, err := client.Preview().DatabaseEndpointsList(ctx, databaseID)
+	res, err := client.Preview().DatabaseEndpointsList(ctx, databaseID, DatabaseEndpointsListParams{})
 	require.NoError(t, err)
 	require.Len(t, res, 1)
 	assert.Equal(t, endpoint, res[0])
