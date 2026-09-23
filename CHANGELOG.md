@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(preview/database-endpoints/credentials) Allow asking for default credentials to the API when listing endpoints
+
 ## 11.5.0
 
 * feat(firewall rules) Add application firewall rules
