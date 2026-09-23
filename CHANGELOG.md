@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(tokens): add `TokenDelete` method
+
 ## 11.6.0
 
 * feat(preview/database-endpoints/credentials) Allow asking for default credentials to the API when listing endpoints
