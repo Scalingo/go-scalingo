@@ -43,9 +43,9 @@ func TestTokensClient_TokenDelete(t *testing.T) {
 			err = client.TokenDelete(ctx, "token-id")
 			if test.expectedError != "" {
 				require.ErrorContains(t, err, test.expectedError)
-				return
+			} else {
+				require.NoError(t, err)
 			}
-			require.NoError(t, err)
 		})
 	}
 }
