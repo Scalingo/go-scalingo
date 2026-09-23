@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat: add `CompleteRedisToValkeyMigrationEvent` event
+
 ## 11.7.0
 
 * feat(tokens): add `TokenDelete` method

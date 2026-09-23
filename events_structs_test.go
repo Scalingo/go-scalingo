@@ -214,6 +214,14 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventMissedDatabaseMaintenanceType",
 		DetailedEventString: "The maintenance (ID: maintenance-123) affecting the my-database database has been postponed to a later window",
 	},
+	"test completed Redis to Valkey migration": {
+		Event: &Event{
+			Type:        EventCompleteRedisToValkeyMigration,
+			RawTypeData: json.RawMessage([]byte(`{"from_plan":"redis-business-1024","plan_name":"valkey-business-1024"}`)),
+		},
+		DetailedEventName:   "*scalingo.EventCompleteRedisToValkeyMigrationType",
+		DetailedEventString: "Redis to Valkey migration completed from plan redis-business-1024 to valkey-business-1024",
+	},
 }
 
 func TestEvent_Specialize(t *testing.T) {
