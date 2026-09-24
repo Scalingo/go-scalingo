@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.7.0
+
 * feat(tokens): add `TokenDelete` method
 
 ## 11.6.0
