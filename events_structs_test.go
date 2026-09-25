@@ -217,7 +217,7 @@ var eventsSpecializeCases = map[string]struct {
 	"test completed Redis to Valkey migration": {
 		Event: &Event{
 			Type:        EventRedisToValkeyMigrationCompleted,
-			RawTypeData: json.RawMessage([]byte(`{"from_plan":"redis-business-1024","plan_name":"valkey-business-1024"}`)),
+			RawTypeData: json.RawMessage([]byte(`{"from_plan":"redis-business-1024","to_plan":"valkey-business-1024"}`)),
 		},
 		DetailedEventName:   "*scalingo.EventRedisToValkeyMigrationCompletedType",
 		DetailedEventString: "Redis to Valkey migration completed from plan redis-business-1024 to valkey-business-1024",

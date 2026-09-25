@@ -732,7 +732,7 @@ func (ev *EventStartRegionMigrationType) String() string {
 
 type EventRedisToValkeyMigrationCompletedTypeData struct {
 	FromPlan string `json:"from_plan"`
-	PlanName string `json:"plan_name"`
+	ToPlan   string `json:"to_plan"`
 }
 
 type EventRedisToValkeyMigrationCompletedType struct {
@@ -742,7 +742,7 @@ type EventRedisToValkeyMigrationCompletedType struct {
 }
 
 func (ev *EventRedisToValkeyMigrationCompletedType) String() string {
-	return fmt.Sprintf("Redis to Valkey migration completed from plan %s to %s", ev.TypeData.FromPlan, ev.TypeData.PlanName)
+	return fmt.Sprintf("Redis to Valkey migration completed from plan %s to %s", ev.TypeData.FromPlan, ev.TypeData.ToPlan)
 }
 
 // Deprecated: use EventRedisToValkeyMigrationCompletedTypeData.
