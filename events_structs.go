@@ -136,7 +136,7 @@ const (
 	EventDeleteAutoscaler                EventTypeName = "delete_autoscaler"
 	EventAddonUpdated                    EventTypeName = "addon_updated"
 	EventStartRegionMigration            EventTypeName = "start_region_migration"
-	EventCompleteRedisToValkeyMigration  EventTypeName = "complete_redis_to_valkey_migration"
+	EventRedisToValkeyMigrationCompleted EventTypeName = "redis_to_valkey_migration_completed"
 	EventNewLogDrain                     EventTypeName = "new_log_drain"
 	EventDeleteLogDrain                  EventTypeName = "delete_log_drain"
 	EventNewAddonLogDrain                EventTypeName = "new_addon_log_drain"
@@ -730,20 +730,29 @@ func (ev *EventStartRegionMigrationType) String() string {
 	return fmt.Sprintf("Application region migration started from %s to %s/%s", ev.TypeData.Source, ev.TypeData.Destination, ev.TypeData.DstAppName)
 }
 
-type EventCompleteRedisToValkeyMigrationTypeData struct {
+type EventRedisToValkeyMigrationCompletedTypeData struct {
 	FromPlan string `json:"from_plan"`
 	PlanName string `json:"plan_name"`
 }
 
-type EventCompleteRedisToValkeyMigrationType struct {
+type EventRedisToValkeyMigrationCompletedType struct {
 	Event
 
-	TypeData EventCompleteRedisToValkeyMigrationTypeData `json:"type_data"`
+	TypeData EventRedisToValkeyMigrationCompletedTypeData `json:"type_data"`
 }
 
-func (ev *EventCompleteRedisToValkeyMigrationType) String() string {
+func (ev *EventRedisToValkeyMigrationCompletedType) String() string {
 	return fmt.Sprintf("Redis to Valkey migration completed from plan %s to %s", ev.TypeData.FromPlan, ev.TypeData.PlanName)
 }
+
+// Deprecated: use EventRedisToValkeyMigrationCompletedTypeData.
+type EventCompleteRedisToValkeyMigrationTypeData = EventRedisToValkeyMigrationCompletedTypeData
+
+// Deprecated: use EventRedisToValkeyMigrationCompletedType.
+type EventCompleteRedisToValkeyMigrationType = EventRedisToValkeyMigrationCompletedType
+
+// Deprecated: use EventRedisToValkeyMigrationCompleted.
+const EventCompleteRedisToValkeyMigration = EventRedisToValkeyMigrationCompleted
 
 // New log drain
 type EventNewLogDrainTypeData struct {

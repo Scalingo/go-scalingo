@@ -251,7 +251,7 @@ func (e *EventStartRegionMigrationType) TypeDataPtr() any {
 	return &e.TypeData
 }
 
-func (e *EventCompleteRedisToValkeyMigrationType) TypeDataPtr() any {
+func (e *EventRedisToValkeyMigrationCompletedType) TypeDataPtr() any {
 	return &e.TypeData
 }
 
