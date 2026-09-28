@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat: add `RedisToValkeyMigrationCompletedEvent` for `redis_to_valkey_migration_completed`
+* feat: add `RedisToValkeyMigrationCompletedEvent`
 
 ## 11.7.0
 

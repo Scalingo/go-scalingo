@@ -745,15 +745,6 @@ func (ev *EventRedisToValkeyMigrationCompletedType) String() string {
 	return fmt.Sprintf("Redis to Valkey migration completed from plan %s to %s", ev.TypeData.FromPlan, ev.TypeData.ToPlan)
 }
 
-// Deprecated: use EventRedisToValkeyMigrationCompletedTypeData.
-type EventCompleteRedisToValkeyMigrationTypeData = EventRedisToValkeyMigrationCompletedTypeData
-
-// Deprecated: use EventRedisToValkeyMigrationCompletedType.
-type EventCompleteRedisToValkeyMigrationType = EventRedisToValkeyMigrationCompletedType
-
-// Deprecated: use EventRedisToValkeyMigrationCompleted.
-const EventCompleteRedisToValkeyMigration = EventRedisToValkeyMigrationCompleted
-
 // New log drain
 type EventNewLogDrainTypeData struct {
 	URL string `json:"url"`
