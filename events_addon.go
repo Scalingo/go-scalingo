@@ -360,6 +360,8 @@ func formatContinuousBackupStatus(status string) string {
 	switch status {
 	case "pgbackrest_error":
 		return "pgBackRest error"
+	case "myhoard_error":
+		return "MyHoard error"
 	case "wal_error":
 		return "WAL error"
 	default:
