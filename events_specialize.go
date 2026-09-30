@@ -136,8 +136,8 @@ func (pev *Event) Specialize() DetailedEvent {
 		e = &EventAddonUpdatedType{Event: ev}
 	case EventStartRegionMigration:
 		e = &EventStartRegionMigrationType{Event: ev}
-	case EventCompleteRedisToValkeyMigration:
-		e = &EventCompleteRedisToValkeyMigrationType{Event: ev}
+	case EventRedisToValkeyMigrationCompleted:
+		e = &EventRedisToValkeyMigrationCompletedType{Event: ev}
 	case EventNewLogDrain:
 		e = &EventNewLogDrainType{Event: ev}
 	case EventDeleteLogDrain:
