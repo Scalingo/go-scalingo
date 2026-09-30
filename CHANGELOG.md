@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(events): render the MySQL `myhoard_error` continuous backup status as `MyHoard error`
+* feat: add `CompleteRedisToValkeyMigrationEvent` event
 * feat: add `RedisToValkeyMigrationCompletedEvent`
 
 ## 11.7.0

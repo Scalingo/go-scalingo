@@ -206,6 +206,22 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
 		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: pgBackRest error, error: repository metadata is unavailable)",
 	},
+	"test MySQL continuous backup delayed": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupDelayed,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"myhoard_error","error":"MyHoard reports no completed non-broken backup","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupDelayedType",
+		DetailedEventString: "Point-in-time recovery for database 'db-456' is delayed (status: MyHoard error, error: MyHoard reports no completed non-broken backup)",
+	},
+	"test MySQL continuous backup stale": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupStale,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"myhoard_error","error":"MyHoard reports no completed non-broken backup","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
+		DetailedEventString: "Point-in-time recovery for database 'db-456' is stale (status: MyHoard error, error: MyHoard reports no completed non-broken backup)",
+	},
 	"test missed database maintenance": {
 		Event: &Event{
 			Type:        EventMissedDatabaseMaintenance,
