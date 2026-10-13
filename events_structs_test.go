@@ -190,37 +190,69 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
 		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy",
 	},
+	"test continuous backup healthy event while still unrecoverable": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupHealthy,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:55:00.009Z","unrecoverable_duration_seconds":60}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy (status: unhealthy, error: Continuous backup is currently unavailable.)",
+	},
 	"test continuous backup delayed": {
 		Event: &Event{
 			Type:        EventDatabaseContinuousBackupDelayed,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"latest restorable point is more than 12 hours behind","recoverable":true,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupDelayedType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is delayed (status: pgBackRest error, error: latest restorable point is more than 12 hours behind)",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is delayed (status: unhealthy, error: Continuous backup is currently unavailable.)",
 	},
 	"test continuous backup stale": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupStale,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
+	},
+	"test MySQL continuous backup stale": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupStale,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
+		DetailedEventString: "Point-in-time recovery for database 'db-456' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
+	},
+	"test legacy PostgreSQL continuous backup stale": {
 		Event: &Event{
 			Type:        EventDatabaseContinuousBackupStale,
 			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"repository metadata is unavailable","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: pgBackRest error, error: repository metadata is unavailable)",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
 	},
-	"test MySQL continuous backup delayed": {
+	"test legacy MySQL continuous backup delayed": {
 		Event: &Event{
 			Type:        EventDatabaseContinuousBackupDelayed,
 			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"myhoard_error","error":"MyHoard reports no completed non-broken backup","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupDelayedType",
-		DetailedEventString: "Point-in-time recovery for database 'db-456' is delayed (status: MyHoard error, error: MyHoard reports no completed non-broken backup)",
+		DetailedEventString: "Point-in-time recovery for database 'db-456' is delayed (status: unhealthy, error: Continuous backup is currently unavailable.)",
 	},
-	"test MySQL continuous backup stale": {
+	"test legacy continuous backup WAL error": {
 		Event: &Event{
 			Type:        EventDatabaseContinuousBackupStale,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"myhoard_error","error":"MyHoard reports no completed non-broken backup","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"wal_error","error":"WAL archiving failed","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
 		},
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
-		DetailedEventString: "Point-in-time recovery for database 'db-456' is stale (status: MyHoard error, error: MyHoard reports no completed non-broken backup)",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
+	},
+	"test legacy continuous backup healthy with stale error": {
+		Event: &Event{
+			Type:        EventDatabaseContinuousBackupHealthy,
+			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"healthy","error":"latest restorable point is more than 12 hours behind","recoverable":true,"checked_at":"2026-05-28T08:59:00.011Z","unrecoverable_duration_seconds":0}`)),
+		},
+		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
+		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy",
 	},
 	"test missed database maintenance": {
 		Event: &Event{
@@ -275,7 +307,7 @@ func TestEventDatabaseContinuousBackupWho(t *testing.T) {
 		},
 		"delayed falls back to event user": {
 			eventType:   EventDatabaseContinuousBackupDelayed,
-			rawTypeData: `{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"pgbackrest info returned no stanza: no valid backups","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`,
+			rawTypeData: `{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`,
 			user: EventUser{
 				Username: "backup-service",
 				Email:    "backup-service@scalingo.test",
@@ -304,7 +336,7 @@ func TestEventDatabaseContinuousBackupWho(t *testing.T) {
 func TestEventDatabaseContinuousBackupTypeData(t *testing.T) {
 	event := &Event{
 		Type:        EventDatabaseContinuousBackupStale,
-		RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"pgbackrest info returned no stanza: no valid backups","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
+		RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
 	}
 
 	detailedEvent, ok := event.Specialize().(*EventDatabaseContinuousBackupStaleType)
@@ -322,10 +354,10 @@ func TestEventDatabaseContinuousBackupTypeData(t *testing.T) {
 	if detailedEvent.TypeData.AddonUUID != "ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1" {
 		t.Errorf("expected addon_uuid to be parsed, got %q", detailedEvent.TypeData.AddonUUID)
 	}
-	if detailedEvent.TypeData.Status != "pgbackrest_error" {
+	if detailedEvent.TypeData.Status != "unhealthy" {
 		t.Errorf("expected status to be parsed, got %q", detailedEvent.TypeData.Status)
 	}
-	if detailedEvent.TypeData.Error != "pgbackrest info returned no stanza: no valid backups" {
+	if detailedEvent.TypeData.Error != "Continuous backup is currently unavailable." {
 		t.Errorf("expected error to be parsed, got %q", detailedEvent.TypeData.Error)
 	}
 	if detailedEvent.TypeData.Recoverable {

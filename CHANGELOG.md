@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(events): render the MySQL `myhoard_error` continuous backup status as `MyHoard error`
+* fix(events): continuous backup events only display the generic `unhealthy` status and error, derived from `recoverable`, never backup tool details
 * feat: add `CompleteRedisToValkeyMigrationEvent` event
 * feat: add `RedisToValkeyMigrationCompletedEvent`
 

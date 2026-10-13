@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"fmt"
-	"strings"
 	"time"
 )
 
@@ -335,36 +334,22 @@ type EventDatabaseContinuousBackupStaleTypeData struct {
 	EventDatabaseContinuousBackupTypeData
 }
 
-func formatDatabaseContinuousBackupString(data EventDatabaseContinuousBackupTypeData, status string) string {
+const (
+	continuousBackupStatusUnhealthy = "unhealthy"
+	continuousBackupGenericError    = "Continuous backup is currently unavailable."
+)
+
+// formatDatabaseContinuousBackupString derives the public status and error from
+// Recoverable so that legacy payloads with tool-specific statuses or errors are
+// never displayed.
+func formatDatabaseContinuousBackupString(data EventDatabaseContinuousBackupTypeData, eventStatus string) string {
 	message := fmt.Sprintf(
 		"Point-in-time recovery for database '%s' is %s",
-		data.ResourceID, status,
+		data.ResourceID, eventStatus,
 	)
-	details := []string{}
-	if data.Status != "" && data.Status != "healthy" {
-		details = append(details, "status: "+formatContinuousBackupStatus(data.Status))
-	}
-	if data.Error == "" {
-		if len(details) == 0 {
-			return message
-		}
-
-		return fmt.Sprintf("%s (%s)", message, strings.Join(details, ", "))
+	if data.Recoverable {
+		return message
 	}
 
-	details = append(details, "error: "+data.Error)
-	return fmt.Sprintf("%s (%s)", message, strings.Join(details, ", "))
-}
-
-func formatContinuousBackupStatus(status string) string {
-	switch status {
-	case "pgbackrest_error":
-		return "pgBackRest error"
-	case "myhoard_error":
-		return "MyHoard error"
-	case "wal_error":
-		return "WAL error"
-	default:
-		return status
-	}
+	return fmt.Sprintf("%s (status: %s, error: %s)", message, continuousBackupStatusUnhealthy, continuousBackupGenericError)
 }
