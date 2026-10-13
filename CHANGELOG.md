@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* fix(events): continuous backup events only display the generic `unhealthy` status and error, derived from `recoverable`, never backup tool details
+* fix(events): stop formatting backup tool statuses in continuous backup events, display the status and error returned by the API
 * feat: add `CompleteRedisToValkeyMigrationEvent` event
 * feat: add `RedisToValkeyMigrationCompletedEvent`
 

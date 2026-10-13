@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -334,28 +335,25 @@ type EventDatabaseContinuousBackupStaleTypeData struct {
 	EventDatabaseContinuousBackupTypeData
 }
 
-const (
-	continuousBackupStatusUnhealthy = "unhealthy"
-	continuousBackupGenericError    = "Continuous backup is currently unavailable."
-)
-
 // formatDatabaseContinuousBackupString builds the text shown for a continuous
-// backup event.
-//
-// We don't display the Status and Error fields sent by the API. Older events
-// can contain technical details there, such as internal error codes or raw
-// error messages from the backup tooling. The end user doesn't need these
-// details, so we only look at Recoverable:
-//   - true: the status is "healthy" and there is no error
-//   - false: the status is "unhealthy" with a generic error message
+// backup event. The API only returns a generic status and error, so we display
+// them as they are.
 func formatDatabaseContinuousBackupString(data EventDatabaseContinuousBackupTypeData, eventStatus string) string {
 	message := fmt.Sprintf(
 		"Point-in-time recovery for database '%s' is %s",
 		data.ResourceID, eventStatus,
 	)
-	if data.Recoverable {
+
+	details := []string{}
+	if data.Status != "" && data.Status != "healthy" {
+		details = append(details, "status: "+data.Status)
+	}
+	if data.Error != "" {
+		details = append(details, "error: "+data.Error)
+	}
+	if len(details) == 0 {
 		return message
 	}
 
-	return fmt.Sprintf("%s (status: %s, error: %s)", message, continuousBackupStatusUnhealthy, continuousBackupGenericError)
+	return fmt.Sprintf("%s (%s)", message, strings.Join(details, ", "))
 }

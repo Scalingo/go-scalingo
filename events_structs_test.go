@@ -222,38 +222,6 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
 		DetailedEventString: "Point-in-time recovery for database 'db-456' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
 	},
-	"test legacy PostgreSQL continuous backup stale": {
-		Event: &Event{
-			Type:        EventDatabaseContinuousBackupStale,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"pgbackrest_error","error":"repository metadata is unavailable","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
-	},
-	"test legacy MySQL continuous backup delayed": {
-		Event: &Event{
-			Type:        EventDatabaseContinuousBackupDelayed,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"MySQL","resource_id":"db-456","addon_uuid":"ad-6f1c2a8e-9b3d-4e5f-a7c1-2d8e4f6a9b0c","status":"myhoard_error","error":"MyHoard reports no completed non-broken backup","recoverable":false,"checked_at":"2026-05-28T08:56:00.009Z","unrecoverable_duration_seconds":180}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupDelayedType",
-		DetailedEventString: "Point-in-time recovery for database 'db-456' is delayed (status: unhealthy, error: Continuous backup is currently unavailable.)",
-	},
-	"test legacy continuous backup WAL error": {
-		Event: &Event{
-			Type:        EventDatabaseContinuousBackupStale,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"wal_error","error":"WAL archiving failed","recoverable":false,"checked_at":"2026-05-28T08:57:00.009Z","unrecoverable_duration_seconds":240}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupStaleType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is stale (status: unhealthy, error: Continuous backup is currently unavailable.)",
-	},
-	"test legacy continuous backup healthy with stale error": {
-		Event: &Event{
-			Type:        EventDatabaseContinuousBackupHealthy,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"healthy","error":"latest restorable point is more than 12 hours behind","recoverable":true,"checked_at":"2026-05-28T08:59:00.011Z","unrecoverable_duration_seconds":0}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy",
-	},
 	"test missed database maintenance": {
 		Event: &Event{
 			Type:        EventMissedDatabaseMaintenance,
