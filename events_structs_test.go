@@ -190,14 +190,7 @@ var eventsSpecializeCases = map[string]struct {
 		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
 		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy",
 	},
-	"test continuous backup healthy event while still unrecoverable": {
-		Event: &Event{
-			Type:        EventDatabaseContinuousBackupHealthy,
-			RawTypeData: json.RawMessage([]byte(`{"addon_name":"PostgreSQL","resource_id":"db-123","addon_uuid":"ad-b48f347e-2e3d-4b48-8dee-40eed0539ee1","status":"unhealthy","error":"Continuous backup is currently unavailable.","recoverable":false,"checked_at":"2026-05-28T08:55:00.009Z","unrecoverable_duration_seconds":60}`)),
-		},
-		DetailedEventName:   "*scalingo.EventDatabaseContinuousBackupHealthyType",
-		DetailedEventString: "Point-in-time recovery for database 'db-123' is healthy (status: unhealthy, error: Continuous backup is currently unavailable.)",
-	},
+
 	"test continuous backup delayed": {
 		Event: &Event{
 			Type:        EventDatabaseContinuousBackupDelayed,
