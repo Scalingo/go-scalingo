@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-* feat(events): render the MySQL `myhoard_error` continuous backup status as `MyHoard error`
+* fix(events): stop formatting backup tool statuses in continuous backup events, display the status and error returned by the API
 * feat: add `CompleteRedisToValkeyMigrationEvent` event
 * feat: add `RedisToValkeyMigrationCompletedEvent`
 
