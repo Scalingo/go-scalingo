@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.8.1
+
 * feat(apps): add `AppsRouterDisableMultipartUpload` and `AppsRouterEnableMultipartUpload` methods and `RouterDisableMultipartUpload` field on `App`
 
 ## 11.8.0
