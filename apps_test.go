@@ -92,6 +92,29 @@ func TestAppsClient_Update(t *testing.T) {
 			response:         &AppResponse{},
 			responseStatus:   http.StatusOK,
 		},
+
+		"it should disable multipart upload on the app router": {
+			testedClientCall: func(c AppsService) error {
+				_, err := c.AppsRouterDisableMultipartUpload(ctx, appName)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app",
+			expectedMethod:   http.MethodPut,
+			expectedParams:   `{"router_disable_multipart_upload":true}`,
+			response:         &AppResponse{},
+			responseStatus:   http.StatusOK,
+		},
+		"it should enable multipart upload on the app router": {
+			testedClientCall: func(c AppsService) error {
+				_, err := c.AppsRouterEnableMultipartUpload(ctx, appName)
+				return err
+			},
+			expectedEndpoint: "/v1/apps/my-app",
+			expectedMethod:   http.MethodPut,
+			expectedParams:   `{"router_disable_multipart_upload":false}`,
+			response:         &AppResponse{},
+			responseStatus:   http.StatusOK,
+		},
 	}
 
 	for msg, run := range runs {
