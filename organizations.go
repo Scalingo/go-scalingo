@@ -2,7 +2,6 @@ package scalingo
 
 import (
 	"context"
-	"net/url"
 
 	"github.com/Scalingo/go-utils/errors/v3"
 )
@@ -15,6 +14,7 @@ var _ OrganizationsService = (*Client)(nil)
 
 type Organization struct {
 	ID   string `json:"id"`
+	Name string `json:"name"`
 	Slug string `json:"slug"`
 	Role string `json:"role"`
 }
@@ -25,9 +25,7 @@ type OrganizationsRes struct {
 
 func (c *Client) OrganizationsList(ctx context.Context) ([]Organization, error) {
 	var res OrganizationsRes
-	// The API only returns the role of the current user when asked to.
-	params := url.Values{"with_role": {"true"}}
-	err := c.AuthAPI().ResourceList(ctx, "organizations", params, &res)
+	err := c.AuthAPI().ResourceList(ctx, "organizations", nil, &res)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list organizations")
 	}

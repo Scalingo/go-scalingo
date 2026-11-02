@@ -16,15 +16,15 @@ func TestOrganizationsClient_OrganizationsList(t *testing.T) {
 		expected       []Organization
 		expectedError  string
 	}{
-		"it should decode the organizations with their role": {
+		"it should decode the organizations with their name, slug and role": {
 			responseStatus: http.StatusOK,
 			responseBody: `{"organizations": [
 				{"id": "org-1", "name": "Acme", "slug": "acme", "role": "admin"},
 				{"id": "org-2", "name": "Globex", "slug": "globex", "role": "member"}
 			]}`,
 			expected: []Organization{
-				{ID: "org-1", Slug: "acme", Role: "admin"},
-				{ID: "org-2", Slug: "globex", Role: "member"},
+				{ID: "org-1", Name: "Acme", Slug: "acme", Role: "admin"},
+				{ID: "org-2", Name: "Globex", Slug: "globex", Role: "member"},
 			},
 		},
 		"it should return no organization when the user has none": {
@@ -51,7 +51,7 @@ func TestOrganizationsClient_OrganizationsList(t *testing.T) {
 			authServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				assert.Equal(t, http.MethodGet, r.Method)
 				assert.Equal(t, "/v1/organizations", r.URL.Path)
-				assert.Equal(t, "true", r.URL.Query().Get("with_role"))
+				assert.Empty(t, r.URL.Query())
 				w.WriteHeader(test.responseStatus)
 				_, err := w.Write([]byte(test.responseBody))
 				assert.NoError(t, err)
