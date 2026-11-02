@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.9.0
+
 * feat(organizations): add `OrganizationsList` method to list the organizations of the current user
 
 ## 11.8.1
