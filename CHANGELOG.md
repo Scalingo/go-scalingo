@@ -2,7 +2,7 @@
 
 ## To Be Released
 
-## 11.9.2
+## 11.10.0
 
 * feat(projects): add `OrganizationID` field to `Project` and `ProjectsListByOrganization` method to list the projects of an organization
 
