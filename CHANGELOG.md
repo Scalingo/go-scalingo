@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(projects): add `OrganizationID` field to `ProjectAddParams` to allow creating a project in an organization
+
 ## 11.10.1
 
 * build(mocks): add ProjectsService mocks and include ProjectsService in the API interface
