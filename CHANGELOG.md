@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+## 11.10.1
+
 * build(mocks): add ProjectsService mocks and include ProjectsService in the API interface
 
 ## 11.10.0
