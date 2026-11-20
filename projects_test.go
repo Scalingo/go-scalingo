@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"context"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -100,6 +101,61 @@ func TestProjectsClient_List(t *testing.T) {
 			}
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, projects)
+		})
+	}
+}
+
+func TestProjectsClient_Add(t *testing.T) {
+	const organizationID = "org-11111111-2222-4333-8444-555555555555"
+
+	tests := map[string]struct {
+		params       ProjectAddParams
+		expectedBody string
+		responseBody string
+		expected     Project
+	}{
+		"it should send the organization_id when creating a project in an organization": {
+			params:       ProjectAddParams{Name: "my-project", Default: false, OrganizationID: organizationID},
+			expectedBody: `{"project":{"name":"my-project","default":false,"organization_id":"` + organizationID + `"}}`,
+			responseBody: `{"project": {"id": "prj-1", "name": "my-project", "default": false, "organization_id": "` + organizationID + `"}}`,
+			expected:     Project{ID: "prj-1", Name: "my-project", OrganizationID: organizationID},
+		},
+		"it should not send any organization_id when creating a personal project": {
+			params:       ProjectAddParams{Name: "my-project", Default: true},
+			expectedBody: `{"project":{"name":"my-project","default":true}}`,
+			responseBody: `{"project": {"id": "prj-2", "name": "my-project", "default": true, "organization_id": ""}}`,
+			expected:     Project{ID: "prj-2", Name: "my-project", Default: true},
+		},
+	}
+
+	for name, test := range tests {
+		t.Run(name, func(t *testing.T) {
+			apiServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, http.MethodPost, r.Method)
+				assert.Equal(t, "/v1/projects", r.URL.Path)
+				assert.Empty(t, r.URL.Query())
+
+				body, err := io.ReadAll(r.Body)
+				if !assert.NoError(t, err) {
+					return
+				}
+				assert.JSONEq(t, test.expectedBody, string(body))
+
+				w.WriteHeader(http.StatusCreated)
+				_, err = w.Write([]byte(test.responseBody))
+				assert.NoError(t, err)
+			}))
+			defer apiServer.Close()
+
+			client, err := New(t.Context(), ClientConfig{
+				APIEndpoint:          apiServer.URL,
+				StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
+			})
+			require.NoError(t, err)
+
+			project, err := client.ProjectAdd(t.Context(), test.params)
+			require.NoError(t, err)
+			assert.Equal(t, test.expected, project)
 		})
 	}
 }
