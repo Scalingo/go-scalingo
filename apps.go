@@ -170,14 +170,14 @@ func (app App) String() string {
 	return app.Name
 }
 
+// AppsList lists the apps of the user's personal scope.
 func (c *Client) AppsList(ctx context.Context) ([]*App, error) {
 	return c.appsList(ctx, nil)
 }
 
 // AppsListByOrganization lists the apps of the organization identified by its UUID.
-// AppsList only returns the apps of the user's personal scope.
 func (c *Client) AppsListByOrganization(ctx context.Context, organizationID string) ([]*App, error) {
-	params := map[string]string{organizationIDParam: organizationID}
+	params := map[string]string{"organization_id": organizationID}
 	return c.appsList(ctx, params)
 }
 

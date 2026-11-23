@@ -74,7 +74,7 @@ func (c *Client) ProjectsList(ctx context.Context) ([]Project, error) {
 // ProjectsListByOrganization lists the projects of the organization identified by its UUID.
 // ProjectsList only returns the projects of the user's personal scope.
 func (c *Client) ProjectsListByOrganization(ctx context.Context, organizationID string) ([]Project, error) {
-	params := map[string]string{organizationIDParam: organizationID}
+	params := map[string]string{"organization_id": organizationID}
 	return c.projectsList(ctx, params)
 }
 

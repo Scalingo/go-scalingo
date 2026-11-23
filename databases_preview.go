@@ -71,14 +71,14 @@ func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreat
 	return res.Database, nil
 }
 
+// DatabasesList lists the databases of the user's personal scope.
 func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
 	return c.databasesList(ctx, nil)
 }
 
 // DatabasesListByOrganization lists the databases of the organization identified by its UUID.
-// DatabasesList only returns the databases of the user's personal scope.
 func (c *PreviewClient) DatabasesListByOrganization(ctx context.Context, organizationID string) ([]DatabaseNG, error) {
-	params := map[string]string{organizationIDParam: organizationID}
+	params := map[string]string{"organization_id": organizationID}
 	return c.databasesList(ctx, params)
 }
 
