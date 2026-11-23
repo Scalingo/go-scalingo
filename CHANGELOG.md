@@ -2,6 +2,8 @@
 
 ## To Be Released
 
+* feat(organizations): add `AppsListByOrganization` and `DatabasesListByOrganization` method to list the resources of an organization
+
 ## 11.10.1
 
 * build(mocks): add ProjectsService mocks and include ProjectsService in the API interface

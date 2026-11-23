@@ -12,6 +12,9 @@ type OrganizationsService interface {
 
 var _ OrganizationsService = (*Client)(nil)
 
+// organizationIDParam is the query parameter restricting a listing to an organization scope.
+const organizationIDParam = "organization_id"
+
 type Organization struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`

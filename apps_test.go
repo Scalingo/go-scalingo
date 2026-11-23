@@ -2,6 +2,7 @@ package scalingo
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -232,6 +233,85 @@ func TestAppsFirewallRuleDelete(t *testing.T) {
 
 	err := client.AppsFirewallRuleDelete(ctx, "my-app", "rule-id")
 	require.NoError(t, err)
+}
+
+func TestAppsClient_List(t *testing.T) {
+	const organizationID = "org-11111111-2222-3333-4444-555555555555"
+	const organizationQuery = "organization_id=" + organizationID
+
+	tests := map[string]struct {
+		list           func(ctx context.Context, c *Client) ([]*App, error)
+		responseStatus int
+		responseBody   string
+		expectedQuery  string
+		expected       []*App
+		expectedError  string
+	}{
+		"it should not send any organization_id when listing the personal apps": {
+			list: func(ctx context.Context, c *Client) ([]*App, error) {
+				return c.AppsList(ctx)
+			},
+			responseStatus: http.StatusOK,
+			responseBody:   `{"apps": [{"id": "app-personal", "name": "personal-app", "project": {"id": "pr-1", "name": "default"}}]}`,
+			expectedQuery:  "",
+			expected:       []*App{{ID: "app-personal", Name: "personal-app", Project: appProject{ID: "pr-1", Name: "default"}}},
+		},
+		"it should send the organization_id when listing the apps of an organization": {
+			list: func(ctx context.Context, c *Client) ([]*App, error) {
+				return c.AppsListByOrganization(ctx, organizationID)
+			},
+			responseStatus: http.StatusOK,
+			responseBody:   `{"apps": [{"id": "app-2", "name": "acme-front", "project": {"id": "pr-2", "name": "front"}}]}`,
+			expectedQuery:  organizationQuery,
+			expected:       []*App{{ID: "app-2", Name: "acme-front", Project: appProject{ID: "pr-2", Name: "front"}}},
+		},
+		"it should return an empty list when the organization has no app": {
+			list: func(ctx context.Context, c *Client) ([]*App, error) {
+				return c.AppsListByOrganization(ctx, organizationID)
+			},
+			responseStatus: http.StatusOK,
+			responseBody:   `{"apps": []}`,
+			expectedQuery:  organizationQuery,
+			expected:       []*App{},
+		},
+		"it should return an error when the API refuses to list the apps of the organization": {
+			list: func(ctx context.Context, c *Client) ([]*App, error) {
+				return c.AppsListByOrganization(ctx, organizationID)
+			},
+			responseStatus: http.StatusForbidden,
+			responseBody:   `{"error": "You are not allowed to access this organization"}`,
+			expectedQuery:  organizationQuery,
+			expectedError:  "list apps",
+		},
+	}
+
+	for name, test := range tests {
+		t.Run(name, func(t *testing.T) {
+			apiServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, http.MethodGet, r.Method)
+				assert.Equal(t, "/v1/apps", r.URL.Path)
+				assert.Equal(t, test.expectedQuery, r.URL.RawQuery)
+				w.WriteHeader(test.responseStatus)
+				_, err := w.Write([]byte(test.responseBody))
+				assert.NoError(t, err)
+			}))
+			defer apiServer.Close()
+
+			client, err := New(t.Context(), ClientConfig{
+				APIEndpoint:          apiServer.URL,
+				StaticTokenGenerator: NewStaticTokenGenerator("static-token"),
+			})
+			require.NoError(t, err)
+
+			apps, err := test.list(t.Context(), client)
+			if test.expectedError != "" {
+				require.ErrorContains(t, err, test.expectedError)
+				return
+			}
+			require.NoError(t, err)
+			assert.Equal(t, test.expected, apps)
+		})
+	}
 }
 
 type appsTestRequest struct {

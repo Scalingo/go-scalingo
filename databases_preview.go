@@ -17,6 +17,7 @@ type PreviewAPI interface {
 type DatabasesPreviewService interface {
 	DatabaseCreate(ctx context.Context, params DatabaseCreateParams) (DatabaseNG, error)
 	DatabasesList(ctx context.Context) ([]DatabaseNG, error)
+	DatabasesListByOrganization(ctx context.Context, organizationID string) ([]DatabaseNG, error)
 	DatabaseShow(ctx context.Context, appID string) (DatabaseNG, error)
 	DatabaseDestroy(ctx context.Context, appID string) error
 }
@@ -71,9 +72,20 @@ func (c *PreviewClient) DatabaseCreate(ctx context.Context, params DatabaseCreat
 }
 
 func (c *PreviewClient) DatabasesList(ctx context.Context) ([]DatabaseNG, error) {
+	return c.databasesList(ctx, nil)
+}
+
+// DatabasesListByOrganization lists the databases of the organization identified by its UUID.
+// DatabasesList only returns the databases of the user's personal scope.
+func (c *PreviewClient) DatabasesListByOrganization(ctx context.Context, organizationID string) ([]DatabaseNG, error) {
+	params := map[string]string{organizationIDParam: organizationID}
+	return c.databasesList(ctx, params)
+}
+
+func (c *PreviewClient) databasesList(ctx context.Context, params any) ([]DatabaseNG, error) {
 	var listRes DatabasesListResponse
 
-	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, nil, &listRes)
+	err := c.parent.ScalingoAPI().ResourceList(ctx, databasesResource, params, &listRes)
 	if err != nil {
 		return nil, errors.Wrap(ctx, err, "list databases")
 	}
