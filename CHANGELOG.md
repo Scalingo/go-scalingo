@@ -5,7 +5,7 @@
 ## 11.11.0
 
 * feat(organizations): add `AppsListByOrganization` and `DatabasesListByOrganization` method to list the resources of an organization
-* feat(projects): add `OrganizationID` field to `ProjectAddParams` to allow creating a project in an organization
+* feat(organizations): add `OrganizationID` field to `ProjectAddParams` to allow creating a project in an organization
 
 ## 11.10.1
 
